@@ -35,11 +35,6 @@
             <artifactId>mysql-connector-j</artifactId>
             <version>8.3.0</version>
         </dependency>
-        <dependency>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-server</artifactId>
-            <version>${jettyVersion}</version>
-        </dependency>
         <!-- Testing dependencies. -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
