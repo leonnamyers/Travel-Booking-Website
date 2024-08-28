@@ -26,14 +26,43 @@
 
                             Once you are finished debugging, delete it from the one it doesn't need to be in.
 
-                            >> If you need to make options for 'only staff' or 'only customer' pages: <<
+                            >> If you need to make options for 'only staff' or 'only customer' pages/: <<
 
+                            There are a few ways:
+
+                            1)
+                            ...
+                            if (user != null) {
+
+                                if (user instanceof Customer) {
+                                    Customer customer = (Customer) user;
+                                    // Customer page logic
+                                    }
+
+                                else if (user instanceof Staff) {
+                                    Staff staff = (Staff) user;
+                                    // Staff page logic
+                                }
+
+                                else {
+                                // Error handling (User Type not recognised)
+                                // Don't know how hardcore our tut is tho,
+                                // Otherwise you could just 'else' and assume it's Staff in this scenario
+                                }
+                            }
+
+                            2)
+                            ...
+                                if (user != null) {
+                                    if (user.getUserType() == 1) {
+                                                                // Customer == 1;
+                                                                // Staff == 2; (refer to enums)
+
+                                    // insert logic
+                                }
+                            }
                             
-
-
-                        
-
-
+                            3) ^^ or a switch statement
 
 
                             You will also have to go through and add that to other people's pages, so
@@ -43,7 +72,7 @@
         <!--Menu Items => If User is logged in-->
 
         <%
-        if (session != null && session.getAttribute("user") != null) { 
+        if (session != null && session.getAttribute("user") != null) {
         %>
         <ul>
             <li><a href="index.jsp">Home</a></li>
@@ -71,10 +100,13 @@
         <div class="flex-container">
             <div>
                 <%
-                if (session != null && session.getAttribute("user") != null) { 
+                if (session != null && session.getAttribute("user") != null) {
 
                 /*
                     Enter logic for when an account is logged in
+                    
+
+
                 */
 
                 %>
