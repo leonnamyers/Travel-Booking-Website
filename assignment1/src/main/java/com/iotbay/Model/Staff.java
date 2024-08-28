@@ -3,15 +3,13 @@ package com.iotbay.Model;
 public class Staff extends User {
     private int staffID;
     private int staffTypeID;
-    private StaffType staffType;
 
     public Staff() {
         super.setUserType(UserType.STAFF);
     }
     
-    public Staff(String email, String password, String firstName, String lastName, StaffType staffType) {
+    public Staff(String email, String password, String firstName, String lastName) {
         super(email, password, firstName, lastName, UserType.STAFF);
-        this.staffType = staffType;
     }
 
     public int getStaffID() {
@@ -29,14 +27,4 @@ public class Staff extends User {
     public void setStaffTypeID(int staffTypeID) {
         this.staffTypeID = staffTypeID;
     }
-
-    public StaffType getStaffType() {
-        return staffType;
-    }
-
-    public void setStaffType(StaffType staffType) {
-        this.staffType = staffType;
-    }
-
-    
 }

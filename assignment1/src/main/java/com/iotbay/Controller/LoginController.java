@@ -38,7 +38,7 @@ public class LoginController extends HttpServlet {
                 user = manager.userLogin(email, password, session.getId());
                 if (user != null) {
                     switch(user.getUserType()) {
-                        case CUSTOMER_USER:
+                        case CUSTOMER:
                         session.setAttribute("user", (Customer)user);
                         break;
                         case STAFF:
