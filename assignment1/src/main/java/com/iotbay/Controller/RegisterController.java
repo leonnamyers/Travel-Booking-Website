@@ -32,6 +32,7 @@ public class RegisterController extends HttpServlet {
             UserValidation.clear(session);
 
             // initial pre-validations for all fields that apply to both Customer and Staff users
+            /* Error Handling
             if (manager.isDuplicateEmail(email)) {
                 session.setAttribute("duplicateEmail", "Error: Email is already registered.");
                 forwardWithError(request, response, session);
@@ -53,6 +54,7 @@ public class RegisterController extends HttpServlet {
                 forwardWithError(request, response, session);
                 return;
             }
+                */
             
             // then check the user type and perform more specific validations
             // add the user to the relevant DB table and then update the user session
@@ -96,7 +98,7 @@ public class RegisterController extends HttpServlet {
                 }
 
                 session.setAttribute("user", (Customer) customerUser);
-                manager.addCustomer(customerUser, session.getId());
+                //manager.addCustomer(customerUser, session.getId());
                 response.sendRedirect("welcome.jsp");
 
             } else {
@@ -129,7 +131,7 @@ public class RegisterController extends HttpServlet {
                 }
 
                 session.setAttribute("user", (Staff) staff);
-                manager.addStaff(staff, session.getId());
+                //manager.addStaff(staff, session.getId());
                 response.sendRedirect("welcome.jsp");
             }
         } catch (SQLException ex) {
