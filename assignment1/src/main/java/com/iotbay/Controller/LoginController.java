@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import com.iotbay.Dao.DBManager;
-import com.iotbay.Model.CustomerUser;
+import com.iotbay.Model.Customer;
 import com.iotbay.Model.Staff;
 import com.iotbay.Model.User;
 
@@ -39,7 +39,7 @@ public class LoginController extends HttpServlet {
                 if (user != null) {
                     switch(user.getUserType()) {
                         case CUSTOMER_USER:
-                        session.setAttribute("user", (CustomerUser)user);
+                        session.setAttribute("user", (Customer)user);
                         break;
                         case STAFF:
                         session.setAttribute("user", (Staff)user);

@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import com.iotbay.Dao.DBManager;
 import com.iotbay.Model.Address;
-import com.iotbay.Model.CustomerUser;
+import com.iotbay.Model.Customer;
 import com.iotbay.Model.Staff;
 import com.iotbay.Model.User;
 
@@ -67,10 +67,10 @@ public class UpdateController extends HttpServlet {
                 String phoneNumber = request.getParameter("phone_number");
                 String mobileNumber = request.getParameter("mobile_number");
 
-                CustomerUser customerUser = new CustomerUser(email, password, firstName, lastName, address);
+                Customer customerUser = new Customer(email, password, firstName, lastName, address);
 
                 if (phoneNumber != null && !phoneNumber.isEmpty() && phoneNumber.matches("\\d+")) {
-                    ((CustomerUser) customerUser).setHomePhoneNumber(Integer.parseInt(phoneNumber));
+                    ((Customer) customerUser).setHomePhoneNumber(Integer.parseInt(phoneNumber));
                     if (!UserValidation.isPhoneNumberValid(phoneNumber)) {
                         session.setAttribute("homePhoneError", "Error: Home Phone Number should be 8-16 digits. Please try again.");
                         forwardWithError(request, response, session);
@@ -78,7 +78,7 @@ public class UpdateController extends HttpServlet {
                     }
                 }
                 if (mobileNumber != null && !mobileNumber.isEmpty() && mobileNumber.matches("\\d+")) {
-                    ((CustomerUser) customerUser).setMobilePhoneNumber(Integer.parseInt(mobileNumber));
+                    ((Customer) customerUser).setMobilePhoneNumber(Integer.parseInt(mobileNumber));
                     if (!UserValidation.isPhoneNumberValid(mobileNumber)) {
                         session.setAttribute("mobilePhoneError", "Error: Mobile Phone Number should be 8-16 digits. Please try again.");
                         forwardWithError(request, response, session);
@@ -100,8 +100,8 @@ public class UpdateController extends HttpServlet {
                     return;
                 }
 
-                manager.updateCustomer(customerUser, (CustomerUser)session.getAttribute("user"));
-                session.setAttribute("user", (CustomerUser) customerUser);
+                manager.updateCustomer(customerUser, (Customer)session.getAttribute("user"));
+                session.setAttribute("user", (Customer) customerUser);
 
             } else if (registeredUserType.equalsIgnoreCase("staff")) {
 

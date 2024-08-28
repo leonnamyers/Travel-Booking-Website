@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import com.iotbay.Dao.DBManager;
 import com.iotbay.Model.Address;
-import com.iotbay.Model.CustomerUser;
+import com.iotbay.Model.Customer;
 import com.iotbay.Model.Staff;
 
 public class RegisterController extends HttpServlet {
@@ -62,10 +62,10 @@ public class RegisterController extends HttpServlet {
                 String phoneNumber = request.getParameter("phone_number");
                 String mobileNumber = request.getParameter("mobile_number");
 
-                CustomerUser customerUser = new CustomerUser(email, password, firstName, lastName, address);
+                Customer customerUser = new Customer(email, password, firstName, lastName, address);
 
                 if (phoneNumber != null && !phoneNumber.isEmpty() && phoneNumber.matches("\\d+")) {
-                    ((CustomerUser) customerUser).setHomePhoneNumber(Integer.parseInt(phoneNumber));
+                    ((Customer) customerUser).setHomePhoneNumber(Integer.parseInt(phoneNumber));
                     if (!UserValidation.isPhoneNumberValid(phoneNumber)) {
                         session.setAttribute("homePhoneError", "Error: Home Phone Number should be 8-16 digits. Please try again.");
                         forwardWithError(request, response, session);
@@ -73,7 +73,7 @@ public class RegisterController extends HttpServlet {
                     }
                 }
                 if (mobileNumber != null && !mobileNumber.isEmpty() && mobileNumber.matches("\\d+")) {
-                    ((CustomerUser) customerUser).setMobilePhoneNumber(Integer.parseInt(mobileNumber));
+                    ((Customer) customerUser).setMobilePhoneNumber(Integer.parseInt(mobileNumber));
                     if (!UserValidation.isPhoneNumberValid(mobileNumber)) {
                         session.setAttribute("mobilePhoneError", "Error: Mobile Phone Number should be 8-16 digits. Please try again.");
                         forwardWithError(request, response, session);
@@ -95,7 +95,7 @@ public class RegisterController extends HttpServlet {
                     return;
                 }
 
-                session.setAttribute("user", (CustomerUser) customerUser);
+                session.setAttribute("user", (Customer) customerUser);
                 manager.addCustomer(customerUser, session.getId());
                 response.sendRedirect("welcome.jsp");
 
