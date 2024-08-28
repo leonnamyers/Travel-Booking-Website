@@ -26,8 +26,44 @@
 
                             Once you are finished debugging, delete it from the one it doesn't need to be in.
 
-                            If you need to make options for 'only staff' or 'only customeruser' pages
-                            and you need help, you can refer to the logic that I provided in discord.
+                            >> If you need to make options for 'only staff' or 'only customer' pages/: <<
+
+                            There are a few ways:
+
+                            1)
+                            ...
+                            if (user != null) {
+
+                                if (user instanceof Customer) {
+                                    Customer customer = (Customer) user;
+                                    // Customer page logic
+                                    }
+
+                                else if (user instanceof Staff) {
+                                    Staff staff = (Staff) user;
+                                    // Staff page logic
+                                }
+
+                                else {
+                                // Error handling (User Type not recognised)
+                                // Don't know how hardcore our tut is tho,
+                                // Otherwise you could just 'else' and assume it's Staff in this scenario
+                                }
+                            }
+
+                            2)
+                            ...
+                                if (user != null) {
+                                    if (user.getUserType() == 1) {
+                                                                // Customer == 1;
+                                                                // Staff == 2; (refer to enums)
+
+                                    // insert logic
+                                }
+                            }
+                            
+                            3) ^^ or a switch statement
+
 
                             You will also have to go through and add that to other people's pages, so
                             it might also be a good idea to ask/tell people to try avoid merge conflicts
@@ -36,7 +72,7 @@
         <!--Menu Items => If User is logged in-->
 
         <%
-        if (session != null && session.getAttribute("user") != null) { 
+        if (session != null && session.getAttribute("user") != null) {
         %>
         <ul>
             <li><a href="index.jsp">Home</a></li>
@@ -64,11 +100,13 @@
         <div class="flex-container">
             <div>
                 <%
-                if (session != null && session.getAttribute("user") != null) { 
+                if (session != null && session.getAttribute("user") != null) {
 
                 /*
                     Enter logic for when an account is logged in
-                    I've given you the code to help you on Discord already.
+                    
+
+
                 */
 
                 %>
@@ -82,7 +120,7 @@
                     Although, you may redirect the page so that an unregistered/registered user never gets here,
                     in the offchance that they do (human error), you should handle it to avoid an error
         
-                    I've added a default. Change it to suit your page.
+                    I've added a default. Feel free to change it to suit your page.
                 */
                 
                 }
