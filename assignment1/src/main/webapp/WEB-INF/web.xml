@@ -48,13 +48,4 @@
         <servlet-name>UpdateController</servlet-name>
         <url-pattern>/UpdateController</url-pattern>
     </servlet-mapping>
-    <servlet>
-        <servlet-name>SearchAccessLogs</servlet-name>
-        <servlet-class>com.iotbay.Controller.SearchAccessLogs</servlet-class>
-        <load-on-startup>5</load-on-startup>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>SearchAccessLogs</servlet-name>
-        <url-pattern>/SearchAccessLogs</url-pattern>
-    </servlet-mapping>
 </web-app>

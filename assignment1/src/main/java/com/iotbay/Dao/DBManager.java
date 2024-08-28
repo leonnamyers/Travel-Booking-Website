@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import com.iotbay.Model.Address;
-import com.iotbay.Model.CustomerUser;
+import com.iotbay.Model.Customer;
 import com.iotbay.Model.Staff;
 import com.iotbay.Model.User;
 
@@ -48,7 +48,7 @@ public class DBManager {
      * User Registration
      */
 
-    public void addCustomer(CustomerUser customer, String sessionId) throws SQLException{
+    public void addCustomer(Customer customer, String sessionId) throws SQLException{
         /*
         PreparedStatement statement = connection.prepareStatement(addCustomerQuery);
         statement.setString(1, customer.getEmail());
@@ -99,7 +99,7 @@ public class DBManager {
     /*
      * Only used for the update details feature
      */
-    public void updateCustomer(CustomerUser newData, CustomerUser oldData) throws SQLException {
+    public void updateCustomer(Customer newData, Customer oldData) throws SQLException {
         /*
         PreparedStatement statement = connection.prepareStatement(updateCustomerQuery);
         statement.setString(1, newData.getEmail());
