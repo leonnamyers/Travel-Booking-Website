@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import com.iotbay.Dao.DBManager;
+import com.iotbay.Model.Address;
 import com.iotbay.Model.Customer;
 import com.iotbay.Model.Staff;
 import com.iotbay.Model.User;
@@ -25,9 +26,10 @@ public class LoginController extends HttpServlet {
             HttpSession session = request.getSession();
             String email = request.getParameter("email");
             String password = request.getParameter("password");
-            DBManager manager = (DBManager) session.getAttribute("manager");
+            //DBManager manager = (DBManager) session.getAttribute("manager");
             UserValidation.clear(session);
 
+            
             if (!UserValidation.isEmailValid(email)) {
                 session.setAttribute("emailError", "Error: Email incorrectly formatted. Please try again.");
                 request.getRequestDispatcher("login.jsp").include(request, response);
@@ -35,6 +37,19 @@ public class LoginController extends HttpServlet {
                 session.setAttribute("passwordError", "Error: Password incorrectly formatted. Please try again.");
                 request.getRequestDispatcher("login.jsp").include(request, response);
             } else {
+
+                // Dummy Customer
+                session.setAttribute("user", new Customer(
+                    email, 
+                    password, 
+                    "Test", 
+                    "Subject", 
+                    new Address(
+                        "Somewhere", 1234, "Over", "The Rainbow"
+                    )));
+                session.setAttribute("welcomeMessage", "You have successfully logged in!");
+                response.sendRedirect("welcome.jsp?login=success");
+                /*
                 user = manager.userLogin(email, password, session.getId());
                 if (user != null) {
                     switch(user.getUserType()) {
@@ -48,10 +63,12 @@ public class LoginController extends HttpServlet {
                     }
                     session.setAttribute("welcomeMessage", "You have successfully logged in!");
                     response.sendRedirect("welcome.jsp?login=success");
+                    
                 } else {
                     session.setAttribute("loginError", "User cannot be found. Please try again.");
                     request.getRequestDispatcher("login.jsp?login=failure").include(request, response);
                 }
+                    */
             }
 
         } catch (SQLException ex) {
