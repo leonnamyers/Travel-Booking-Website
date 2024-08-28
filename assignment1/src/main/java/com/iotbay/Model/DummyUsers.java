@@ -1,7 +1,7 @@
 package com.iotbay.Model;
 
 public class DummyUsers {
-    private Customer dummyCustomer = new Customer(
+    private static Customer dummyCustomer = new Customer(
         "somewhere@something.com", 
         "1234", 
         "Test", 
@@ -13,7 +13,7 @@ public class DummyUsers {
             "Rainbow"
         ));
     
-    private Staff dummyClerk = new Staff(
+    private static Staff dummyClerk = new Staff(
         "staffClerk@clerk.com",
         "4321",
         "Alex",
@@ -22,7 +22,7 @@ public class DummyUsers {
         1
     );
 
-    private Staff dummyAdmin = new Staff(
+    private static Staff dummyAdmin = new Staff(
         "staffAdmin@admin.com",
         "0987",
         "Blake",
@@ -31,15 +31,15 @@ public class DummyUsers {
         2
     );
 
-    public Customer getDummyCustomer() {
+    public static Customer getDummyCustomer() {
         return dummyCustomer;
     }
 
-    public Staff getDummyClerk() {
+    public static Staff getDummyClerk() {
         return dummyClerk;
     }
 
-    public Staff getDummyAdmin() {
+    public static Staff getDummyAdmin() {
         return dummyAdmin;
     }   
 }

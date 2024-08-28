@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import com.iotbay.Dao.DBManager;
 import com.iotbay.Model.Address;
 import com.iotbay.Model.Customer;
+import com.iotbay.Model.DummyUsers;
 import com.iotbay.Model.Staff;
 import com.iotbay.Model.User;
 
@@ -39,14 +40,7 @@ public class LoginController extends HttpServlet {
             } else {
 
                 // Dummy Customer
-                session.setAttribute("user", new Customer(
-                    email, 
-                    password, 
-                    "Test", 
-                    "Subject", 
-                    new Address(
-                        "Somewhere", 1234, "Over", "The Rainbow"
-                    )));
+                session.setAttribute("user", DummyUsers.getDummyCustomer());
                 session.setAttribute("welcomeMessage", "You have successfully logged in!");
                 response.sendRedirect("welcome.jsp?login=success");
                 /*
@@ -71,7 +65,7 @@ public class LoginController extends HttpServlet {
                     */
             }
 
-        } catch (SQLException ex) {
+        } catch (Exception ex) {//SQLException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
