@@ -1,9 +1,4 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="java.util.Random"%>
-<%@page import="javax.servlet.http.HttpSession"%>
-<%@page import="javax.servlet.http.HttpServletRequest"%>
-<%@page import="com.iotbay.*" %>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -98,35 +93,7 @@
 <body>
     <div class="outer-container">
         <div class="flex-container">
-            <div>
-                <%
-                if (session != null && session.getAttribute("user") != null) {
-
-                /*
-                    Enter logic for when an account is logged in
-                    
-
-
-                */
-
-                %>
-                
-                <%
-                } else {
-
-                /*
-                    Enter logic for when an account is not logged in
-                            
-                    Although, you may redirect the page so that an unregistered/registered user never gets here,
-                    in the offchance that they do (human error), you should handle it to avoid an error
         
-                    I've added a default. Feel free to change it to suit your page.
-                */
-                
-                }
-                %>
-                <p>User is not logged in.</p>
-            </div>
         </div>            
     </div>        
 </body>
