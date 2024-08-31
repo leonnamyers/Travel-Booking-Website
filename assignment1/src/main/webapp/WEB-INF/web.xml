@@ -57,4 +57,13 @@
         <servlet-name>SearchAccessLogs</servlet-name>
         <url-pattern>/SearchAccessLogs</url-pattern>
     </servlet-mapping>
+     <servlet>
+        <servlet-name>PackageController</servlet-name>
+        <servlet-class>com.iotbay.Controller.PackageController</servlet-class>
+        <load-on-startup>6</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PackageController</servlet-name>
+        <url-pattern>/PackageController</url-pattern>
+    </servlet-mapping>
 </web-app>
