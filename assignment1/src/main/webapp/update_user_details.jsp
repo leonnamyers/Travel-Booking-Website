@@ -62,16 +62,16 @@
                 User user = (User) session.getAttribute("user");
 
                 if (user != null) {
-                    if (user instanceof CustomerUser) {
-                        CustomerUser customerUser = (CustomerUser) user;
+                    if (user instanceof Customer) {
+                        Customer customer = (Customer) user;
                         %>
-                        <!-- CustomerUser -->
+                        <!-- Customer -->
                         <h3 style="padding: 5%;">Enter your new customer details:</h3>
                         <form action="/UpdateController" method="post" class="login-form">
                             <input type="hidden" id="userTypeCustomer" name="userType" value="customer">
                             <div id="form-item">
                                 <label for="email">Email:</label>
-                                <input type="email" id="email" name="email" maxlength="60" required value="<%= user != null ? customerUser.getEmail() : "" %>">
+                                <input type="email" id="email" name="email" maxlength="60" required value="<%= user != null ? customer.getEmail() : "" %>">
                             </div>
                             <div id="form-item">
                                 <label for="password">Password (at least 8 characters):</label>
@@ -79,47 +79,47 @@
                             </div>
                             <div id="form-item">
                                 <label for="first_name">First Name:</label>
-                                <input type="text" id="first_name" name="first_name" maxlength="20" required value="<%= user != null ? customerUser.getFirstName() : "" %>">
+                                <input type="text" id="first_name" name="first_name" maxlength="20" required value="<%= user != null ? customer.getFirstName() : "" %>">
                             </div>
                             <div id="form-item">
                                 <label for="last_name">Last Name:</label>
-                                <input type="text" id="last_name" name="last_name" maxlength="20" required value="<%= user != null ? customerUser.getLastName() : "" %>">
+                                <input type="text" id="last_name" name="last_name" maxlength="20" required value="<%= user != null ? customer.getLastName() : "" %>">
                             </div>
                             <div id="form-item">
                                 <label for="street_address">Street Address:</label>
-                                <input type="text" id="street_address" name="street_address" maxlength="30" required value="<%= user != null ? customerUser.getAddress().getStreetAddress() : "" %>">
+                                <input type="text" id="street_address" name="street_address" maxlength="30" required value="<%= user != null ? customer.getAddress().getStreetAddress() : "" %>">
                             </div>
                             <div id="form-item">
                                 <label for="postcode">Postcode (4 to 6 digits):</label>
-                                <input type="number" id="postcode" name="postcode" min="0" max="999999" required value="<%= user != null ? customerUser.getAddress().getPostcode() : "" %>">
+                                <input type="number" id="postcode" name="postcode" min="0" max="999999" required value="<%= user != null ? customer.getAddress().getPostcode() : "" %>">
                             </div>
                             <div id="form-item">
                                 <label for="city">City:</label>
-                                <input type="text" id="city" name="city" maxlength="40" required value="<%= user != null ? customerUser.getAddress().getCity() : "" %>">
+                                <input type="text" id="city" name="city" maxlength="40" required value="<%= user != null ? customer.getAddress().getCity() : "" %>">
                             </div>
                             <div id="form-item">
                                 <label for="state">State:</label>
                                 <select id="state" name="state" style="font-size: medium;" required>
                                     <option value="">Select a state</option>
-                                    <option value="NSW" <%= customerUser.getAddress().getState().equals("NSW") ? "selected" : "" %>>NSW</option>
-                                    <option value="VIC" <%= customerUser.getAddress().getState().equals("VIC") ? "selected" : "" %>>VIC</option>
-                                    <option value="TAS" <%= customerUser.getAddress().getState().equals("TAS") ? "selected" : "" %>>TAS</option>
-                                    <option value="NT" <%= customerUser.getAddress().getState().equals("NT") ? "selected" : "" %>>NT</option>
-                                    <option value="WA" <%= customerUser.getAddress().getState().equals("WA") ? "selected" : "" %>>WA</option>
-                                    <option value="QLD" <%= customerUser.getAddress().getState().equals("QLD") ? "selected" : "" %>>QLD</option>
-                                    <option value="ACT" <%= customerUser.getAddress().getState().equals("ACT") ? "selected" : "" %>>ACT</option>
-                                    <option value="SA" <%= customerUser.getAddress().getState().equals("SA") ? "selected" : "" %>>SA</option>
-                                    <option value="OT" <%= customerUser.getAddress().getState().equals("OT") ? "selected" : "" %>>OT</option>
+                                    <option value="NSW" <%= customer.getAddress().getState().equals("NSW") ? "selected" : "" %>>NSW</option>
+                                    <option value="VIC" <%= customer.getAddress().getState().equals("VIC") ? "selected" : "" %>>VIC</option>
+                                    <option value="TAS" <%= customer.getAddress().getState().equals("TAS") ? "selected" : "" %>>TAS</option>
+                                    <option value="NT" <%= customer.getAddress().getState().equals("NT") ? "selected" : "" %>>NT</option>
+                                    <option value="WA" <%= customer.getAddress().getState().equals("WA") ? "selected" : "" %>>WA</option>
+                                    <option value="QLD" <%= customer.getAddress().getState().equals("QLD") ? "selected" : "" %>>QLD</option>
+                                    <option value="ACT" <%= customer.getAddress().getState().equals("ACT") ? "selected" : "" %>>ACT</option>
+                                    <option value="SA" <%= customer.getAddress().getState().equals("SA") ? "selected" : "" %>>SA</option>
+                                    <option value="OT" <%= customer.getAddress().getState().equals("OT") ? "selected" : "" %>>OT</option>
                                 </select>
                             </div>
                             
                             <div id="form-item">
                                 <label for="phone_number">Phone Number:</label>
-                                <input type="number" id="phone_number" name="phone_number" value="<%= customerUser.getHomePhoneNumber() != -1 ? customerUser.getHomePhoneNumber() : "" %>">
+                                <input type="number" id="phone_number" name="phone_number" value="<%= customer.getHomePhoneNumber() != -1 ? customer.getHomePhoneNumber() : "" %>">
                             </div>
                             <div id="form-item">
                                 <label for="mobile_number">Mobile Number:</label>
-                                <input type="number" id="mobile_number" name="mobile_number" value="<%= customerUser.getMobilePhoneNumber() != -1 ? customerUser.getMobilePhoneNumber() : "" %>">
+                                <input type="number" id="mobile_number" name="mobile_number" value="<%= customer.getMobilePhoneNumber() != -1 ? customer.getMobilePhoneNumber() : "" %>">
                             </div>
                             <div id="register-buttons">
                                 <button type="submit">Update Details</button>

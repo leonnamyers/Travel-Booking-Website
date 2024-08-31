@@ -12,6 +12,12 @@ public class Staff extends User {
         super(email, password, firstName, lastName, UserType.STAFF);
     }
 
+    public Staff(String email, String password, String firstName, String lastName, int staffID, int staffTypeID) {
+        super(email, password, firstName, lastName, UserType.STAFF);
+        this.staffID = staffID;
+        this.staffTypeID = staffTypeID;
+    }
+
     public int getStaffID() {
         return staffID;
     }
