@@ -1,0 +1,51 @@
+[
+  {
+    "Id": 1,
+    "Name": "Virgin",
+    "Location": "Sydney",
+    "Destination": "Zurich",
+    "Price": 100
+  },
+  {
+    "Id": 2,
+    "Name": "Virginia",
+    "Location": "New Zealand",
+    "Destination": "New Zealand",
+    "Price": 10
+  },
+  {
+    "Id": 3,
+    "Name": "Qantas",
+    "Location": "New Zealand",
+    "Destination": "New Zealand",
+    "Price": 402.62
+  },
+  {
+    "Id": 4,
+    "Name": "YourMum",
+    "Location": "HerVag",
+    "Destination": "HerVag",
+    "Price": 1
+  },
+  {
+    "Id": 1,
+    "Name": "Qantas",
+    "Location": "Hawaii",
+    "Destination": "Hawaii",
+    "Price": 4.63
+  },
+  {
+    "Id": 1,
+    "Name": "Jetstar",
+    "Location": "Sydney",
+    "Destination": "Sydney",
+    "Price": 500
+  },
+  {
+    "Id": 7,
+    "Name": "Malaysia",
+    "Location": "Sydney",
+    "Destination": "Sydney",
+    "Price": 5000
+  }
+]

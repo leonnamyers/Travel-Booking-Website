@@ -1,0 +1,20 @@
+[
+  {
+    "Email": "admin@booking.com",
+    "Password": "12345678",
+    "FirstName": "Testy",
+    "LastName": "Test",
+    "Phone": "041296323",
+    "Address": "123 Fake St Fakeburb NT 123455",
+    "Type": 0
+  },
+  {
+    "Email": "test@test.com",
+    "Password": "12345678",
+    "FirstName": "Test",
+    "LastName": "abcasdasd",
+    "Phone": "12345678",
+    "Address": "123 Fake St Fakerton NSW 12345",
+    "Type": 1
+  }
+]

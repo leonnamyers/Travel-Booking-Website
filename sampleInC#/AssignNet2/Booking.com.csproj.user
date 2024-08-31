@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectView>ShowAllFiles</ProjectView>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Update="view\Admin\EditAirfare.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="view\Admin\ViewAllAirfares.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="view\Customer\SelectAirfareToBook.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="view\Customer\ViewAirfareBookings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="view\Customer\ViewHotelBookings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="view\Customer\BookAirfare.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="view\Customer\SelectHotelToBook.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Start.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="view\Admin\AddAirfare.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="view\Admin\AddHotel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="view\Admin\AdminMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="view\Admin\EditCustomer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="view\Admin\EditHotel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="view\Admin\ViewAllHotels.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="view\Admin\SearchCustomer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="view\Admin\ViewAllCustomers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="view\Admin\ViewCustomer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="view\Customer\ViewMyHotelBookings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="view\ViewAirfare.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="view\ViewHotel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="view\Customer\ChangeAccountDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="view\Customer\CustomerMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="view\Customer\BookHotel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="view\Register.cs">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
+</Project>

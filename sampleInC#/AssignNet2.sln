@@ -1,0 +1,27 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34024.191
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Booking.com", "AssignNet2\Booking.com.csproj", "{AACC2110-20BA-43A1-94EB-E7B9047018DA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CC85EA66-C4DE-4E37-A55C-0CDE3B254CA7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AACC2110-20BA-43A1-94EB-E7B9047018DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AACC2110-20BA-43A1-94EB-E7B9047018DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AACC2110-20BA-43A1-94EB-E7B9047018DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AACC2110-20BA-43A1-94EB-E7B9047018DA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5F20FF02-0297-4364-A3AE-3DCA2E93807C}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,18 @@
+[
+  {
+    "Id": 94501295,
+    "Name": "The Hotel",
+    "Location": "Sydney",
+    "PricePerNight": 942.63,
+    "NumberOfFloors": 32,
+    "Amenities": "1,2,4,6,8,10"
+  },
+  {
+    "Id": 48036588,
+    "Name": "Hotellerino",
+    "Location": "Sydney",
+    "PricePerNight": 4000,
+    "NumberOfFloors": 20,
+    "Amenities": "3,5,8"
+  }
+]
