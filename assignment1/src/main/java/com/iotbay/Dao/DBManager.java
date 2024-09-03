@@ -7,8 +7,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+
 import com.iotbay.Model.Address;
 import com.iotbay.Model.CustomerUser;
+import com.iotbay.Model.Order;
 import com.iotbay.Model.Staff;
 import com.iotbay.Model.User;
 
@@ -338,8 +340,10 @@ public class DBManager {
         }
         return logs;
     }
-    
-    
+
+    public void placeOrder(Order order) {
+        
+    }
 
 }
     
