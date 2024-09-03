@@ -8,10 +8,8 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.ArrayList;
-
 import com.iotbay.Model.Address;
-import com.iotbay.Model.CustomerUser;
-import com.iotbay.Model.Order;
+import com.iotbay.Model.Customer;
 import com.iotbay.Model.Staff;
 import com.iotbay.Model.User;
 
@@ -41,15 +39,18 @@ public class DBManager {
     private Connection connection;
 
     public DBManager(Connection connection) throws SQLException {
+        /*
         connection.setAutoCommit(true);
         this.connection = connection;
+        */
     }
 
     /*
      * User Registration
      */
 
-    public void addCustomer(CustomerUser customer, String sessionId) throws SQLException{
+    public void addCustomer(Customer customer, String sessionId) throws SQLException{
+        /*
         PreparedStatement statement = connection.prepareStatement(addCustomerQuery);
         statement.setString(1, customer.getEmail());
         statement.setString(2, customer.getPassword());
@@ -65,9 +66,11 @@ public class DBManager {
         statement.executeUpdate();
 
         updateAccessLogs(sessionId, customer.getEmail());
+        */
     }
 
     public void addStaff(Staff staff, String sessionId) throws SQLException {
+        /*
         PreparedStatement statement = connection.prepareStatement(addStaffQuery);
         statement.setString(1, staff.getEmail());
         statement.setString(2, staff.getPassword());
@@ -78,6 +81,7 @@ public class DBManager {
         statement.executeUpdate();
 
         updateAccessLogs(sessionId, staff.getEmail());
+        */
     }
 
     /*
@@ -85,16 +89,19 @@ public class DBManager {
      * Can be private as its only called through this class, but made it public so it can be unit tested
      */
      public void updateAccessLogs(String sessionID, String email) throws SQLException {
+        /*
         PreparedStatement statement = connection.prepareStatement(updateUserLogQuery);
         statement.setString(1, sessionID);
         statement.setString(2, email);
         statement.executeUpdate();
+        */
      }
 
     /*
      * Only used for the update details feature
      */
-    public void updateCustomer(CustomerUser newData, CustomerUser oldData) throws SQLException {
+    public void updateCustomer(Customer newData, Customer oldData) throws SQLException {
+        /*
         PreparedStatement statement = connection.prepareStatement(updateCustomerQuery);
         statement.setString(1, newData.getEmail());
         statement.setString(2, newData.getPassword());
@@ -115,17 +122,21 @@ public class DBManager {
         statement.close();
 
         updateEmailInUserAccessLogs(newData.getEmail(), oldData.getEmail());
+        */
     }
     
 
-    private void updateEmailInUserAccessLogs(String newEmail, String oldEmail) throws SQLException {
+   // private void updateEmailInUserAccessLogs(String newEmail, String oldEmail) throws SQLException {
+        /*
         PreparedStatement statement = connection.prepareStatement(updateUserAccessLogsEmailQuery);
         statement.setString(1, newEmail);
         statement.setString(2, oldEmail);
         statement.executeUpdate();
-     }
+        */
+    // }
 
     public void updateStaff(Staff newData, Staff oldData) throws SQLException {
+        /*
         PreparedStatement statement = connection.prepareStatement(updateStaffQuery);
         statement.setString(1, newData.getEmail());
         statement.setString(2, newData.getPassword());
@@ -142,12 +153,14 @@ public class DBManager {
         statement.close();
 
         updateEmailInUserAccessLogs(newData.getEmail(), oldData.getEmail());
+        */
     } 
 
     /*
      * Login
      */
     public User userLogin(String email, String password, String sessionId) throws SQLException {
+        /*
         try (PreparedStatement customerStatement = connection.prepareStatement(customerLoginQuery)) {
             customerStatement.setString(1, email);
             customerStatement.setString(2, password);
@@ -219,6 +232,8 @@ public class DBManager {
 
         // user cannot be found (login details incorrect)
         return null;
+        */
+        return null;
     }
 
     /*
@@ -226,12 +241,14 @@ public class DBManager {
      */
 
     public void updateUserLogoutAccessLog(String sessionId) {
+        /*
         try (PreparedStatement statement = connection.prepareStatement(setUserLogoutQuery)) {
             statement.setString(1, sessionId);
             statement.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Error updating logout logs: " + e);
         }
+            */
     }
 
     /*
@@ -239,6 +256,7 @@ public class DBManager {
      */
 
     public void removeUser(User user) throws SQLException {
+        /*
         switch (user.getUserType()) {
             case CUSTOMER_USER:
                 PreparedStatement customerStatement = connection.prepareStatement(removeCustomerUserQuery);
@@ -257,6 +275,7 @@ public class DBManager {
             PreparedStatement removeAccessLogs = connection.prepareStatement(deleteUserAccessLogQuery);
             removeAccessLogs.setString(1, user.getEmail());
             removeAccessLogs.executeUpdate();
+            */
     }
 
     /*
@@ -264,6 +283,7 @@ public class DBManager {
      */
 
     public boolean isDuplicateEmail(String email) throws SQLException {
+        /*
         PreparedStatement preparedCustomerUserStatement = connection.prepareStatement(checkCustomerUserDuplicateEmail); 
         preparedCustomerUserStatement.setString(1, email);
         ResultSet customerResultSet = preparedCustomerUserStatement.executeQuery();
@@ -288,9 +308,12 @@ public class DBManager {
         } else {
             return false;
         }
+            */
+            return false;
     }
 
     public boolean isDuplicateStaffID(String staffID) throws SQLException {
+        /*
         PreparedStatement preparedStaffStatement = connection.prepareStatement(checkDuplicateStaffIDQuery); 
         preparedStaffStatement.setString(1, staffID);
         ResultSet staffResultSet = preparedStaffStatement.executeQuery();
@@ -304,6 +327,8 @@ public class DBManager {
             }
         }
         return true;
+        */
+        return false;
     }
 
     /*
@@ -314,6 +339,7 @@ public class DBManager {
     // row 1 == Logout time
     public ArrayList<Timestamp[]> getUserLogs(String email) throws SQLException{
         ArrayList<Timestamp[]> results = new ArrayList<>();
+        /*
         PreparedStatement statement = connection.prepareStatement(getUserAccessDataQuery);
         statement.setString(1, email);
         ResultSet rs =  statement.executeQuery();
@@ -323,11 +349,13 @@ public class DBManager {
             row[1] = rs.getTimestamp("logoutDateTime");
             results.add(row);
         }
+            */
         return results;
     }
 
     public ArrayList<Timestamp[]> getSearchedUserAccessLogs(String email, Date date) throws SQLException {
         ArrayList<Timestamp[]> logs = new ArrayList<>();
+        /*
         PreparedStatement statement = connection.prepareStatement(searchUserAccessLogsQuery);
         statement.setString(1, email);
         statement.setDate(2, date);
@@ -339,6 +367,7 @@ public class DBManager {
             Timestamp logoutTime = resultSet.getTimestamp("logoutDateTime");
             logs.add(new Timestamp[]{loginTime, logoutTime});
         }
+            */
         return logs;
     }
 

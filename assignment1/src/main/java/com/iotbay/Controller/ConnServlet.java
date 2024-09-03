@@ -22,15 +22,18 @@ public class ConnServlet extends HttpServlet {
 
     @Override
     public void init() {
+        /*
         try {
             db = new DBConnector();
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(ConnServlet.class.getName()).log(Level.SEVERE, null, ex);
         }      
+            */
     }
 
     @Override 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        /*
         response.setContentType("text/html;charset=UTF-8");       
         HttpSession session = request.getSession();
 
@@ -46,14 +49,17 @@ public class ConnServlet extends HttpServlet {
             Logger.getLogger(ConnServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
         session.setAttribute("manager", manager);
+        */
     }   
 
     @Override
      public void destroy() {
+        /* 
         try {
             db.closeConnection();
         } catch (SQLException ex) {
             Logger.getLogger(ConnServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
+            */
     }
 }
