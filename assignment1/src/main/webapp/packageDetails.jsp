@@ -60,7 +60,7 @@
 
     <footer class="footer-container">
         <div class="footer-section">
-            <h2>Flight Centre</h2>
+            <h2>Travel Booking</h2>
             <ul>
                 <li><a href="#">Flights</a></li>
                 <li><a href="#">Stays</a></li>
