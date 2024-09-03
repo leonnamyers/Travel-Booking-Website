@@ -1,158 +1,160 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
 
-body {
-    font-family: sans-serif;
-    height: 100%;
-}
+    body {
+        font-family: sans-serif;
+        height: 100%;
+    }
+    
+    .div {
+        display: flex;
+    }
 
-.div {
-    display: flex;
-}
+    .outer-container {
+        background: #a7abe0;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        flex-direction: column;
+        height: 100vmax;
+        margin: 0;
+        padding: 5%;
+    }
 
-.outer-container {
-    background: #a7abe0;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    flex-direction: column;
-    height: 100vmax;
-    margin: 0;
-    padding: 5%;
-}
+    .flex-container {
+        background: white;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        border-radius: 10px;
+        padding: 20px;
+        width: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 
-.flex-container {
-    background: white;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    border-radius: 10px;
-    padding: 20px;
-    width: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+    #customer-form, #staff-form {
+        display: flex;
+        flex-direction: column;
+        justify-content: end;
+        align-items: center;
+    }   
 
-#customer-form, #staff-form {
-    display: flex;
-    flex-direction: column;
-    justify-content: end;
-    align-items: center;
-}   
+    .form-item {
+        display: flex;
+        align-items: center;
+        justify-self: center;
+        flex-direction: row;
+    }
 
-.form-item {
-    display: flex;
-    align-items: center;
-    justify-self: center;
-    flex-direction: row;
-}
+    nav {
+        background-color: #333;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
 
-nav {
-    background-color: #333;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+    nav h1 {
+        color: white;
+        margin: 0;
+        padding-left: 2%;
+    }
 
-nav h1 {
-    color: white;
-    margin: 0;
-    padding-left: 2%;
-}
+    nav ul {
+        display: flex;
+        list-style: none;
+        padding: 0;
+        margin: 0; 
+    }
 
-nav ul {
-    display: flex;
-    list-style: none;
-    padding: 0;
-    margin: 0; 
-}
+    nav ul li {
+        margin: 0 10px;
+    }
 
-nav ul li {
-    margin: 0 10px;
-}
+    nav ul li a {
+        display: block;
+        padding: 15px 20px;
+        text-decoration: none;
+        color: white;
+        text-transform: uppercase;
+    }
 
-nav ul li a {
-    display: block;
-    padding: 15px 20px;
-    text-decoration: none;
-    color: white;
-    text-transform: uppercase;
-}
-
-nav ul li a:hover {
-    background-color: #555;
-}
+    nav ul li a:hover {
+        background-color: #555;
+    }
 
 
-.login-form, staff-form {
-    font-family: sans-serif;
-}
+    .login-form, staff-form {
+        font-family: sans-serif;
+    }
 
-.login-form div, .staff-form div {
-    margin-bottom: 10px;
-}
+    .login-form div, .staff-form div {
+        margin-bottom: 10px;
+    }
 
-.login-form label, .staff-form label {
-    display: inline-block;
-    width: 300px;
-    padding: 1%;
-}
+    .login-form label, .staff-form label {
+        display: inline-block;
+        width: 300px;
+        padding: 1%;
+    }
 
-.login-form input, .staff-form input {
-    width: calc(100%);
-    padding: 2%;
-}
+    .login-form input, .staff-form input {
+        width: calc(100%);
+        padding: 2%;
+    }
 
-.login-form, .staff-form button {
-    padding: 5px 10px;
-}
+    .login-form, .staff-form button {
+        padding: 5px 10px;
+    }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
 
-th, td {
-    padding: 10px;
-    border: none;
-}
+    th, td {
+        padding: 10px;
+        border: none;
+    }
 
-th {
-    text-align: left;
-    font-weight: bold;
-    width: 50%;
-}
+    th {
+        text-align: left;
+        font-weight: bold;
+        width: 50%;
+    }
 
-#form-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-}
+    #form-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+    }
 
-#register-buttons {
-    display: flex;
-    justify-content: space-between; 
-    gap: 5%;
-}
+    #register-buttons {
+        display: flex;
+        justify-content: space-between; 
+        gap: 5%;
+    }
+    
+    #register-buttons button {
+        padding: 10px 20px;
+        font-size: 16px; 
+        border-radius: 5px;
+        background-color: #f0f0f0;
+        border: 2px solid #ccc; 
+        cursor: pointer;
+    }
+    
+    #register-buttons button:hover {
+        background-color: #e0e0e0; 
+    }
 
-#register-buttons button {
-    padding: 10px 20px;
-    font-size: 16px; 
-    border-radius: 5px;
-    background-color: #f0f0f0;
-    border: 2px solid #ccc; 
-    cursor: pointer;
-}
-
-#register-buttons button:hover {
-    background-color: #e0e0e0; 
-}
-
-#date_input {
-    vertical-align: left;
-    margin-right: 5px;
-    float: left;
-}
+    #date_input {
+        vertical-align: left;
+        margin-right: 5px;
+        float: left;
+    }
+    
+    

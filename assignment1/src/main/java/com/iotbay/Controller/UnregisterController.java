@@ -19,9 +19,9 @@ public class UnregisterController extends HttpServlet {
         User user = null;
         try {
             HttpSession session = request.getSession();
-            //DBManager manager = (DBManager) session.getAttribute("manager");
+            DBManager manager = (DBManager) session.getAttribute("manager");
             user = (User) session.getAttribute("user");
-            //manager.removeUser(user);
+            manager.removeUser(user);
             session.invalidate();
             response.sendRedirect("index.jsp?unregister=true");
 

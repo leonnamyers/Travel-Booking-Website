@@ -1,49 +1,29 @@
 package com.iotbay.Model;
 
-public class Customer extends User{
-    private Address address;
-    private int homePhoneNumber = -1;
-    private int mobilePhoneNumber = -1;
+import java.io.Serializable;
+
+public class Customer implements Serializable {
+
+    private String email;
+    private UserType userType;
 
     public Customer() {
-        super.setUserType(UserType.CUSTOMER);
+        this.userType = UserType.CUSTOMER;
     }
 
-    public Customer(String email, String password, String firstName, String lastName, UserType userType, Address address, int homePhoneNumber, int mobilePhoneNumber) {
-        super(email, password, firstName, lastName, UserType.CUSTOMER);
-        this.address = address;
-        this.homePhoneNumber = homePhoneNumber;
-        this.mobilePhoneNumber = mobilePhoneNumber;
+    public String getEmail() {
+        return email;
     }
 
-    // Registration
-
-    public Customer(String email, String password, String firstName, String lastName, Address address) {
-        super(email, password, firstName, lastName, UserType.CUSTOMER);
-        this.address = address;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public Address getAddress() {
-        return address;
+    public void setUserType(UserType userType) {
+        this.userType = userType;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
-    public int getHomePhoneNumber() {
-        return homePhoneNumber;
-    }
-
-    public void setHomePhoneNumber(int homePhoneNumber) {
-        this.homePhoneNumber = homePhoneNumber;
-    }
-
-    public int getMobilePhoneNumber() {
-        return mobilePhoneNumber;
-    }
-
-    public void setMobilePhoneNumber(int mobilePhoneNumber) {
-        this.mobilePhoneNumber = mobilePhoneNumber;
+    public UserType getUserType() {
+        return userType;
     }
 }

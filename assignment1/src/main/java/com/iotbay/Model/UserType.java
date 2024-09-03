@@ -1,5 +1,5 @@
 package com.iotbay.Model;
 
 public enum UserType {
-    CUSTOMER, STAFF;
+    CUSTOMER_USER, STAFF, CUSTOMER;
 }

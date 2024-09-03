@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import com.iotbay.Dao.DBManager;
 import com.iotbay.Model.Address;
-import com.iotbay.Model.Customer;
+import com.iotbay.Model.CustomerUser;
 import com.iotbay.Model.Staff;
 
 public class RegisterController extends HttpServlet {
@@ -32,7 +32,6 @@ public class RegisterController extends HttpServlet {
             UserValidation.clear(session);
 
             // initial pre-validations for all fields that apply to both Customer and Staff users
-            /* Error Handling
             if (manager.isDuplicateEmail(email)) {
                 session.setAttribute("duplicateEmail", "Error: Email is already registered.");
                 forwardWithError(request, response, session);
@@ -54,7 +53,6 @@ public class RegisterController extends HttpServlet {
                 forwardWithError(request, response, session);
                 return;
             }
-                */
             
             // then check the user type and perform more specific validations
             // add the user to the relevant DB table and then update the user session
@@ -64,10 +62,10 @@ public class RegisterController extends HttpServlet {
                 String phoneNumber = request.getParameter("phone_number");
                 String mobileNumber = request.getParameter("mobile_number");
 
-                Customer customerUser = new Customer(email, password, firstName, lastName, address);
+                CustomerUser customerUser = new CustomerUser(email, password, firstName, lastName, address);
 
                 if (phoneNumber != null && !phoneNumber.isEmpty() && phoneNumber.matches("\\d+")) {
-                    ((Customer) customerUser).setHomePhoneNumber(Integer.parseInt(phoneNumber));
+                    ((CustomerUser) customerUser).setHomePhoneNumber(Integer.parseInt(phoneNumber));
                     if (!UserValidation.isPhoneNumberValid(phoneNumber)) {
                         session.setAttribute("homePhoneError", "Error: Home Phone Number should be 8-16 digits. Please try again.");
                         forwardWithError(request, response, session);
@@ -75,7 +73,7 @@ public class RegisterController extends HttpServlet {
                     }
                 }
                 if (mobileNumber != null && !mobileNumber.isEmpty() && mobileNumber.matches("\\d+")) {
-                    ((Customer) customerUser).setMobilePhoneNumber(Integer.parseInt(mobileNumber));
+                    ((CustomerUser) customerUser).setMobilePhoneNumber(Integer.parseInt(mobileNumber));
                     if (!UserValidation.isPhoneNumberValid(mobileNumber)) {
                         session.setAttribute("mobilePhoneError", "Error: Mobile Phone Number should be 8-16 digits. Please try again.");
                         forwardWithError(request, response, session);
@@ -97,8 +95,8 @@ public class RegisterController extends HttpServlet {
                     return;
                 }
 
-                session.setAttribute("user", (Customer) customerUser);
-                //manager.addCustomer(customerUser, session.getId());
+                session.setAttribute("user", (CustomerUser) customerUser);
+                manager.addCustomer(customerUser, session.getId());
                 response.sendRedirect("welcome.jsp");
 
             } else {
@@ -131,7 +129,7 @@ public class RegisterController extends HttpServlet {
                 }
 
                 session.setAttribute("user", (Staff) staff);
-                //manager.addStaff(staff, session.getId());
+                manager.addStaff(staff, session.getId());
                 response.sendRedirect("welcome.jsp");
             }
         } catch (SQLException ex) {

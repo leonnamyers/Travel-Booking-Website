@@ -31,8 +31,8 @@
                 '</div>';
                 <%
                 
-                //DBManager manager = (DBManager) session.getAttribute("manager");
-                //manager.updateUserLogoutAccessLog(session.getId());
+                DBManager manager = (DBManager) session.getAttribute("manager");
+                manager.updateUserLogoutAccessLog(session.getId());
                 session.invalidate(); 
                 %>
                 setTimeout(function() {
