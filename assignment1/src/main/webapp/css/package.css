@@ -1,0 +1,75 @@
+
+.packagebooking-heading {
+    background-color: red;
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+.packagebooking-package-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 20px;
+}
+
+.packagebooking-package-item {
+    width: 30%;
+    background-color: #f4f4f4;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.packagebooking-package-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+
+.packagebooking-package-name {
+    font-size: 1.5em;
+    margin: 10px 0;
+}
+
+
+.packagebooking-package-description {
+    font-size: 1em;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+
+.packagebooking-package-price {
+    font-size: 1.2em;
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+
+.packagebooking-package-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+
+.packagebooking-package-button:hover {
+    background-color: #45a049;
+}
+
+
+.packagebooking-no-packages {
+    text-align: center;
+    font-size: 1.2em;
+    color: #999;
+}

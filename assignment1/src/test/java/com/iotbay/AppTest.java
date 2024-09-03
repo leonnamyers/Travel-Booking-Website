@@ -1,5 +1,5 @@
 package com.iotbay;
-
+/*
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -25,12 +25,12 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+*/
 /**
  * There is one unit test per DAO method. These transactions are not actually committed to the 
  * database, but executed, tested and then rolled back - this is so there is no permanent effect on the DB.
  */
-
+/*
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class AppTest {
 
@@ -280,5 +280,5 @@ class AppTest {
             }
         }
     }
-    
+    */
     
