@@ -5,6 +5,7 @@ import java.io.Serializable;
 public class Order implements Serializable{
     private int orderNumber;
     private String customerEmail;
+    private int paymentID;
 
     public Order() {
     }
@@ -24,4 +25,14 @@ public class Order implements Serializable{
     public void setCustomerEmail(String customerEmail) {
         this.customerEmail = customerEmail;
     }
+
+    public int getPaymentID() {
+        return paymentID;
+    }
+
+    public void setPaymentID(int paymentID) {
+        this.paymentID = paymentID;
+    }
+
+
 }
