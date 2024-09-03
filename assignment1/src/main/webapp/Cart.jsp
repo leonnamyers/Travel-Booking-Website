@@ -9,7 +9,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Name? - Thank you!</title>
+    <title>Name? - Order Summary</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/header.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/buttons.css">
@@ -19,8 +19,7 @@
     <jsp:include page="header.jsp"/>
 
     <main class="text-display">
-        <h1>Your order has been placed!</h1>
-        <h2>Thank you for using IoTBay</h2>
+        <h1>Review your trip</h1>
     </main>
 </body>
 </html>

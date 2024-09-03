@@ -16,42 +16,34 @@ public class PlaceOrderController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Get session and retrieve relevant objects
         HttpSession session = request.getSession();
         DBManager manager = (DBManager) session.getAttribute("manager");
         User user = (User) session.getAttribute("user");
 
-        // Check if user is logged in and manager is available
         if (user == null || manager == null) {
-            response.sendRedirect("login.jsp"); // Redirect to login if user is not logged in
+            response.sendRedirect("login.jsp"); 
             return;
         }
 
-        // Create a new Order object
         Order order = new Order();
 
-        // Set the order details
         order.setCustomerEmail(user.getEmail());
 
-        // Assuming "paymentID" is a parameter in the request, parse it as an integer
         try {
             int paymentID = Integer.parseInt(request.getParameter("paymentID"));
             order.setPaymentID(paymentID);
         } catch (NumberFormatException e) {
-            // Handle invalid paymentID parameter
             response.sendRedirect("placeorder.jsp?order=failure");
             return;
         }
 
         try {
-            // Place the order using the DBManager
             manager.placeOrder(order);
 
-            // Redirect to a success page
-            response.sendRedirect("thankyou.jsp?order=success");
+            response.sendRedirect("postorder.jsp?order=success");
 
-        } catch (Exception e) {
-            response.sendRedirect("thankyou.jsp?order=failure");
+        } catch (IOException e) {
+            response.sendRedirect("placeorder.jsp?order=failure");
         }
     }
 }
