@@ -10,6 +10,7 @@ import java.util.Properties;
 public class DBConnector extends DB {
 
 	public DBConnector() throws ClassNotFoundException, SQLException {
+		/* 
 		Class.forName(driver);
 
 		Properties dbProperties = new Properties();
@@ -32,4 +33,7 @@ public class DBConnector extends DB {
 	public void closeConnection() throws SQLException {
 		this.conn.close();
 	}
+	*/
+	}
 }
+

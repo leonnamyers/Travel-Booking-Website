@@ -82,14 +82,14 @@
                         </tr>
                         <tr>
                             <th> Account Type:</th>
-                            <td><%= user instanceof CustomerUser ? "Customer" : "Staff" %></td>
+                            <td><%= user instanceof Customer ? "Customer" : "Staff" %></td>
                         </tr>
                     <%
                     // Display Account Details
 
-                    if (user instanceof CustomerUser) {
-                        CustomerUser customerUser = (CustomerUser) user;
-                        Address address = customerUser.getAddress();
+                    if (user instanceof Customer) {
+                        Customer customer = (Customer) user;
+                        Address address = customer.getAddress();
                     %>
                     <tr>
                         <th> Address:</th>
@@ -97,11 +97,11 @@
                     </tr>
                     <tr>
                         <th> Home Phone:</th>
-                        <td><%= customerUser.getHomePhoneNumber() == -1 ? "None" : customerUser.getHomePhoneNumber() %></td>
+                        <td><%= customer.getHomePhoneNumber() == -1 ? "None" : customer.getHomePhoneNumber() %></td>
                     </tr>
                     <tr>
                         <th> Mobile Phone:</th>
-                        <td><%= customerUser.getMobilePhoneNumber() == -1 ? "None" : customerUser.getMobilePhoneNumber() %></td>
+                        <td><%= customer.getMobilePhoneNumber() == -1 ? "None" : customer.getMobilePhoneNumber() %></td>
                     </tr>
                     <%
                     } else {
