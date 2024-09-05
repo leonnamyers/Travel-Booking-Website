@@ -1,14 +1,9 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
 - main
-
+ 
 pool:
   vmImage: ubuntu-latest
-
+ 
 steps:
 - task: Maven@4
   inputs:
@@ -22,14 +17,14 @@ steps:
     effectivePomSkip: false
     sonarQubeRunAnalysis: false
   displayName: 'Build and Package Maven Project'
-
+ 
 - script: |
     mkdir -p $(Build.ArtifactStagingDirectory)/Release
-    cp -r target/*.jar $(Build.ArtifactStagingDirectory)/Release/
+    cp target/*.war $(Build.ArtifactStagingDirectory)/Release/
     cd $(Build.ArtifactStagingDirectory)/Release
     zip -r app-package.zip .
   displayName: 'Package Build Output into .zip'
-
+ 
 - task: PublishBuildArtifacts@1
   inputs:
     pathToPublish: '$(Build.ArtifactStagingDirectory)/Release'
