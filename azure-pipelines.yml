@@ -20,7 +20,7 @@ steps:
  
 - script: |
     mkdir -p $(Build.ArtifactStagingDirectory)/Release
-    cp target/*.war $(Build.ArtifactStagingDirectory)/Release/
+    cp assignment1/target/*.war $(Build.ArtifactStagingDirectory)/Release/
     cd $(Build.ArtifactStagingDirectory)/Release
     zip -r app-package.zip .
   displayName: 'Package Build Output into .zip'
