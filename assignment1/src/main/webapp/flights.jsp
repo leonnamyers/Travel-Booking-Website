@@ -29,7 +29,7 @@
     %>
     <body>
     <nav>
-        <h1>Home</h1>
+        <h1>Flight</h1>
         <!--If User is logged in-->
         <%
         if (session != null && session.getAttribute("user") != null) { 
@@ -53,6 +53,7 @@
         %>
     </nav>
 
+    <img src="/images/flightPhoto.jpeg" width="100%" >
     <div>    
         <form>
             <label>Departure:</label>
