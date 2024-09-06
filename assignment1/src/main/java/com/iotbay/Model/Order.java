@@ -25,4 +25,7 @@ public class Order implements Serializable{
         this.customerEmail = customerEmail;
     }
 
+    public void setPaymentID(int paymentID) {
+    }
+
 }

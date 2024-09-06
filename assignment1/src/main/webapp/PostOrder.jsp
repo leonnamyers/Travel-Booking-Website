@@ -8,19 +8,17 @@
 
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Name? - Thank you!</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/header.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/buttons.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="css/style.css">
+        <script type="text/javascript" src="js/index.js"></script>
+        <title>Dream Escape - Thank You!</title>
 </head>
 <body>
-    <jsp:include page="header.jsp"/>
+    <jsp:include page="navbar.jsp"/>
 
     <main class="text-display">
-        <h1>Your order has been placed!</h1>
-        <h2>Thank you for using IoTBay</h2>
+        <h1>Your destination has been booked!</h1>
+        <h2>Thank you for using Dream Escape</h2>
     </main>
 </body>
 </html>

@@ -7,7 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import com.iotbay.Dao.DBManager;
+import com.iotbay.Model.Order;
 import com.iotbay.Model.User;
 
 public class PlaceOrderController extends HttpServlet {
@@ -36,7 +38,7 @@ public class PlaceOrderController extends HttpServlet {
         }
 
         try {
-            manager.placeOrder(order);
+            //manager.placeOrder(order);
 
             response.sendRedirect("postorder.jsp?order=success");
 

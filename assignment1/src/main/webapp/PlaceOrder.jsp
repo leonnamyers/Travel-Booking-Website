@@ -2,22 +2,19 @@
 <%@page import="java.util.Random"%>
 <%@page import="javax.servlet.http.HttpSession"%>
 <%@page import="javax.servlet.http.HttpServletRequest"%>
-<%@page import="com.iotbay.*" %>
+<%@page import="com.iotbay.*" 
+%>User user = (User) session.getAttribute("user");%>
 
-    User user = (User) session.getAttribute("user");
-%>
-<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Order</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/header.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/buttons.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="css/style.css">
+        <script type="text/javascript" src="js/index.js"></script>
+        <title>Dream Escape - Place Order</title>
 </head>
 <body>
-    <jsp:include page="header.jsp"/>
+    <jsp:include page="navbar.jsp"/>
 
     <main class="text-display">
         <div class="content">
