@@ -21,7 +21,7 @@
             Timestamp t3 = new Timestamp(2024, 0, 15, 9, 00, 00, 00);
             Flight f1 = new Flight("F101","JetEngine",250,50,"JetEngine.jpg",t1,"Sydney","Melbourne", 2,"Non-Stop","Economy");
             Flight f2 = new Flight("F102","Harmony",630,50,"Harmony.jpg",t2,"Melbourne","Sydney",2,"Non stop","Business");
-            Flight f3 = new Flight("F103","Travel",500,50,"Travel.jpg",t3,"Queensland","Melbourne",2,"Non stop","Premium Economy");    
+            Flight f3 = new Flight("F103","Traveling",500,50,"Travel.jpg",t3,"Queensland","Melbourne",2,"Non stop","Premium Economy");    
             flightList.add(f1);  
             flightList.add(f2);  
             flightList.add(f3);  
@@ -55,7 +55,7 @@
 
     <div>    
         <form>
-            <label>Departure</label>
+            <label>Departure:</label>
             <input list="departures" name="departure" id="departure" type="text">
                 <datalist id="departures">
                     <option value="Sydney">
@@ -68,7 +68,7 @@
                     <option value="Darwin">
                 </datalist>
             </input>
-            <label>Destination</label>
+            <label>Destination:</label>
             <input list="destinations" name="destination" id="destination" type="text">
                 <datalist id="destinations">
                     <option value="Sydney">
@@ -81,8 +81,9 @@
                     <option value="Darwin">
                 </datalist>
             </input>
-            <input name="departureTime" id="departureTime" type="datetime-local">
+            <input name="departureTime" id="departureTime" type="date">
             
+            <label>Seat</label>
             <select name="seats" id="seats">
                 <option value="Economy">Economy</option>
                 <option value="Premium Economy">Premium Economy</option>
