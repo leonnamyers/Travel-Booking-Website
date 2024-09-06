@@ -1,44 +1,34 @@
 package com.iotbay.Model;
 import java.util.*;
-import java.sql.Date;
-import java.sql.Time;
+import java.sql.*;
+
 
 public class Flight extends Item {
-    private Time startTime;
-    private Date startDate;
+    private Timestamp startTime;
     private String departureCity;
     private String destinationCity;
     private int hours;
     private String stops;
-    private String sitType;
+    private String seatType;
 
 
-    public Flight(String itemID, String name, double price, int availability, String img, Time startTime, 
-    Date startDate, String departureCity, String destinationCity, int hours, String stops, String sitType){
+    public Flight(String itemID, String name, double price, int availability, String img, Timestamp startTime, 
+     String departureCity, String destinationCity, int hours, String stops, String seatType){
         super(itemID, name, price, availability,img);
         this.startTime = startTime;
-        this.startDate = startDate;
         this.departureCity = departureCity;
         this.destinationCity = destinationCity;
         this.hours = hours;
         this.stops = stops;
-        this.sitType = sitType;
+        this.seatType = seatType;
     }
 
-    public Time getStartTime() {
+    public Timestamp getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Time startTime) {
+    public void setStartTime(Timestamp startTime) {
         this.startTime = startTime;
-    }
-
-    public Date getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
     }
 
     public String getDepartureCity() {
@@ -73,12 +63,12 @@ public class Flight extends Item {
         this.stops = stops;
     }
 
-    public String getSitType() {
-        return sitType;
+    public String getSeatType() {
+        return seatType;
     }
 
-    public void setSitType(String sitType) {
-        this.sitType = sitType;
+    public void setSeatType(String sitType) {
+        this.seatType = sitType;
     }
     
 }
