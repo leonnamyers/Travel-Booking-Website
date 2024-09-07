@@ -16,12 +16,7 @@
     </head>
     <%
         ArrayList<Flight> flightList = (ArrayList<Flight>)session.getAttribute("flightList");
-        
-        User user = (User)session.getAttribute("user");
-        int flightUpdatingIndex = Integer.parseInt((String)request.getParameter("flightIndex"));
-        Flight updatingFlight = flightList.get(flightUpdatingIndex);
-        session.setAttribute("updatingFlight",updatingFlight);     
-
+        User user = (User)session.getAttribute("user");   
     %>
 <body>
     <nav>
@@ -48,6 +43,7 @@
         }
         %>
     </nav>
+
     <div>
         <center>
             <h1>Flight Catalogue Management</h1>
@@ -68,25 +64,14 @@
 
 
     <div align="center">
-        <c:if test="${updatingFlight != null}">
-            <!-- update -->
-            <form action="http://localhost:8080/updateFlightOperation.jsp">
-        </c:if>
-        <c:if test="${updatingFlight == null}">
-            <!-- create -->
-            <form action="http://localhost:8080/flights.jsp">
-        </c:if>
+        
+
+        <form action="http://localhost:8080/addFlightOperation.jsp">
             
-            <!-- Form -->
         <table border="1" cellpadding="5" align="center">
             <caption>
                 <h2>
-                    <c:if test="${updatingFlight != null}">
-                        <h1>Update the flight</h1>
-                    </c:if>
-                    <c:if test="${updatingFlight == null}">
-                        <h1>Add new flight</h1>
-                    </c:if>
+                    <h1>Add new flight</h1>
                 </h2>
             </caption>
             
@@ -95,77 +80,77 @@
             <tr>
                 <th>Flight ID: </th>
                 <td>
-                    <input type="text" name="itemID" id="itemID"
-                        value="<c:out value='${updatingFlight.itemID}' />"/>
+                    <input type="text" name="itemID" id="itemID" value=""
+                    />
                 </td>
             </tr>  
 
             <tr>
                 <th>Company: </th>
                 <td>
-                    <input type="text" name="name" id="name" 
-                           value="<c:out value='${updatingFlight.name}' />"/>
+                    <input type="text" name="name" id="name" value=""
+                     />
                 </td>
             </tr>
             
             <tr>
                 <th>Price</th>
                 <td>
-                    <input type="text" name="price" id="price"
-                            value="<c:out value='${updatingFlight.price}' />"/>
+                    <input type="text" name="price" id="price" value="0"
+                    />
                 </td>
             </tr>
 
             <tr>
                 <th>Availability</th>
                 <td>
-                    <input type="text" name="availability" id="availability"
-                            value="<c:out value='${updatingFlight.availability}' />"/>
+                    <input type="text" name="availability" id="availability" value="0"
+                    />
                 </td>
             </tr>
 
             <tr>
                 <th>Flight Time: </th>
                 <td>
-                    <input type="datetime-local" name="startTime" id="startTime"
-                            value="<c:out value='${updatingFlight.startTime}' />"/>
+                    <input type="datetime-local" name="startTime" id="startTime" 
+                    />
                 </td>
             </tr>
 
             <tr>
                 <th>Departure: </th>
                 <td>
-                    <input type="text" name="departureCity" id="departureCity"
-                            value="<c:out value='${updatingFlight.departureCity}' />"/>
+                    <input type="text" name="departureCity" id="departureCity" value=""
+                    />
                 </td>
             </tr>
 
             <tr>
                 <th>Destination: </th>
                 <td>
-                    <input type="text" name="destinationCity" id="destinationCity"
-                            value="<c:out value='${updatingFlight.destinationCity}' />"/>
+                    <input type="text" name="destinationCity" id="destinationCity" value=""
+                    />
                 </td>
             </tr>
             <tr>
                 <th>Hours: </th>
                 <td>
-                    <input type="text" name="hours" id="hours"
-                            value="<c:out value='${updatingFlight.hours}' />"/>
+                    <input type="text" name="hours" id="hours" value="0"
+                    />
                 </td>
             </tr>
             <tr>
                 <th>Stops: </th>
                 <td>
-                    <input type="text" name="stops" id="stops"
-                            value="<c:out value='${updatingFlight.stops}' />"/>
+                    <input type="text" name="stops" id="stops" value=""
+                    />
                 </td>
             </tr>
             <tr>
                 <th>Seat: </th>
                 <td>
-                    <input type="text" name="seatType" id="seatType"
-                            value="<c:out value='${updatingFlight.seatType}' />"/>
+                    <input type="text" name="seatType" id="seatType" value=""
+                    />
                 </td>
             </tr>
             <tr>
@@ -173,8 +158,6 @@
                     <input type="submit" value="Save" />
                 </td>
             </tr>
-            <input type="hidden" id="flightIndex" name="flightIndex" value="<%= flightUpdatingIndex%>"/>
-            <input type="hidden" id="img" name="img" value='${updatingFlight.img}'/>
         </table>
         </form>
     </div>   

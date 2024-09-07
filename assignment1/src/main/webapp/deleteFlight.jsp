@@ -18,6 +18,9 @@
         ArrayList<Flight> flightList = (ArrayList<Flight>)session.getAttribute("flightList");
         
         User user = (User)session.getAttribute("user");
+        int flightUpdatingIndex = Integer.parseInt((String)request.getParameter("flightIndex"));
+        flightList.remove(flightUpdatingIndex);   
+        session.setAttribute("flightList", flightList);
     %>
 <body>
     <nav>
@@ -44,10 +47,16 @@
         }
         %>
     </nav>
-
+    </br>
+    </br>
         <center>
             <h1>You have deleted the flight!</h1>
         </center>
+    </br>
+    </br>
+    <form align = "center" action="http://localhost:8080/flights.jsp">
+        <button>Back to Flight Catalogue</button>
+    </form>
 
     
 </body>

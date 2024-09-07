@@ -135,67 +135,83 @@
     <%
     } else if(user != null && user.getUserType() == UserType.STAFF) {
     %>
-    <div>
-        <center>
-            <h1>Flights Catalogue Management</h1>
-            <h2>
-                <form action="http://localhost:8080/addFlight.jsp">
-                    <button type="submit">Add new device</button>
-                </form>
-                &nbsp;&nbsp;&nbsp;
-                <form action="http://localhost:8080/flights.jsp">
-                    <button type="submit">List all devices</button>
-                </form>
-
-            </h2>
-        </center>
-    </div>
-    <br/>
-    <br/>
-
-    <div>
-        <table>
-            <caption><h2>Flight Management</h2></caption>
-            <tr class="flight-list">
-                <th></th>
-                <th>Flight ID</th>
-                <th>Company</th>
-                <th>Price</th>
-                <th>Flight Time</th>
-                <th>Departure</th>
-                <th>Destination</th>
-                <th>Time</th>
-                <th>Seat</th>
-                <th></th>
-
-            </tr>
-        <c:forEach var="flight" items="${flightList}">
-            <tr class="flight-list">
-                <td><img width="200px" height="200px" src="images/${flight.img}"></td>
-                <td><c:out value="${flight.itemID}" /></td>
-                <td><c:out value="${flight.name}" /></td>
-                <fmt:formatNumber var="formattedUnitPrice" type="number" minFractionDigits="2" maxFractionDigits="2" value="${flight.price}" />
-                <td>$<c:out value="${formattedUnitPrice}" /></td>
-                <td><c:out value="${flight.startTime}" /></td>
-                <td><c:out value="${flight.departureCity}" /></td>
-                <td><c:out value="${flight.destinationCity}" /></td>
-                <td><c:out value="${flight.hours}" /> hrs</td>
-                <td><c:out value="${flight.seatType}" /></td>
-                <td>
-                    <form action="updateFlight.jsp">
-                        <input type="hidden" id="flightIndex" name="flightIndex" value="<%= flightIndex%>"/>
-                        <input id="updateFlight" type="submit" value="Update"/>
+    <% 
+        Staff staff = (Staff)session.getAttribute("user");
+    %>
+    <%
+    if (staff.getStaffTypeID()==1) { 
+    %>
+        <div>
+            <center>
+                <h1>Flights Catalogue Management</h1>
+            </br>
+            </br>
+                <h2>
+                    <form action="http://localhost:8080/addFlight.jsp">
+                        <button type="submit">Add new device</button>
                     </form>
-                    <form action="deleteFlight.jsp">
-                        <input type="hidden" id="flightIndex" name="flightIndex" value="<%= flightIndex%>"/>
-                        <input id="deleteFlight" type="submit" value="Delete"/>
+                    &nbsp;&nbsp;&nbsp;
+                    <form action="http://localhost:8080/flights.jsp">
+                        <button type="submit">List all devices</button>
                     </form>
-                </td>
-                <% flightIndex++;%>
-            </tr>
-        </c:forEach>
-        </table>
-    </div> 
+
+                </h2>
+            </center>
+        </div>
+        <br/>
+        <br/>
+
+        <div>
+            <table>
+                <tr class="flight-list">
+                    <th></th>
+                    <th>Flight ID</th>
+                    <th>Company</th>
+                    <th>Price</th>
+                    <th>Flight Time</th>
+                    <th>Departure</th>
+                    <th>Destination</th>
+                    <th>Time</th>
+                    <th>Seat</th>
+                    <th></th>
+
+                </tr>
+            <c:forEach var="flight" items="${flightList}">
+                <tr class="flight-list">
+                    <td><img width="200px" height="200px" src="images/${flight.img}"></td>
+                    <td><c:out value="${flight.itemID}" /></td>
+                    <td><c:out value="${flight.name}" /></td>
+                    <fmt:formatNumber var="formattedUnitPrice" type="number" minFractionDigits="2" maxFractionDigits="2" value="${flight.price}" />
+                    <td>$<c:out value="${formattedUnitPrice}" /></td>
+                    <td><c:out value="${flight.startTime}" /></td>
+                    <td><c:out value="${flight.departureCity}" /></td>
+                    <td><c:out value="${flight.destinationCity}" /></td>
+                    <td><c:out value="${flight.hours}" /> hrs</td>
+                    <td><c:out value="${flight.seatType}" /></td>
+                    <td>
+                        <form action="updateFlight.jsp">
+                            <input type="hidden" id="flightIndex" name="flightIndex" value="<%= flightIndex%>"/>
+                            <input id="updateFlight" type="submit" value="Update"/>
+                        </form>
+                        <form action="deleteFlight.jsp">
+                            <input type="hidden" id="flightIndex" name="flightIndex" value="<%= flightIndex%>"/>
+                            <input id="deleteFlight" type="submit" value="Delete"/>
+                        </form>
+                    </td>
+                    <% flightIndex++;%>
+                </tr>
+            </c:forEach>
+            </table>
+        </div> 
+
+    <%
+    } else{
+    %>
+        <h1 align="center">No Permission to Access</h1>
+    <% 
+    }
+    %>  
+
     <% 
     }
     %>  
