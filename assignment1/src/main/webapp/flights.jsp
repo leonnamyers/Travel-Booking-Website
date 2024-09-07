@@ -15,17 +15,8 @@
     </head>
     <%
 
-            ArrayList<Flight> flightList = new ArrayList<Flight>();
-            Timestamp t1 = new Timestamp(124, 10, 23, 7, 00, 00, 00);
-            Timestamp t2 = new Timestamp(124, 11, 15, 8, 30, 00, 00);
-            Timestamp t3 = new Timestamp(124, 0, 15, 9, 00, 00, 00);
-            Flight f1 = new Flight("F101","JetEngine",250,50,"JetEngine.jpg",t1,"Sydney","Melbourne", 2,"Non-Stop","Economy");
-            Flight f2 = new Flight("F102","Harmony",630,50,"Harmony.jpg",t2,"Melbourne","Sydney",2,"Non stop","Business");
-            Flight f3 = new Flight("F103","Traveling",500,50,"Travel.jpg",t3,"Queensland","Melbourne",2,"Non stop","Premium Economy");    
-            flightList.add(f1);  
-            flightList.add(f2);  
-            flightList.add(f3);  
-            session.setAttribute("flightList", flightList);
+            ArrayList<Flight> flightList = (ArrayList<Flight>)session.getAttribute("flightList");
+
             User user = (User)session.getAttribute("user");
             int flightIndex = 0;
     %>
@@ -191,12 +182,12 @@
                 <td><c:out value="${flight.hours}" /> hrs</td>
                 <td><c:out value="${flight.seatType}" /></td>
                 <td>
-                    <form action="addFlight.jsp">
-                        <input type="hidden" name="flightIndex" value="<%= flightIndex%>"/>
+                    <form action="updateFlight.jsp">
+                        <input type="hidden" id="flightIndex" name="flightIndex" value="<%= flightIndex%>"/>
                         <input id="updateFlight" type="submit" value="Update"/>
                     </form>
                     <form action="deleteFlight.jsp">
-                        <input type="hidden" name="flightIndex" value="<%= flightIndex%>"/>
+                        <input type="hidden" id="flightIndex" name="flightIndex" value="<%= flightIndex%>"/>
                         <input id="deleteFlight" type="submit" value="Delete"/>
                     </form>
                 </td>
