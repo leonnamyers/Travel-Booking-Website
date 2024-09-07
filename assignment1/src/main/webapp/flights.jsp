@@ -27,6 +27,7 @@
             flightList.add(f3);  
             session.setAttribute("flightList", flightList);
             User user = (User)session.getAttribute("user");
+            int flightIndex = 0;
     %>
     <body>
     <nav>
@@ -56,9 +57,6 @@
 
     <img src="/images/flightPhoto.jpeg" width="100%" >
 
-    <%
-        if ((user == null) || (user != null && user.getUserType() == UserType.CUSTOMER)) { 
-    %>
     <div>    
         <form>
             <label>Departure:</label>
@@ -102,6 +100,10 @@
         <br/>
         <br/>
     </div>
+
+    <%
+        if ((user == null) || (user != null && user.getUserType() == UserType.CUSTOMER)) { 
+    %>
 
     <div>
         <table>
@@ -142,51 +144,6 @@
     <%
     } else if(user != null && user.getUserType() == UserType.STAFF) {
     %>
-
-    <div>    
-        <form>
-            <label>Departure:</label>
-            <input list="departures" name="departure" id="departure" type="text">
-                <datalist id="departures">
-                    <option value="Sydney">
-                    <option value="Melbourne">
-                    <option value="Brisbane">
-                    <option value="Canberra">
-                    <option value="Perth">
-                    <option value="Adelaide">
-                    <option value="Gold Coast">
-                    <option value="Darwin">
-                </datalist>
-            </input>
-            <label>Destination:</label>
-            <input list="destinations" name="destination" id="destination" type="text">
-                <datalist id="destinations">
-                    <option value="Sydney">
-                    <option value="Melbourne">
-                    <option value="Brisbane">
-                    <option value="Canberra">
-                    <option value="Perth">
-                    <option value="Adelaide">
-                    <option value="Gold Coast">
-                    <option value="Darwin">
-                </datalist>
-            </input>
-            <input name="departureTime" id="departureTime" type="date">
-            
-            <label>Seat</label>
-            <select name="seats" id="seats">
-                <option value="Economy">Economy</option>
-                <option value="Premium Economy">Premium Economy</option>
-                <option value="Business">Business</option>
-            </select>
-
-            <input type="submit">
-
-        </form>
-        <br/>
-        <br/>
-    </div>
-
     <div>
         <center>
             <h1>Flights Catalogue Management</h1>
@@ -234,13 +191,16 @@
                 <td><c:out value="${flight.hours}" /> hrs</td>
                 <td><c:out value="${flight.seatType}" /></td>
                 <td>
-                    <form action="">
+                    <form action="addFlight.jsp">
+                        <input type="hidden" name="flightIndex" value="<%= flightIndex%>"/>
                         <input id="updateFlight" type="submit" value="Update"/>
                     </form>
-                    <form action="">
+                    <form action="deleteFlight.jsp">
+                        <input type="hidden" name="flightIndex" value="<%= flightIndex%>"/>
                         <input id="deleteFlight" type="submit" value="Delete"/>
                     </form>
                 </td>
+                <% flightIndex++;%>
             </tr>
         </c:forEach>
         </table>
