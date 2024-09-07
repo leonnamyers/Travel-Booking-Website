@@ -38,11 +38,25 @@ public class LoginController extends HttpServlet {
                 session.setAttribute("passwordError", "Error: Password incorrectly formatted. Please try again.");
                 request.getRequestDispatcher("login.jsp").include(request, response);
             } else {
+                if (email.equals("clerk@clerk.com")) {
+                    // dummy clerk
+                    session.setAttribute("user", DummyUsers.getDummyClerk());
+                    session.setAttribute("welcomeMessage", "You have successfully logged in!");
+                    response.sendRedirect("welcome.jsp?login=success");
+                } else if (email.equals("admin@admin.com")) {
+                    // dummy admin
+                    session.setAttribute("user", DummyUsers.getDummyAdmin());
+                    session.setAttribute("welcomeMessage", "You have successfully logged in!");
+                    response.sendRedirect("welcome.jsp?login=success");
+                } else {
+                    // dummy customer
+                    session.setAttribute("user", DummyUsers.getDummyCustomer());
+                    session.setAttribute("welcomeMessage", "You have successfully logged in!");
+                    response.sendRedirect("welcome.jsp?login=success");
+                }
 
                 // Dummy Customer
-                session.setAttribute("user", DummyUsers.getDummyCustomer());
-                session.setAttribute("welcomeMessage", "You have successfully logged in!");
-                response.sendRedirect("welcome.jsp?login=success");
+                
                 /*
                 user = manager.userLogin(email, password, session.getId());
                 if (user != null) {
