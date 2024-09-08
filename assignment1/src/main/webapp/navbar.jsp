@@ -1,16 +1,29 @@
-<header>
 <div class="navbar">
     <div class="logo">
         Dream Escape
     </div>
-    
-    <form action="search" method="GET" >
-        <div class="search-box">
-            <label><input name="search" type="search" placeholder="Search IoT Products"></label>
-            <button type="submit" class="search-button">
-                <i class="fas fa-search"></i>
-            </button>
-        </div>
+    <ul>
+        <li><a href="javascript:void(0);" onclick="loadPackagePage()">Package Booking</a></li>
+        <li><a href="index.jsp?page=cruise">Cruise</a></li>
+        <li><a href="//localhost:8080/flights.jsp">Flight</a></li>
+    </ul>
+</div>
+
+<script>
+function loadPackagePage() {
+    window.location.href = 'PackageController?action=loadPackages';
+}
+</script>
+
+
+    <!--
+    <form action="search" method="GET" ></form>
+    <div class="search-box">
+        <label><input name="search" type="search" placeholder="Search IoT Products"></label>
+        <button type="submit" class="search-button">
+            <i class="fas fa-search"></i>
+        </button>
+    </div>
     </form>
 
     <div class="register-or-login">
@@ -40,4 +53,5 @@
 
 </div>
 </header>
+-->
 

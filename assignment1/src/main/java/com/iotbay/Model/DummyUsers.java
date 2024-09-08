@@ -14,7 +14,7 @@ public class DummyUsers {
         ));
     
     private static Staff dummyClerk = new Staff(
-        "staffClerk@clerk.com",
+        "clerk@clerk.com",
         "4321",
         "Alex",
         "Clerk",
@@ -23,7 +23,7 @@ public class DummyUsers {
     );
 
     private static Staff dummyAdmin = new Staff(
-        "staffAdmin@admin.com",
+        "admin@admin.com",
         "0987",
         "Blake",
         "Admin",
