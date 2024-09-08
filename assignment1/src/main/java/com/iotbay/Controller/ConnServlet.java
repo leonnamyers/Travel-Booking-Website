@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import com.iotbay.Dao.DBConnector;
 import com.iotbay.Dao.DBManager;
+import com.iotbay.Model.Cart;
+
 import java.io.IOException;
 
 // A get request is sent to this Servlet using jsp:include for any JSP page that may potentially use the DB.
@@ -33,10 +35,19 @@ public class ConnServlet extends HttpServlet {
 
     @Override 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        /*
+
+        // adding cart to sessions
+        // when the person logs out or if the session goes on 30 mins (i think - something like that)
+        // the session is cleared
+
+    
         response.setContentType("text/html;charset=UTF-8");       
         HttpSession session = request.getSession();
 
+        Cart cart = new Cart();
+        session.setAttribute("cart", cart);
+
+        /*
         if (session.getAttribute("manager") != null) {
             return;
         }
