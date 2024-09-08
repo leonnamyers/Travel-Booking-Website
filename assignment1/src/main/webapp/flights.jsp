@@ -106,7 +106,7 @@
                 <th>Flight Time</th>
                 <th>Departure</th>
                 <th>Destination</th>
-                <th>Time</th>
+                <th>Duration</th>
                 <th>Seat</th>
                 <th></th>
 
@@ -171,7 +171,7 @@
                     <th>Flight Time</th>
                     <th>Departure</th>
                     <th>Destination</th>
-                    <th>Time</th>
+                    <th>Duration</th>
                     <th>Seat</th>
                     <th></th>
 
