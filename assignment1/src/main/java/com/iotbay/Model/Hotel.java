@@ -6,12 +6,12 @@ import java.sql.Time;
 public class Hotel extends Item{
 
     private String roomType;
-    private String roomSize;
+    private int roomSize;
     private String roomDetails;
     private String city;
     
     public Hotel(String itemID, String name, double price, int availability, String img, String roomType,
-            String roomSize, String roomDetails, String city) {
+            int roomSize, String roomDetails, String city) {
         super(itemID, name, price, availability, img);
         this.roomType = roomType;
         this.roomSize = roomSize;
@@ -24,10 +24,10 @@ public class Hotel extends Item{
     public void setRoomType(String roomType) {
         this.roomType = roomType;
     }
-    public String getRoomSize() {
+    public int getRoomSize() {
         return roomSize;
     }
-    public void setRoomSize(String roomSize) {
+    public void setRoomSize(int roomSize) {
         this.roomSize = roomSize;
     }
     public String getRoomDetails() {
