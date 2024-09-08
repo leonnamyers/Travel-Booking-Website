@@ -156,3 +156,12 @@ th {
     margin-right: 5px;
     float: left;
 }
+
+.flight-list th,td{
+    width: 11%;
+}
+
+.flight-list img{
+    width: 200px;
+    height: 200px;
+}
