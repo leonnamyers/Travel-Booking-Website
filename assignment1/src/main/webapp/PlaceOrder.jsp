@@ -1,41 +1,23 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="javax.servlet.http.HttpSession"%>
-<%@page import="javax.servlet.http.HttpServletRequest"%>
-<%@page import="com.iotbay.*" %>
+<%@page import="com.iotbay.Model.User" %>
+<%@page import="com.iotbay.Model.Cart" %>
+<%@page import="com.iotbay.Model.Order" %>
+
 
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="css/style.css"> 
-        <script type="text/javascript" src="js/index.js"></script>
-        <title>Dream Escape- Order Placed!</title>
+        <link rel="stylesheet" href="<%= request.getContextPath() %>/css/style.css"> 
+        <script type="text/javascript" src="<%= request.getContextPath() %>/js/index.js"></script>
+        <title>Dream Escape - Order Placed!</title>
         <nav>
-    
-            <!--Menu Items => If User is logged in-->
-    
-            <%
-            if (session != null && session.getAttribute("user") != null) {
-            %>
             <ul>
-                <li><a href="index.jsp">Home</a></li>
+                <<li><a href="index.jsp">Home</a></li>
                 <li><a href="account_details.jsp">Account</a></li>
                 <li><a href="logout.jsp">Logout</a></li>
             </ul>
-    
-            <!--Menu Items => If User is NOT logged in-->
-    
-            <%
-            } else {
-            %>
-            <ul>
-                <li><a href="index.jsp">Home</a></li>
-                <li><a href="login.jsp">Login</a></li>
-                <li><a href="register.jsp">Register</a></li>
-            </ul>
-            <% 
-            }
-            %>
         </nav>
     </head>
 <body>
@@ -44,10 +26,14 @@
             <h2 class="form-element">Travel Details:</h2>
 
             <div class="form-container">
-                <form method="post" action="PlaceOrderController">
+                <form method="post" action="<%= request.getContextPath() %>/PlaceOrderController">
                     <div class="form-element">
-                        <label for="name">Name:</label>
-                        <input type="text" name="name" id="name" value="<%= user != null ? user.getUsername() : "" %>" required />
+                        <label for="first-name">First Name:</label>
+                        <input type="text" name="firstName" id="first-name" value="<%= user != null ? user.getFirstName() : "" %>" required />
+                    </div>
+                    <div class="form-element">
+                        <label for="last-name">Last Name:</label>
+                        <input type="text" name="lastName" id="last-name" value="<%= user != null ? user.getLastName() : "" %>" required />
                     </div>
                     <div class="form-element">
                         <label for="email">Email:</label>

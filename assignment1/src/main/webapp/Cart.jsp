@@ -1,5 +1,4 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="java.util.Random"%>
 <%@page import="javax.servlet.http.HttpSession"%>
 <%@page import="javax.servlet.http.HttpServletRequest"%>
 <%@page import="com.iotbay.*" %>
@@ -14,9 +13,14 @@
         <title>View Cart</title>
     </head>
     <body>
-        <jsp:include page="navbar.jsp"/>
         <main class="text-display">
-            <% if (cart == null || cart.isEmpty()) { %>
+            <%
+            Cart cart = (Cart) session.getAttribute("cart");
+            if (cart == null) {
+                cart = new Cart();
+                session.setAttribute("cart", cart);
+            }
+            %>
                 <div id="empty-cart">
                     <h1>Your cart is empty</h1>
                     <p>Why not check out <a href="<%= request.getContextPath() %>">our store</a>?</p>

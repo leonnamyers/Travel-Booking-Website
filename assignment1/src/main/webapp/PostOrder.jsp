@@ -13,9 +13,14 @@
         <script type="text/javascript" src="js/index.js"></script>
         <title>Dream Escape - Thank You!</title>
 </head>
+    <nav>
+        <ul>
+            <li><a href="index.jsp">Home</a></li>
+            <li><a href="account_details.jsp">Account</a></li>
+            <li><a href="logout.jsp">Logout</a></li>
+        </ul>
+    </nav>
 <body>
-    <jsp:include page="navbar.jsp"/>
-
     <main class="text-display">
         <h1>Your destination has been booked!</h1>
         <h2>Thank you for using Dream Escape</h2>
