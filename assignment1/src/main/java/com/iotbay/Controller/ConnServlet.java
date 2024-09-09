@@ -1,17 +1,15 @@
 package com.iotbay.Controller;
 
+import java.io.IOException;
 import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
 import com.iotbay.Dao.DBConnector;
 import com.iotbay.Dao.DBManager;
-import java.io.IOException;
 
 // A get request is sent to this Servlet using jsp:include for any JSP page that may potentially use the DB.
 // The DB connection and DBManager is only created once and stored in the session to be shared across the app

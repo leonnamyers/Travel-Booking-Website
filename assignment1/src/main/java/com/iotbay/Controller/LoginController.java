@@ -1,19 +1,16 @@
 package com.iotbay.Controller;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import com.iotbay.Dao.DBManager;
-import com.iotbay.Model.Address;
-import com.iotbay.Model.Customer;
+
 import com.iotbay.Model.DummyUsers;
-import com.iotbay.Model.Staff;
 import com.iotbay.Model.User;
 
 // Logs in the stored user by verifying username and password information against the database
