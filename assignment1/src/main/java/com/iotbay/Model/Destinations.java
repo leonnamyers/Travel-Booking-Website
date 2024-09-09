@@ -1,67 +1,61 @@
 package com.iotbay.Model;
 
-import java.util.ArrayList;
-import java.util.List;
+public class Destinations {
 
-import javax.jms.Destination;
+    private String name;
+    private String description;
+    private double price;
+    private int quantity;
 
-public final class Cart {
-    private List<Destination> destinations;
-
-    public Cart() {
-        destinations = new ArrayList<>();
+    public Destinations() {
     }
 
-    // Check if the cart is empty
-    public boolean isEmpty() {
-        return destinations.isEmpty();
+    public Destinations(String name, String description, double price, int quantity) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.quantity = quantity;
     }
 
-    // Clear the cart
-    public void clear() {
-        destinations.clear();
+    public String getName() {
+        return name;
     }
 
-    // Add a destination to the cart
-    public void addDestination(Destination destination) {
-        destinations.add(destination);
+    public void setName(String name) {
+        this.name = name;
     }
 
-    // Remove a destination from the cart by index
-    public void removeDestination(int index) {
-        if (index >= 0 && index < destinations.size()) {
-            destinations.remove(index);
-        }
+    public String getDescription() {
+        return description;
     }
 
-    // Update the quantity of a destination by index
-    public void updateQuantity(int index, int newQuantity) {
-        if (index >= 0 && index < destinations.size()) {
-            Destination destination = destinations.get(index);
-            destination.setQuantity(newQuantity); // Assume Destination class has a setQuantity method
-        }
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    // Get the list of destinations in the cart
-    public List<Destination> getDestinations() {
-        return destinations;
+    public double getPrice() {
+        return price;
     }
 
-    // Get the total number of items in the cart
-    public int getTotalItems() {
-        int total = 0;
-        for (Destination destination : destinations) {
-            total += destination.getQuantity();
-        }
-        return total;
+    public void setPrice(double price) {
+        this.price = price;
     }
 
-    // Calculate the total price of the cart
-    public double getTotalPrice() {
-        double totalPrice = 0.0;
-        for (Destination destination : destinations) {
-            totalPrice += destination.getPrice() * destination.getQuantity(); // Assume Destination class has getPrice method
-        }
-        return totalPrice;
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    @Override
+    public String toString() {
+        return "Destination{" +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                ", quantity=" + quantity +
+                '}';
     }
 }

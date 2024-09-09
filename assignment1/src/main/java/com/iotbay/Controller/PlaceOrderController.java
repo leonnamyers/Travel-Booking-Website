@@ -24,7 +24,7 @@ public class PlaceOrderController extends HttpServlet {
         }
 
         request.setAttribute("cart", cart); // Send cart details to JSP
-        request.getRequestDispatcher("order-summary.jsp").forward(request, response); // Show order summary
+        request.getRequestDispatcher("placeOrder.jsp").forward(request, response); // Show order summary
     }
 
     @Override
@@ -38,6 +38,6 @@ public class PlaceOrderController extends HttpServlet {
         }
 
         // Redirect to post-order thank you page
-        response.sendRedirect("post-order");
+        response.sendRedirect("PostOrder.jsp");
     }
 }

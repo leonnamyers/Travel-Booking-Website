@@ -26,6 +26,3 @@ public class PostOrderController extends HttpServlet {
         request.getRequestDispatcher("thankyou.jsp").forward(request, response);
     }
 }
-
-    
-}

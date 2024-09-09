@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.jms.Destination;
 
-public final class Cart {
+public class Cart {
     private List<Destination> destinations;
 
     public Cart() {
@@ -38,7 +38,7 @@ public final class Cart {
     public void updateQuantity(int index, int newQuantity) {
         if (index >= 0 && index < destinations.size()) {
             Destination destination = destinations.get(index);
-            destination.setQuantity(newQuantity); // Assume Destination class has a setQuantity method
+            destination.setQuantity(newQuantity);
         }
     }
 
@@ -60,7 +60,7 @@ public final class Cart {
     public double getTotalPrice() {
         double totalPrice = 0.0;
         for (Destination destination : destinations) {
-            totalPrice += destination.getPrice() * destination.getQuantity(); // Assume Destination class has getPrice method
+            totalPrice += destination.getPrice() * destination.getQuantity();
         }
         return totalPrice;
     }
