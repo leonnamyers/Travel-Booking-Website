@@ -165,3 +165,74 @@ th {
     width: 200px;
     height: 200px;
 }
+
+.text-display {
+    padding: 30px;
+    max-width: 800px;
+    margin: 30px auto;
+    background-color: #fff;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.form-container {
+    padding: 20px;
+}
+
+h2.form-element {
+    margin-bottom: 20px;
+    color: #2980b9;
+}
+
+/* Form Element Styles */
+.form-element {
+    margin-bottom: 20px;
+}
+
+.form-element label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 16px;
+    color: #555;
+}
+
+.form-element input[type="text"],
+.form-element input[type="email"],
+.form-element input[type="date"],
+.form-element input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.form-element input[type="text"]:focus,
+.form-element input[type="email"]:focus,
+.form-element input[type="date"]:focus,
+.form-element input[type="number"]:focus {
+    outline: none;
+    border-color: #2980b9;
+    box-shadow: 0px 0px 5px rgba(41, 128, 185, 0.5);
+}
+
+/* Error Message Styles */
+.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid #f5c6cb;
+    border-radius: 4px;
+}
+
+/* Button Styles */
+.general-buttons {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    display: inline-block;
+}
