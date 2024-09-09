@@ -3,10 +3,8 @@ package com.iotbay.Model;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.jms.Destination;
-
 public class Cart {
-    private List<Destination> destinations;
+    private List<Destinations> destinations;  
 
     public Cart() {
         destinations = new ArrayList<>();
@@ -23,7 +21,7 @@ public class Cart {
     }
 
     // Add a destination to the cart
-    public void addDestination(Destination destination) {
+    public void addDestination(Destinations destination) {
         destinations.add(destination);
     }
 
@@ -37,20 +35,20 @@ public class Cart {
     // Update the quantity of a destination by index
     public void updateQuantity(int index, int newQuantity) {
         if (index >= 0 && index < destinations.size()) {
-            Destination destination = destinations.get(index);
+            Destinations destination = destinations.get(index);  // Corrected here
             destination.setQuantity(newQuantity);
         }
     }
 
     // Get the list of destinations in the cart
-    public List<Destination> getDestinations() {
+    public List<Destinations> getDestinations() {
         return destinations;
     }
 
     // Get the total number of items in the cart
     public int getTotalItems() {
         int total = 0;
-        for (Destination destination : destinations) {
+        for (Destinations destination : destinations) {
             total += destination.getQuantity();
         }
         return total;
@@ -59,7 +57,7 @@ public class Cart {
     // Calculate the total price of the cart
     public double getTotalPrice() {
         double totalPrice = 0.0;
-        for (Destination destination : destinations) {
+        for (Destinations destination : destinations) {
             totalPrice += destination.getPrice() * destination.getQuantity();
         }
         return totalPrice;

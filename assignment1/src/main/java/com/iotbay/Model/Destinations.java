@@ -58,4 +58,8 @@ public class Destinations {
                 ", quantity=" + quantity +
                 '}';
     }
+
+    public Destinations get(int index) {
+        return new Destinations(name, description, price, quantity);
+    }
 }
