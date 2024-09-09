@@ -56,4 +56,20 @@
         <servlet-name>PackageController</servlet-name>
         <url-pattern>/PackageController</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>RegisterPanelController</servlet-name>
+        <servlet-class>com.iotbay.Controller.RegisterPanelController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RegisterPanelController</servlet-name>
+        <url-pattern>/RegisterPanelController</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>UpdateUserPanelController</servlet-name>
+        <servlet-class>com.iotbay.Controller.UpdateUserPanelController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UpdateUserPanelController</servlet-name>
+        <url-pattern>/UpdateUserPanelController</url-pattern>
+    </servlet-mapping>
 </web-app>
