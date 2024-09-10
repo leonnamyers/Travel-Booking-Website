@@ -7,9 +7,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.iotbay.Dao.DBConnector;
 import com.iotbay.Dao.DBManager;
+import com.iotbay.Model.Cart;
 
 // A get request is sent to this Servlet using jsp:include for any JSP page that may potentially use the DB.
 // The DB connection and DBManager is only created once and stored in the session to be shared across the app
@@ -31,6 +33,13 @@ public class ConnServlet extends HttpServlet {
 
     @Override 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        
+        response.setContentType("text/html;charset=UTF-8");       
+        HttpSession session = request.getSession();
+
+        Cart cart = new Cart();
+        session.setAttribute("cart", cart);
+        
         /*
         response.setContentType("text/html;charset=UTF-8");       
         HttpSession session = request.getSession();
