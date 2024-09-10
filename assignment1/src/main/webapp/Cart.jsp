@@ -2,6 +2,8 @@
 <%@page import="javax.servlet.http.HttpSession"%>
 <%@page import="javax.servlet.http.HttpServletRequest"%>
 <%@page import="com.iotbay.*" %>
+<%@ page import="com.iotbay.Model.*" %>
+
 
 <!DOCTYPE html>
 
@@ -16,6 +18,7 @@
         <main class="text-display">
             <%
             Cart cart = (Cart) session.getAttribute("cart");
+            if (cart!= null && cart.isEmpty()) {
             %>
                 <div id="empty-cart">
                     <h1>Your cart is empty</h1>

@@ -50,7 +50,7 @@ public class Cart {
     }*/
 
     // Get the list of destinations in the cart
-    public List<Item> getDestinations() {
+    public List<Item> getItems() {
         return cart;
     }
 
