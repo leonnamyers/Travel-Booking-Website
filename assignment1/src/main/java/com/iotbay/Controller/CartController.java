@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.iotbay.Model.Cart;
+import com.iotbay.Model.Customer;
+import com.iotbay.Model.Order;
 
 public class CartController extends HttpServlet {
 
@@ -40,47 +42,20 @@ public class CartController extends HttpServlet {
 
         try {
             switch (action) {
-                case SAVE_BUTTON_VALUE:
-                    saveChanges(request, response, cart);
-                    break;
                 case CLEAR_BUTTON_VALUE:
                     clearCart(request, response, cart);
                     break;
                 case CONFIRM_ORDER_BUTTON_VALUE:
                     confirmOrder(request, response, cart);
                     break;
-                default:
-                    updateOrRemoveDestination(request, response, cart);
-                    break;
+                /*default:
+                    updateOrRemoveItem(request, response, cart);
+                    break;*/
             }
         } catch (Exception ex) {
             LOGGER.log(Level.SEVERE, "Error processing cart action: {0}", ex.getMessage());
             response.sendRedirect("error.jsp");
         }
-    }
-
-    private void updateOrRemoveDestination(HttpServletRequest request, HttpServletResponse response, Cart cart) throws ServletException, IOException {
-        Enumeration<String> parameters = request.getParameterNames();
-        int index = -1;
-        while (parameters.hasMoreElements()) {
-            String element = parameters.nextElement();
-            if (element.contains("remove")) {
-                index = Integer.parseInt(element.replace("remove", ""));
-                cart.removeDestination(index); // Remove destination
-            } else if (element.contains("update")) {
-                index = Integer.parseInt(element.replace("update", ""));
-                int newQuantity = Integer.parseInt(request.getParameter("quantity" + index));
-                cart.updateQuantity(index, newQuantity); // Update destination details
-            }
-        }
-        request.getSession().setAttribute("cart", cart);
-        serveJSP(request, response, "cart.jsp");
-    }
-
-    private void saveChanges(HttpServletRequest request, HttpServletResponse response, Cart cart) throws ServletException, IOException {
-        updateQuantities(request, cart);
-        request.getSession().setAttribute("cart", cart);
-        serveJSP(request, response, "cart.jsp");
     }
 
     private void clearCart(HttpServletRequest request, HttpServletResponse response, Cart cart) throws ServletException, IOException {
@@ -90,16 +65,17 @@ public class CartController extends HttpServlet {
     }
 
     private void confirmOrder(HttpServletRequest request, HttpServletResponse response, Cart cart) throws IOException {
-        updateQuantities(request, cart);
+        //updateQuantities(request, cart);
+
+        // Create Order
+        Order order = new Order();
+        order.setCart((Cart) request.getAttribute("cart"));
+        order.setCustomer((Customer) request.getAttribute("user"));
+
+        // DAO stuff using Order
+
         request.getSession().setAttribute("cart", cart);
         response.sendRedirect("place-order"); // Redirect to place order page
-    }
-
-    private void updateQuantities(HttpServletRequest request, Cart cart) {
-        for (int i = 0; i < cart.getDestinations().size(); i++) {
-            int quantity = Integer.parseInt(request.getParameter("quantity" + i));
-            cart.updateQuantity(i, quantity);
-        }
     }
 
     private void serveJSP(HttpServletRequest request, HttpServletResponse response, String page) throws ServletException, IOException {

@@ -3,6 +3,64 @@ package com.iotbay.Model;
 import java.io.Serializable;
 
 public class Order implements Serializable {
+    Customer customer;
+    Cart cart;
+    // Payment -> later
+
+    public Order() {
+
+    }
+
+    public Order(Customer customer, Order order) {
+        this.customer = customer;
+        this.cart = cart;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
+
+    
+
+    /*
+    CREATE TABLE `Order` (
+        `order_id` int NOT NULL,
+        `email` varchar(100) DEFAULT NULL,
+        `order_date` date DEFAULT NULL,
+        PRIMARY KEY (`order_id`)
+      )
+       
+      CREATE TABLE `OrderLine` (
+        `order_id` int NOT NULL,
+        `item_id` int NOT NULL,
+        `item_type` char(2) NOT NULL,
+        `quantity` int NOT NULL,
+        `payment_id` int DEFAULT NULL,
+        `item_price` decimal(10,2) DEFAULT NULL,
+        `total_price` decimal(10,2) GENERATED ALWAYS AS ((`item_price` * `quantity`)) STORED,
+        PRIMARY KEY (`order_id`,`item_id`,`item_type`),
+        KEY `item_id` (`item_id`,`item_type`),
+        CONSTRAINT `orderline_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `Order` (`order_id`),
+        CONSTRAINT `orderline_ibfk_2` FOREIGN KEY (`item_id`, `item_type`) REFERENCES `Item` (`item_id`, `item_type`)
+      )
+        */
+      
+
+}
+
+    /*
     private int bookingNumber;
     private String customerEmail;
     private String destination;
@@ -63,3 +121,4 @@ public class Order implements Serializable {
         this.numberOfPassengers = numberOfPassengers;
     }
 }
+    */

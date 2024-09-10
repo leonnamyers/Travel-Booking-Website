@@ -2,6 +2,8 @@
 <%@page import="javax.servlet.http.HttpSession"%>
 <%@page import="javax.servlet.http.HttpServletRequest"%>
 <%@page import="com.iotbay.*" %>
+<%@ page import="com.iotbay.Model.*" %>
+
 
 <!DOCTYPE html>
 
@@ -16,10 +18,7 @@
         <main class="text-display">
             <%
             Cart cart = (Cart) session.getAttribute("cart");
-            if (cart == null) {
-                cart = new Cart();
-                session.setAttribute("cart", cart);
-            }
+            if (cart!= null && cart.isEmpty()) {
             %>
                 <div id="empty-cart">
                     <h1>Your cart is empty</h1>
@@ -32,18 +31,13 @@
                     <table class="display-table">
                         <tr>
                             <th>Product</th>
-                            <th>Quantity</th>
                             <th>Unit Price</th>
-                            <th>Subtotal</th>
                         </tr>
                         <% int itemNumber = 0;
-                            for (Product product : cart.getProducts()) { %>
+                            for (Item item : cart.getItems()) { %>
                             <tr>
-                                <td><%=product.getName()%></td>
-                                <td><input type="number" name="item<%=itemNumber%>" min="0" max="<%=product.getStock()%>" value="<%=product.getQuantity()%>"/></td>
-                                <td>$<%=product.getPrice()%></td>
-                                <td>$<%=String.format("%.2f", product.calculatePrice())%></td>
-                                <td><input type="submit" name="remove<%=itemNumber%>" value="Remove" class="table-button"/></td>
+                                <td><%=item.getName()%></td>
+                                <td>$<%=item.getPrice()%></td>
                             </tr>
                         <% itemNumber++; } %>
                     </table>
@@ -51,7 +45,6 @@
         
                     <div id="cart-buttons">
                         <input type="submit" name="action" value="Clear cart" class="general-buttons btn-outline-light"/>
-                        <input type="submit" name="action" value="Save changes" class="general-buttons btn-outline-dark"/>
                         <input type="submit" name="action" value="Place order" class="add-to-cart-button"/>
                     </div>
                 </form>
