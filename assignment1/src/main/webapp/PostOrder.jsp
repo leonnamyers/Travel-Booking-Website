@@ -21,7 +21,7 @@
         </ul>
     </nav>
 <body>
-    <main class="text-display">
+    <main class="form-container">
         <h1>Your destination has been booked!</h1>
         <h2>Thank you for using Dream Escape</h2>
     </main>
