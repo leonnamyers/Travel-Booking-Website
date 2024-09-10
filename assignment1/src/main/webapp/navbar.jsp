@@ -8,12 +8,6 @@
         <li><a href="//localhost:8080/flights.jsp">Flight</a></li>
         <li><a href="userListPanel.jsp">User List</a></li>
     </ul>
-    <% if (session.getAttribute("cart") != null) {
-        %>
-        <h1>cart is in session</h1>
-        <%
-    }
-    %>
 </div>
 
 <script>
