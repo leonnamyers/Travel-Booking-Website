@@ -18,18 +18,6 @@
     
     <div class="content">
         <%
-        if (session != null && session.getAttribute("user") != null) {
-            List<String> errors = (List<String>) session.getAttribute("errors");
-
-        %>
-        <div id="sessionErrors" class="error">
-            <% for (String error : errors) { %>
-                <p><%= error %></p>
-            <% } %>
-        </div>
-        <% } %>
-    
-        <%
         if (session != null && session.getAttribute("user") != null) { 
         %>
 
@@ -53,9 +41,17 @@
 </head>
     <body>
         <main class="text-display">
-            <%
+
+
+            <% 
             Cart cart = (Cart) session.getAttribute("cart");
-            if (cart!= null && cart.isEmpty()) {
+            
+            User user = (User) session.getAttribute("user");
+            if (user != null && cart != null) {
+                cart.addItemToCart(DummyItems.createDummyFlight());
+            }
+
+            if (cart == null || cart.isEmpty()) {
             %>
                 <div id="empty-cart">
                     <h1>Your cart is empty</h1>

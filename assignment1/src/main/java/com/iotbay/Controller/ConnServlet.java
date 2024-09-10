@@ -38,13 +38,14 @@ public class ConnServlet extends HttpServlet {
         // when the person logs out or if the session goes on 30 mins (i think - something like that)
         // the session is cleared
 
-    
-        
         response.setContentType("text/html;charset=UTF-8");       
         HttpSession session = request.getSession();
 
-        Cart cart = new Cart();
-        session.setAttribute("cart", cart);
+        Cart cart = (Cart) session.getAttribute("cart");
+        if (cart == null) {
+            cart = new Cart();
+            session.setAttribute("cart", cart);
+        }
         
         /*
         response.setContentType("text/html;charset=UTF-8");       
