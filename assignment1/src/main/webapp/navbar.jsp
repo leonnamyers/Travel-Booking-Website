@@ -6,6 +6,7 @@
         <li><a href="javascript:void(0);" onclick="loadPackagePage()">Package Booking</a></li>
         <li><a href="index.jsp?page=cruise">Cruise</a></li>
         <li><a href="//localhost:8080/flights.jsp">Flight</a></li>
+        <li><a href="userListPanel.jsp">User List</a></li>
     </ul>
     <% if (session.getAttribute("cart") != null) {
         %>
