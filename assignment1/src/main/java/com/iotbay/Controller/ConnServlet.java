@@ -39,6 +39,14 @@ public class ConnServlet extends HttpServlet {
         // the session is cleared
 
     
+        
+        response.setContentType("text/html;charset=UTF-8");       
+        HttpSession session = request.getSession();
+
+        Cart cart = new Cart();
+        session.setAttribute("cart", cart);
+        
+        /*
         response.setContentType("text/html;charset=UTF-8");       
         HttpSession session = request.getSession();
 
