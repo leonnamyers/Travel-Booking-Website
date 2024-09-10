@@ -75,7 +75,6 @@
                 </h2>
             </caption>
             
-  
             <!-- Form inputs -->
             <tr>
                 <th>Flight ID: </th>
@@ -83,13 +82,13 @@
                     <input type="text" name="itemID" id="itemID" value=""
                     />
                 </td>
-            </tr>  
+            </tr>
 
             <tr>
                 <th>Company: </th>
                 <td>
                     <input type="text" name="name" id="name" value=""
-                     />
+                    />
                 </td>
             </tr>
             

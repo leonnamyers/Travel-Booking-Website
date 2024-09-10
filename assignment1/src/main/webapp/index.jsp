@@ -21,15 +21,15 @@
             Flight f1 = new Flight("F101","JetEngine",250,50,"JetEngine.jpg",t1,"Sydney","Melbourne", 2,"Non-Stop","Economy");
             Flight f2 = new Flight("F102","Harmony",630,50,"Harmony.jpg",t2,"Melbourne","Sydney",2,"Non stop","Business");
             Flight f3 = new Flight("F103","Traveling",500,50,"Travel.jpg",t3,"Queensland","Melbourne",2,"Non stop","Premium Economy");    
-            flightList.add(f1);  
-            flightList.add(f2);  
-            flightList.add(f3);  
+            flightList.add(f1);
+            flightList.add(f2);
+            flightList.add(f3);
             session.setAttribute("flightList", flightList);
         }
     %>
     <body>
         <nav>
-            <h1>Home</h1>
+            <h1>Dream Escape</h1>
             <!--If User is logged in-->
             <%
             if (session != null && session.getAttribute("user") != null) { 

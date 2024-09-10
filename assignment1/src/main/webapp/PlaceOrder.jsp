@@ -9,8 +9,9 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="<%= request.getContextPath() %>/css/style.css"> 
-        <script type="text/javascript" src="<%= request.getContextPath() %>/js/index.js"></script>
+        <link rel="stylesheet" href="/css/style.css">
+        <script type="text/javascript" src="/js/index.js">
+        </script>
         <title>Dream Escape - Order Placed!</title>
         <nav>
             <ul>
@@ -26,18 +27,18 @@
             <h2 class="form-element">Travel Details:</h2>
 
             <div class="form-container">
-                <form method="post" action="<%= request.getContextPath() %>/PlaceOrderController">
+                <form action="/PlaceOrderController" method="post">
                     <div class="form-element">
                         <label for="first-name">First Name:</label>
-                        <input type="text" name="firstName" id="first-name" value="<%= user != null ? user.getFirstName() : "" %>" required />
+                        <input type="text" name="firstName" id="first-name" required />
                     </div>
                     <div class="form-element">
                         <label for="last-name">Last Name:</label>
-                        <input type="text" name="lastName" id="last-name" value="<%= user != null ? user.getLastName() : "" %>" required />
+                        <input type="text" name="lastName" id="last-name" required />
                     </div>
                     <div class="form-element">
                         <label for="email">Email:</label>
-                        <input type="email" name="email" id="email" value="<%= user != null ? user.getEmail() : "" %>" required />
+                        <input type="email" name="email" id="email" required />
                     </div>
                     <div class="form-element">
                         <label for="destination">Destination:</label>
