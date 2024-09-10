@@ -30,8 +30,9 @@
         <% } %>
     
         <%
-            User user = (User) session.getAttribute("user");
+        if (session != null && session.getAttribute("user") != null) { 
         %>
+
         <ul>
             <li><a href="index.jsp">Home</a></li>
             <li><a href="account_details.jsp">Account</a></li>
@@ -58,7 +59,7 @@
             %>
                 <div id="empty-cart">
                     <h1>Your cart is empty</h1>
-                    <p>Why not check out <a href="<%= request.getContextPath() %>">our store</a>?</p>
+                    <p>Why not check out <a href="index.jsp"">our store</a>?</p>
                 </div>
             <% }  else {%>
             <h1 class="page-heading">Your cart</h1>
