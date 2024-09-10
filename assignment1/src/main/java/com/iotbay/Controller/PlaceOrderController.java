@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import com.iotbay.Model.User;
 
 import com.iotbay.Model.Cart;
 
@@ -16,7 +17,6 @@ public class PlaceOrderController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         Cart cart = (Cart) session.getAttribute("cart");
-        User user = (User) session.getAttribute("user");
 
         if (cart == null || cart.isEmpty()) {
             response.sendRedirect(request.getContextPath() + "/cart.jsp"); // Redirect to cart if empty
