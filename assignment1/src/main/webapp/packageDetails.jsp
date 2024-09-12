@@ -38,7 +38,7 @@
         <div class="package-details-right">
             <% if (selectedPackage != null) { %>
             <form action="BookingController" method="post" class="package-details-form">
-                <input type="hidden" name="packageId" value="<%= selectedPackage.getId() %>" />
+                <input type="hidden" name="packageId" value="<%= selectedPackage.getItemID() %>" /> <!-- 修改这里 -->
 
                 <label for="startDate">Start Date:</label>
                 <input type="date" id="startDate" name="startDate" required>
