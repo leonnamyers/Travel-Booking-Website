@@ -37,8 +37,9 @@
         int hours = Integer.parseInt((String)request.getParameter("hours"));
         String stops = (String)request.getParameter("stops");
         String seatType = (String)request.getParameter("seatType");
+        String img = (String)request.getParameter("img");
 
-        Flight addedFlight = new Flight(itemID,name,price,availability,"",startTimeStamp, endTimeStamp, 
+        Flight addedFlight = new Flight(itemID,name,price,availability,img,startTimeStamp, endTimeStamp, 
         departureCity, destinationCity, hours, stops, seatType);
 
         flightList.add(addedFlight);
@@ -52,6 +53,7 @@
             if (session != null && session.getAttribute("user") != null) { 
             %>
             <ul>
+                <li><a href="Cart.jsp">Cart</a></li>
                 <li><a href="index.jsp">Home</a></li>
                 <li><a href="account_details.jsp">Account</a></li>
                 <li><a href="logout.jsp">Logout</a></li>
@@ -61,6 +63,7 @@
             } else {
             %>
             <ul>
+                <li><a href="Cart.jsp">Cart</a></li>
                 <li><a href="index.jsp">Home</a></li>
                 <li><a href="login.jsp">Login</a></li>
                 <li><a href="register.jsp">Register</a></li>

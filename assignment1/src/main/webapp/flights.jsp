@@ -28,6 +28,7 @@
         if (session != null && session.getAttribute("user") != null) { 
         %>
         <ul>
+            <li><a href="Cart.jsp">Cart</a></li>
             <li><a href="index.jsp">Home</a></li>
             <li><a href="account_details.jsp">Account</a></li>
             <li><a href="logout.jsp">Logout</a></li>
@@ -37,6 +38,7 @@
         } else {
         %>
         <ul>
+            <li><a href="Cart.jsp">Cart</a></li>
             <li><a href="index.jsp">Home</a></li>
             <li><a href="login.jsp">Login</a></li>
             <li><a href="register.jsp">Register</a></li>
@@ -61,6 +63,8 @@
                     <option value="Adelaide">
                     <option value="Gold Coast">
                     <option value="Darwin">
+                    <option value="Christmas Island"></option>
+                    <option value="Hobart"></option>
                 </datalist>
             </input>
             <label>Destination:</label>
@@ -74,13 +78,16 @@
                     <option value="Adelaide">
                     <option value="Gold Coast">
                     <option value="Darwin">
+                    <option value="Christmas Island"></option>
+                    <option value="Hobart"></option>
                 </datalist>
             </input>
             <input name="departureTime" id="departureTime" type="date">
             
             <label>Seat</label>
-            <select name="seats" id="seats">
-                <option value="Economy">Economy</option>
+ 
+            <select id="seats" name="seats" type="text">
+                <option value="Economy" selected="selected">Economy</option>
                 <option value="Premium Economy">Premium Economy</option>
                 <option value="Business">Business</option>
             </select>
@@ -103,7 +110,8 @@
                 <th></th>
                 <th>Company</th>
                 <th>Price</th>
-                <th>Flight Time</th>
+                <th>Departure Time</th>
+                <th>Arrival Time</th>
                 <th>Departure</th>
                 <th>Destination</th>
                 <th>Duration</th>
@@ -173,6 +181,7 @@
                     <th>Arrival Time</th>
                     <th>Departure</th>
                     <th>Destination</th>
+                    <th>Available</th>
                     <th>Duration</th>
                     <th>Seat</th>
                     <th></th>
@@ -189,6 +198,7 @@
                     <td><c:out value="${flight.endTime}" /></td>
                     <td><c:out value="${flight.departureCity}" /></td>
                     <td><c:out value="${flight.destinationCity}" /></td>
+                    <td><c:out value="${flight.availability}" /></td>
                     <td><c:out value="${flight.hours}" /> hrs</td>
                     <td><c:out value="${flight.seatType}" /></td>
                     <td>
