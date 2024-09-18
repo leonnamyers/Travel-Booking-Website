@@ -1,25 +1,22 @@
 package com.iotbay.Model;
-import java.util.*;
-import java.sql.Date;
-import java.sql.Time;
 import java.io.Serializable;
 
 public class Item implements Serializable{
-    private String itemID;
+    private int itemID;
     private String name;
     private double price;
     private int availability;
     private String img; 
 
     public Item(){
-        this.itemID = null;
+        this.itemID = 0;
         this.name = null;
         this.price = 0;
         this.availability = 0;
         this.img = null;
     }
     
-    public Item(String itemID, String name, double price, int availability, String img){
+    public Item(int itemID, String name, double price, int availability, String img){
         this.itemID = itemID;
         this.name = name;
         this.price = price;
@@ -27,11 +24,11 @@ public class Item implements Serializable{
         this.img = img;
     }
 
-    public String getItemID() {
+    public int getItemID() {
         return itemID;
     }
 
-    public void setItemID(String itemID) {
+    public void setItemID(int itemID) {
         this.itemID = itemID;
     }
 

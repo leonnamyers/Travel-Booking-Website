@@ -1,15 +1,13 @@
 package com.iotbay.Dao;
-
 import java.sql.Connection;
 import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import com.iotbay.Model.Address;
+import java.util.List;
+
 import com.iotbay.Model.Customer;
+import com.iotbay.Model.Package;
 import com.iotbay.Model.Staff;
 import com.iotbay.Model.User;
 
@@ -34,7 +32,7 @@ public class DBManager {
     private final String updateUserAccessLogsEmailQuery = "UPDATE UserAccessLogs SET email = ? WHERE email = ?";
     private final String deleteUserAccessLogQuery = "DELETE FROM UserAccessLogs WHERE email = ?";
     private final String searchUserAccessLogsQuery = "SELECT loginDateTime, logoutDateTime FROM UserAccessLogs WHERE email = ? AND (DATE(loginDateTime) = ? OR DATE(logoutDateTime) = ?)";
-
+    private PackageDAO packageDAO;
 
     private Connection connection;
 
@@ -43,6 +41,7 @@ public class DBManager {
         connection.setAutoCommit(true);
         this.connection = connection;
         */
+        this.packageDAO = new PackageDAO(connection); 
     }
 
     /*
@@ -418,6 +417,23 @@ public class DBManager {
         }
     }
         */
+    public void addPackage(Package pkg) throws SQLException {
+        packageDAO.addPackage(pkg);
+    }
 
+ 
+    public List<Package> getAllPackages() throws SQLException {
+        return packageDAO.getAllPackages();
+    }
+
+  
+    public void updatePackage(Package pkg) throws SQLException {
+        packageDAO.updatePackage(pkg);
+    }
+
+
+    public void deletePackage(int itemID) throws SQLException {
+        packageDAO.deletePackage(itemID);
+    }
 }
     

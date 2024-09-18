@@ -10,8 +10,22 @@ public class Package extends Item {
     private String contactName;
     private String contactPhone;
 
-    public Package(String itemID, String name, double price, int availability, String img, String description) {
-        super(itemID, name, price, availability, img);
+   
+    public Package() {
+        super();  
+        this.description = null;
+        this.introduction = null;
+        this.activities = null;
+        this.transportation = null;
+        this.dining = null;
+        this.specialOffer = null;
+        this.contactName = null;
+        this.contactPhone = null;
+    }
+
+    
+    public Package(int itemID, String name, double price, int availability, String img, String description) {
+        super(itemID, name, price, availability, img);  
         this.description = description;
         this.introduction = null;
         this.activities = null;
@@ -22,6 +36,7 @@ public class Package extends Item {
         this.contactPhone = null;
     }
 
+   
     public String getDescription() {
         return description;
     }
