@@ -118,6 +118,7 @@
                 <fmt:formatNumber var="formattedUnitPrice" type="number" minFractionDigits="2" maxFractionDigits="2" value="${flight.price}" />
                 <td>$<c:out value="${formattedUnitPrice}" /></td>
                 <td><c:out value="${flight.startTime}" /></td>
+                <td><c:out value="${flight.endTime}" /></td>
                 <td><c:out value="${flight.departureCity}" /></td>
                 <td><c:out value="${flight.destinationCity}" /></td>
                 <td><c:out value="${flight.hours}" /> hrs</td>
@@ -168,7 +169,8 @@
                     <th>Flight ID</th>
                     <th>Company</th>
                     <th>Price</th>
-                    <th>Flight Time</th>
+                    <th>Departure Time</th>
+                    <th>Arrival Time</th>
                     <th>Departure</th>
                     <th>Destination</th>
                     <th>Duration</th>
@@ -184,6 +186,7 @@
                     <fmt:formatNumber var="formattedUnitPrice" type="number" minFractionDigits="2" maxFractionDigits="2" value="${flight.price}" />
                     <td>$<c:out value="${formattedUnitPrice}" /></td>
                     <td><c:out value="${flight.startTime}" /></td>
+                    <td><c:out value="${flight.endTime}" /></td>
                     <td><c:out value="${flight.departureCity}" /></td>
                     <td><c:out value="${flight.destinationCity}" /></td>
                     <td><c:out value="${flight.hours}" /> hrs</td>

@@ -25,9 +25,14 @@
         String img = (String)request.getParameter("img");
         
         String startTime = (String)request.getParameter("startTime");
-        String correctTime = startTime.replace("T"," ");
-        correctTime+=":00";
-        Timestamp startTimeStamp = Timestamp.valueOf(correctTime);
+        String correctStartTime = startTime.replace("T"," ");
+        correctStartTime+=":00";
+        Timestamp startTimeStamp = Timestamp.valueOf(correctStartTime);
+
+        String endTime = (String)request.getParameter("endTime");
+        String correctEndTime = endTime.replace("T"," ");
+        correctEndTime+=":00";
+        Timestamp endTimeStamp = Timestamp.valueOf(correctEndTime);
 
         String departureCity = (String)request.getParameter("departureCity");
         String destinationCity = (String)request.getParameter("destinationCity");
@@ -35,7 +40,7 @@
         String stops = (String)request.getParameter("stops");
         String seatType = (String)request.getParameter("seatType");
 
-        Flight updatedFlight = new Flight(itemID,name,price,availability,img,startTimeStamp, 
+        Flight updatedFlight = new Flight(itemID,name,price,availability,img,startTimeStamp, endTimeStamp,
         departureCity, destinationCity, hours, stops, seatType);
 
         flightList.set(flightUpdatingIndex,updatedFlight);

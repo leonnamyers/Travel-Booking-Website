@@ -23,9 +23,14 @@
         int availability = Integer.parseInt((String)request.getParameter("availability"));
         
         String startTime = (String)request.getParameter("startTime");
-        String correctTime = startTime.replace("T"," ");
-        correctTime+=":00";
-        Timestamp startTimeStamp = Timestamp.valueOf(correctTime);
+        String correctStartTime = startTime.replace("T"," ");
+        correctStartTime+=":00";
+        Timestamp startTimeStamp = Timestamp.valueOf(correctStartTime);
+
+        String endTime = (String)request.getParameter("endTime");
+        String correctEndTime = endTime.replace("T"," ");
+        correctEndTime+=":00";
+        Timestamp endTimeStamp = Timestamp.valueOf(correctEndTime);
 
         String departureCity = (String)request.getParameter("departureCity");
         String destinationCity = (String)request.getParameter("destinationCity");
@@ -33,7 +38,7 @@
         String stops = (String)request.getParameter("stops");
         String seatType = (String)request.getParameter("seatType");
 
-        Flight addedFlight = new Flight(itemID,name,price,availability,"",startTimeStamp, 
+        Flight addedFlight = new Flight(itemID,name,price,availability,"",startTimeStamp, endTimeStamp, 
         departureCity, destinationCity, hours, stops, seatType);
 
         flightList.add(addedFlight);

@@ -127,10 +127,18 @@
             </tr>
 
             <tr>
-                <th>Flight Time: </th>
+                <th>Departure Time: </th>
                 <td>
                     <input type="datetime-local" name="startTime" id="startTime"
                             value="<c:out value='${updatingFlight.startTime}' />"/>
+                </td>
+            </tr>
+
+            <tr>
+                <th>Arrival Time: </th>
+                <td>
+                    <input type="datetime-local" name="endTime" id="endTime"
+                            value="<c:out value='${updatingFlight.endTime}' />"/>
                 </td>
             </tr>
 
