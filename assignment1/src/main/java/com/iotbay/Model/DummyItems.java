@@ -7,7 +7,7 @@ public class DummyItems {
 
     public static Flight createDummyFlight() {
         return new Flight(
-            "0", 
+            0, 
             "Test", 
             100.00, 
             1, 

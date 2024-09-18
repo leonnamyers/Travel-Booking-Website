@@ -10,7 +10,7 @@ public class Package extends Item {
     private String contactName;
     private String contactPhone;
 
-    public Package(String itemID, String name, double price, int availability, String img, String description) {
+    public Package(int itemID, String name, double price, int availability, String img, String description) {
         super(itemID, name, price, availability, img);
         this.description = description;
         this.introduction = null;

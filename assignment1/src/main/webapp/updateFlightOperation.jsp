@@ -18,7 +18,7 @@
         
         User user = (User)session.getAttribute("user");
         int flightUpdatingIndex = Integer.parseInt((String)request.getParameter("flightIndex"));
-        String itemID = (String)request.getParameter("itemID");
+        int itemID = Integer.parseInt((String)request.getParameter("itemID"));
         String name = (String)request.getParameter("name");
         double price = Double.parseDouble((String)request.getParameter("price"));
         int availability = Integer.parseInt((String)request.getParameter("availability"));

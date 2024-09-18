@@ -12,7 +12,7 @@ public class Flight extends Item {
     private String seatType;
 
 
-    public Flight(String itemID, String name, double price, int availability, String img, Timestamp startTime, 
+    public Flight(int itemID, String name, double price, int availability, String img, Timestamp startTime, 
      String departureCity, String destinationCity, int hours, String stops, String seatType){
         super(itemID, name, price, availability,img);
         this.startTime = startTime;

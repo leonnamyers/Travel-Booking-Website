@@ -10,7 +10,7 @@ public class Hotel extends Item{
     private String roomDetails;
     private String city;
     
-    public Hotel(String itemID, String name, double price, int availability, String img, String roomType,
+    public Hotel(int itemID, String name, double price, int availability, String img, String roomType,
             int roomSize, String roomDetails, String city) {
         super(itemID, name, price, availability, img);
         this.roomType = roomType;

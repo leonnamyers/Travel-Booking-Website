@@ -21,7 +21,7 @@ public class PackageController extends HttpServlet {
 
         private void initializePackages() {
 
-                Package sydneyOperaHouse = new Package("1", "Sydney Opera House Tour", 150.00, 10, "opera.jpg",
+                Package sydneyOperaHouse = new Package(1, "Sydney Opera House Tour", 150.00, 10, "opera.jpg",
                                 "A guided tour of the iconic Sydney Opera House.");
                 sydneyOperaHouse.setIntroduction(
                                 "Discover the architectural marvel of the Sydney Opera House, a UNESCO World Heritage site and a global symbol of modern Australia.");
@@ -32,7 +32,7 @@ public class PackageController extends HttpServlet {
                 sydneyOperaHouse.setSpecialOffer("10% discount on all in-house dining");
                 packages.add(sydneyOperaHouse);
 
-                Package greatBarrierReef = new Package("2", "Great Barrier Reef Snorkeling", 400.00, 20, "reef.jpg",
+                Package greatBarrierReef = new Package(2, "Great Barrier Reef Snorkeling", 400.00, 20, "reef.jpg",
                                 "Explore the wonders of the Great Barrier Reef with this snorkeling package.");
                 greatBarrierReef.setIntroduction(
                                 "Dive into the world's largest coral reef system, teeming with marine life and vivid coral gardens.");
@@ -44,7 +44,7 @@ public class PackageController extends HttpServlet {
                 greatBarrierReef.setSpecialOffer("Free sunset cruise with complimentary drinks.");
                 packages.add(greatBarrierReef);
 
-                Package uluruCamelTour = new Package("3", "Uluru Camel Tour", 250.00, 15, "uluru.jpg",
+                Package uluruCamelTour = new Package(3, "Uluru Camel Tour", 250.00, 15, "uluru.jpg",
                                 "Experience the majesty of Uluru on a camel tour.");
                 uluruCamelTour.setIntroduction(
                                 "Immerse yourself in the spiritual heart of Australia with a camel ride around the iconic Uluru.");
@@ -56,7 +56,7 @@ public class PackageController extends HttpServlet {
                 uluruCamelTour.setSpecialOffer("Complimentary spa treatment for two at the Red Ochre Spa.");
                 packages.add(uluruCamelTour);
 
-                Package daintreeRainforest = new Package("4", "Daintree Rainforest Adventure", 350.00, 12,
+                Package daintreeRainforest = new Package(4, "Daintree Rainforest Adventure", 350.00, 12,
                                 "daintree.jpg",
                                 "A full-day adventure in the Daintree Rainforest.");
                 daintreeRainforest.setIntroduction(
@@ -69,7 +69,7 @@ public class PackageController extends HttpServlet {
                 daintreeRainforest.setSpecialOffer("Free night walk in the rainforest with an experienced guide.");
                 packages.add(daintreeRainforest);
 
-                Package melbourneSightseeing = new Package("5", "Melbourne City Sightseeing", 120.00, 25,
+                Package melbourneSightseeing = new Package(5, "Melbourne City Sightseeing", 120.00, 25,
                                 "melbourne.jpg",
                                 "Explore Melbourne’s top attractions on this guided tour.");
                 melbourneSightseeing.setIntroduction(
@@ -83,7 +83,7 @@ public class PackageController extends HttpServlet {
                                 "Complimentary tickets to a theater show at the Arts Centre Melbourne.");
                 packages.add(melbourneSightseeing);
 
-                Package kangarooIsland = new Package("6", "Kangaroo Island Wildlife Tour", 300.00, 18, "kangaroo.jpg",
+                Package kangarooIsland = new Package(6, "Kangaroo Island Wildlife Tour", 300.00, 18, "kangaroo.jpg",
                                 "Discover the wildlife of Kangaroo Island.");
                 kangarooIsland.setIntroduction(
                                 "Experience Australia's best wildlife haven, where kangaroos, koalas, and sea lions roam freely.");
@@ -106,7 +106,7 @@ public class PackageController extends HttpServlet {
                 String action = request.getParameter("action");
 
                 if (action != null && action.equals("viewDetails")) {
-                        String packageId = request.getParameter("packageId");
+                        int packageId = Integer.parseInt(request.getParameter("packageId"));
                         Package selectedPackage = getPackageById(packageId);
 
                         String contactName = request.getParameter("contactName");
@@ -128,9 +128,9 @@ public class PackageController extends HttpServlet {
                 }
         }
 
-        private Package getPackageById(String id) {
+        private Package getPackageById(int id) {
                 for (Package pkg : packages) {
-                        if (pkg.getItemID().equals(id)) {
+                        if (pkg.getItemID() == id) {
                                 return pkg;
                         }
                 }
