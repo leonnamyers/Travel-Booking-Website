@@ -1,5 +1,5 @@
 package com.iotbay.Dao;
-/*
+
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -19,4 +19,3 @@ public class DBConnectorTest {
         }
     }
 }
-    */

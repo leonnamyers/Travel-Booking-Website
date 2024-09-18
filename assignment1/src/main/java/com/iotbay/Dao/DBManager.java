@@ -39,10 +39,8 @@ public class DBManager {
     private Connection connection;
 
     public DBManager(Connection connection) throws SQLException {
-        /*
         connection.setAutoCommit(true);
         this.connection = connection;
-        */
     }
 
     /*
