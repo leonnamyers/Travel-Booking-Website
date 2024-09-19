@@ -10,40 +10,32 @@ import java.util.List;
 import com.iotbay.Model.Package;
 
 public class PackageDAO {
-    
+
+    private PreparedStatement readSt;
+    private PreparedStatement updateSt;
+    private PreparedStatement deleteSt;
+    private PreparedStatement addSt;
+
+    private String readQuery = "SELECT * FROM Package";
+    private String updateQuery = "UPDATE Package SET name=?, price=?, availability=?, img=?, description=?, introduction=?, activities=?, transportation=?, dining=?, specialOffer=?, contactName=?, contactPhone=? WHERE itemID=?";
+    private String deleteQuery = "DELETE FROM Package WHERE itemID = ?";
+    private String addQuery = "INSERT INTO Package (name, price, availability, img, description, introduction, activities, transportation, dining, specialOffer, contactName, contactPhone) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
     private Connection connection;
 
-    // Constructor to initialize the database connection
-    public PackageDAO(Connection connection) {
+    public PackageDAO(Connection connection) throws SQLException {
         this.connection = connection;
+        connection.setAutoCommit(true);
+        readSt = connection.prepareStatement(readQuery);
+        updateSt = connection.prepareStatement(updateQuery);
+        deleteSt = connection.prepareStatement(deleteQuery);
+        addSt = connection.prepareStatement(addQuery);
     }
 
-    // Insert a new package into the database
-    public void addPackage(Package pkg) throws SQLException {
-        String query = "INSERT INTO Package (name, price, availability, img, description, introduction, activities, transportation, dining, specialOffer, contactName, contactPhone) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        PreparedStatement statement = connection.prepareStatement(query);
-        statement.setString(1, pkg.getName());
-        statement.setDouble(2, pkg.getPrice());
-        statement.setInt(3, pkg.getAvailability());
-        statement.setString(4, pkg.getImg());
-        statement.setString(5, pkg.getDescription());
-        statement.setString(6, pkg.getIntroduction());
-        statement.setString(7, pkg.getActivities());
-        statement.setString(8, pkg.getTransportation());
-        statement.setString(9, pkg.getDining());
-        statement.setString(10, pkg.getSpecialOffer());
-        statement.setString(11, pkg.getContactName());
-        statement.setString(12, pkg.getContactPhone());
-        statement.executeUpdate();
-        statement.close();
-    }
-
-    // Retrieve all packages from the database
+    // Method to retrieve all packages
     public List<Package> getAllPackages() throws SQLException {
         List<Package> packages = new ArrayList<>();
-        String query = "SELECT * FROM Package";
-        PreparedStatement statement = connection.prepareStatement(query);
-        ResultSet resultSet = statement.executeQuery();
+        ResultSet resultSet = readSt.executeQuery();
 
         while (resultSet.next()) {
             Package pkg = new Package();
@@ -63,37 +55,47 @@ public class PackageDAO {
             packages.add(pkg);
         }
         resultSet.close();
-        statement.close();
         return packages;
     }
 
-    // Update an existing package
-    public void updatePackage(Package pkg) throws SQLException {
-        String query = "UPDATE Package SET name=?, price=?, availability=?, img=?, description=?, introduction=?, activities=?, transportation=?, dining=?, specialOffer=?, contactName=?, contactPhone=? WHERE itemID=?";
-        PreparedStatement statement = connection.prepareStatement(query);
-        statement.setString(1, pkg.getName());
-        statement.setDouble(2, pkg.getPrice());
-        statement.setInt(3, pkg.getAvailability());
-        statement.setString(4, pkg.getImg());
-        statement.setString(5, pkg.getDescription());
-        statement.setString(6, pkg.getIntroduction());
-        statement.setString(7, pkg.getActivities());
-        statement.setString(8, pkg.getTransportation());
-        statement.setString(9, pkg.getDining());
-        statement.setString(10, pkg.getSpecialOffer());
-        statement.setString(11, pkg.getContactName());
-        statement.setString(12, pkg.getContactPhone());
-        statement.setInt(13, pkg.getItemID());
-        statement.executeUpdate();
-        statement.close();
+    // Method to add a new package
+    public void addPackage(Package pkg) throws SQLException {
+        addSt.setString(1, pkg.getName());
+        addSt.setDouble(2, pkg.getPrice());
+        addSt.setInt(3, pkg.getAvailability());
+        addSt.setString(4, pkg.getImg());
+        addSt.setString(5, pkg.getDescription());
+        addSt.setString(6, pkg.getIntroduction());
+        addSt.setString(7, pkg.getActivities());
+        addSt.setString(8, pkg.getTransportation());
+        addSt.setString(9, pkg.getDining());
+        addSt.setString(10, pkg.getSpecialOffer());
+        addSt.setString(11, pkg.getContactName());
+        addSt.setString(12, pkg.getContactPhone());
+        addSt.executeUpdate();
     }
 
-    // Delete a package by ID
+    // Method to update a package
+    public void updatePackage(Package pkg) throws SQLException {
+        updateSt.setString(1, pkg.getName());
+        updateSt.setDouble(2, pkg.getPrice());
+        updateSt.setInt(3, pkg.getAvailability());
+        updateSt.setString(4, pkg.getImg());
+        updateSt.setString(5, pkg.getDescription());
+        updateSt.setString(6, pkg.getIntroduction());
+        updateSt.setString(7, pkg.getActivities());
+        updateSt.setString(8, pkg.getTransportation());
+        updateSt.setString(9, pkg.getDining());
+        updateSt.setString(10, pkg.getSpecialOffer());
+        updateSt.setString(11, pkg.getContactName());
+        updateSt.setString(12, pkg.getContactPhone());
+        updateSt.setInt(13, pkg.getItemID());
+        updateSt.executeUpdate();
+    }
+
+    // Method to delete a package
     public void deletePackage(int itemID) throws SQLException {
-        String query = "DELETE FROM Package WHERE itemID=?";
-        PreparedStatement statement = connection.prepareStatement(query);
-        statement.setInt(1, itemID);
-        statement.executeUpdate();
-        statement.close();
+        deleteSt.setInt(1, itemID);
+        deleteSt.executeUpdate();
     }
 }
