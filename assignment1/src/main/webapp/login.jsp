@@ -20,6 +20,7 @@
             <li><a href="index.jsp">Home</a></li>
             <li><a href="account_details.jsp">Account</a></li>
             <li><a href="logout.jsp">Logout</a></li>
+            <li><a href="cart.jsp"><i class="fas fa-shopping-cart"></i> Cart</a></li>
         </ul>
 
         <!--Menu Items => If User is NOT logged in-->
