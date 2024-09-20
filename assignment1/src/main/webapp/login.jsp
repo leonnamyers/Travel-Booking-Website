@@ -17,6 +17,7 @@
         if (session != null && session.getAttribute("user") != null) { 
         %>
         <ul>
+            <li><a href="Cart.jsp">Cart</a></li>
             <li><a href="index.jsp">Home</a></li>
             <li><a href="account_details.jsp">Account</a></li>
             <li><a href="logout.jsp">Logout</a></li>
@@ -29,6 +30,7 @@
         } else {
         %>
         <ul>
+            <li><a href="Cart.jsp">Cart</a></li>
             <li><a href="index.jsp">Home</a></li>
             <li><a href="login.jsp">Login</a></li>
             <li><a href="register.jsp">Register</a></li>

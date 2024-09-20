@@ -18,24 +18,30 @@
         
         User user = (User)session.getAttribute("user");
         int flightUpdatingIndex = Integer.parseInt((String)request.getParameter("flightIndex"));
-        String itemID = (String)request.getParameter("itemID");
+        
+        int itemID = Integer.parseInt((String)request.getParameter("itemID"));
         String name = (String)request.getParameter("name");
         double price = Double.parseDouble((String)request.getParameter("price"));
         int availability = Integer.parseInt((String)request.getParameter("availability"));
-        String img = (String)request.getParameter("img");
         
         String startTime = (String)request.getParameter("startTime");
-        String correctTime = startTime.replace("T"," ");
-        correctTime+=":00";
-        Timestamp startTimeStamp = Timestamp.valueOf(correctTime);
+        String correctStartTime = startTime.replace("T"," ");
+        correctStartTime+=":00";
+        Timestamp startTimeStamp = Timestamp.valueOf(correctStartTime);
+
+        String endTime = (String)request.getParameter("endTime");
+        String correctEndTime = endTime.replace("T"," ");
+        correctEndTime+=":00";
+        Timestamp endTimeStamp = Timestamp.valueOf(correctEndTime);
 
         String departureCity = (String)request.getParameter("departureCity");
         String destinationCity = (String)request.getParameter("destinationCity");
         int hours = Integer.parseInt((String)request.getParameter("hours"));
         String stops = (String)request.getParameter("stops");
         String seatType = (String)request.getParameter("seatType");
+        String img = (String)request.getParameter("img");
 
-        Flight updatedFlight = new Flight(itemID,name,price,availability,img,startTimeStamp, 
+        Flight updatedFlight = new Flight(itemID,name,price,availability,img,startTimeStamp, endTimeStamp,
         departureCity, destinationCity, hours, stops, seatType);
 
         flightList.set(flightUpdatingIndex,updatedFlight);
@@ -49,6 +55,7 @@
             if (session != null && session.getAttribute("user") != null) { 
             %>
             <ul>
+                <li><a href="Cart.jsp">Cart</a></li>
                 <li><a href="index.jsp">Home</a></li>
                 <li><a href="account_details.jsp">Account</a></li>
                 <li><a href="logout.jsp">Logout</a></li>
@@ -58,6 +65,7 @@
             } else {
             %>
             <ul>
+                <li><a href="Cart.jsp">Cart</a></li>
                 <li><a href="index.jsp">Home</a></li>
                 <li><a href="login.jsp">Login</a></li>
                 <li><a href="register.jsp">Register</a></li>

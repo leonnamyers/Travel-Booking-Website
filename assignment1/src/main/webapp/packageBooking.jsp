@@ -22,7 +22,7 @@
                 <p class="packagebooking-package-price">Price: $<%= pkg.getPrice() %></p>
                 <form action="PackageController" method="get" class="packagebooking-package-form">
                     <input type="hidden" name="action" value="viewDetails" />
-                    <input type="hidden" name="packageId" value="<%= pkg.getId() %>" />
+                    <input type="hidden" name="packageId" value="<%= pkg.getItemID() %>" /> <!-- 修改这里 -->
                     <button type="submit" class="packagebooking-package-button">View Details</button>
                 </form>
             </div>

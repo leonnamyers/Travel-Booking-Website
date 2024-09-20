@@ -31,6 +31,7 @@
         if (session != null && session.getAttribute("user") != null) { 
         %>
         <ul>
+            <li><a href="Cart.jsp">Cart</a></li>
             <li><a href="index.jsp">Home</a></li>
             <li><a href="account_details.jsp">Account</a></li>
             <li><a href="logout.jsp">Logout</a></li>
@@ -40,6 +41,7 @@
         } else {
         %>
         <ul>
+            <li><a href="Cart.jsp">Cart</a></li>
             <li><a href="index.jsp">Home</a></li>
             <li><a href="login.jsp">Login</a></li>
             <li><a href="register.jsp">Register</a></li>
@@ -48,9 +50,13 @@
         }
         %>
     </nav>
+    <br/>
+    <br/>
+
     <div>
         <center>
             <h1>Flight Catalogue Management</h1>
+            <br/>
             <h2>
                 <form action="http://localhost:8080/addFlight.jsp">
                     <button type="submit">Add new device</button>
@@ -68,115 +74,143 @@
 
 
     <div align="center">
-        <c:if test="${updatingFlight != null}">
-            <!-- update -->
-            <form action="http://localhost:8080/updateFlightOperation.jsp">
-        </c:if>
-        <c:if test="${updatingFlight == null}">
-            <!-- create -->
-            <form action="http://localhost:8080/flights.jsp">
-        </c:if>
+        <!-- update -->
+        <form action="http://localhost:8080/updateFlightOperation.jsp">
             
-            <!-- Form -->
-        <table border="1" cellpadding="5" align="center">
-            <caption>
-                <h2>
-                    <c:if test="${updatingFlight != null}">
-                        <h1>Update the flight</h1>
-                    </c:if>
-                    <c:if test="${updatingFlight == null}">
-                        <h1>Add new flight</h1>
-                    </c:if>
-                </h2>
-            </caption>
+        <!-- Form -->
+        <h1>Update the flight</h1>
             
-  
+
             <!-- Form inputs -->
-            <tr>
-                <th>Flight ID: </th>
-                <td>
-                    <input type="text" name="itemID" id="itemID"
-                        value="<c:out value='${updatingFlight.itemID}' />"/>
-                </td>
-            </tr>  
+            <div>
+                <label>Flight Id: </label>
+                <input type="text" name="itemID" id="itemID" value="<c:out value='${updatingFlight.itemID}' />"/>
+            </div>
+            <br/>
+        
+            <div>
+                <label>Company: </label>
+                <input list="companyList" name="name" id="name" type="text" value="<c:out value='${updatingFlight.name}' />"/>
+                <datalist id="companyList">
+                    <option value="Traveling">
+                    <option value="Harmony">
+                    <option value="JetEngine">
+                </datalist>
+            </div>
+            <br/>
 
-            <tr>
-                <th>Company: </th>
-                <td>
-                    <input type="text" name="name" id="name" 
-                           value="<c:out value='${updatingFlight.name}' />"/>
-                </td>
-            </tr>
-            
-            <tr>
-                <th>Price</th>
-                <td>
-                    <input type="text" name="price" id="price"
-                            value="<c:out value='${updatingFlight.price}' />"/>
-                </td>
-            </tr>
+            <div>
+                <label>Price: </label>
+                <input type="text" name="price" id="price" value="<c:out value='${updatingFlight.price}' />"/>
+            </div>
+            <br/>
+        
+            <div>
+                <label>Availability: </label>
+                <input type="text" name="availability" id="availability" value="<c:out value='${updatingFlight.availability}' />"/>
+            </div>
+            <br/>
+        
+            <div>
+                <label>Departure Time: </label>
+                <input type="datetime-local" name="startTime" id="startTime" value="<c:out value='${updatingFlight.startTime}' />"/>
+            </div>
+            <br/>
+        
+            <div>
+                <label>Arrival Time: </label>
+                <input type="datetime-local" name="endTime" id="endTime" value="<c:out value='${updatingFlight.endTime}' />"/>
+            </div>
+            <br/>
+        
+            <div>
+                <label>Departure: </label>
+                <input list="departureCityList" name="departureCity" id="departureCity" type="text" value="<c:out value='${updatingFlight.departureCity}' />"/>
+                <datalist id="departureCityList">
+                    <option value="Sydney">
+                    <option value="Melbourne">
+                    <option value="Brisbane">
+                    <option value="Canberra">
+                    <option value="Perth">
+                    <option value="Adelaide">
+                    <option value="Gold Coast">
+                    <option value="Darwin">
+                    <option value="Christmas Island"></option>
+                    <option value="Hobart"></option>
+                </datalist>
+            </div>
+            <br/>
+        
+            <div>
+                <label>Destination: </label>
+                <input list="destinationCityList" name="destinationCity" id="destinationCity" type="text" value="<c:out value='${updatingFlight.destinationCity}' />"/>
+                <datalist id="destinationCityList">
+                    <option value="Sydney">
+                    <option value="Melbourne">
+                    <option value="Brisbane">
+                    <option value="Canberra">
+                    <option value="Perth">
+                    <option value="Adelaide">
+                    <option value="Gold Coast">
+                    <option value="Darwin">
+                    <option value="Christmas Island"></option>
+                    <option value="Hobart"></option>
+                </datalist>
+            </div>
+            <br/> 
+        
+            <div>
+                <label>Duration: </label>
+                <input type="text" name="hours" id="hours" value="<c:out value='${updatingFlight.hours}' />"/>
+            </div>
+            <br/>
 
-            <tr>
-                <th>Availability</th>
-                <td>
-                    <input type="text" name="availability" id="availability"
-                            value="<c:out value='${updatingFlight.availability}' />"/>
-                </td>
-            </tr>
+            <div>
+                <label>Stops: </label>
+                <input list="stopList" name="stops" id="stops" type="text" value="<c:out value='${updatingFlight.stops}' />"/>
+                <datalist id="stopList">
+                    <option value="Non Stop">
+                    <option value="1 Stop">
+                    <option value="2 Stops">
+                    <option value="3 Stops">
+                </datalist>
+            </div>
+            <br/>
 
-            <tr>
-                <th>Flight Time: </th>
-                <td>
-                    <input type="datetime-local" name="startTime" id="startTime"
-                            value="<c:out value='${updatingFlight.startTime}' />"/>
-                </td>
-            </tr>
+        
+            <div>
+                <label>Seat: </label>
+                <input list="seatList" name="seatType" id="seatType" type="text" value="<c:out value='${updatingFlight.seatType}' />"/>
+                <datalist id="seatList">
+                    <option value="Economy">
+                    <option value="Premium Economy">
+                    <option value="Business">
+                </datalist>
+            </div>
+            <br/>
 
-            <tr>
-                <th>Departure: </th>
-                <td>
-                    <input type="text" name="departureCity" id="departureCity"
-                            value="<c:out value='${updatingFlight.departureCity}' />"/>
-                </td>
-            </tr>
-
-            <tr>
-                <th>Destination: </th>
-                <td>
-                    <input type="text" name="destinationCity" id="destinationCity"
-                            value="<c:out value='${updatingFlight.destinationCity}' />"/>
-                </td>
-            </tr>
-            <tr>
-                <th>Hours: </th>
-                <td>
-                    <input type="text" name="hours" id="hours"
-                            value="<c:out value='${updatingFlight.hours}' />"/>
-                </td>
-            </tr>
-            <tr>
-                <th>Stops: </th>
-                <td>
-                    <input type="text" name="stops" id="stops"
-                            value="<c:out value='${updatingFlight.stops}' />"/>
-                </td>
-            </tr>
-            <tr>
-                <th>Seat: </th>
-                <td>
-                    <input type="text" name="seatType" id="seatType"
-                            value="<c:out value='${updatingFlight.seatType}' />"/>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2" align="center">
-                    <input type="submit" value="Save" />
-                </td>
-            </tr>
+        
+            <div>
+                <label>Image: </label>
+                <input list="imgList" name="img" id="img" type="text" value="<c:out value='${updatingFlight.img}' />"/>
+                <datalist id="imgList">
+                    <option value="Harmony.jpg">
+                    <option value="JetEngine.jpg">
+                    <option value="Travel.jpg">
+                    <option value="imageYetToCome.jpg">
+                </datalist>
+            </div>
+            <br/>
+        
+            <div>
+                <input type="submit" value="Save" />
+            </div>
+                    
             <input type="hidden" id="flightIndex" name="flightIndex" value="<%= flightUpdatingIndex%>"/>
-            <input type="hidden" id="img" name="img" value='${updatingFlight.img}'/>
         </table>
         </form>
     </div>   
+    <br/>
+    <br/>
 </body>
 </html>

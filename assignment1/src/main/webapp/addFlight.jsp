@@ -26,6 +26,7 @@
         if (session != null && session.getAttribute("user") != null) { 
         %>
         <ul>
+            <li><a href="Cart.jsp">Cart</a></li>
             <li><a href="index.jsp">Home</a></li>
             <li><a href="account_details.jsp">Account</a></li>
             <li><a href="logout.jsp">Logout</a></li>
@@ -35,6 +36,7 @@
         } else {
         %>
         <ul>
+            <li><a href="Cart.jsp">Cart</a></li>
             <li><a href="index.jsp">Home</a></li>
             <li><a href="login.jsp">Login</a></li>
             <li><a href="register.jsp">Register</a></li>
@@ -43,10 +45,13 @@
         }
         %>
     </nav>
+    <br/>
+    <br/>
 
     <div>
         <center>
             <h1>Flight Catalogue Management</h1>
+            <br/>
             <h2>
                 <form action="http://localhost:8080/addFlight.jsp">
                     <button type="submit">Add new device</button>
@@ -67,97 +72,132 @@
         
 
         <form action="http://localhost:8080/addFlightOperation.jsp">
-            
-        <table border="1" cellpadding="5" align="center">
-            <caption>
-                <h2>
-                    <h1>Add new flight</h1>
-                </h2>
-            </caption>
+            <h1>Add new flight</h1>
+                
             
             <!-- Form inputs -->
-            <tr>
-                <th>Flight ID: </th>
-                <td>
-                    <input type="text" name="itemID" id="itemID" value=""
-                    />
-                </td>
-            </tr>
+            <div>
+            <label>Flight Id: </label>
+            <input type="text" name="itemID" id="itemID" value=""/>
+            </div>
+            <br/>
 
-            <tr>
-                <th>Company: </th>
-                <td>
-                    <input type="text" name="name" id="name" value=""
-                    />
-                </td>
-            </tr>
-            
-            <tr>
-                <th>Price</th>
-                <td>
-                    <input type="text" name="price" id="price" value="0"
-                    />
-                </td>
-            </tr>
+            <div>
+            <label>Company: </label>
+            <input list="companyList" name="name" id="name" type="text" value=""/>
+            <datalist id="companyList">
+                <option value="Traveling">
+                <option value="Harmony">
+                <option value="JetEngine">
+            </datalist>
+            </div>
+            <br/>
 
-            <tr>
-                <th>Availability</th>
-                <td>
-                    <input type="text" name="availability" id="availability" value="0"
-                    />
-                </td>
-            </tr>
+            <div>
+            <label>Price: </label>
+            <input type="text" name="price" id="price" value="0"/>
+            </div>
+            <br/>
 
-            <tr>
-                <th>Flight Time: </th>
-                <td>
-                    <input type="datetime-local" name="startTime" id="startTime" 
-                    />
-                </td>
-            </tr>
+            <div>
+            <label>Availability: </label>
+            <input type="text" name="availability" id="availability" value="0"/>
+            </div>
+            <br/>
 
-            <tr>
-                <th>Departure: </th>
-                <td>
-                    <input type="text" name="departureCity" id="departureCity" value=""
-                    />
-                </td>
-            </tr>
+            <div>
+            <label>Departure Time: </label>
+            <input type="datetime-local" name="startTime" id="startTime"/>
+            </div>
+            <br/>
 
-            <tr>
-                <th>Destination: </th>
-                <td>
-                    <input type="text" name="destinationCity" id="destinationCity" value=""
-                    />
-                </td>
-            </tr>
-            <tr>
-                <th>Hours: </th>
-                <td>
-                    <input type="text" name="hours" id="hours" value="0"
-                    />
-                </td>
-            </tr>
-            <tr>
-                <th>Stops: </th>
-                <td>
-                    <input type="text" name="stops" id="stops" value=""
-                    />
-                </td>
-            </tr>
-            <tr>
-                <th>Seat: </th>
-                <td>
-                    <input type="text" name="seatType" id="seatType" value=""
-                    />
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2" align="center">
-                    <input type="submit" value="Save" />
-                </td>
-            </tr>
-        </table>
+            <div>
+            <label>Arrival Time: </label>
+            <input type="datetime-local" name="endTime" id="endTime"/>
+            </div>
+            <br/>
+
+            <div>
+            <label>Departure: </label>
+            <input list="departureCityList" name="departureCity" id="departureCity" type="text" value=""/>
+            <datalist id="departureCityList">
+                <option value="Sydney">
+                <option value="Melbourne">
+                <option value="Brisbane">
+                <option value="Canberra">
+                <option value="Perth">
+                <option value="Adelaide">
+                <option value="Gold Coast">
+                <option value="Darwin">
+                <option value="Christmas Island"></option>
+                <option value="Hobart"></option>
+            </datalist>
+            </div>
+            <br/>
+
+            <div>
+            <label>Destination: </label>
+            <input list="destinationCityList" name="destinationCity" id="destinationCity" type="text" value=""/>
+            <datalist id="destinationCityList">
+                <option value="Sydney">
+                <option value="Melbourne">
+                <option value="Brisbane">
+                <option value="Canberra">
+                <option value="Perth">
+                <option value="Adelaide">
+                <option value="Gold Coast">
+                <option value="Darwin">
+                <option value="Christmas Island"></option>
+                <option value="Hobart"></option>
+            </datalist>
+            </div>
+            <br/> 
+
+            <div>
+            <label>Duration: </label>
+            <input type="text" name="hours" id="hours" value="0"/>
+            </div>
+            <br/>
+
+            <div>
+            <label>Stops: </label>
+            <select id="stops" name="stops" type="text">
+                <option value="Non Stop" selected="selected">Non Stop</option>
+                <option value="1 Stop">1 stop</option>
+                <option value="2 Stops">2 stops</option>
+                <option value="3 Stops">3 stops</option>
+            </select>
+            </div>
+            <br/>
+
+            <div>
+            <label>Seat: </label>
+            <select id="seatType" name="seatType" type="text">
+                <option value="Economy" selected="selected">Economy</option>
+                <option value="Premium Economy">Premium Economy</option>
+                <option value="Business">Business</option>
+            </select>
+            </div>
+            <br/>
+
+            <div>
+            <label>Image: </label>
+            <input list="imgList" name="img" id="img" type="text" value=""/>
+            <datalist id="imgList">
+                <option value="Harmony.jpg">
+                <option value="JetEngine.jpg">
+                <option value="Travel.jpg">
+                <option value="imageYetToCome.jpg">
+            </datalist>
+            </div>
+            <br/>
+
+            <div>
+            <input type="submit" value="Save" />
+            </div>
+
+            <br/>
+            <br/>
         </form>
     </div>   
 </body>

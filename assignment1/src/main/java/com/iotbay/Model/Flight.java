@@ -5,6 +5,7 @@ import java.sql.*;
 
 public class Flight extends Item {
     private Timestamp startTime;
+    private Timestamp endTime;
     private String departureCity;
     private String destinationCity;
     private int hours;
@@ -12,10 +13,11 @@ public class Flight extends Item {
     private String seatType;
 
 
-    public Flight(String itemID, String name, double price, int availability, String img, Timestamp startTime, 
+    public Flight(int itemID, String name, double price, int availability, String img, Timestamp startTime, Timestamp endTime,
      String departureCity, String destinationCity, int hours, String stops, String seatType){
         super(itemID, name, price, availability,img);
         this.startTime = startTime;
+        this.endTime = endTime;
         this.departureCity = departureCity;
         this.destinationCity = destinationCity;
         this.hours = hours;
@@ -29,6 +31,14 @@ public class Flight extends Item {
 
     public void setStartTime(Timestamp startTime) {
         this.startTime = startTime;
+    }
+
+    public void setEndTime(Timestamp endTime) {
+        this.endTime = endTime;
+    }
+
+    public Timestamp getEndTime() {
+        return endTime;
     }
 
     public String getDepartureCity() {
