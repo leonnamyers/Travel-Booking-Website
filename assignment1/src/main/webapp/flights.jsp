@@ -74,7 +74,7 @@
     <div>    
         <form>
             <label>Departure:</label>
-            <input list="departures" name="departure" id="departure" type="text">
+            <input list="departures" name="departure" id="departure" type="text" value="">
                 <datalist id="departures">
                     <option value="Sydney">
                     <option value="Melbourne">
@@ -88,8 +88,9 @@
                     <option value="Hobart"></option>
                 </datalist>
             </input>
+
             <label>Destination:</label>
-            <input list="destinations" name="destination" id="destination" type="text">
+            <input list="destinations" name="destination" id="destination" type="text" value="">
                 <datalist id="destinations">
                     <option value="Sydney">
                     <option value="Melbourne">
@@ -103,14 +104,16 @@
                     <option value="Hobart"></option>
                 </datalist>
             </input>
-            <input name="departureTime" id="departureTime" type="date">
             
+            <input name="departureTime" id="departureTime" type="date">
+
             <label>Seat</label>
  
             <select id="seats" name="seats" type="text">
                 <option value="Economy" selected="selected">Economy</option>
                 <option value="Premium Economy">Premium Economy</option>
                 <option value="Business">Business</option>
+                <option value="">All</option>
             </select>
 
             <input type="submit">
