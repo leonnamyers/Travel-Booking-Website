@@ -139,6 +139,7 @@
                 <th>Departure</th>
                 <th>Destination</th>
                 <th>Duration</th>
+                <th>Stop</th>
                 <th>Seat</th>
                 <th></th>
 
@@ -154,6 +155,7 @@
                 <td><c:out value="${flight.departureCity}" /></td>
                 <td><c:out value="${flight.destinationCity}" /></td>
                 <td><c:out value="${flight.hours}" /> hrs</td>
+                <td><c:out value="${flight.stops}" /></td>
                 <td><c:out value="${flight.seatType}" /></td>
                 <td>
                     <!-- <form method="GET" action=""> -->
@@ -207,6 +209,7 @@
                     <th>Destination</th>
                     <th>Available</th>
                     <th>Duration</th>
+                    <th>Stop</th>
                     <th>Seat</th>
                     <th></th>
 
@@ -224,6 +227,7 @@
                     <td><c:out value="${flight.destinationCity}" /></td>
                     <td><c:out value="${flight.availability}" /></td>
                     <td><c:out value="${flight.hours}" /> hrs</td>
+                    <td><c:out value="${flight.stops}" /></td>
                     <td><c:out value="${flight.seatType}" /></td>
                     <td>
                         <form action="updateFlight.jsp">

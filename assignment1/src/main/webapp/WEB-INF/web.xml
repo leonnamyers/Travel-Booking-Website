@@ -1,16 +1,24 @@
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    
+    <welcome-file-list>
+        <welcome-file>index</welcome-file>
+   </welcome-file-list>
+
     <servlet>
         <servlet-name>ConnServlet</servlet-name>
         <servlet-class>com.iotbay.Controller.ConnServlet</servlet-class>
         <load-on-startup>0</load-on-startup>
     </servlet>
+
     <servlet-mapping>
         <servlet-name>ConnServlet</servlet-name>
         <url-pattern>/ConnServlet</url-pattern>
     </servlet-mapping>
+
     <session-config>
         <session-timeout>30</session-timeout>
     </session-config>
+
     <servlet>
         <servlet-name>RegisterController</servlet-name>
         <servlet-class>com.iotbay.Controller.RegisterController</servlet-class>
@@ -72,4 +80,67 @@
         <servlet-name>UpdateUserPanelController</servlet-name>
         <url-pattern>/UpdateUserPanelController</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>FlightCatalogueController</servlet-name>
+        <servlet-class>com.iotbay.Controller.FlightCatalogueController</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FlightCatalogueController</servlet-name>
+        <url-pattern>/FlightCatalogueController</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>FilteringFlightController</servlet-name>
+        <servlet-class>com.iotbay.Controller.FilteringFlightController</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FilteringFlightController</servlet-name>
+        <url-pattern>/FilteringFlightController</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AddFlightController</servlet-name>
+        <servlet-class>com.iotbay.Controller.AddFlightController</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddFlightController</servlet-name>
+        <url-pattern>/AddFlightController</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>UpdateFlightController</servlet-name>
+        <servlet-class>com.iotbay.Controller.UpdateFlightController</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UpdateFlightController</servlet-name>
+        <url-pattern>/UpdateFlightController</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DeleteFlightController</servlet-name>
+        <servlet-class>com.iotbay.Controller.DeleteFlightController</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteFlightController</servlet-name>
+        <url-pattern>/DeleteFlightController</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AddFlightToCartController</servlet-name>
+        <servlet-class>com.iotbay.Controller.AddFlightToCartController</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddFlightToCartController</servlet-name>
+        <url-pattern>/AddFlightToCartController</url-pattern>
+    </servlet-mapping>
+
+    
+
 </web-app>
