@@ -10,10 +10,9 @@ public class Hotel extends Item{
     private String roomSize;
     private String city;
     private int days;
-    private double totalPrice;
 
     public Hotel(Timestamp checkInTime,Timestamp checkOutTime,int itemID, String name, double price, int availability, String img, String roomType,
-            String roomSize, String city, int days, int totalPrice) {
+            String roomSize, String city, int days) {
         super(itemID, name, price, availability, img);
         this.checkInTime = checkInTime;
         this.checkOutTime = checkOutTime;
@@ -21,7 +20,6 @@ public class Hotel extends Item{
         this.roomSize = roomSize;
         this.days = days;
         this.city = city;
-        this.totalPrice = totalPrice;
     }
 
     public int getDays() {
@@ -61,14 +59,5 @@ public class Hotel extends Item{
     public void setCity(String city) {
         this.city = city;
     }
-    public double getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(double totalPrice) {
-        this.totalPrice = totalPrice;
-    }
-    
-
 
 }

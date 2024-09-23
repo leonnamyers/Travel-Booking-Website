@@ -16,14 +16,19 @@ public class FlightDAO {
     private Statement st;
 	private PreparedStatement readSt;
     private PreparedStatement filterSt;
+    private PreparedStatement createSt;
 	private PreparedStatement updateSt;
 	private PreparedStatement deleteSt;
+    private PreparedStatement getFlightSt;
     // private PreparedStatement updateAvailabilitySt;
+
     private PreparedStatement fetchStockSt;
 	private String readQuery = "SELECT itemID, name, price, availability, img, startTime, endTime, departureCity, destinationCity, stops, seatType, (TIME_TO_SEC(TIMEDIFF(endTime,startTime))/3600) FROM FlightCatalogue";
-    private String filterQuery = "SELECT itemID, name, price, availability, img, startTime, endTime, departureCity, destinationCity, stops, seatType, (TIME_TO_SEC(TIMEDIFF(endTime,startTime))/3600) from FlightCatalogue where departureCity LIKE ? and destinationCity LIKE ? and seatType LIKE ? and startTime BETWEEN ? AND DATE_ADD(?, INTERVAL 1 DAY)";
-	private String updateQuery = "UPDATE FlightCatalogue SET name = ?, price= ?, availability= ?, img= ?, startTime= ?, endTime= ?, departureCity= ?, destinationCity= ?, stops= ?, seatType= ? WHERE itemID= ?";
-	private String deleteQuery = "DELETE FROM FlightCatalogue WHERE itemID= ? ";
+    private String filterQuery = "SELECT itemID, name, price, availability, img, startTime, endTime, departureCity, destinationCity, stops, seatType, (TIME_TO_SEC(TIMEDIFF(endTime,startTime))/3600) FROM FlightCatalogue where departureCity LIKE ? and destinationCity LIKE ? and seatType LIKE ? and startTime BETWEEN ? AND DATE_ADD(?, INTERVAL 1 DAY)";
+	private String createQuery = "INSERT INTO FlightCatalogue (name, price, availability, img, startTime, endTime, departureCity, destinationCity, stops, seatType) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private String updateQuery = "UPDATE FlightCatalogue SET name = ?, price= ?, availability= ?, img= ?, startTime= ?, endTime= ?, departureCity= ?, destinationCity= ?, stops= ?, seatType= ? WHERE itemID= ?";
+	private String deleteQuery = "DELETE FROM FlightCatalogue WHERE itemID= ?";
+    private String getFlightQuery = "SELECT name, price, availability, img FROM FlightCatalogue WHERE itemID = ?";
     // private String updateAvailabilityQuery = "UPDATE FlightCatalogue SET availability= ? WHERE itemID= ?";
     private String fetchStock = "SELECT ProductInStock FROM Product WHERE ProductID=?";
 
@@ -34,9 +39,11 @@ public class FlightDAO {
 		updateSt = connection.prepareStatement(updateQuery);
 		deleteSt = connection.prepareStatement(deleteQuery);
         filterSt = connection.prepareStatement(filterQuery);
+        createSt = connection.prepareStatement(createQuery);
+        getFlightSt = connection.prepareStatement(getFlightQuery);
 	}
 
-            // Read Operation: read a list of all devices with its image, id, name, type, price, details
+    // Read Operation: 
     public ArrayList<Flight> fetchAllFlights() throws SQLException {
         
         ArrayList<Flight> flights = new ArrayList();
@@ -64,7 +71,6 @@ public class FlightDAO {
     }
 
     public ArrayList<Flight> fetchFilteredFlights(String filtDepCity, String filtDesCity,Timestamp filtDepTime, String filtSeatType) throws SQLException {
-
 
         filterSt.setString(1, filtDepCity + "%");
         filterSt.setString(2, filtDesCity + "%");
@@ -95,6 +101,69 @@ public class FlightDAO {
         }
         return flights;
     }
+
+    public void createFlight(String name, double price, int availability, String img, Timestamp startTime, Timestamp endTime, String departureCity, String destinationCity, String stops, String seatType) throws SQLException {
+		
+		createSt.setString(1, name);
+		createSt.setDouble(2, price);
+		createSt.setInt(3, availability);
+		createSt.setString(4, img);
+        createSt.setTimestamp(5, startTime);
+        createSt.setTimestamp(6, endTime);
+        createSt.setString(7, departureCity);
+        createSt.setString(8, destinationCity);
+        createSt.setString(9, stops);
+        createSt.setString(10, seatType);
+
+        createSt.executeUpdate();
+        System.out.println("1 row successfully created");
+	}
+
+    public void updateFlight(int itemID, String name, double price, int availability, String img, Timestamp startTime, Timestamp endTime, String departureCity, String destinationCity, String stops, String seatType) throws SQLException{
+        
+        updateSt.setString(1, name);
+        updateSt.setDouble(2, price);
+        updateSt.setInt(3, availability);
+        updateSt.setString(4, img);
+        updateSt.setTimestamp(5, startTime);
+        updateSt.setTimestamp(6, endTime);
+        updateSt.setString(7, departureCity);
+        updateSt.setString(8, destinationCity);
+        updateSt.setString(9, stops);
+        updateSt.setString(10, seatType);
+        updateSt.setInt(11, itemID);
+
+        updateSt.executeUpdate();
+        System.out.println("1 row successfully updated");
+    }
+
+    public void deleteFlight(int itemID) throws SQLException{
+        
+        deleteSt.setInt(1, itemID);
+
+        deleteSt.executeUpdate();
+        System.out.println("1 row successfully deleted");
+    }
+
+    public Item fetchFlightItem(int itemID) throws SQLException{
+        
+        getFlightSt.setInt(1, itemID);
+        ResultSet rs = getFlightSt.executeQuery();
+        Item flight;
+        while (rs.next()) {
+            String name = rs.getString(1);
+            Double price = rs.getDouble(2);
+            int availability = rs.getInt(3);
+            String img = rs.getString(4);
+
+            flight = new Item(itemID, name, price, availability, img);
+            return flight;
+        }
+
+        return null;
+    }
+
+    
 
 
     
