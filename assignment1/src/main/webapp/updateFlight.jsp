@@ -165,31 +165,93 @@
             </div>
             <br/>
 
-            <div>
-                <label>Stops: </label>
-                <input list="stopList" name="stops" id="stops" type="text" value="<c:out value='${updatingFlight.stops}' />"/>
-                <datalist id="stopList">
-                    <option value="Non Stop">
-                    <option value="1 Stop">
-                    <option value="2 Stops">
-                    <option value="3 Stops">
-                </datalist>
-            </div>
-            <br/>
+        <c:choose>
+            <c:when test="${updatingFlight.stops.equals('Non Stop')}">
+                <div>
+                    <label>Stops: </label>
+                    <select id="stops" name="stops" type="text">
+                        <option value="Non Stop" selected="selected">Non Stop</option>
+                        <option value="1 Stop">1 Stop</option>
+                        <option value="2 Stops">2 Stops</option>
+                        <option value="3 Stops">3 Stops</option>
+                    </select>
+                </div>
+                <br/>
+            </c:when>
+            <c:when test="${updatingFlight.stops.equals('1 Stop')}">
+                <div>
+                    <label>Stops: </label>
+                    <select id="stops" name="stops" type="text">
+                        <option value="Non Stop">Non Stop</option>
+                        <option value="1 Stop" selected="selected">1 Stop</option>
+                        <option value="2 Stops">2 Stops</option>
+                        <option value="3 Stops">3 Stops</option>
+                    </select>
+                </div>
+                <br/>
+            </c:when> 
+            <c:when test="${updatingFlight.stops.equals('2 Stops')}">
+                <div>
+                    <label>Stops: </label>
+                    <select id="stops" name="stops" type="text">
+                        <option value="Non Stop">Non Stop</option>
+                        <option value="1 Stop">1 Stop</option>
+                        <option value="2 Stops" selected="selected">2 Stops</option>
+                        <option value="3 Stops">3 Stops</option>
+                    </select>
+                </div>
+                <br/>
+            </c:when>
+            <c:otherwise>
+                <div>
+                    <label>Stops: </label>
+                    <select id="stops" name="stops" type="text">
+                        <option value="Non Stop">Non Stop</option>
+                        <option value="1 Stop">1 Stop</option>
+                        <option value="2 Stops">2 Stops</option>
+                        <option value="3 Stops" selected="selected">3 Stops</option>
+                    </select>
+                </div>
+                <br/>
+            </c:otherwise>  
+        </c:choose>
 
-        
-            <div>
+        <c:choose>
+            <c:when test="${updatingFlight.seatType.equals('Economy')}">
+                <div>
                 <label>Seat: </label>
-                <input list="seatList" name="seatType" id="seatType" type="text" value="<c:out value='${updatingFlight.seatType}' />"/>
-                <datalist id="seatList">
-                    <option value="Economy">
-                    <option value="Premium Economy">
-                    <option value="Business">
-                </datalist>
-            </div>
-            <br/>
+                    <select id="seatType" name="seatType" type="text">
+                        <option value="Economy" selected="selected">Economy</option>
+                        <option value="Premium Economy">Premium Economy</option>
+                        <option value="Business">Business</option>
+                    </select>
+                </div>
+                <br/>
+            </c:when>
+            <c:when test="${updatingFlight.seatType.equals('Premium Economy')}">
+                <div>
+                <label>Seat: </label>
+                    <select id="seatType" name="seatType" type="text">
+                        <option value="Economy">Economy</option>
+                        <option value="Premium Economy" selected="selected">Premium Economy</option>
+                        <option value="Business">Business</option>
+                    </select>
+                </div>
+                <br/>
+            </c:when>
+            <c:otherwise>
+                <div>
+                <label>Seat: </label>
+                    <select id="seatType" name="seatType" type="text">
+                        <option value="Economy">Economy</option>
+                        <option value="Premium Economy">Premium Economy</option>
+                        <option value="Business" selected="selected">Business</option>
+                    </select>
+                </div>
+                <br/>
+            </c:otherwise>
+        </c:choose>
 
-        
             <div>
                 <label>Image: </label>
                 <input list="imgList" name="img" id="img" type="text" value="<c:out value='${updatingFlight.img}' />"/>

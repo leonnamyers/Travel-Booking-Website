@@ -1,7 +1,6 @@
 package com.iotbay.Controller;
 
 import java.io.IOException;
-import java.util.Enumeration;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -17,9 +16,9 @@ import com.iotbay.Model.Order;
 
 public class CartController extends HttpServlet {
 
-    public static final String SAVE_BUTTON_VALUE = "Save changes";
+    public static final String SAVE_BUTTON_VALUE = "Save";
     public static final String CLEAR_BUTTON_VALUE = "Clear cart";
-    public static final String CONFIRM_ORDER_BUTTON_VALUE = "Confirm order";
+    public static final String CHECKOUT_BUTTON_VALUE = "Checkout";
     private static final Logger LOGGER = Logger.getLogger(CartController.class.getName());
 
     @Override
@@ -45,7 +44,7 @@ public class CartController extends HttpServlet {
                 case CLEAR_BUTTON_VALUE:
                     clearCart(request, response, cart);
                     break;
-                case CONFIRM_ORDER_BUTTON_VALUE:
+                case CHECKOUT_BUTTON_VALUE:
                     confirmOrder(request, response, cart);
                     break;
                 /*default:

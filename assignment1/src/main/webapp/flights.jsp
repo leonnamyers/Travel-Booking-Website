@@ -11,6 +11,7 @@
         <meta http-equiv="Content-Type="text/html; charset=UTF-8">
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="css/navbar.css"> 
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
         <title>Flight Page</title>
     </head>
     <%
@@ -28,20 +29,40 @@
         if (session != null && session.getAttribute("user") != null) { 
         %>
         <ul>
-            <li><a href="Cart.jsp">Cart</a></li>
             <li><a href="index.jsp">Home</a></li>
             <li><a href="account_details.jsp">Account</a></li>
             <li><a href="logout.jsp">Logout</a></li>
+                <a href="cart.jsp">
+                    <button class ="shopping-cart-button" >
+                        <i class="fas fa-shopping-cart"></i>
+                        <% Cart cart = (Cart) request.getSession().getAttribute("cart");%>
+                        <% if (cart == null) { %>
+                        $0.00
+                        <% } else { %>
+                        $<%=cart.getTotalPrice()%>
+                        <% } %>
+                    </button>
+                </a>
         </ul>
         <!--If User is NOT logged in-->
         <%
         } else {
         %>
         <ul>
-            <li><a href="Cart.jsp">Cart</a></li>
             <li><a href="index.jsp">Home</a></li>
             <li><a href="login.jsp">Login</a></li>
             <li><a href="register.jsp">Register</a></li>
+                <a href="cart.jsp">
+                    <button class ="shopping-cart-button" >
+                        <i class="fas fa-shopping-cart"></i>
+                        <% Cart cart = (Cart) request.getSession().getAttribute("cart");%>
+                        <% if (cart == null) { %>
+                        $0.00
+                        <% } else { %>
+                        $<%=cart.getTotalPrice()%>
+                        <% } %>
+                    </button>
+                </a>
         </ul>
         <% 
         }
@@ -53,7 +74,7 @@
     <div>    
         <form>
             <label>Departure:</label>
-            <input list="departures" name="departure" id="departure" type="text">
+            <input list="departures" name="departure" id="departure" type="text" value="">
                 <datalist id="departures">
                     <option value="Sydney">
                     <option value="Melbourne">
@@ -67,8 +88,9 @@
                     <option value="Hobart"></option>
                 </datalist>
             </input>
+
             <label>Destination:</label>
-            <input list="destinations" name="destination" id="destination" type="text">
+            <input list="destinations" name="destination" id="destination" type="text" value="">
                 <datalist id="destinations">
                     <option value="Sydney">
                     <option value="Melbourne">
@@ -82,14 +104,16 @@
                     <option value="Hobart"></option>
                 </datalist>
             </input>
-            <input name="departureTime" id="departureTime" type="date">
             
+            <input name="departureTime" id="departureTime" type="date">
+
             <label>Seat</label>
  
             <select id="seats" name="seats" type="text">
                 <option value="Economy" selected="selected">Economy</option>
                 <option value="Premium Economy">Premium Economy</option>
                 <option value="Business">Business</option>
+                <option value="">All</option>
             </select>
 
             <input type="submit">
@@ -115,6 +139,7 @@
                 <th>Departure</th>
                 <th>Destination</th>
                 <th>Duration</th>
+                <th>Stop</th>
                 <th>Seat</th>
                 <th></th>
 
@@ -130,6 +155,7 @@
                 <td><c:out value="${flight.departureCity}" /></td>
                 <td><c:out value="${flight.destinationCity}" /></td>
                 <td><c:out value="${flight.hours}" /> hrs</td>
+                <td><c:out value="${flight.stops}" /></td>
                 <td><c:out value="${flight.seatType}" /></td>
                 <td>
                     <!-- <form method="GET" action=""> -->
@@ -183,6 +209,7 @@
                     <th>Destination</th>
                     <th>Available</th>
                     <th>Duration</th>
+                    <th>Stop</th>
                     <th>Seat</th>
                     <th></th>
 
@@ -200,6 +227,7 @@
                     <td><c:out value="${flight.destinationCity}" /></td>
                     <td><c:out value="${flight.availability}" /></td>
                     <td><c:out value="${flight.hours}" /> hrs</td>
+                    <td><c:out value="${flight.stops}" /></td>
                     <td><c:out value="${flight.seatType}" /></td>
                     <td>
                         <form action="updateFlight.jsp">

@@ -85,6 +85,24 @@ nav ul li a:hover {
     background-color: #555;
 }
 
+.shopping-cart-button {
+    width: 7.8em;
+    height: 3em;
+    border-radius: 3rem;
+    border: 0.1px solid #848484;
+    background: #F7F7F7;
+    font-family: var(--font-body);
+    font-size: 1.1em;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.shopping-cart-button:hover {
+    border: 1px solid var(--colour-main);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    background: white;
+    cursor: pointer;
+}
 
 .login-form, staff-form {
     font-family: sans-serif;

@@ -16,6 +16,17 @@
             <li><a href="index.jsp">Home</a></li>
             <li><a href="account_details.jsp">Account</a></li>
             <li><a href="logout.jsp">Logout</a></li>
+                <a href="cart.jsp">
+                    <button class ="shopping-cart-button" >
+                        <i class="fas fa-shopping-cart"></i>
+                        <% Cart cart = (Cart) request.getSession().getAttribute("cart");%>
+                        <% if (cart == null) { %>
+                        $0.00
+                        <% } else { %>
+                        $<%=cart.getTotalPrice()%>
+                        <% } %>
+                    </button>
+                </a>
         </ul>
     </nav>
 <body>
