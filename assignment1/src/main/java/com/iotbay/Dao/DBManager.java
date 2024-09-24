@@ -1,6 +1,7 @@
 package com.iotbay.Dao;
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class DBManager {
     private final String staffLoginQuery = "SELECT * FROM Staff WHERE email=? AND password=?";
     private final String updateCustomerQuery = "UPDATE CustomerUser SET email=?, password=?, firstName=?, lastName=?, streetAddress=?, postcode=?, city=?, state=?, homePhoneNumber=?, mobilePhoneNumber=? WHERE email=?";
     private final String updateStaffQuery = "UPDATE Staff SET email=?, password=?, firstName=?, lastName=?, staffID=?, staffTypeID=? WHERE email=?";
-    private final String addCustomerQuery = "INSERT INTO CustomerUser (email, password, firstName, lastName, streetAddress, postcode, city, state, homePhoneNumber, mobilePhoneNumber, isActivated) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private final String addCustomerQuery = "INSERT INTO Customer (email, password, firstName, lastName, streetAddress, postcode, city, state, homePhoneNumber, mobilePhoneNumber) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private final String addStaffQuery = "INSERT INTO Staff (email, password, firstName, lastName, staffID, staffTypeID) VALUES (?, ?, ?, ?, ?, ?)";
     private final String removeStaffQuery = "DELETE FROM Staff WHERE email= ?";
     private final String removeCustomerUserQuery = "DELETE FROM CustomerUser WHERE email = ?";
@@ -37,11 +38,8 @@ public class DBManager {
     private Connection connection;
 
     public DBManager(Connection connection) throws SQLException {
-        /*
         connection.setAutoCommit(true);
         this.connection = connection;
-        */
-        this.packageDAO = new PackageDAO(connection); 
     }
 
     /*
@@ -49,7 +47,7 @@ public class DBManager {
      */
 
     public void addCustomer(Customer customer, String sessionId) throws SQLException{
-        /*
+
         PreparedStatement statement = connection.prepareStatement(addCustomerQuery);
         statement.setString(1, customer.getEmail());
         statement.setString(2, customer.getPassword());
@@ -61,11 +59,7 @@ public class DBManager {
         statement.setString(8, customer.getAddress().getState());
         statement.setInt(9, customer.getHomePhoneNumber());
         statement.setInt(10, customer.getMobilePhoneNumber());
-        statement.setBoolean(11, customer.isActivated());
         statement.executeUpdate();
-
-        updateAccessLogs(sessionId, customer.getEmail());
-        */
     }
 
     public void addStaff(Staff staff, String sessionId) throws SQLException {

@@ -13,10 +13,11 @@ public class DummyItems {
             1,
             "",
             Timestamp.valueOf(LocalDateTime.now()),
-            "Sydney",
-            "Brisbane",
-            2,
-            "No stops",
+            Timestamp.valueOf("2024-10-01 06:30:00"),
+            "Sydney", 
+            "Brisbane", 
+            2, 
+            "No stops", 
             "Economy"
         );
     }

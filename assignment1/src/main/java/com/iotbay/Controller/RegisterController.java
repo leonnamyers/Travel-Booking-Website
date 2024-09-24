@@ -98,7 +98,7 @@ public class RegisterController extends HttpServlet {
                 }
 
                 session.setAttribute("user", (Customer) customerUser);
-                //manager.addCustomer(customerUser, session.getId());
+                manager.addCustomer(customerUser, session.getId());
                 response.sendRedirect("welcome.jsp");
 
             } else {
