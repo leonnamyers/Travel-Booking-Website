@@ -10,19 +10,42 @@ import javax.servlet.http.HttpSession;
 
 import com.iotbay.Model.Cart;
 
-public class PostOrderController extends HttpServlet {
+public class PaymentController extends HttpServlet {
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         Cart cart = (Cart) session.getAttribute("cart");
 
-        if (cart != null) {
-            cart.clear(); // Clear the cart after successful order
-            session.setAttribute("cart", cart);
+        // Check if cart is empty
+        if (cart == null || cart.isEmpty()) {
+            response.sendRedirect("cart.jsp"); // Redirect to cart if empty
+            return;
         }
 
-        // Display thank-you message
-        request.getRequestDispatcher("thankyou.jsp").forward(request, response);
+        // Redirect to payment page
+        response.sendRedirect("Payment.jsp");
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        Cart cart = (Cart) session.getAttribute("cart");
+
+        // Check if cart is empty
+        if (cart == null || cart.isEmpty()) {
+            response.sendRedirect("cart.jsp"); 
+            return;
+        }
+
+        String cardHolderName = request.getParameter("cardHolderName");
+        String cardNumber = request.getParameter("cardNumber");
+        String expiryDate = request.getParameter("expiryDate");
+        String cvv = request.getParameter("cvv");
+
+        // Add your payment logic here (save payment, process transaction, etc.)
+
+        // Forward to the PostOrder.jsp page after successful payment
+        request.getRequestDispatcher("PostOrder.jsp").forward(request, response);
     }
 }
