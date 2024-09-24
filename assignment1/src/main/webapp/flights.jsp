@@ -232,7 +232,7 @@
                             <input type="hidden" name="itemID" value="${flight.itemID}"/>
                             <input id="updateFlight" type="submit" value="Update"/>
                         </form>
-                        <form action="deleteFlight.jsp">
+                        <form method="POST" action="http://localhost:8080/DeleteFlightController">
                             <input type="hidden" name="itemID" value="${flight.itemID}"/>
                             <input id="deleteFlight" type="submit" value="Delete"/>
                         </form>

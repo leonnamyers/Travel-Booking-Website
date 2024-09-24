@@ -15,12 +15,7 @@
         <title>Flight Page</title>
     </head>
     <%
-        ArrayList<Flight> flightList = (ArrayList<Flight>)session.getAttribute("flightList");
-        
         User user = (User)session.getAttribute("user");
-        int flightUpdatingIndex = Integer.parseInt((String)request.getParameter("flightIndex"));
-        flightList.remove(flightUpdatingIndex);   
-        session.setAttribute("flightList", flightList);
     %>
 <body>
     <nav>

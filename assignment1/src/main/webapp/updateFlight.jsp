@@ -15,14 +15,18 @@
         <title>Flight Page</title>
     </head>
     <%
-        
-    
-        
         User user = (User)session.getAttribute("user");
         Flight updatingFlight = (Flight) session.getAttribute("updatingFlight");
-        
-         
 
+        String nameErr = (String) request.getAttribute("nameErr");
+        String departureTimeErr = (String) request.getAttribute("departureTimeErr");
+        String arrivalTimeErr = (String) request.getAttribute("arrivalTimeErr");
+        String priceErr = (String) request.getAttribute("priceErr");
+        String availabilityErr = (String) request.getAttribute("availabilityErr");
+        String departureCityErr = (String) request.getAttribute("departureCityErr");
+        String destinationCityErr = (String) request.getAttribute("destinationCityErr");
+        String imgErr = (String) request.getAttribute("imgErr");
+        
     %>
 <body>
     <nav>
@@ -80,14 +84,36 @@
             
         <!-- Form -->
         <h1>Update the flight</h1>
-            
-
-            <!-- Form inputs -->
-            <div>
-                <label>Flight Id: </label>
-                <input type="text" name="itemID" id="itemID" value="<c:out value='${updatingFlight.itemID}' />"/>
-            </div>
             <br/>
+            <label>
+                <% if(nameErr != null) { %>
+                <%=nameErr%></h1
+                <% } %>
+                <% if(departureTimeErr != null) { %>
+                <%=departureTimeErr%>
+                <% } %>
+                <% if(arrivalTimeErr != null) { %>
+                <%=arrivalTimeErr%>
+                <% } %>
+                <% if(departureCityErr != null) { %>
+                <%=departureCityErr%>
+                <% } %>
+                <% if(destinationCityErr != null) { %>
+                <%=destinationCityErr%>
+                <% } %>
+                <% if(imgErr != null) { %>
+                <%=imgErr%>
+                <% } %>
+                <% if(priceErr != null) { %>
+                <%=priceErr%>
+                <% } %>
+                <% if(availabilityErr != null) { %>
+                <%=availabilityErr%>
+                <% } %>
+            </label>
+            <br/>
+            <!-- Form inputs -->
+            <input type="hidden" name="itemID" id="itemID" value="<c:out value='${updatingFlight.itemID}' />"/>
         
             <div>
                 <label>Company: </label>

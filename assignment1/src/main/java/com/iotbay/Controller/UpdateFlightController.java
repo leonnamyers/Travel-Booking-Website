@@ -29,14 +29,8 @@ public class UpdateFlightController extends HttpServlet {
         String name = request.getParameter("name");
 
         String startTime = (String)request.getParameter("startTime");
-        String correctStartTime = startTime.replace("T"," ");
-        correctStartTime+=":00";
-        Timestamp startTimeStamp = Timestamp.valueOf(correctStartTime);
 
         String endTime = (String)request.getParameter("endTime");
-        String correctEndTime = endTime.replace("T"," ");
-        correctEndTime+=":00";
-        Timestamp endTimeStamp = Timestamp.valueOf(correctEndTime);
         
         String departureCity = (String)request.getParameter("departureCity");
         String destinationCity = (String)request.getParameter("destinationCity");
@@ -56,54 +50,92 @@ public class UpdateFlightController extends HttpServlet {
         if(name == null||name.equals(""))
         {
             request.setAttribute("nameErr", "Company name can't be empty!");
-            request.getRequestDispatcher("/updateFlightFormServlet?itemID=" + itemID).include(request, response);
+            request.getRequestDispatcher("/UpdateFlightFormController?itemID=" + itemID).forward(request, response);
+            response.sendRedirect("updateFlight.jsp");
         }
         //check empty time
         if(startTime == null || startTime.equals(""))
         {
             request.setAttribute("departureTimeErr", "Departure time can't be empty!");
-            request.getRequestDispatcher("/updateFlightFormServlet?itemID=" + itemID).include(request, response);
+            request.getRequestDispatcher("/UpdateFlightFormController?itemID=" + itemID).forward(request, response);
+            response.sendRedirect("updateFlight.jsp");
         }
         //check empty time
         if(endTime == null ||endTime.equals(""))
         {
             request.setAttribute("arrivalTimeErr", "Arrival time can't be empty!");
-            request.getRequestDispatcher("/updateFlightFormServlet?itemID=" + itemID).include(request, response);
+            request.getRequestDispatcher("/UpdateFlightFormController?itemID=" + itemID).forward(request, response);
+            response.sendRedirect("updateFlight.jsp");
         }
+        //check empty departureCity
+        if(departureCity == null||departureCity.equals(""))
+        {
+            request.setAttribute("departureCityErr", "Departure City can't be empty!");
+            request.getRequestDispatcher("/UpdateFlightFormController?itemID=" + itemID).forward(request, response);
+            response.sendRedirect("updateFlight.jsp");
+        }
+
+        //check empty destinationCity
+        if(destinationCity == null||destinationCity.equals(""))
+        {
+            request.setAttribute("destinationCityErr", "destination City can't be empty!");
+            request.getRequestDispatcher("/UpdateFlightFormController?itemID=" + itemID).forward(request, response);
+            response.sendRedirect("updateFlight.jsp");
+        }
+
+        //check empty img
+        if(img == null||img.equals(""))
+        {
+            request.setAttribute("imgErr", "image can't be empty!");
+            request.getRequestDispatcher("/UpdateFlightFormController?itemID=" + itemID).forward(request, response);
+            response.sendRedirect("updateFlight.jsp");
+        }
+
         //check if price input is not a number
         if(!isPrice)
         {
             request.setAttribute("priceErr", "Invalid price input!");
-            request.getRequestDispatcher("/updateFlightFormServlet?itemID=" + itemID).include(request, response);
+            request.getRequestDispatcher("/UpdateFlightFormController?itemID=" + itemID).forward(request, response);
+            response.sendRedirect("updateFlight.jsp");
         }
         //check if availability is not a int
         if(!isAvailability){
             
             request.setAttribute("availabilityErr", "Invalid availability input!");
-            request.getRequestDispatcher("/updateFlightFormServlet?itemID=" + itemID).include(request, response);
+            request.getRequestDispatcher("/UpdateFlightFormController?itemID=" + itemID).forward(request, response);
+            response.sendRedirect("updateFlight.jsp");
         }
 
   
         else{
             
             try{
+                String correctStartTime = startTime.replace("T"," ");
+                correctStartTime+=":00";
+                Timestamp startTimeStamp = Timestamp.valueOf(correctStartTime);
+                String correctEndTime = endTime.replace("T"," ");
+                correctEndTime+=":00";
+                Timestamp endTimeStamp = Timestamp.valueOf(correctEndTime);
                 //get availability and price after ensuring they are numbers
                 availability = Integer.parseInt(request.getParameter("availability"));
                 price = Double.parseDouble(request.getParameter("price"));
                 
-                if(availability < 0){
-                    request.setAttribute("availabilityError", "Availability input must be 0 or more");
-                    request.getRequestDispatcher("/updateFlightFormServlet?itemID=" + itemID).include(request, response);
+                if(availability <= 0){
+                    request.setAttribute("availabilityErr", "Invalid availability input");
+                    request.getRequestDispatcher("/UpdateFlightFormController?itemID=" + itemID).forward(request, response);
+                    response.sendRedirect("updateFlight.jsp");
                 }
-                if(price < 0){
-                    request.setAttribute("priceError", "Price input must be 0 or more");
-                    request.getRequestDispatcher("/updateFlightFormServlet?itemID=" + itemID).include(request, response);
+                if(price <= 0){
+                    request.setAttribute("priceErr", "Invalid price input");
+                    request.getRequestDispatcher("/UpdateFlightFormController?itemID=" + itemID).forward(request, response);
+                    response.sendRedirect("updateFlight.jsp");
                 }
                 //Finish updating operation and redirect staff back to the list of devices
                 
                 flightDAOManager.updateFlight(itemID, name, price, availability, img, startTimeStamp, endTimeStamp, departureCity, destinationCity, stops, seatType);
-                request.getRequestDispatcher("/ConnServlet").forward(request, response);
-                response.sendRedirect("flights.jsp");
+                ArrayList<Flight> flightList = flightDAOManager.fetchAllFlights();
+                session.setAttribute("flightList", flightList);
+                request.getRequestDispatcher("updateFlightOperation.jsp").include(request, response);
 
             }
             catch(SQLException e){
