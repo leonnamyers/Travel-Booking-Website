@@ -5,7 +5,6 @@ import java.io.Serializable;
 public class Order implements Serializable {
     Customer customer;
     Cart cart;
-    // Payment -> later
 
     public Order() {
 
