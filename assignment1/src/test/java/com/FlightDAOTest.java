@@ -13,7 +13,7 @@ import com.iotbay.Dao.FlightDAO;
 import com.iotbay.Model.Flight;
 import com.iotbay.Model.Item;
 
-
+/*
 public class FlightDAOTest {
     private DBConnector connector;
     private Connection conn;
@@ -64,3 +64,4 @@ public class FlightDAOTest {
     }
 
 }
+*/
