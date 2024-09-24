@@ -13,18 +13,6 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
         <title>Home Page</title>
     </head>
-    <%  
-    if(session.getAttribute("flightList") == null){
-        ArrayList<Flight> flightList = new ArrayList<Flight>();
-            Flight f1 = new Flight(101,"JetEngine",250,50,"JetEngine.jpg",Timestamp.valueOf("2024-10-01 06:30:00"),Timestamp.valueOf("2024-10-01 06:30:00"),"Sydney","Melbourne", 2,"Non Stop","Economy");
-            Flight f2 = new Flight(102,"Harmony",630,50,"Harmony.jpg",Timestamp.valueOf("2024-10-01 06:30:00"),Timestamp.valueOf("2024-10-01 06:30:00"),"Melbourne","Sydney",2,"1 Stop","Business");
-            Flight f3 = new Flight(103,"Traveling",500,50,"Travel.jpg",Timestamp.valueOf("2024-10-01 06:30:00"),Timestamp.valueOf("2024-10-01 06:30:00"),"Queensland","Melbourne",2,"2 Stops","Premium Economy");    
-            flightList.add(f1);
-            flightList.add(f2);
-            flightList.add(f3);
-            session.setAttribute("flightList", flightList);
-        }
-    %>
     <body>
         <nav>
             <h1>Dream Escape</h1>

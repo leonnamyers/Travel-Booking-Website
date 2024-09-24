@@ -15,12 +15,14 @@
         <title>Flight Page</title>
     </head>
     <%
-        ArrayList<Flight> flightList = (ArrayList<Flight>)session.getAttribute("flightList");
         
+        FlightDAO flightDAOManager = (FlightDAO)session.getAttribute("flightDAOManager");
+        int itemID = Intger.parseInt(request.getParameter("itemID"));
+        Flight updatingFlight = flightDAOManager.
+
         User user = (User)session.getAttribute("user");
-        int flightUpdatingIndex = Integer.parseInt((String)request.getParameter("flightIndex"));
-        Flight updatingFlight = flightList.get(flightUpdatingIndex);
-        session.setAttribute("updatingFlight",updatingFlight);     
+        
+         
 
     %>
 <body>
@@ -75,7 +77,7 @@
 
     <div align="center">
         <!-- update -->
-        <form action="http://localhost:8080/updateFlightOperation.jsp">
+        <form method="POST" action="http://localhost:8080/UpdateFlightController">
             
         <!-- Form -->
         <h1>Update the flight</h1>

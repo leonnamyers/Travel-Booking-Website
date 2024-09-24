@@ -17,9 +17,7 @@
     <%
 
             ArrayList<Flight> flightList = (ArrayList<Flight>)session.getAttribute("flightList");
-
             User user = (User)session.getAttribute("user");
-            int flightIndex = 0;
     %>
     <body>
     <nav>
@@ -231,7 +229,7 @@
                     <td><c:out value="${flight.seatType}" /></td>
                     <td>
                         <form action="updateFlight.jsp">
-                            <input type="hidden" id="flightIndex" name="flightIndex" value="<%= flightIndex%>"/>
+                            <input type="hidden" id="itemID" name="itemID" value="${flight.itemID}"/>
                             <input id="updateFlight" type="submit" value="Update"/>
                         </form>
                         <form action="deleteFlight.jsp">

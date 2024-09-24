@@ -65,7 +65,7 @@ public class FlightDAOTest {
         Item flight = flightDAOManager.fetchFlightItem(3);
         assertEquals(flight.getItemID(), 3);
         assertEquals(flight.getName(), "Traveling");
-        assertEquals(flight.getPrice(), 1938);
+        assertEquals(flight.getPrice(), 572);
         assertEquals(flight.getAvailability(), 50);
         assertEquals(flight.getImg(), "Travel.jpg");
     }
