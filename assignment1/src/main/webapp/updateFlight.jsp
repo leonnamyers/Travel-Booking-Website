@@ -1,7 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@page import="java.util.ArrayList" %>
+<%@page import="java.util.*" %>
 <%@page import="com.iotbay.Model.*"%>
 <%@page import="com.iotbay.Dao.*"%>
 <%@page import="com.iotbay.Controller.*"%>
@@ -16,11 +16,10 @@
     </head>
     <%
         
-        FlightDAO flightDAOManager = (FlightDAO)session.getAttribute("flightDAOManager");
-        int itemID = Intger.parseInt(request.getParameter("itemID"));
-        Flight updatingFlight = flightDAOManager.
-
+    
+        
         User user = (User)session.getAttribute("user");
+        Flight updatingFlight = (Flight) session.getAttribute("updatingFlight");
         
          
 
@@ -77,7 +76,7 @@
 
     <div align="center">
         <!-- update -->
-        <form method="POST" action="http://localhost:8080/UpdateFlightController">
+        <form method="post" action="/UpdateFlightController">
             
         <!-- Form -->
         <h1>Update the flight</h1>
@@ -160,12 +159,6 @@
                 </datalist>
             </div>
             <br/> 
-        
-            <div>
-                <label>Duration: </label>
-                <input type="text" name="hours" id="hours" value="<c:out value='${updatingFlight.hours}' />"/>
-            </div>
-            <br/>
 
         <c:choose>
             <c:when test="${updatingFlight.stops.equals('Non Stop')}">
@@ -269,8 +262,6 @@
             <div>
                 <input type="submit" value="Save" />
             </div>
-                    
-            <input type="hidden" id="flightIndex" name="flightIndex" value="<%= flightUpdatingIndex%>"/>
         </table>
         </form>
     </div>   
