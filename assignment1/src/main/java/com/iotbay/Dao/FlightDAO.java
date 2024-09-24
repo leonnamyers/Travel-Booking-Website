@@ -19,6 +19,7 @@ public class FlightDAO {
     private PreparedStatement createSt;
 	private PreparedStatement updateSt;
 	private PreparedStatement deleteSt;
+    private PreparedStatement getFlightItemSt;
     private PreparedStatement getFlightSt;
     // private PreparedStatement updateAvailabilitySt;
 
@@ -28,7 +29,8 @@ public class FlightDAO {
 	private String createQuery = "INSERT INTO FlightCatalogue (name, price, availability, img, startTime, endTime, departureCity, destinationCity, stops, seatType) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private String updateQuery = "UPDATE FlightCatalogue SET name = ?, price= ?, availability= ?, img= ?, startTime= ?, endTime= ?, departureCity= ?, destinationCity= ?, stops= ?, seatType= ? WHERE itemID= ?";
 	private String deleteQuery = "DELETE FROM FlightCatalogue WHERE itemID= ?";
-    private String getFlightQuery = "SELECT name, price, availability, img FROM FlightCatalogue WHERE itemID = ?";
+    private String getFlightItemQuery = "SELECT name, price, availability, img FROM FlightCatalogue WHERE itemID = ?";
+    private String getFlightQuery = "SELECT name, price, availability, img, startTime, endTime, departureCity, destinationCity, stops, seatType, (TIME_TO_SEC(TIMEDIFF(endTime,startTime))/3600) FROM FlightCatalogue WHERE itemID = ?";
     // private String updateAvailabilityQuery = "UPDATE FlightCatalogue SET availability= ? WHERE itemID= ?";
     private String fetchStock = "SELECT ProductInStock FROM Product WHERE ProductID=?";
 
@@ -40,6 +42,7 @@ public class FlightDAO {
 		deleteSt = connection.prepareStatement(deleteQuery);
         filterSt = connection.prepareStatement(filterQuery);
         createSt = connection.prepareStatement(createQuery);
+        getFlightItemSt = connection.prepareStatement(getFlightItemQuery);
         getFlightSt = connection.prepareStatement(getFlightQuery);
 	}
 
@@ -147,8 +150,8 @@ public class FlightDAO {
 
     public Item fetchFlightItem(int itemID) throws SQLException{
         
-        getFlightSt.setInt(1, itemID);
-        ResultSet rs = getFlightSt.executeQuery();
+        getFlightItemSt.setInt(1, itemID);
+        ResultSet rs = getFlightItemSt.executeQuery();
         Item flight;
         while (rs.next()) {
             String name = rs.getString(1);
@@ -157,6 +160,31 @@ public class FlightDAO {
             String img = rs.getString(4);
 
             flight = new Item(itemID, name, price, availability, img);
+            return flight;
+        }
+
+        return null;
+    }
+
+    public Flight fetchFlight(int itemID) throws SQLException{
+        
+        getFlightItemSt.setInt(1, itemID);
+        ResultSet rs = getFlightItemSt.executeQuery();
+        Flight flight;
+        while (rs.next()) {
+                String name = rs.getString(1);
+                Double price = rs.getDouble(2);
+                int availability = rs.getInt(3);
+                String img = rs.getString(4);
+                Timestamp startTime = rs.getTimestamp(5);
+                Timestamp endTime = rs.getTimestamp(6);
+                String departureCity = rs.getString(7);
+                String destinationCity = rs.getString(8);
+                String stops = rs.getString(9);
+                String seatType = rs.getString(10);
+                int hours = rs.getInt(11);
+
+            flight = new Flight(itemID, name, price, availability, img, startTime, endTime, departureCity, destinationCity, hours, stops,seatType);
             return flight;
         }
 
