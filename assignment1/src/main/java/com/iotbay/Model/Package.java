@@ -10,7 +10,7 @@ public class Package extends Item {
     private String contactName;
     private String contactPhone;
 
-   
+
     public Package() {
         super();  
         this.description = null;
@@ -23,7 +23,7 @@ public class Package extends Item {
         this.contactPhone = null;
     }
 
-    
+ 
     public Package(int itemID, String name, double price, int availability, String img, String description) {
         super(itemID, name, price, availability, img);  
         this.description = description;
@@ -36,7 +36,21 @@ public class Package extends Item {
         this.contactPhone = null;
     }
 
-   
+
+    public Package(int itemID, String name, double price, int availability, String img, String description, String introduction, String activities, String transportation, String dining, String specialOffer, String contactName, String contactPhone) {
+        super(itemID, name, price, availability, img);
+        this.description = description;
+        this.introduction = introduction;
+        this.activities = activities;
+        this.transportation = transportation;
+        this.dining = dining;
+        this.specialOffer = specialOffer;
+        this.contactName = contactName;
+        this.contactPhone = contactPhone;
+    }
+
+    // Getters and Setters...
+
     public String getDescription() {
         return description;
     }

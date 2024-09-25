@@ -20,7 +20,6 @@
 
     <h1 class="packagebooking-heading">Choose Your Travel Package</h1>
 
-  
     <% if (isStaff) { %>
         <form action="PackageController" method="get">
             <input type="hidden" name="action" value="addPackage" />

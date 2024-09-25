@@ -1,7 +1,6 @@
 package com.iotbay.Model;
-import java.util.*;
-import java.sql.Date;
-import java.sql.Time;
+import java.sql.Timestamp;
+
 
 public class Hotel extends Item{
 
