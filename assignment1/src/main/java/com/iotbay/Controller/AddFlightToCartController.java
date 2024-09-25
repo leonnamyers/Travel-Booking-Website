@@ -17,5 +17,26 @@ import com.iotbay.Dao.FlightDAO;
 import com.iotbay.Model.*;
 
 public class AddFlightToCartController extends HttpServlet{
+
+
+
+
+    @Override
+    public void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        FlightDAO flightDAOManager = (FlightDAO) session.getAttribute("flightDAOManager");
+        Cart cart = (Cart) session.getAttribute("cart");
+        int itemID = Integer.parseInt(request.getParameter("itemID"));
+
+        try {
+            Item item = flightDAOManager.fetchFlightItem(itemID);
+            cart.addItemToCart(item);
+            session.setAttribute("cart", cart);
+            request.getRequestDispatcher("flights.jsp").include(request, response);
+
+        }catch (SQLException e) {
+        
+        }
+    }
     
 }

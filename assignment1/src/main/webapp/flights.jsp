@@ -19,13 +19,6 @@
             background-color: #a7abe0;
         }
     
-        .div-2 {
-            background-color: #ABBAEA;
-        }
-    
-        .div-3 {
-            background-color: #FBD603;
-        }
         .search-container {
             background: white;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
@@ -95,7 +88,7 @@
             <li><a href="index.jsp">Home</a></li>
             <li><a href="login.jsp">Login</a></li>
             <li><a href="register.jsp">Register</a></li>
-                <a href="cart.jsp">
+                <a href="Cart.jsp">
                     <button class ="shopping-cart-button" >
                         <i class="fas fa-shopping-cart"></i>
                         <% Cart cart = (Cart) request.getSession().getAttribute("cart");%>
@@ -217,9 +210,10 @@
                 <td><c:out value="${flight.stops}" /></td>
                 <td><c:out value="${flight.seatType}" /></td>
                 <td>
-                    <!-- <form method="GET" action=""> -->
+                    <form method="POST" action="/AddFlightToCartController">
+                        <input type="hidden" name="itemID" value="${flight.itemID}"/>
                         <input id="addCartBtn" type="submit" value="Add to cart"/>
-                    <!-- </form> -->
+                    </form>
                 </td>
             </tr>
         </c:forEach>
