@@ -164,9 +164,6 @@
 
             <input type="submit" value="SEARCH">
         </form>
-        <form method="post" action="/FlightCatalogueController">
-            <input type="submit" value="DISPLAY ALL">
-        </form>
         </div> 
         <br/>
         <br/> 

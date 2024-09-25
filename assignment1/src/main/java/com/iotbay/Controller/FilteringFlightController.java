@@ -30,20 +30,12 @@ public class FilteringFlightController extends HttpServlet{
         String filtDesCity = (String)request.getParameter("destination");
 
         String filtDepTime = (String)request.getParameter("departureTime");
-        Date depTimeStamp;
-        
-        if(filtDepTime != ""){
-            depTimeStamp = Date.valueOf(filtDepTime);
-        }
-        else{
-            depTimeStamp = new java.sql.Date(Calendar.getInstance().getTime().getTime());
-        }
 
         String filtSeatType = request.getParameter("seats");
 
         
         try{
-            ArrayList<Flight> flightList = flightDAOManager.fetchFilteredFlights(filtDepCity, filtDesCity, depTimeStamp, filtSeatType);
+            ArrayList<Flight> flightList = flightDAOManager.fetchFilteredFlights(filtDepCity, filtDesCity, filtDepTime, filtSeatType);
             session.setAttribute("flightList", flightList);
 
             request.setAttribute("departureTime", filtDepTime);

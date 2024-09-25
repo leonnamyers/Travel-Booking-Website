@@ -26,7 +26,7 @@ public class FlightDAO {
 
     private PreparedStatement fetchStockSt;
 	private String readQuery = "SELECT itemID, name, price, availability, img, startTime, endTime, departureCity, destinationCity, stops, seatType, (TIME_TO_SEC(TIMEDIFF(endTime,startTime))/3600) FROM FlightCatalogue";
-    private String filterQuery = "SELECT itemID, name, price, availability, img, startTime, endTime, departureCity, destinationCity, stops, seatType, (TIME_TO_SEC(TIMEDIFF(endTime,startTime))/3600) FROM FlightCatalogue where departureCity LIKE ? and destinationCity LIKE ? and seatType LIKE ? and startTime BETWEEN ? AND DATE_ADD(?, INTERVAL 1 DAY)";
+    private String filterQuery = "SELECT itemID, name, price, availability, img, startTime, endTime, departureCity, destinationCity, stops, seatType, (TIME_TO_SEC(TIMEDIFF(endTime,startTime))/3600) FROM FlightCatalogue where departureCity LIKE ? and destinationCity LIKE ? and seatType LIKE ? and startTime LIKE ?";
 	private String createQuery = "INSERT INTO FlightCatalogue (name, price, availability, img, startTime, endTime, departureCity, destinationCity, stops, seatType) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private String updateQuery = "UPDATE FlightCatalogue SET name = ?, price= ?, availability= ?, img= ?, startTime= ?, endTime= ?, departureCity= ?, destinationCity= ?, stops= ?, seatType= ? WHERE itemID= ?";
 	private String deleteQuery = "DELETE FROM FlightCatalogue WHERE itemID= ?";
@@ -74,16 +74,15 @@ public class FlightDAO {
         return flights;
     }
 
-    public ArrayList<Flight> fetchFilteredFlights(String filtDepCity, String filtDesCity,Date filtDepTime, String filtSeatType) throws SQLException {
+    public ArrayList<Flight> fetchFilteredFlights(String filtDepCity, String filtDesCity,String filtDepTime, String filtSeatType) throws SQLException {
 
         filterSt.setString(1, filtDepCity + "%");
         filterSt.setString(2, filtDesCity + "%");
         filterSt.setString(3, filtSeatType + "%");
-        filterSt.setDate(4, filtDepTime);
-        filterSt.setDate(5, filtDepTime);
+        filterSt.setString(4, filtDepTime + "%");
         ResultSet rs = filterSt.executeQuery();
         
-        ArrayList<Flight> flights = new ArrayList();
+        ArrayList<Flight> flights = new ArrayList<Flight>();
         
         while (rs.next()) {
             int itemID = rs.getInt(1);
