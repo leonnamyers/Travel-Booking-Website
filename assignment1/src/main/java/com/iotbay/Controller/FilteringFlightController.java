@@ -46,8 +46,6 @@ public class FilteringFlightController extends HttpServlet{
             ArrayList<Flight> flightList = flightDAOManager.fetchFilteredFlights(filtDepCity, filtDesCity, depTimeStamp, filtSeatType);
             session.setAttribute("flightList", flightList);
 
-            request.setAttribute("departureC", filtDepCity);
-            request.setAttribute("destinationC", filtDesCity);
             request.setAttribute("departureTime", filtDepTime);
             request.getRequestDispatcher("flights.jsp").include(request, response);
         }

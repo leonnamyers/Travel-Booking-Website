@@ -61,8 +61,7 @@
 
             ArrayList<Flight> flightList = (ArrayList<Flight>)session.getAttribute("flightList");
             User user = (User)session.getAttribute("user");
-            String departureC = (String)request.getParameter("departureC");
-            String destinationC = (String)request.getParameter("destinationC");
+
             String departureTime = (String)request.getParameter("departureTime");
     %>
     <body>
@@ -122,8 +121,7 @@
         <form method="post" action="/FilteringFlightController">
 
             <label>Departure:</label>
-            <c:if test="${empty departureC}">
-                <input list="departures" name="departure" id="departure" type="text" value="">
+                <input list="departures" name="departure" id="departure" type="text" value=""/>
                     <datalist id="departures">
                         <option value="Sydney">
                         <option value="Melbourne">
@@ -137,27 +135,10 @@
                         <option value="Hobart"></option>
                     </datalist>
                 </input>
-            </c:if>
-            <c:if test="${not empty departureC}">
-                <input list="departures" name="departure" id="departure" type="text" value="<%= departureC%>">
-                    <datalist id="departures">
-                        <option value="Sydney">
-                        <option value="Melbourne">
-                        <option value="Brisbane">
-                        <option value="Canberra">
-                        <option value="Perth">
-                        <option value="Adelaide">
-                        <option value="Gold Coast">
-                        <option value="Darwin">
-                        <option value="Christmas Island"></option>
-                        <option value="Hobart"></option>
-                    </datalist>
-                </input>
-            </c:if>
+
 
             <label>Destination:</label>
-            <c:if test="${empty destinationC}">
-                <input list="destinations" name="destination" id="destination" type="text" value="">
+                <input list="destinations" name="destination" id="destination" type="text" value=""/>
                     <datalist id="destinations">
                         <option value="Sydney">
                         <option value="Melbourne">
@@ -171,29 +152,12 @@
                         <option value="Hobart"></option>
                     </datalist>
                 </input>
-            </c:if>
-            <c:if test="${not empty destinationC}">
-                <input list="destinations" name="destination" id="destination" type="text" value="<%= destinationC%>">
-                    <datalist id="destinations">
-                        <option value="Sydney">
-                        <option value="Melbourne">
-                        <option value="Brisbane">
-                        <option value="Canberra">
-                        <option value="Perth">
-                        <option value="Adelaide">
-                        <option value="Gold Coast">
-                        <option value="Darwin">
-                        <option value="Christmas Island"></option>
-                        <option value="Hobart"></option>
-                    </datalist>
-                </input>
-            </c:if>
 
             <c:if test="${empty departureTime}">
-                <input name="departureTime" id="departureTime" type="date" value="">
+                <input name="departureTime" id="departureTime" type="date" value=""/>
             </c:if>
             <c:if test="${not empty departureTime}">
-                <input name="departureTime" id="departureTime" type="date" value="<%= departureTime%>">
+                <input name="departureTime" id="departureTime" type="date" value="<%= departureTime%>"/>
             </c:if>
 
             <label>Seat</label>
