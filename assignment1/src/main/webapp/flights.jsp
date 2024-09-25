@@ -198,7 +198,7 @@
             </tr>
         <c:forEach var="flight" items="${flightList}">
             <tr class="flight-list">
-                <td><img width="100px" height="100px" src="images/${flight.img}"></td>
+                <td><img width="50px" height="50px" src="images/${flight.img}"></td>
                 <td><c:out value="${flight.name}" /></td>
                 <fmt:formatNumber var="formattedUnitPrice" type="number" minFractionDigits="2" maxFractionDigits="2" value="${flight.price}" />
                 <td>$<c:out value="${formattedUnitPrice}" /></td>
@@ -275,7 +275,7 @@
                 </tr>
             <c:forEach var="flight" items="${flightList}">
                 <tr class="flight-list">
-                    <td><img width="100px" height="100px" src="images/${flight.img}"></td>
+                    <td><img width="50px" height="50px" src="images/${flight.img}"></td>
                     <td><c:out value="${flight.itemID}"/></td>
                     <td><c:out value="${flight.name}" /></td>
                     <fmt:formatNumber var="formattedUnitPrice" type="number" minFractionDigits="2" maxFractionDigits="2" value="${flight.price}" />
