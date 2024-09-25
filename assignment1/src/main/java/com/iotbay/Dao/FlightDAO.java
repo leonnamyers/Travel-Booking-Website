@@ -168,8 +168,8 @@ public class FlightDAO {
 
     public Flight fetchFlight(int itemID) throws SQLException{
         
-        getFlightItemSt.setInt(1, itemID);
-        ResultSet rs = getFlightItemSt.executeQuery();
+        getFlightSt.setInt(1, itemID);
+        ResultSet rs = getFlightSt.executeQuery();
         Flight flight;
         while (rs.next()) {
                 String name = rs.getString(1);

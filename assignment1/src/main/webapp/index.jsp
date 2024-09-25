@@ -14,52 +14,8 @@
         <title>Home Page</title>
     </head>
     <body>
-        <nav>
-            <h1>Dream Escape</h1>
-            <!--If User is logged in-->
-            <%
-            if (session != null && session.getAttribute("user") != null) { 
-            %>
-            <ul>
-                <li><a href="index.jsp">Home</a></li>
-                <li><a href="account_details.jsp">Account</a></li>
-                <li><a href="logout.jsp">Logout</a></li>
-                <a href="Cart.jsp">
-                    <button class ="shopping-cart-button" >
-                        <i class="fas fa-shopping-cart"></i>
-                        <% Cart cart = (Cart) request.getSession().getAttribute("cart");%>
-                        <% if (cart == null) { %>
-                        $0.00
-                        <% } else { %>
-                        $<%=cart.getTotalPrice()%>
-                        <% } %>
-                    </button>
-                </a>
-            </ul>
-            <!--If User is NOT logged in-->
-            <%
-            } else {
-            %>
-            <ul>
-                <li><a href="index.jsp">Home</a></li>
-                <li><a href="login.jsp">Login</a></li>
-                <li><a href="register.jsp">Register</a></li>
-                <a href="cart.jsp">
-                    <button class ="shopping-cart-button" >
-                        <i class="fas fa-shopping-cart"></i>
-                        <% Cart cart = (Cart) request.getSession().getAttribute("cart");%>
-                        <% if (cart == null) { %>
-                        $0.00
-                        <% } else { %>
-                        $<%=cart.getTotalPrice()%>
-                        <% } %>
-                    </button>
-                </a>
-            </ul>
-            <% 
-            }
-            %>
-        </nav>
+        <jsp:include page="navbar.jsp" flush="true" />
+        
 
         <div class="outer-container">
             <div class="flex-container" style="flex-direction: column;">
@@ -71,9 +27,7 @@
                 <%
                 }
                 %>
-
-                <!-- Including the navbar -->
-                <jsp:include page="navbar.jsp" flush="true" />
+        
 
                 <!-- Content will be loaded based on navigation -->
                 <div class="content">

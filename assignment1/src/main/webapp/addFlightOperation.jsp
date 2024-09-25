@@ -14,10 +14,8 @@
         <title>Flight Page</title>
     </head>
     <%
-        ArrayList<Flight> flightList = (ArrayList<Flight>)session.getAttribute("flightList");
-        
         User user = (User)session.getAttribute("user");
-        String itemID = (String)request.getParameter("itemID");
+        int itemID = Integer.parseInt((String)request.getParameter("itemID"));
         String name = (String)request.getParameter("name");
         double price = Double.parseDouble((String)request.getParameter("price"));
         int availability = Integer.parseInt((String)request.getParameter("availability"));

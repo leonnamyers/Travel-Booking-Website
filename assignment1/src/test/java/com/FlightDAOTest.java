@@ -1,30 +1,10 @@
-// package com;
-// import org.junit.jupiter.api.AfterAll;
-// import org.junit.jupiter.api.AfterEach;
-// import org.junit.jupiter.api.BeforeAll;
-// import org.junit.jupiter.api.Test;
-// import org.junit.jupiter.api.TestInstance;
-// import com.iotbay.Dao.FlightDAO;
-// import com.iotbay.Dao.DBConnector;
-// import com.iotbay.Dao.DBManager;
-// import com.iotbay.Model.*;
-// import static org.junit.jupiter.api.Assertions.assertEquals;
-// import static org.junit.jupiter.api.Assertions.assertFalse;
-// import static org.junit.jupiter.api.Assertions.assertTrue;
-// import java.sql.Connection;
-// import java.sql.Date;
-// import java.sql.PreparedStatement;
-// import java.sql.ResultSet;
-// import java.sql.SQLException;
-// import java.sql.Time;
-// import java.sql.Timestamp;
-// import java.util.ArrayList;
+package com;
 
-
-// public class FlightDAOTest {
-//     private DBConnector connector;
-//     private Connection conn;
-//     private FlightDAO flightDAOManager;
+/*
+public class FlightDAOTest {
+    private DBConnector connector;
+    private Connection conn;
+    private FlightDAO flightDAOManager;
 
 //     public FlightDAOTest() throws ClassNotFoundException, SQLException {
 //         connector = new DBConnector();
@@ -70,4 +50,5 @@
 //         assertEquals(flight.getImg(), "Travel.jpg");
 //     }
 
-// }
+}
+*/

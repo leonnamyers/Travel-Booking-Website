@@ -228,16 +228,15 @@
                     <td><c:out value="${flight.stops}" /></td>
                     <td><c:out value="${flight.seatType}" /></td>
                     <td>
-                        <form action="updateFlight.jsp">
-                            <input type="hidden" id="itemID" name="itemID" value="${flight.itemID}"/>
+                        <form method="POST" action="http://localhost:8080/UpdateFlightFormController">
+                            <input type="hidden" name="itemID" value="${flight.itemID}"/>
                             <input id="updateFlight" type="submit" value="Update"/>
                         </form>
-                        <form action="deleteFlight.jsp">
-                            <input type="hidden" id="flightIndex" name="flightIndex" value="<%= flightIndex%>"/>
+                        <form method="POST" action="http://localhost:8080/DeleteFlightController">
+                            <input type="hidden" name="itemID" value="${flight.itemID}"/>
                             <input id="deleteFlight" type="submit" value="Delete"/>
                         </form>
                     </td>
-                    <% flightIndex++;%>
                 </tr>
             </c:forEach>
             </table>

@@ -1,7 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@page import="java.util.ArrayList" %>
+<%@page import="java.util.*" %>
 <%@page import="com.iotbay.Model.*"%>
 <%@page import="com.iotbay.Dao.*"%>
 <%@page import="com.iotbay.Controller.*"%>
@@ -15,15 +15,18 @@
         <title>Flight Page</title>
     </head>
     <%
-        
-        FlightDAO flightDAOManager = (FlightDAO)session.getAttribute("flightDAOManager");
-        int itemID = Intger.parseInt(request.getParameter("itemID"));
-        Flight updatingFlight = flightDAOManager.
-
         User user = (User)session.getAttribute("user");
-        
-         
+        Flight updatingFlight = (Flight) session.getAttribute("updatingFlight");
 
+        String nameErr = (String) request.getAttribute("nameErr");
+        String departureTimeErr = (String) request.getAttribute("departureTimeErr");
+        String arrivalTimeErr = (String) request.getAttribute("arrivalTimeErr");
+        String priceErr = (String) request.getAttribute("priceErr");
+        String availabilityErr = (String) request.getAttribute("availabilityErr");
+        String departureCityErr = (String) request.getAttribute("departureCityErr");
+        String destinationCityErr = (String) request.getAttribute("destinationCityErr");
+        String imgErr = (String) request.getAttribute("imgErr");
+        
     %>
 <body>
     <nav>
@@ -77,18 +80,40 @@
 
     <div align="center">
         <!-- update -->
-        <form method="POST" action="http://localhost:8080/UpdateFlightController">
+        <form method="post" action="/UpdateFlightController">
             
         <!-- Form -->
         <h1>Update the flight</h1>
-            
-
-            <!-- Form inputs -->
-            <div>
-                <label>Flight Id: </label>
-                <input type="text" name="itemID" id="itemID" value="<c:out value='${updatingFlight.itemID}' />"/>
-            </div>
             <br/>
+            <label>
+                <% if(nameErr != null) { %>
+                <%=nameErr%></h1
+                <% } %>
+                <% if(departureTimeErr != null) { %>
+                <%=departureTimeErr%>
+                <% } %>
+                <% if(arrivalTimeErr != null) { %>
+                <%=arrivalTimeErr%>
+                <% } %>
+                <% if(departureCityErr != null) { %>
+                <%=departureCityErr%>
+                <% } %>
+                <% if(destinationCityErr != null) { %>
+                <%=destinationCityErr%>
+                <% } %>
+                <% if(imgErr != null) { %>
+                <%=imgErr%>
+                <% } %>
+                <% if(priceErr != null) { %>
+                <%=priceErr%>
+                <% } %>
+                <% if(availabilityErr != null) { %>
+                <%=availabilityErr%>
+                <% } %>
+            </label>
+            <br/>
+            <!-- Form inputs -->
+            <input type="hidden" name="itemID" id="itemID" value="<c:out value='${updatingFlight.itemID}' />"/>
         
             <div>
                 <label>Company: </label>
@@ -160,12 +185,6 @@
                 </datalist>
             </div>
             <br/> 
-        
-            <div>
-                <label>Duration: </label>
-                <input type="text" name="hours" id="hours" value="<c:out value='${updatingFlight.hours}' />"/>
-            </div>
-            <br/>
 
         <c:choose>
             <c:when test="${updatingFlight.stops.equals('Non Stop')}">
@@ -269,8 +288,6 @@
             <div>
                 <input type="submit" value="Save" />
             </div>
-                    
-            <input type="hidden" id="flightIndex" name="flightIndex" value="<%= flightUpdatingIndex%>"/>
         </table>
         </form>
     </div>   

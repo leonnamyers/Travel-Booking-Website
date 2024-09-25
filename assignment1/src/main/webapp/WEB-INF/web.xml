@@ -133,11 +133,55 @@
         <servlet-class>com.iotbay.Controller.AddFlightToCartController</servlet-class>
         <load-on-startup>0</load-on-startup>
     </servlet>
+
+    <servlet>
+        <servlet-name>CartController</servlet-name>
+        <servlet-class>com.iotbay.Controller.CartController</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
     <servlet-mapping>
-        <servlet-name>AddFlightToCartController</servlet-name>
-        <url-pattern>/AddFlightToCartController</url-pattern>
+        <servlet-name>CartController</servlet-name>
+        <url-pattern>/CartController</url-pattern>
     </servlet-mapping>
 
-    
+    <servlet>
+        <servlet-name>PlaceOrderController</servlet-name>
+        <servlet-class>com.iotbay.Controller.PlaceOrderController</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PlaceOrderController</servlet-name>
+        <url-pattern>/PlaceOrderController</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>PostOrderController</servlet-name>
+        <servlet-class>com.iotbay.Controller.PostOrderController</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PostOrderController</servlet-name>
+        <url-pattern>/PostOrderController</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>PaymentController</servlet-name>
+        <servlet-class>com.iotbay.Controller.PaymentController</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PaymentController</servlet-name>
+        <url-pattern>/PaymentController</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>UpdateFlightFormController</servlet-name>
+        <servlet-class>com.iotbay.Controller.UpdateFlightFormController</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UpdateFlightFormController</servlet-name>
+        <url-pattern>/UpdateFlightFormController</url-pattern>
+    </servlet-mapping>
 
 </web-app>
