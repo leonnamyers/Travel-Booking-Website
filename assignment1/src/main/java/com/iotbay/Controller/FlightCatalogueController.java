@@ -17,5 +17,18 @@ import com.iotbay.Dao.FlightDAO;
 import com.iotbay.Model.*;
 
 public class FlightCatalogueController extends HttpServlet{
-    
+
+    @Override
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        FlightDAO flightDAOManager = (FlightDAO) session.getAttribute("flightDAOManager");
+        try{
+            ArrayList<Flight> flightList = flightDAOManager.fetchAllFlights();
+            session.setAttribute("flightList", flightList);
+            response.sendRedirect("flights.jsp");
+        }       
+        catch(SQLException e){
+            System.out.println(e);
+        }
+    }
 }

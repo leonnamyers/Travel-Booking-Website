@@ -21,13 +21,11 @@ public class DeleteFlightController extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
-        //get device id for deletion
         int itemID = Integer.parseInt(request.getParameter("itemID"));
         HttpSession session = request.getSession();
         FlightDAO flightDAOManager = (FlightDAO) session.getAttribute("flightDAOManager");
         
         try{
-            //delete and redirect staff back to the list of devices
             flightDAOManager.deleteFlight(itemID);
             ArrayList<Flight> flightList = flightDAOManager.fetchAllFlights();
             session.setAttribute("flightList", flightList);

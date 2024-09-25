@@ -14,6 +14,32 @@
         <link rel="stylesheet" href="css/navbar.css"> 
         <title>Flight Page</title>
     </head>
+    <style>
+        .div-1 {
+            background-color: #a7abe0;
+        }
+        
+        .update-container {
+            background: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            width: 40%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .staff-container {
+            background: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            width: 40%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
     <%
         ArrayList<Flight> flightList = (ArrayList<Flight>)session.getAttribute("flightList");
         User user = (User)session.getAttribute("user");   
@@ -63,32 +89,34 @@
         }
         %>
     </nav>
-    <br/>
-    <br/>
 
-    <div>
+    <div align="center" class="div-1">
+        <br/>
+        <br/>
+        <div class="staff-container">
         <center>
             <h1>Flight Catalogue Management</h1>
             <br/>
             <h2>
                 <form action="http://localhost:8080/addFlight.jsp">
-                    <button type="submit">Add new device</button>
+                    <button type="submit">ADD NEW FLIGHT</button>
                 </form>
                 &nbsp;&nbsp;&nbsp;
-                <form action="http://localhost:8080/flights.jsp">
-                    <button type="submit">List all devices</button>
+                <form method="post" action="/FlightCatalogueController">
+                    <button type="submit">LIST ALL FLIGHT</button>
                 </form>
-
             </h2>
+            <br/>
         </center>
     </div>
     <br/>
     <br/>
+    </div>
 
 
-    <div align="center">
-        
 
+    <div align="center" class="div-1">
+        <div  class="update-container">
         <form method="post" action="http://localhost:8080/AddFlightController">
             <h1>Add new flight</h1>
             <br/>
@@ -340,10 +368,11 @@
             <div>
             <input type="submit" value="Save" />
             </div>
-
-            <br/>
             <br/>
         </form>
+        </div>
+        <br/>
+        <br/>
     </div>   
 </body>
 </html>

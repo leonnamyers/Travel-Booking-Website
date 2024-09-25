@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import com.iotbay.Model.*;
@@ -73,13 +74,13 @@ public class FlightDAO {
         return flights;
     }
 
-    public ArrayList<Flight> fetchFilteredFlights(String filtDepCity, String filtDesCity,Timestamp filtDepTime, String filtSeatType) throws SQLException {
+    public ArrayList<Flight> fetchFilteredFlights(String filtDepCity, String filtDesCity,Date filtDepTime, String filtSeatType) throws SQLException {
 
         filterSt.setString(1, filtDepCity + "%");
         filterSt.setString(2, filtDesCity + "%");
         filterSt.setString(3, filtSeatType + "%");
-        filterSt.setTimestamp(4, filtDepTime);
-        filterSt.setTimestamp(5, filtDepTime);
+        filterSt.setDate(4, filtDepTime);
+        filterSt.setDate(5, filtDepTime);
         ResultSet rs = filterSt.executeQuery();
         
         ArrayList<Flight> flights = new ArrayList();
