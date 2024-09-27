@@ -133,6 +133,10 @@
         <servlet-class>com.iotbay.Controller.AddFlightToCartController</servlet-class>
         <load-on-startup>0</load-on-startup>
     </servlet>
+        <servlet-mapping>
+        <servlet-name>AddFlightToCartController</servlet-name>
+        <url-pattern>/AddFlightToCartController</url-pattern>
+    </servlet-mapping>
 
     <servlet>
         <servlet-name>CartController</servlet-name>
@@ -174,6 +178,14 @@
         <url-pattern>/PaymentController</url-pattern>
     </servlet-mapping>
 
-    
+    <servlet>
+        <servlet-name>UpdateFlightFormController</servlet-name>
+        <servlet-class>com.iotbay.Controller.UpdateFlightFormController</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UpdateFlightFormController</servlet-name>
+        <url-pattern>/UpdateFlightFormController</url-pattern>
+    </servlet-mapping>
 
 </web-app>

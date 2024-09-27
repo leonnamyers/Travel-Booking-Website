@@ -17,5 +17,24 @@ import com.iotbay.Dao.FlightDAO;
 import com.iotbay.Model.*;
 
 public class DeleteFlightController extends HttpServlet {
+
+    @Override
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        
+        int itemID = Integer.parseInt(request.getParameter("itemID"));
+        HttpSession session = request.getSession();
+        FlightDAO flightDAOManager = (FlightDAO) session.getAttribute("flightDAOManager");
+        
+        try{
+            flightDAOManager.deleteFlight(itemID);
+            ArrayList<Flight> flightList = flightDAOManager.fetchAllFlights();
+            session.setAttribute("flightList", flightList);
+            response.sendRedirect("deleteFlight.jsp");
+        }
+        catch(SQLException e){
+            System.out.println(e);
+        }
+
+    }
     
 }
