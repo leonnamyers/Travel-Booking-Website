@@ -83,7 +83,7 @@
             <% }  else {%>
             <h1 class="page-heading">Your cart</h1>
             <div id="cart">
-                <form method="post" action="cart">
+                <form method="post" action="CartController">
                     <table class="display-table">
                         <tr>
                             <th>Product</th>
