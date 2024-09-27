@@ -33,7 +33,7 @@
                 <div class="content">
                     <!-- No default content, only show based on navigation -->
                 </div>
-            </div>           
+            </div>
         </div>
         <jsp:include page="/ConnServlet" flush="true" />
     </body>

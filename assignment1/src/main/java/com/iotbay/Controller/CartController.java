@@ -75,7 +75,7 @@ public class CartController extends HttpServlet {
         // DAO stuff using Order
 
         request.getSession().setAttribute("cart", cart);
-        response.sendRedirect("place-order"); // Redirect to place order page
+        response.sendRedirect("PlaceOrder"); // Redirect to place order page
     }
     private void deleteItem(HttpServletRequest request, HttpServletResponse response, Cart cart) throws ServletException, IOException {
         Enumeration<String> parameters = request.getParameterNames();
