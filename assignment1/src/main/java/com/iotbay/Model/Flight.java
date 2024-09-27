@@ -1,6 +1,5 @@
 package com.iotbay.Model;
-import java.util.*;
-import java.sql.*;
+import java.sql.Timestamp;
 
 
 public class Flight extends Item {
