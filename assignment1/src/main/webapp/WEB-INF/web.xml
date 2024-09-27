@@ -184,4 +184,34 @@
         <url-pattern>/UpdateFlightFormController</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+    <servlet-name>EditPackageController</servlet-name>
+    <servlet-class>com.iotbay.Controller.EditPackageController</servlet-class>
+    <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EditPackageController</servlet-name>
+        <url-pattern>/EditPackageController</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DeletePackageController</servlet-name>
+        <servlet-class>com.iotbay.Controller.DeletePackageController</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeletePackageController</servlet-name>
+        <url-pattern>/DeletePackageController</url-pattern>
+    </servlet-mapping>
+    <servlet>
+    <servlet-name>PackageDetailsController</servlet-name>
+    <servlet-class>com.iotbay.Controller.PackageDetailsController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PackageDetailsController</servlet-name>
+        <url-pattern>/PackageDetailsController</url-pattern>
+    </servlet-mapping>
+
+
+
 </web-app>

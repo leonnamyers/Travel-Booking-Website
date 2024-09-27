@@ -37,8 +37,8 @@
         </div>
         <div class="package-details-right">
             <% if (selectedPackage != null) { %>
-            <form action="BookingController" method="post" class="package-details-form">
-                <input type="hidden" name="packageId" value="<%= selectedPackage.getItemID() %>" /> <!-- 修改这里 -->
+            <form action="PackageDetailsController" method="post" class="package-details-form">
+                <input type="hidden" name="packageId" value="<%= selectedPackage.getItemID() %>" /> <!-- 确保包裹 ID 正确传递 -->
 
                 <label for="startDate">Start Date:</label>
                 <input type="date" id="startDate" name="startDate" required>

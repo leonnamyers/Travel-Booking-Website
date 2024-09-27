@@ -8,12 +8,21 @@
 </head>
 <body>
 
-
     <h1 class="packagebooking-heading"><%= request.getParameter("action").equals("addPackage") ? "Add New Package" : "Edit Package" %></h1>
 
+    <!-- Display error message if exists -->
+    <% 
+        String errorMessage = (String) request.getAttribute("error");
+        if (errorMessage != null) { 
+    %>
+    <div class="error-message" style="color: red; font-weight: bold; margin-bottom: 20px;">
+        <strong>Error:</strong> <%= errorMessage %>
+    </div>
+    <% 
+        } 
+    %>
 
     <form action="PackageController" method="post">
-   
         <input type="hidden" name="action" value="<%= request.getParameter("action") %>" />
         
         <% 
@@ -22,31 +31,24 @@
         %>
 
         <% if (isEditing) { %>
-     
             <input type="hidden" name="packageId" value="<%= pkg.getItemID() %>" />
         <% } %>
 
-  
         <label for="name">Package Name:</label>
         <input type="text" name="name" value="<%= isEditing ? pkg.getName() : "" %>" required />
-        
- 
+
         <label for="price">Price:</label>
         <input type="text" name="price" value="<%= isEditing ? pkg.getPrice() : "" %>" required />
 
-    
         <label for="availability">Availability:</label>
         <input type="text" name="availability" value="<%= isEditing ? pkg.getAvailability() : "" %>" required />
 
-      
         <label for="img">Image Path (optional):</label>
         <input type="text" name="img" value="<%= isEditing ? pkg.getImg() : "" %>" />
 
-       
         <label for="description">Description (optional):</label>
         <textarea name="description"><%= isEditing ? pkg.getDescription() : "" %></textarea>
 
-  
         <label for="introduction">Introduction (optional):</label>
         <textarea name="introduction"><%= isEditing ? pkg.getIntroduction() : "" %></textarea>
 
@@ -62,14 +64,13 @@
         <label for="specialOffer">Special Offer (optional):</label>
         <textarea name="specialOffer"><%= isEditing ? pkg.getSpecialOffer() : "" %></textarea>
 
-    
         <input type="hidden" name="contactName" value="<%= isEditing ? pkg.getContactName() : "" %>" />
         <input type="hidden" name="contactPhone" value="<%= isEditing ? pkg.getContactPhone() : "" %>" />
 
-      
-        <button type="submit" class="packagebooking-submit-button">
+        <!-- <button type="submit" class="packagebooking-submit-button">
             <%= isEditing ? "Update Package" : "Add Package" %>
-        </button>
+        </button> -->
+        <button type="submit" class="packagebooking-submit-button">Confirm</button>
     </form>
 
 </body>
