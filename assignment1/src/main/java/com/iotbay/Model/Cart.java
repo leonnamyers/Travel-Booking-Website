@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Cart {
     private List<Item> cart;
+    private Iterable<Item> items;
 
     public Cart() {
         cart = new ArrayList<Item>();
@@ -25,44 +26,14 @@ public class Cart {
         cart.add(item);
     }
 
-    public void removeItemFromCart(Item item) {
-        cart.remove(item);
-    }
-
-    public void removeItemFromCart(int index) {
+    public void deleteItem(int index) {
         cart.remove(index);
     }
-
-    /*
-    // Remove a destination from the cart by index
-    public void removeDestination(int index) {
-        if (index >= 0 && index < cart.size()) {
-            cart.remove(index);
-        }
-    }*/
-
-    // Update the quantity of a destination by index
-    /*public void updateQuantity(int index, int newQuantity) {
-        if (index >= 0 && index < cart.size()) {
-            Destinations destination = cart.get(index);  // Corrected here
-            destination.setQuantity(newQuantity);
-        }
-    }*/
-
+    
     // Get the list of destinations in the cart
     public List<Item> getItems() {
         return cart;
     }
-
-    // Get the total number of items in the cart
-    /*public int getTotalItems() {
-        int total = 0;
-        for (Item item : cart) {
-            total += item.getQuantity();
-        }
-        return total;
-    }
-        */
 
     // Calculate the total price of the cart
     
@@ -73,4 +44,38 @@ public class Cart {
         }
         return totalPrice;
     }
+
+    public List<Flight> getFlightsInCart() {
+        List<Flight> flights = new ArrayList<>();
+        for (Item item : items) {
+            if (item instanceof Flight) {
+                flights.add((Flight) item);
+            }
+        }
+        return flights;
+    }
+
+    // Get all Hotels in the cart
+    public List<Hotel> getHotelsInCart() {
+        List<Hotel> hotels = new ArrayList<>();
+        for (Item item : items) {
+            if (item instanceof Hotel) {
+                hotels.add((Hotel) item);
+            }
+        }
+        return hotels;
+    }
+
+    // Get all Packages in the cart
+    public List<Package> getPackagesInCart() {
+        List<Package> packages = new ArrayList<>();
+        for (Item item : items) {
+            if (item instanceof Package) {
+                packages.add((Package) item);
+            }
+        }
+        return packages;
+    }
 }
+
+

@@ -1,7 +1,4 @@
 package com.iotbay.Model;
-import java.util.*;
-import java.sql.Date;
-import java.sql.Time;
 import java.io.Serializable;
 
 public class Item implements Serializable{
@@ -60,10 +57,6 @@ public class Item implements Serializable{
     public void setImg(String img) {
         this.img = img;
     }
-
-
-
-
 
 
 }

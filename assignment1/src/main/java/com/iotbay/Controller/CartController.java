@@ -1,6 +1,7 @@
 package com.iotbay.Controller;
 
 import java.io.IOException;
+import java.util.Enumeration;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -47,9 +48,9 @@ public class CartController extends HttpServlet {
                 case CHECKOUT_BUTTON_VALUE:
                     confirmOrder(request, response, cart);
                     break;
-                /*default:
-                    updateOrRemoveItem(request, response, cart);
-                    break;*/
+                default:
+                    deleteItem(request, response, cart);
+                    break;
             }
         } catch (Exception ex) {
             LOGGER.log(Level.SEVERE, "Error processing cart action: {0}", ex.getMessage());
@@ -76,8 +77,22 @@ public class CartController extends HttpServlet {
         request.getSession().setAttribute("cart", cart);
         response.sendRedirect("place-order"); // Redirect to place order page
     }
+    private void deleteItem(HttpServletRequest request, HttpServletResponse response, Cart cart) throws ServletException, IOException {
+        Enumeration<String> parameters = request.getParameterNames();
+        int index = -1;
+        while (parameters.hasMoreElements()) {
+            String element = parameters.nextElement();
+            if (element.contains("remove")) {
+                index = Integer.parseInt(element.replace("remove", ""));
+            }
+        }
+        cart.deleteItem(index);
+        request.getSession().setAttribute("cart", cart);
+        serveJSP(request, response, "cart.jsp");
+    }
 
     private void serveJSP(HttpServletRequest request, HttpServletResponse response, String page) throws ServletException, IOException {
         request.getRequestDispatcher(page).forward(request, response);
     }
+
 }
