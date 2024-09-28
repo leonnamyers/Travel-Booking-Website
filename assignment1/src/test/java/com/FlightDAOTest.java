@@ -93,8 +93,4 @@ public class FlightDAOTest {
     //     flightDAOManager.deleteFlight(newFlight.getItemID());
     // }
 
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> parent of 3bf992f (Conflicts)
