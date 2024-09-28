@@ -56,24 +56,18 @@ services:
     image: mysql:latest
     env:
       MYSQL_ROOT_PASSWORD: '1234!@#$'
-      MYSQL_DATABASE: travelweb
+      MYSQL_DATABASE: TravelWeb
     ports:
     - 3306:3306
 
 steps:
-
+# Step 1: Clean Maven Cache (if needed)
 - script: |
     echo "Cleaning Maven cache..."
-    mvn dependency:purge-local-repository -DreResolve=false
+    mvn -f assignment1/pom.xml dependency:purge-local-repository -DreResolve=false
   displayName: 'Clean Maven Cache'
 
-
-- script: |
-    echo "Cleaning agent workspace..."
-    sudo rm -rf $(Agent.WorkFolder)/*
-  displayName: 'Clean Agent Workspace'
-
-
+# Step 2: Build and Package the Maven Project
 - task: Maven@4
   inputs:
     mavenPomFile: 'assignment1/pom.xml'
@@ -82,8 +76,12 @@ steps:
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     javaHomeOption: 'JDKVersion'
     mavenVersionOption: 'Default'
+    mavenAuthenticateFeed: false
+    effectivePomSkip: false
+    sonarQubeRunAnalysis: false
   displayName: 'Build and Package Maven Project'
 
+# Step 3: Wait for MySQL to be ready and Create Database
 - script: |
     echo "Waiting for MySQL to be ready..."
     for i in {1..30}; do
@@ -98,13 +96,13 @@ steps:
     mysql -h127.0.0.1 -uroot -p1234!@#$ -e "CREATE DATABASE IF NOT EXISTS travelweb;"
   displayName: 'Wait for MySQL and Create Database'
 
-
+# Step 4: Create the 'package' table in the 'travelweb' database
 - script: |
     echo "Creating table 'package' in 'travelweb' database..."
     mysql -h127.0.0.1 -uroot -p1234!@#$ -e "USE travelweb; CREATE TABLE IF NOT EXISTS package (itemID INT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(100), price DOUBLE, availability INT, img VARCHAR(255), description TEXT, introduction TEXT, activities TEXT, transportation TEXT, dining TEXT, specialOffer TEXT, contactName VARCHAR(100), contactPhone VARCHAR(20));"
   displayName: 'Create Package Table'
 
-
+# Step 5: Package Build Output into .zip file
 - script: |
     mkdir -p $(Build.ArtifactStagingDirectory)/Release
     cp assignment1/target/*.war $(Build.ArtifactStagingDirectory)/Release/
@@ -112,7 +110,7 @@ steps:
     zip -r app-package.zip .
   displayName: 'Package Build Output into .zip'
 
-
+# Step 6: Publish the Build Artifacts
 - task: PublishBuildArtifacts@1
   inputs:
     pathToPublish: '$(Build.ArtifactStagingDirectory)/Release'
