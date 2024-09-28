@@ -85,6 +85,7 @@ public class FlightDAOTest {
         assertEquals(flight.getImg(), "Travel.jpg");
     }
 
+<<<<<<< HEAD
     @Test
     public void deleteFlights() throws SQLException {
         flightDAOManager.createFlight("JetEngine", 478, 120, "JetEngine.jpg", Timestamp.valueOf("2025-03-13 14:00:00"), Timestamp.valueOf("2025-03-13 19:48:00"), "Sydeney", "Hobart", "1 Stop", "Economy");
@@ -92,5 +93,14 @@ public class FlightDAOTest {
         Flight newFlight = filteredFlights.get(0);
         flightDAOManager.deleteFlight(newFlight.getItemID());
     }
+=======
+    // @Test
+    // public void deleteFlights() throws SQLException {
+    //     flightDAOManager.createFlight("JetEngine", 478, 120, "JetEngine.jpg", Timestamp.valueOf("2025-03-13 14:00:00"), Timestamp.valueOf("2025-03-13 19:48:00"), "Sydeney", "Hobart", "1 Stop", "Economy");
+    //     ArrayList<Flight> filteredFlights = flightDAOManager.fetchFilteredFlights("Sydney", "Hobart","2025-03-13 14:00:00", "Economy");
+    //     Flight newFlight = filteredFlights.get(0);
+    //     flightDAOManager.deleteFlight(newFlight.getItemID());
+    // }
+>>>>>>> main
 
 }

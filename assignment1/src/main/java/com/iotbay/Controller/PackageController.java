@@ -1,139 +1,138 @@
 package com.iotbay.Controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.iotbay.Dao.DBConnector;
+import com.iotbay.Dao.PackageDAO;
 import com.iotbay.Model.Package;
+import com.iotbay.Model.User;
+import com.iotbay.Model.UserType;
 
 public class PackageController extends HttpServlet {
 
-        private List<Package> packages;
+    private PackageDAO packageDAO;
 
-        @Override
-        public void init() throws ServletException {
-                packages = new ArrayList<>();
-                initializePackages();
+    @Override
+    public void init() throws ServletException {
+        try {
+            DBConnector dbConnector = new DBConnector();
+            Connection connection = dbConnector.openConnection();
+            if (connection != null) {
+                packageDAO = new PackageDAO(connection);
+            } else {
+                throw new ServletException("Failed to connect to the database");
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+            throw new ServletException("Database connection error", e);
         }
+    }
 
-        private void initializePackages() {
+    // mvn clean install jetty:run -Dorg.eclipse.jetty.LEVEL=DEBUG
 
-                Package sydneyOperaHouse = new Package(1, "Sydney Opera House Tour", 150.00, 10, "opera.jpg",
-                                "A guided tour of the iconic Sydney Opera House.");
-                sydneyOperaHouse.setIntroduction(
-                                "Discover the architectural marvel of the Sydney Opera House, a UNESCO World Heritage site and a global symbol of modern Australia.");
-                sydneyOperaHouse.setActivities("Guided Tour, Harbour Cruise, Evening Performance");
-                sydneyOperaHouse.setTransportation("Private luxury transfers from Sydney Airport");
-                sydneyOperaHouse
-                                .setDining("Daily breakfast at The Star Grand, with an optional gourmet dinner at the Opera Bar");
-                sydneyOperaHouse.setSpecialOffer("10% discount on all in-house dining");
-                packages.add(sydneyOperaHouse);
+   
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String action = request.getParameter("action");
+        System.out.println("Received GET action: " + action);
 
-                Package greatBarrierReef = new Package(2, "Great Barrier Reef Snorkeling", 400.00, 20, "reef.jpg",
-                                "Explore the wonders of the Great Barrier Reef with this snorkeling package.");
-                greatBarrierReef.setIntroduction(
-                                "Dive into the world's largest coral reef system, teeming with marine life and vivid coral gardens.");
-                greatBarrierReef.setActivities("Snorkeling, Scenic Flight, Island Hopping");
-                greatBarrierReef.setTransportation(
-                                "Return flights from Sydney to Hamilton Island, with private transfers to the hotel.");
-                greatBarrierReef.setDining(
-                                "All-inclusive dining at the Reef View Hotel, featuring fresh seafood and local delicacies.");
-                greatBarrierReef.setSpecialOffer("Free sunset cruise with complimentary drinks.");
-                packages.add(greatBarrierReef);
+        User user = (User) request.getSession().getAttribute("user");
+        System.out.println("User: " + (user != null ? user.getUserType() : "Anonymous"));
 
-                Package uluruCamelTour = new Package(3, "Uluru Camel Tour", 250.00, 15, "uluru.jpg",
-                                "Experience the majesty of Uluru on a camel tour.");
-                uluruCamelTour.setIntroduction(
-                                "Immerse yourself in the spiritual heart of Australia with a camel ride around the iconic Uluru.");
-                uluruCamelTour.setActivities("Camel Ride, Cultural Experience, Stargazing");
-                uluruCamelTour.setTransportation(
-                                "Flights from Hamilton Island to Ayers Rock, with luxury coach transfers.");
-                uluruCamelTour.setDining(
-                                "Bush tucker dinner featuring native Australian ingredients, served under the stars.");
-                uluruCamelTour.setSpecialOffer("Complimentary spa treatment for two at the Red Ochre Spa.");
-                packages.add(uluruCamelTour);
-
-                Package daintreeRainforest = new Package(4, "Daintree Rainforest Adventure", 350.00, 12,
-                                "daintree.jpg",
-                                "A full-day adventure in the Daintree Rainforest.");
-                daintreeRainforest.setIntroduction(
-                                "Explore one of the oldest rainforests in the world, home to unique wildlife and lush greenery.");
-                daintreeRainforest.setActivities("Jungle Walks, River Cruise, Canopy Ziplining");
-                daintreeRainforest.setTransportation(
-                                "Private transfers from Ayers Rock to Daintree Rainforest, including a scenic drive along the coast.");
-                daintreeRainforest
-                                .setDining("Organic meals at the Daintree Ecolodge, featuring fresh, locally sourced ingredients.");
-                daintreeRainforest.setSpecialOffer("Free night walk in the rainforest with an experienced guide.");
-                packages.add(daintreeRainforest);
-
-                Package melbourneSightseeing = new Package(5, "Melbourne City Sightseeing", 120.00, 25,
-                                "melbourne.jpg",
-                                "Explore Melbourne’s top attractions on this guided tour.");
-                melbourneSightseeing.setIntroduction(
-                                "Discover the vibrant culture and history of Melbourne, known for its arts, food, and architecture.");
-                melbourneSightseeing.setActivities("City Tour, Great Ocean Road, Art and Culture");
-                melbourneSightseeing
-                                .setTransportation("Return flights from Cairns to Melbourne, with private transfers.");
-                melbourneSightseeing
-                                .setDining("Breakfast included, with dining options at some of Melbourne's top restaurants.");
-                melbourneSightseeing.setSpecialOffer(
-                                "Complimentary tickets to a theater show at the Arts Centre Melbourne.");
-                packages.add(melbourneSightseeing);
-
-                Package kangarooIsland = new Package(6, "Kangaroo Island Wildlife Tour", 300.00, 18, "kangaroo.jpg",
-                                "Discover the wildlife of Kangaroo Island.");
-                kangarooIsland.setIntroduction(
-                                "Experience Australia's best wildlife haven, where kangaroos, koalas, and sea lions roam freely.");
-                kangarooIsland.setActivities("Wildlife Safari, Sandboarding, Wine Tasting");
-                kangarooIsland
-                                .setTransportation(
-                                                "Flights from Melbourne to Adelaide, with ferry transfers to Kangaroo Island.");
-                kangarooIsland.setDining(
-                                "All meals included at the Southern Ocean Lodge, featuring gourmet local cuisine.");
-                kangarooIsland.setSpecialOffer(
-                                "Private wildlife photography session with a professional photographer.");
-                packages.add(kangarooIsland);
-
-                System.out.println("PackageController initialized with packages: " + packages);
+        try {
+            if ("loadPackages".equals(action)) {
+                loadPackages(request, response);
+            } else if ("addPackage".equals(action) && user != null && user.getUserType() == UserType.STAFF) {
+                request.getRequestDispatcher("/packageForm.jsp").forward(request, response);
+            } else if ("viewDetails".equals(action)) {
+                int packageId = Integer.parseInt(request.getParameter("packageId"));
+                Package pkg = packageDAO.fetchPackageById(packageId);
+                request.setAttribute("selectedPackage", pkg);
+                request.getRequestDispatcher("/packageDetails.jsp").forward(request, response);  
+            } else {
+                response.sendRedirect("index.jsp");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new ServletException("Database error occurred");
         }
+    }
 
-        @Override
-        protected void doGet(HttpServletRequest request, HttpServletResponse response)
-                        throws ServletException, IOException {
-                String action = request.getParameter("action");
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String action = request.getParameter("action");
+        System.out.println("Received POST action: " + action);  
 
-                if (action != null && action.equals("viewDetails")) {
-                        int packageId = Integer.parseInt(request.getParameter("packageId"));
-                        Package selectedPackage = getPackageById(packageId);
+        User user = (User) request.getSession().getAttribute("user");
+        System.out.println("User: " + (user != null ? user.getUserType() : "Anonymous"));  
 
-                        String contactName = request.getParameter("contactName");
-                        String contactPhone = request.getParameter("contactPhone");
-                        if (contactName != null) {
-                                selectedPackage.setContactName(contactName);
-                        }
-                        if (contactPhone != null) {
-                                selectedPackage.setContactPhone(contactPhone);
-                        }
-
-                        request.setAttribute("selectedPackage", selectedPackage);
-                        request.getRequestDispatcher("packageDetails.jsp").forward(request, response);
-                } else if (action != null && action.equals("loadPackages")) {
-                        request.setAttribute("packages", packages);
-                        request.getRequestDispatcher("packageBooking.jsp").forward(request, response);
-                } else {
-                        response.sendRedirect("index.jsp");
+        try {
+            if (user != null && user.getUserType() == UserType.STAFF) {
+                if ("addPackage".equals(action)) {
+                    addPackage(request, response);
                 }
-        }
-
-        private Package getPackageById(int id) {
-                for (Package pkg : packages) {
-                        if (pkg.getItemID() == id) {
-                                return pkg;
-                        }
-                }
-                return null;
-        }
+            } else {
+                response.sendRedirect("noPermission.jsp");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new ServletException("Error processing package");
 }
+}
+
+    private void loadPackages(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, ServletException, IOException {
+        List<Package> packages = packageDAO.fetchAllPackages();
+        System.out.println("Loaded " + packages.size() + " packages");  // 打印加载的包数量
+        request.setAttribute("packages", packages);
+        request.getRequestDispatcher("packageBooking.jsp").forward(request, response);
+    }
+
+    private void addPackage(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, IOException, ServletException {
+        Package pkg = new Package();
+        pkg.setName(request.getParameter("name"));
+        pkg.setPrice(Double.parseDouble(request.getParameter("price")));
+        pkg.setAvailability(Integer.parseInt(request.getParameter("availability")));
+        pkg.setImg(request.getParameter("img"));
+        pkg.setDescription(request.getParameter("description"));
+        pkg.setIntroduction(request.getParameter("introduction"));
+        pkg.setActivities(request.getParameter("activities"));
+        pkg.setTransportation(request.getParameter("transportation"));
+        pkg.setDining(request.getParameter("dining"));
+        pkg.setSpecialOffer(request.getParameter("specialOffer"));
+        pkg.setContactName(request.getParameter("contactName"));
+        pkg.setContactPhone(request.getParameter("contactPhone"));
+
+        packageDAO.createPackage(
+                pkg.getName(), pkg.getPrice(), pkg.getAvailability(), pkg.getImg(), pkg.getDescription(),
+                pkg.getIntroduction(), pkg.getActivities(), pkg.getTransportation(), pkg.getDining(),
+                pkg.getSpecialOffer(), pkg.getContactName(), pkg.getContactPhone()
+        );
+
+        System.out.println("Added new package: " + pkg.getName());  
+
+        response.sendRedirect("PackageController?action=loadPackages");
+    }
+
+  
+}
+
+
+
+
+
+
+
+
+

@@ -8,10 +8,10 @@ public class DummyItems {
     public static Flight createDummyFlight() {
         return new Flight(
             0, 
-            "Test", 
-            100.00, 
-            1, 
-            "", 
+            "Test",
+            100.00,
+            1,
+            "",
             Timestamp.valueOf(LocalDateTime.now()),
             Timestamp.valueOf("2024-10-01 06:30:00"),
             "Sydney", 
@@ -22,3 +22,4 @@ public class DummyItems {
         );
     }
 }
+

@@ -1,9 +1,64 @@
+# trigger:
+# - main
+ 
+# pool:
+#   vmImage: ubuntu-latest
+ 
+# steps:
+# - task: Maven@4
+#   inputs:
+#     mavenPomFile: 'assignment1/pom.xml'
+#     goals: 'clean package'
+#     publishJUnitResults: true
+#     testResultsFiles: '**/surefire-reports/TEST-*.xml'
+#     javaHomeOption: 'JDKVersion'
+#     mavenVersionOption: 'Default'
+#     mavenAuthenticateFeed: false
+#     effectivePomSkip: false
+#     sonarQubeRunAnalysis: false
+#   displayName: 'Build and Package Maven Project'
+ 
+# - script: |
+#     mkdir -p $(Build.ArtifactStagingDirectory)/Release
+#     cp assignment1/target/*.war $(Build.ArtifactStagingDirectory)/Release/
+#     cd $(Build.ArtifactStagingDirectory)/Release
+#     zip -r app-package.zip .
+#   displayName: 'Package Build Output into .zip'
+
+# - script: |
+#     echo "Waiting for MySQL to be ready..."
+#     for i in {1..30}; do
+#       if mysqladmin ping -h127.0.0.1 --silent; then
+#         echo "MySQL is up!"
+#         break
+#       fi
+#       echo "Waiting for MySQL..."
+#       sleep 5
+#     done
+#   displayName: 'Wait for MySQL to be ready'
+
+ 
+# - task: PublishBuildArtifacts@1
+#   inputs:
+#     pathToPublish: '$(Build.ArtifactStagingDirectory)/Release'
+#     artifactName: 'drop'
+#     publishLocation: 'Container'
+#   displayName: 'Publish Artifact: drop'
 trigger:
 - main
- 
+
 pool:
   vmImage: ubuntu-latest
- 
+
+services:
+  mysql:
+    image: mysql:latest
+    env:
+      MYSQL_ROOT_PASSWORD: '1234!@#$'
+      MYSQL_DATABASE: TravelWeb
+    ports:
+    - 3306:3306
+
 steps:
 - task: Maven@4
   inputs:
@@ -17,17 +72,33 @@ steps:
     effectivePomSkip: false
     sonarQubeRunAnalysis: false
   displayName: 'Build and Package Maven Project'
- 
+
+- script: |
+    echo "Waiting for MySQL to be ready..."
+    for i in {1..30}; do
+      if mysqladmin ping -h127.0.0.1 --silent; then
+        echo "MySQL is up!"
+        break
+      fi
+      echo "Waiting for MySQL..."
+      sleep 5
+    done
+    echo "Creating database 'travelweb'..."
+    mysql -h127.0.0.1 -uroot -p1234!@#$ -e "CREATE DATABASE IF NOT EXISTS travelweb;"
+  displayName: 'Wait for MySQL and Create Database'
+
+
 - script: |
     mkdir -p $(Build.ArtifactStagingDirectory)/Release
     cp assignment1/target/*.war $(Build.ArtifactStagingDirectory)/Release/
     cd $(Build.ArtifactStagingDirectory)/Release
     zip -r app-package.zip .
   displayName: 'Package Build Output into .zip'
- 
+
 - task: PublishBuildArtifacts@1
   inputs:
     pathToPublish: '$(Build.ArtifactStagingDirectory)/Release'
     artifactName: 'drop'
     publishLocation: 'Container'
   displayName: 'Publish Artifact: drop'
+
