@@ -32,14 +32,5 @@ steps:
     publishLocation: 'Container'
   displayName: 'Publish Artifact: drop'
 
-resources:
-  containers:
-    - container: mysql-db
-      image: mysql:8.0
-      env:
-        MYSQL_ROOT_PASSWORD: '1234!@#$'
-        MYSQL_DATABASE: 'TravelWeb'
-        MYSQL_USER: 'root'
-      ports:
-        - 3306:3306
+
 
