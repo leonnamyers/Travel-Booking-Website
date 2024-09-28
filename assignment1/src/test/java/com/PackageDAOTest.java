@@ -7,20 +7,16 @@
 // import com.iotbay.Dao.DBConnector;
 // import com.iotbay.Dao.DBManager;
 
-// public class PackageDAOTest {
-
 //     DBConnector dbConnector;
 //     Connection connection;
 //     DBManager manager;
 
-//     @Test
-//     public void testDatabaseConnectionAndCRUD() {
-//         try {
-
-//             DBConnector dbConnector = new DBConnector();
-//             Connection connection = dbConnector.openConnection();
-
-//     //         assertNotNull(connection, "Failed to connect to the database");
+    // @Test
+    // public void testDatabaseConnectionAndCRUD() {
+    //     try {
+     
+    //         DBConnector dbConnector = new DBConnector();
+    //         Connection connection = dbConnector.openConnection();
 
 //     //         PackageDAO packageDAO = new PackageDAO(connection);
 
@@ -39,9 +35,22 @@
 //                     "John Doe",
 //                     "1234567890");
 
-//             System.out.println("Fetching all packages...");
-//             ArrayList<Package> packages = packageDAO.fetchAllPackages();
-//             assertFalse(packages.isEmpty(), "Package list is empty after insertion");
+    
+    //         System.out.println("Inserting a new package...");
+    //         packageDAO.createPackage(
+    //             "Sydney Opera House Tour", 
+    //             150.00, 
+    //             10, 
+    //             "http://example.com/images/opera.jpg", 
+    //             "A guided tour of the iconic Sydney Opera House.", 
+    //             "Discover the architectural marvel of the Sydney Opera House, a UNESCO World Heritage site and a global symbol of modern Australia.", 
+    //             "Guided Tour, Harbour Cruise, Evening Performance", 
+    //             "Private luxury transfers from Sydney Airport", 
+    //             "Daily breakfast at The Star Grand, with an optional gourmet dinner at the Opera Bar", 
+    //             "10% discount on all in-house dining", 
+    //             "John Doe", 
+    //             "1234567890"
+    //         );
 
 //             System.out.println("Updating a package...");
 //             packageDAO.updatePackage(
@@ -62,9 +71,13 @@
 //             System.out.println("Deleting a package...");
 //             packageDAO.deletePackage(packages.get(0).getItemID());
 
-//     //         connection.close();
-//     //     } catch (ClassNotFoundException | SQLException e) {
-//     //         fail("Exception occurred during database operations: " + e.getMessage());
-//     //     }
-//     // }
-// }
+        
+    //         System.out.println("Deleting a package...");
+    //         packageDAO.deletePackage(packages.get(0).getItemID());
+
+    //         connection.close();
+    //     } catch (ClassNotFoundException | SQLException e) {
+    //         fail("Exception occurred during database operations: " + e.getMessage());
+    //     }
+    // }
+}
