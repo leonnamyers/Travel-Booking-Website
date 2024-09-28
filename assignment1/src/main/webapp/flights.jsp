@@ -233,7 +233,7 @@
             <div class="staff-container">
             <center>
                 <h1>Flights Catalogue Management</h1>
-            </br>
+               <br/>
                 <h2>
                     <form action="http://localhost:8080/addFlight.jsp">
                         <button type="submit">ADD NEW FLIGHT</button>
