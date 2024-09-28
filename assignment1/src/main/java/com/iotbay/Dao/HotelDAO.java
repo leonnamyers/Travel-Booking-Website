@@ -25,8 +25,8 @@ public class HotelDAO {
     private PreparedStatement getCustomerHotelItemSt;
 
 
-    private String readQuery = "SELECT itemID, name, price, availability, img, roomType, roomSize, city, availableBeginDate, availableEndDate From HotelCatalogue";
-    private String filterQuery = "SELECT itemID, name, price, availability, img, roomType, roomSize, city, availableBeginDate, availableEndDate FROM HotelCatalogue where roomType LIKE ? and roomSize LIKE ? and city LIKE ? and availableBeginDate <= ? and availableEndDate >= ?";
+    private String readQuery = "SELECT itemID, name, price, availability, img, roomType, roomSize, city, availableBeginDate, availableEndDate From HotelCatalogue ORDER BY name";
+    private String filterQuery = "SELECT itemID, name, price, availability, img, roomType, roomSize, city, availableBeginDate, availableEndDate FROM HotelCatalogue where roomType LIKE ? and roomSize LIKE ? and city LIKE ? and availableBeginDate <= ? and availableEndDate >= ? ORDER BY name";
 	private String createQuery = "INSERT INTO HotelCatalogue (name, price, availability, img, roomType, roomSize, city, availableBeginDate, availableEndDate) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private String updateQuery = "UPDATE HotelCatalogue SET name=?, price=?, availability=?, img=?, roomType=?, roomSize=?, city=?, availableBeginDate=?, availableEndDate=? WHERE itemID=?";
 	private String deleteQuery = "DELETE FROM HotelCatalogue WHERE itemID=?";
