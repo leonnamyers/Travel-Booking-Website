@@ -1,161 +1,104 @@
-// package com;
+package com;
 
-// import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-// import java.sql.Connection;
-// import java.sql.SQLException;
-// import java.util.ArrayList;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
-// import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-// import com.iotbay.Dao.DBConnector;
-// import com.iotbay.Dao.DBManager;
-// import com.iotbay.Dao.PackageDAO;
-// import com.iotbay.Model.Package;
+import com.iotbay.Dao.DBConnector;
+import com.iotbay.Dao.PackageDAO;
+import com.iotbay.Model.Package;
 
-// public class PackageDAOTest {
+public class PackageDAOTest {
+    private DBConnector connector;
+    private Connection conn;
+    private PackageDAO packageDAO;
 
-    // @Test
-    // public void testDatabaseConnectionAndCRUD() {
-    //     try {
-     
-    //         DBConnector dbConnector = new DBConnector();
-    //         Connection connection = dbConnector.openConnection();
-    // DBConnector dbConnector;
-    // Connection connection;
-    // DBManager manager;
 
-    // @Test
-    // public void testDatabaseConnectionAndCRUD() {
-    //     try {
+    public PackageDAOTest() throws ClassNotFoundException, SQLException {
+        connector = new DBConnector();
+        conn = connector.openConnection();
+        packageDAO = new PackageDAO(conn);
+    }
 
-    //         DBConnector dbConnector = new DBConnector();
-    //         Connection connection = dbConnector.openConnection();
+    // Set up before each test
+    @BeforeEach
+    public void setup() throws SQLException {
+        conn.setAutoCommit(false);  // Optional: Turn off auto-commit for testing.
+    }
 
-    //         assertNotNull(connection, "Failed to connect to the database");
-    //         PackageDAO packageDAO = new PackageDAO(connection);
-    //         System.out.println("Inserting a new package...");
-    //         packageDAO.createPackage(
-    //             "Sydney Opera House Tour", 
-    //             150.00, 
-    //             10, 
-    //             "http://example.com/images/opera.jpg", 
-    //             "A guided tour of the iconic Sydney Opera House.", 
-    //             "Discover the architectural marvel of the Sydney Opera House, a UNESCO World Heritage site and a global symbol of modern Australia.", 
-    //             "Guided Tour, Harbour Cruise, Evening Performance", 
-    //             "Private luxury transfers from Sydney Airport", 
-    //             "Daily breakfast at The Star Grand, with an optional gourmet dinner at the Opera Bar", 
-    //             "10% discount on all in-house dining", 
-    //             "John Doe", 
-    //             "1234567890"
-    //         );
+    // Test fetching all packages
+    @Test
+    public void testFetchAllPackages() throws SQLException {
+        ArrayList<Package> allPackages = packageDAO.fetchAllPackages();
+        assertFalse(allPackages.isEmpty(), "Package list should not be empty.");
+    }
 
-           
-//     //         System.out.println("Fetching all packages...");
-//     //         ArrayList<Package> packages = packageDAO.fetchAllPackages();
-//     //         assertFalse(packages.isEmpty(), "Package list is empty after insertion");
+    // Test fetching a package by ID
+    @Test
+    public void testFetchPackageById() throws SQLException {
+        Package pkg = packageDAO.fetchPackageById(35);  // Assuming an ID of 1 exists for testing
+        assertNotNull(pkg, "Package should not be null.");
+        assertEquals(pkg.getName(), "Sydney Opera House Tour");  // Adjust based on your data
+    }
 
-        
-//     //         System.out.println("Updating a package...");
-//     //         packageDAO.updatePackage(
-//     //             packages.get(0).getItemID(), 
-//     //             "Sydney Opera House Tour - Updated", 
-//     //             200.00, 
-//     //             8, 
-//     //             "http://example.com/images/opera_updated.jpg", 
-//     //             "An updated guided tour of the iconic Sydney Opera House.", 
-//     //             "Updated description.", 
-//     //             "Updated activities", 
-//     //             "Updated transportation", 
-//     //             "Updated dining", 
-//     //             "Updated special offer", 
-//     //             "Jane Doe", 
-//     //             "0987654321"
-//     //         );
+    // Test creating a new package with 12 parameters
+    @Test
+    public void testCreatePackage() throws SQLException {
+        packageDAO.createPackage(
+                "Sydney Harbour Tour", 120.50, 20, 
+                "harbour.jpg", "Beautiful Sydney Harbour Tour", 
+                "Explore the beauty of Sydney Harbour", 
+                "Boat Tour, Sightseeing", 
+                "Private ferry", "Lunch included", 
+                "20% discount", "Alice", "0412345678");
 
-        
-    //         System.out.println("Deleting a package...");
-    //         packageDAO.deletePackage(packages.get(0).getItemID());
+        ArrayList<Package> allPackages = packageDAO.fetchAllPackages();
+        assertTrue(allPackages.stream().anyMatch(pkg -> pkg.getName().equals("Sydney Harbour Tour")), 
+                   "Package should be successfully created.");
+    }
 
-            // System.out.println("Inserting a new package...");
-            // packageDAO.createPackage(
-            //         "Sydney Opera House Tour",
-            //         150.00,
-            //         10,
-            //         "http://example.com/images/opera.jpg",
-            //         "A guided tour of the iconic Sydney Opera House.",
-            //         "Discover the architectural marvel of the Sydney Opera House, a UNESCO World Heritage site and a global symbol of modern Australia.",
-            //         "Guided Tour, Harbour Cruise, Evening Performance",
-            //         "Private luxury transfers from Sydney Airport",
-            //         "Daily breakfast at The Star Grand, with an optional gourmet dinner at the Opera Bar",
-            //         "10% discount on all in-house dining",
-            //         "John Doe",
-            //         "1234567890");
+    // Test updating a package with 13 parameters
+    @Test
+    public void testUpdatePackage() throws SQLException {
+        ArrayList<Package> allPackages = packageDAO.fetchAllPackages();
+        if (!allPackages.isEmpty()) {
+            Package pkg = allPackages.get(0);
+            packageDAO.updatePackage(pkg.getItemID(),
+                    "Updated Sydney Harbour Tour", 150.00, 18, 
+                    "updated_harbour.jpg", "Updated description", 
+                    "Updated introduction", "Updated activities", 
+                    "Updated transportation", "Updated dining", 
+                    "Updated special offer", "Updated contact", "0412345679");
 
-            // System.out.println("Fetching all packages...");
-            // ArrayList<Package> packages = packageDAO.fetchAllPackages();
-            // assertFalse(packages.isEmpty(), "Package list is empty after insertion");
+            Package updatedPackage = packageDAO.fetchPackageById(pkg.getItemID());
+            assertEquals(updatedPackage.getName(), "Updated Sydney Harbour Tour", "Package name should be updated.");
+            assertEquals(updatedPackage.getPrice(), 150.00, "Package price should be updated.");
+        } else {
+            fail("No packages found to update.");
+        }
+    }
 
-            // System.out.println("Updating a package...");
-            // packageDAO.updatePackage(
-            //         packages.get(0).getItemID(),
-            //         "Sydney Opera House Tour - Updated",
-            //         200.00,
-            //         8,
-            //         "http://example.com/images/opera_updated.jpg",
-            //         "An updated guided tour of the iconic Sydney Opera House.",
-            //         "Updated description.",
-            //         "Updated activities",
-            //         "Updated transportation",
-            //         "Updated dining",
-            //         "Updated special offer",
-            //         "Jane Doe",
-            //         "0987654321");
+    // Test deleting a package
+    @Test
+    public void testDeletePackage() throws SQLException {
+        // Create a test package to delete
+        packageDAO.createPackage(
+                "Package to Delete", 100.00, 5, 
+                "delete_img.jpg", "Delete this package", 
+                "Test introduction", "Test activities", 
+                "Test transportation", "Test dining", 
+                "Test special offer", "Test contact", "0412345678");
 
-            // System.out.println("Deleting a package...");
-            // packageDAO.deletePackage(packages.get(0).getItemID());
+        ArrayList<Package> allPackages = packageDAO.fetchAllPackages();
+        Package lastPackage = allPackages.get(allPackages.size() - 1);  // Assuming last package is the one we created
+        packageDAO.deletePackage(lastPackage.getItemID());
 
-//             // System.out.println("Inserting a new package...");
-//             // packageDAO.createPackage(
-//             //         "Sydney Opera House Tour",
-//             //         150.00,
-//             //         10,
-//             //         "http://example.com/images/opera.jpg",
-//             //         "A guided tour of the iconic Sydney Opera House.",
-//             //         "Discover the architectural marvel of the Sydney Opera House, a UNESCO World Heritage site and a global symbol of modern Australia.",
-//             //         "Guided Tour, Harbour Cruise, Evening Performance",
-//             //         "Private luxury transfers from Sydney Airport",
-//             //         "Daily breakfast at The Star Grand, with an optional gourmet dinner at the Opera Bar",
-//             //         "10% discount on all in-house dining",
-//             //         "John Doe",
-//             //         "1234567890");
-
-//             // System.out.println("Fetching all packages...");
-//             // ArrayList<Package> packages = packageDAO.fetchAllPackages();
-//             // assertFalse(packages.isEmpty(), "Package list is empty after insertion");
-
-//             // System.out.println("Updating a package...");
-//             // packageDAO.updatePackage(
-//             //         packages.get(0).getItemID(),
-//             //         "Sydney Opera House Tour - Updated",
-//             //         200.00,
-//             //         8,
-//             //         "http://example.com/images/opera_updated.jpg",
-//             //         "An updated guided tour of the iconic Sydney Opera House.",
-//             //         "Updated description.",
-//             //         "Updated activities",
-//             //         "Updated transportation",
-//             //         "Updated dining",
-//             //         "Updated special offer",
-//             //         "Jane Doe",
-//             //         "0987654321");
-
-//             // System.out.println("Deleting a package...");
-//             // packageDAO.deletePackage(packages.get(0).getItemID());
-
-//     //         connection.close();
-//     //     } catch (ClassNotFoundException | SQLException e) {
-//     //         fail("Exception occurred during database operations: " + e.getMessage());
-//     //     }
-//     // }
-// }
+        Package deletedPackage = packageDAO.fetchPackageById(lastPackage.getItemID());
+        assertNull(deletedPackage, "Package should be successfully deleted.");
+    }
+}
