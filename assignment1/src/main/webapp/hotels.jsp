@@ -5,14 +5,14 @@
 <%@page import="com.iotbay.Model.*"%>
 <%@page import="com.iotbay.Dao.*"%>
 <%@page import="com.iotbay.Controller.*"%>
-<%@page import="java.sql.Timestamp" %>
+<%@page import="java.sql.*" %>
 <html>
     <head>
         <meta http-equiv="Content-Type="text/html; charset=UTF-8">
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="css/navbar.css"> 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-        <title>Flight Page</title>
+        <title>Hotel Page</title>
     </head>
 
     <style>
@@ -52,14 +52,15 @@
         }
     </style>
     <%
-            ArrayList<Flight> flightList = (ArrayList<Flight>)session.getAttribute("flightList");
+            ArrayList<Hotel> Hotel = (ArrayList<Hotel>)session.getAttribute("hotelList");
             User user = (User)session.getAttribute("user");
-            String departureTime = (String)request.getParameter("departureTime");
+            String checkInTime = (String)session.getAttribute("checkInTime");
+            String checkOutTime = (String)session.getAttribute("checkOutTime");
     %>
 
     <body>
     <nav>
-        <h1>Flight</h1>
+        <h1>Hotel</h1>
         <!--If User is logged in-->
         <%
         if (session != null && session.getAttribute("user") != null) { 
@@ -105,17 +106,17 @@
         %>
     </nav>
 
-    <img src="/images/flightPhoto.jpeg" width="100%" >
+    <img src="/images/Hotel.jpg" width="100%" >
 
     <div align="center" class="div-1"> 
         <br>
         <br> 
         <div class="search-container">
-        <form method="post" action="/FilteringFlightController">
+        <form method="post" action="/FilteringHotelController">
 
-            <label>Departure:</label>
-                <input list="departures" name="departure" id="departure" type="text" value=""/>
-                    <datalist id="departures">
+            <label>City:</label>
+                <input list="cities" name="city" id="city" type="text" value=""/>
+                    <datalist id="cities">
                         <option value="Sydney">
                         <option value="Melbourne">
                         <option value="Brisbane">
@@ -128,38 +129,41 @@
                         <option value="Hobart"></option>
                     </datalist>
                 </input>
-
-
-            <label>Destination:</label>
-                <input list="destinations" name="destination" id="destination" type="text" value=""/>
-                    <datalist id="destinations">
-                        <option value="Sydney">
-                        <option value="Melbourne">
-                        <option value="Brisbane">
-                        <option value="Canberra">
-                        <option value="Perth">
-                        <option value="Adelaide">
-                        <option value="Gold Coast">
-                        <option value="Darwin">
-                        <option value="Christmas Island"></option>
-                        <option value="Hobart"></option>
-                    </datalist>
-                </input>
-
-            <c:if test="${empty departureTime}">
-                <input name="departureTime" id="departureTime" type="date" value=""/>
+            
+            <label>From:</label>
+            <c:if test="${empty checkInTime}">
+                <input name="checkInTime" id="checkInTime" type="date" value=""/>
             </c:if>
-            <c:if test="${not empty departureTime}">
-                <input name="departureTime" id="departureTime" type="date" value="<%= departureTime%>"/>
+            <c:if test="${not empty checkInTime}">
+                <input name="checkInTime" id="checkInTime" type="date" value="<%= checkInTime%>"/>
             </c:if>
 
-            <label>Seat</label>
- 
-            <select id="seats" name="seats" type="text">
+            <label>To:</label>
+            <c:if test="${empty checkOutTime}">
+                <input name="checkOutTime" id="checkOutTime" type="date" value=""/>
+            </c:if>
+            <c:if test="${not empty checkOutTime}">
+                <input name="checkOutTime" id="checkOutTime" type="date" value="<%= checkOutTime%>"/>
+            </c:if>
+
+            <label>Room Type:</label>
+            <select id="roomType" name="roomType" type="text">
                 <option value="" selected="selected">All</option>
-                <option value="Economy">Economy</option>
-                <option value="Premium Economy">Premium Economy</option>
-                <option value="Business">Business</option>
+                <option value="Single">Single</option>
+                <option value="Double">Double</option>
+                <option value="Triple">Triple</option>
+                <option value="Family Room">Family Room</option>
+                <option value="Queen">Queen</option>
+                <option value="Executive Suite">Executive Suite</option>
+            </select>
+
+            <label>Room Size:</label>
+            <select id="roomSize" name="roomSize" type="text">
+                <option value="" selected="selected">All</option>
+                <option value="1 person">1 person</option>
+                <option value="2 people">2 people</option>
+                <option value="3 people">3 people</option>
+                <option value="4 people">4 people</option>
             </select>
 
             <input type="submit" value="SEARCH">
@@ -178,37 +182,29 @@
         <br/>
         <br/>
         <table>
-            <caption><h2>Flight Booking</h2></caption>
+            <caption><h2>Hotel Booking</h2></caption>
             <tr class="flight-list">
                 <th></th>
-                <th>Company</th>
+                <th>Hotel</th>
                 <th>Price</th>
-                <th>Departure Time</th>
-                <th>Arrival Time</th>
-                <th>Departure</th>
-                <th>Destination</th>
-                <th>Duration</th>
-                <th>Stop</th>
-                <th>Seat</th>
+                <th>Room Type</th>
+                <th>Room Size</th>
+                <th>Location</th>
                 <th></th>
 
             </tr>
-        <c:forEach var="flight" items="${flightList}">
+        <c:forEach var="hotel" items="${hotelList}">
             <tr class="flight-list">
-                <td><img width="50px" height="50px" src="images/${flight.img}"></td>
-                <td><c:out value="${flight.name}" /></td>
-                <fmt:formatNumber var="formattedUnitPrice" type="number" minFractionDigits="2" maxFractionDigits="2" value="${flight.price}" />
+                <td><img width="50px" height="50px" src="images/${hotel.img}"></td>
+                <td><c:out value="${hotel.name}" /></td>
+                <fmt:formatNumber var="formattedUnitPrice" type="number" minFractionDigits="2" maxFractionDigits="2" value="${hotel.price}" />
                 <td>$<c:out value="${formattedUnitPrice}" /></td>
-                <td><c:out value="${flight.startTime}" /></td>
-                <td><c:out value="${flight.endTime}" /></td>
-                <td><c:out value="${flight.departureCity}" /></td>
-                <td><c:out value="${flight.destinationCity}" /></td>
-                <td><c:out value="${flight.hours}" /> hrs</td>
-                <td><c:out value="${flight.stops}" /></td>
-                <td><c:out value="${flight.seatType}" /></td>
+                <td><c:out value="${hotel.roomType}" /></td>
+                <td><c:out value="${hotel.roomSize}" /></td>
+                <td><c:out value="${hotel.city}" /></td>
                 <td>
-                    <form method="POST" action="/AddFlightToCartController">
-                        <input type="hidden" name="itemID" value="${flight.itemID}"/>
+                    <form method="POST" action="/AddHotelToCartController">
+                        <input type="hidden" name="itemID" value="${hotel.itemID}"/>
                         <input id="addCartBtn" type="submit" value="Add to cart"/>
                     </form>
                 </td>
@@ -232,15 +228,15 @@
         <div align="center" class="div-1">
             <div class="staff-container">
             <center>
-                <h1>Flights Catalogue Management</h1>
-               <br/>
+                <h1>Hotels Catalogue Management</h1>
+            </br>
                 <h2>
-                    <form action="http://localhost:8080/addFlight.jsp">
-                        <button type="submit">ADD NEW FLIGHT</button>
+                    <form action="http://localhost:8080/addHotel.jsp">
+                        <button type="submit">ADD NEW HOTEL</button>
                     </form>
                     &nbsp;&nbsp;&nbsp;
-                    <form method="post" action="/FlightCatalogueController">
-                        <button type="submit">LIST ALL FLIGHT</button>
+                    <form method="post" action="/HotelCatalogueController">
+                        <button type="submit">LIST ALL HOTEL</button>
                     </form>
 
                 </h2>
@@ -256,43 +252,39 @@
             <table>
                 <tr class="flight-list">
                     <th></th>
-                    <th>Flight ID</th>
-                    <th>Company</th>
+                    <th>Hotel ID</th>
+                    <th>Hotel</th>
                     <th>Price</th>
-                    <th>Departure Time</th>
-                    <th>Arrival Time</th>
-                    <th>Departure</th>
-                    <th>Destination</th>
                     <th>Available</th>
-                    <th>Duration</th>
-                    <th>Stop</th>
-                    <th>Seat</th>
+                    <th>Room Type</th>
+                    <th>Room Size</th>
+                    <th>Location</th>
+                    <th>Begin date</th>
+                    <th>End date</th>
                     <th></th>
 
                 </tr>
-            <c:forEach var="flight" items="${flightList}">
+            <c:forEach var="hotel" items="${hotelList}">
                 <tr class="flight-list">
-                    <td><img width="50px" height="50px" src="images/${flight.img}"></td>
-                    <td><c:out value="${flight.itemID}"/></td>
-                    <td><c:out value="${flight.name}" /></td>
-                    <fmt:formatNumber var="formattedUnitPrice" type="number" minFractionDigits="2" maxFractionDigits="2" value="${flight.price}" />
+                    <td><img width="50px" height="50px" src="images/${hotel.img}"></td>
+                    <td><c:out value="${hotel.itemID}"/></td>
+                    <td><c:out value="${hotel.name}" /></td>
+                    <fmt:formatNumber var="formattedUnitPrice" type="number" minFractionDigits="2" maxFractionDigits="2" value="${hotel.price}" />
                     <td>$<c:out value="${formattedUnitPrice}" /></td>
-                    <td><c:out value="${flight.startTime}" /></td>
-                    <td><c:out value="${flight.endTime}" /></td>
-                    <td><c:out value="${flight.departureCity}" /></td>
-                    <td><c:out value="${flight.destinationCity}" /></td>
-                    <td><c:out value="${flight.availability}" /></td>
-                    <td><c:out value="${flight.hours}" /> hrs</td>
-                    <td><c:out value="${flight.stops}" /></td>
-                    <td><c:out value="${flight.seatType}" /></td>
+                    <td><c:out value="${hotel.availability}" /></td>
+                    <td><c:out value="${hotel.roomType}" /></td>
+                    <td><c:out value="${hotel.roomSize}" /></td>
+                    <td><c:out value="${hotel.city}" /></td>
+                    <td><c:out value="${hotel.availableBeginDate}"/></td>
+                    <td><c:out value="${hotel.availableEndDate}"/></td>
                     <td>
-                        <form method="POST" action="http://localhost:8080/UpdateFlightFormController">
-                            <input type="hidden" name="itemID" value="${flight.itemID}"/>
-                            <input id="updateFlight" type="submit" value="Update"/>
+                        <form method="POST" action="http://localhost:8080/UpdateHotelFormController">
+                            <input type="hidden" name="itemID" value="${hotel.itemID}"/>
+                            <input id="updateHotel" type="submit" value="Update"/>
                         </form>
-                        <form method="POST" action="http://localhost:8080/DeleteFlightController">
-                            <input type="hidden" name="itemID" value="${flight.itemID}"/>
-                            <input id="deleteFlight" type="submit" value="Delete"/>
+                        <form method="POST" action="http://localhost:8080/DeleteHotelController">
+                            <input type="hidden" name="itemID" value="${hotel.itemID}"/>
+                            <input id="deleteHotel" type="submit" value="Delete"/>
                         </form>
                     </td>
                 </tr>
@@ -314,8 +306,6 @@
     <% 
     }
     %>  
-
-
     </body>
 </html>
 
