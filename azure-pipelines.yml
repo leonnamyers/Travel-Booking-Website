@@ -56,7 +56,7 @@ services:
     image: mysql:latest
     env:
       MYSQL_ROOT_PASSWORD: '1234!@#$'
-      MYSQL_DATABASE: TravelWeb
+      MYSQL_DATABASE: travelweb
     ports:
     - 3306:3306
 
