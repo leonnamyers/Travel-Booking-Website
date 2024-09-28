@@ -9,10 +9,16 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
 import com.iotbay.Dao.DBConnector;
+import com.iotbay.Dao.DBManager;
 import com.iotbay.Dao.PackageDAO;
 import com.iotbay.Model.Package;
 
 public class PackageDAOTest {
+
+    DBConnector dbConnector;
+    Connection connection;
+    DBManager manager;
+
 
     @Test
     public void testDatabaseConnectionAndCRUD() {
