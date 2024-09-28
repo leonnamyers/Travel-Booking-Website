@@ -61,6 +61,19 @@ services:
     - 3306:3306
 
 steps:
+
+- script: |
+    echo "Cleaning Maven cache..."
+    mvn dependency:purge-local-repository -DreResolve=false
+  displayName: 'Clean Maven Cache'
+
+
+- script: |
+    echo "Cleaning agent workspace..."
+    sudo rm -rf $(Agent.WorkFolder)/*
+  displayName: 'Clean Agent Workspace'
+
+
 - task: Maven@4
   inputs:
     mavenPomFile: 'assignment1/pom.xml'
@@ -69,9 +82,6 @@ steps:
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     javaHomeOption: 'JDKVersion'
     mavenVersionOption: 'Default'
-    mavenAuthenticateFeed: false
-    effectivePomSkip: false
-    sonarQubeRunAnalysis: false
   displayName: 'Build and Package Maven Project'
 
 - script: |
@@ -90,11 +100,18 @@ steps:
 
 
 - script: |
+    echo "Creating table 'package' in 'travelweb' database..."
+    mysql -h127.0.0.1 -uroot -p1234!@#$ -e "USE travelweb; CREATE TABLE IF NOT EXISTS package (itemID INT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(100), price DOUBLE, availability INT, img VARCHAR(255), description TEXT, introduction TEXT, activities TEXT, transportation TEXT, dining TEXT, specialOffer TEXT, contactName VARCHAR(100), contactPhone VARCHAR(20));"
+  displayName: 'Create Package Table'
+
+
+- script: |
     mkdir -p $(Build.ArtifactStagingDirectory)/Release
     cp assignment1/target/*.war $(Build.ArtifactStagingDirectory)/Release/
     cd $(Build.ArtifactStagingDirectory)/Release
     zip -r app-package.zip .
   displayName: 'Package Build Output into .zip'
+
 
 - task: PublishBuildArtifacts@1
   inputs:
@@ -102,8 +119,3 @@ steps:
     artifactName: 'drop'
     publishLocation: 'Container'
   displayName: 'Publish Artifact: drop'
-
-- script: |
-    echo "Creating table 'package' in 'travelweb' database..."
-    mysql -h127.0.0.1 -uroot -p1234!@#$ -e "USE travelweb; CREATE TABLE IF NOT EXISTS package (itemID INT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(100), price DOUBLE, availability INT, img VARCHAR(255), description TEXT, introduction TEXT, activities TEXT, transportation TEXT, dining TEXT, specialOffer TEXT, contactName VARCHAR(100), contactPhone VARCHAR(20));"
-  displayName: 'Create Package Table'
