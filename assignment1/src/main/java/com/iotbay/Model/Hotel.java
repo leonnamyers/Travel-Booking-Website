@@ -1,48 +1,25 @@
 package com.iotbay.Model;
-import java.sql.Timestamp;
+import java.sql.*;
 
 
 public class Hotel extends Item{
 
-    private Timestamp checkInTime;
-    private Timestamp checkOutTime;
     private String roomType;
     private String roomSize;
     private String city;
-    private int days;
-    private double unitPrice;
+    private Date availabilityBeginDate;
+    private Date availabilityEndDate;
 
-    public Hotel(Timestamp checkInTime,Timestamp checkOutTime,int itemID, String name, double price, int availability, String img, String roomType,
-            String roomSize, String city, int days, double unitPrice) {
+    public Hotel(int itemID, String name, double price, int availability, String img, String roomType,
+            String roomSize, String city, Date availabilityBeginDate, Date availabilityEndDate) {
         super(itemID, name, price, availability, img);
-        this.checkInTime = checkInTime;
-        this.checkOutTime = checkOutTime;
         this.roomType = roomType;
         this.roomSize = roomSize;
-        this.days = days;
         this.city = city;
-        this.unitPrice = unitPrice;
+        this.availabilityBeginDate = availabilityBeginDate;
+        this.availabilityEndDate = availabilityEndDate;
     }
 
-    public int getDays() {
-        return days;
-    }
-
-    public void setDays(int days) {
-        this.days = days;
-    }
-    public Timestamp getCheckInTime() {
-        return checkInTime;
-    }
-    public void setCheckInTime(Timestamp checkInTime) {
-        this.checkInTime = checkInTime;
-    }
-    public Timestamp getCheckOutTime() {
-        return checkOutTime;
-    }
-    public void setCheckOutTime(Timestamp checkOutTime) {
-        this.checkOutTime = checkOutTime;
-    }
     public String getRoomType() {
         return roomType;
     }
@@ -61,13 +38,20 @@ public class Hotel extends Item{
     public void setCity(String city) {
         this.city = city;
     }
-
-    public double getUnitPrice() {
-        return unitPrice;
+        public Date getAvailabilityBeginDate() {
+        return availabilityBeginDate;
     }
 
-    public void setUnitPrice(double unitPrice) {
-        this.unitPrice = unitPrice;
+    public void setAvailabilityBeginDate(Date availabilityBeginDate) {
+        this.availabilityBeginDate = availabilityBeginDate;
+    }
+
+    public Date getAvailabilityEndDate() {
+        return availabilityEndDate;
+    }
+
+    public void setAvailabilityEndDate(Date availabilityEndDate) {
+        this.availabilityEndDate = availabilityEndDate;
     }
 
 }
