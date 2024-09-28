@@ -16,10 +16,12 @@ public class PackageDAO {
     private PreparedStatement addSt;
 
     // SQL Queries
-    private String readQuery = "SELECT itemID, name, price, availability, img, description, introduction, activities, transportation, dining, specialOffer, contactName, contactPhone FROM Package";
-    private String updateQuery = "UPDATE Package SET name=?, price=?, availability=?, img=?, description=?, introduction=?, activities=?, transportation=?, dining=?, specialOffer=?, contactName=?, contactPhone=? WHERE itemID=?";
-    private String deleteQuery = "DELETE FROM Package WHERE itemID = ?";
-    private String addQuery = "INSERT INTO Package (name, price, availability, img, description, introduction, activities, transportation, dining, specialOffer, contactName, contactPhone) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    // SQL Queries
+    private String readQuery = "SELECT itemID, name, price, availability, img, description, introduction, activities, transportation, dining, specialOffer, contactName, contactPhone FROM package";
+    private String updateQuery = "UPDATE package SET name=?, price=?, availability=?, img=?, description=?, introduction=?, activities=?, transportation=?, dining=?, specialOffer=?, contactName=?, contactPhone=? WHERE itemID=?";
+    private String deleteQuery = "DELETE FROM package WHERE itemID = ?";
+    private String addQuery = "INSERT INTO package (name, price, availability, img, description, introduction, activities, transportation, dining, specialOffer, contactName, contactPhone) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
 
     // Constructor with Connection
     public PackageDAO(Connection connection) throws SQLException {
@@ -60,6 +62,7 @@ public class PackageDAO {
     // Fetch a package by its itemID
     public Package fetchPackageById(int itemID) throws SQLException {
         String query = "SELECT itemID, name, price, availability, img, description, introduction, activities, transportation, dining, specialOffer, contactName, contactPhone FROM Package WHERE itemID = ?";
+
         PreparedStatement stmt = readSt.getConnection().prepareStatement(query);
         stmt.setInt(1, itemID);
         ResultSet rs = stmt.executeQuery();
