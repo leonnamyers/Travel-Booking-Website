@@ -1,0 +1,993 @@
+[33mcommit 0d308c866bf05eeee5cf143ebb76e726e351439c[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: monica8823 <Bochi.Shu@student.uts.edu.au>
+Date:   Sat Sep 28 13:55:25 2024 +1000
+
+    Add MySQL service in pipeline
+
+[33mcommit ae6fec93753ad7d08ed73cec3fbfedc1fab3aace[m
+Merge: 3feabfc f616b64
+Author: monica8823 <Bochi.Shu@student.uts.edu.au>
+Date:   Fri Sep 27 21:50:49 2024 +1000
+
+    Merge branch 'Package_connectting_to_DB'
+
+[33mcommit f616b64ec8e4cf1e565787b25b483ed67c31aea6[m[33m ([m[1;32mPackage_connectting_to_DB[m[33m)[m
+Author: monica8823 <Bochi.Shu@student.uts.edu.au>
+Date:   Fri Sep 27 21:44:12 2024 +1000
+
+    package-to_DB
+
+[33mcommit 3feabfc127a34d55fb2bfee55abf362a6f312841[m
+Author: channy-g <160987384+channy-g@users.noreply.github.com>
+Date:   Fri Sep 27 14:05:15 2024 +1000
+
+    Cart.jsp to cart.jsp
+
+[33mcommit 53d70a05d254c363a2f180aee7437c042e284032[m
+Author: channy-g <160987384+channy-g@users.noreply.github.com>
+Date:   Fri Sep 27 13:53:25 2024 +1000
+
+    delete item from cart
+
+[33mcommit 20e69b5db67638773fb638dc05b208542c9b3dd7[m
+Merge: df930d6 5277822
+Author: channy-g <160987384+channy-g@users.noreply.github.com>
+Date:   Fri Sep 27 13:10:21 2024 +1000
+
+    Merge branch 'main' of https://github.com/leonnamyers/Travel-Booking-Website
+
+[33mcommit df930d67bc95a07bc0a2886b9ed0b7a3a912394b[m
+Author: channy-g <160987384+channy-g@users.noreply.github.com>
+Date:   Fri Sep 27 13:10:17 2024 +1000
+
+    Update Cart.jsp
+
+[33mcommit 527782224d08d1b932d5d1567b41555117973f0e[m[33m ([m[1;31morigin/FlightCatalogueManagement[m[33m)[m
+Author: Jianliang <jianlan4200@gmail.com>
+Date:   Wed Sep 25 22:49:41 2024 +1000
+
+    F104 Fix search not able to search all time
+    
+    Using departureTime LIKE 'date%' instead of departureTime = 'date'
+
+[33mcommit b8ed90c18d2f210dd681daf71db8ed064afe58eb[m
+Author: Jianliang <jianlan4200@gmail.com>
+Date:   Wed Sep 25 22:28:30 2024 +1000
+
+    F104 Interface adjustment
+
+[33mcommit 1e1d9379db9d3fb7e032a61b33e958d295498af3[m
+Author: Jianliang <jianlan4200@gmail.com>
+Date:   Wed Sep 25 22:13:42 2024 +1000
+
+    F104 Finish add to cart feature
+
+[33mcommit 1dc81d3613a36b863b9c9847d398bf73bf06b1c6[m
+Author: Jianliang <jianlan4200@gmail.com>
+Date:   Wed Sep 25 21:49:13 2024 +1000
+
+    F104 Small bugs that can't be fixed
+    
+    Trying to get request parameter to ensure the search filter has previously entered value. However the departure and destination city some how always end up as null after setting request attribute.
+
+[33mcommit 6cb2d841ace3fc92f9e819a37003e000a63c5cd3[m
+Author: Jianliang <jianlan4200@gmail.com>
+Date:   Wed Sep 25 21:39:48 2024 +1000
+
+    F104 Finish Read search feature
+
+[33mcommit e2191cc4e74b4cc1ececbfff99029fa0cdb35bf6[m
+Merge: b7a7843 a522f37
+Author: monica8823 <Bochi.Shu@student.uts.edu.au>
+Date:   Wed Sep 25 21:35:59 2024 +1000
+
+    package-to-DB
+
+[33mcommit b7a7843639b041b7aabcc7f6f4ea8bea1506c720[m
+Author: monica8823 <Bochi.Shu@student.uts.edu.au>
+Date:   Wed Sep 25 21:28:39 2024 +1000
+
+    package-TO-DB
+
+[33mcommit a522f378fffd582a73c78b3ab8d92f96a583b696[m
+Author: Jianliang <jianlan4200@gmail.com>
+Date:   Wed Sep 25 00:50:30 2024 +1000
+
+    F104 Finished RUD, prepare to do Read and add to cart
+
+[33mcommit d873b4a8187cdad35c7bd97bc1d9d634410b6cb5[m
+Merge: 30d9f3b cc265ab
+Author: Jianliang <jianlan4200@gmail.com>
+Date:   Tue Sep 24 22:02:43 2024 +1000
+
+    Merge branch 'main' of https://github.com/leonnamyers/Travel-Booking-Website
+
+[33mcommit 30d9f3b1797b53517a5e217adc6e2a6e4b79c012[m
+Author: Jianliang <jianlan4200@gmail.com>
+Date:   Tue Sep 24 22:02:39 2024 +1000
+
+    F104 Update Flight
+
+[33mcommit cc265ab63a452037900e8d6cfe5b99f56124ce7c[m
+Merge: 0e6b801 c6e6e0c
+Author: leonnamyers <120074020+leonnamyers@users.noreply.github.com>
+Date:   Tue Sep 24 16:54:00 2024 +1000
+
+    Merge pull request #11 from leonnamyers/CustomerAndStaffManagment
+    
+    navbar fix
+
+[33mcommit c6e6e0c5fa77275e955f14fd3a67d49672e754cc[m[33m ([m[1;31morigin/CustomerAndStaffManagment[m[33m)[m
+Author: leonnamyers <120074020+leonnamyers@users.noreply.github.com>
+Date:   Tue Sep 24 16:51:46 2024 +1000
+
+    navbar fix
+
+[33mcommit 0e6b80140cffc07f1521269677930dba9aeb031f[m
+Author: channy-g <160987384+channy-g@users.noreply.github.com>
+Date:   Tue Sep 24 16:24:37 2024 +1000
+
+    update web.xml (order and payment)
+
+[33mcommit a1a679c11fe66eba09fef045a8e06fb81f2a7cac[m
+Author: channy-g <160987384+channy-g@users.noreply.github.com>
+Date:   Tue Sep 24 16:18:30 2024 +1000
+
+    order and payment webxml
+
+[33mcommit 129de2482e83093fc9d742cf650c8572bc8be8e5[m
+Author: channy-g <160987384+channy-g@users.noreply.github.com>
+Date:   Tue Sep 24 16:12:54 2024 +1000
+
+    not mine
+
+[33mcommit e2e741169ac96f62796f6d191ea3101eb9d908ed[m
+Merge: 445bcd1 b5b64f1
+Author: monica8823 <Bochi.Shu@student.uts.edu.au>
+Date:   Tue Sep 24 16:11:49 2024 +1000
+
+    Merge branch 'main' of https://github.com/leonnamyers/Travel-Booking-Website into Package_connectting_to_DB
+
+[33mcommit b5b64f134e065a6dfe7c84f9a17c2f4cc8b5e268[m
+Author: Jianliang <jianlan4200@gmail.com>
+Date:   Tue Sep 24 16:10:59 2024 +1000
+
+    Solve the web.xml bug
+
+[33mcommit fc33f3c87f2a39e2f81bd1be80d9e3bea1c6ba92[m
+Author: Jianliang <jianlan4200@gmail.com>
+Date:   Tue Sep 24 16:06:11 2024 +1000
+
+    Solving web.xml bug for F104
+
+[33mcommit 4d5bf4ff6b93a8c564c657d99e9ae201c9975a41[m
+Merge: 2f3af7c 1f5d5c3
+Author: channy-g <160987384+channy-g@users.noreply.github.com>
+Date:   Tue Sep 24 15:37:03 2024 +1000
+
+    Merge branch 'Payement'
+
+[33mcommit 1f5d5c3d12b6bf5eec139682dbffa7386cc6c1f5[m[33m ([m[1;31morigin/Payement[m[33m)[m
+Author: channy-g <160987384+channy-g@users.noreply.github.com>
+Date:   Tue Sep 24 15:21:39 2024 +1000
+
+    payment form
+
+[33mcommit 2f9db006a3d1bcce22ebdf26fe6c8dee8bc7d401[m
+Author: channy-g <160987384+channy-g@users.noreply.github.com>
+Date:   Tue Sep 24 15:19:57 2024 +1000
+
+    payment details
+
+[33mcommit 445bcd16668d7e6e2b5e03c6a94d2704d04a2076[m[33m ([m[1;32mpackage_connect_to_DB[m[33m)[m
+Merge: 007c847 2f3af7c
+Author: monica8823 <Bochi.Shu@student.uts.edu.au>
+Date:   Tue Sep 24 15:15:52 2024 +1000
+
+    Merge branch 'main' of https://github.com/leonnamyers/Travel-Booking-Website into package_connect_to_DB
+
+[33mcommit 007c847548bf9dbefbc36afcc9fea8d792963c23[m
+Merge: 0abbb25 95f5314
+Author: monica8823 <Bochi.Shu@student.uts.edu.au>
+Date:   Tue Sep 24 15:13:04 2024 +1000
+
+    Merge branch 'main' of https://github.com/leonnamyers/Travel-Booking-Website into package_connect_to_DB
+
+[33mcommit 2f3af7c864b263ada83ef088957821c3d2d2190c[m
+Author: Jianliang <jianlan4200@gmail.com>
+Date:   Tue Sep 24 00:08:24 2024 +1000
+
+    Get unit price for hotel
+
+[33mcommit bd9fe496d9dbe4692fc1be18c4a4459987480b56[m
+Author: Jianliang <jianlan4200@gmail.com>
+Date:   Mon Sep 23 23:59:19 2024 +1000
+
+    F104 Prepare controller for CRUD and add to cart
+
+[33mcommit da841f5a5d504b911e7d5f8cf418328dd3810616[m
+Author: Jianliang <jianlan4200@gmail.com>
+Date:   Mon Sep 23 22:27:40 2024 +1000
+
+    F104 DAO and DAOTest
+    
+    Created CRUD features, might ask if a single update to availability is needed
+
+[33mcommit 061f075b52c753419ef0eb00bed0191b7a4c7139[m
+Author: Jianliang <jianlan4200@gmail.com>
+Date:   Mon Sep 23 21:34:09 2024 +1000
+
+    F104 DAO and DAOTest
+    
+    1. fetch all flights
+    2. fetch filtered flights
+
+[33mcommit b466e3ea784d1f285a9369dff4eae32206084021[m
+Author: channy-g <160987384+channy-g@users.noreply.github.com>
+Date:   Sat Sep 21 23:06:39 2024 +1000
+
+    Cart icon updated
+
+[33mcommit efaa8106eeb4596068a081308ecabca3b3aa35cc[m
+Merge: 2bf601e 95f5314
+Author: channy-g <160987384+channy-g@users.noreply.github.com>
+Date:   Fri Sep 20 10:06:16 2024 +1000
+
+    Merge branch 'main' of https://github.com/leonnamyers/Travel-Booking-Website
+
+[33mcommit 2bf601e26a91bade80e07779dcde54ae60830e3a[m
+Author: channy-g <160987384+channy-g@users.noreply.github.com>
+Date:   Fri Sep 20 10:06:12 2024 +1000
+
+    added the cart symbol
+
+[33mcommit 0abbb2554c462972ffeb0697d3f209d160e89691[m
+Merge: 8403bbc d688fe6
+Author: monica8823 <Bochi.Shu@student.uts.edu.au>
+Date:   Thu Sep 19 17:38:15 2024 +1000
+
+    update_packageDao
+
+[33mcommit 95f531471ccb495fb5ab20ede6b31a3a019b9e5b[m
+Author: Jianliang <jianlan4200@gmail.com>
+Date:   Thu Sep 19 03:48:45 2024 +1000
+
+    Update FlightDAO.java
+
+[33mcommit efb839cb086ff4d3cb9b91bf639761b9f778b267[m
+Author: Jianliang <jianlan4200@gmail.com>
+Date:   Thu Sep 19 03:47:39 2024 +1000
+
+    Create FlightDAO.java
+
+[33mcommit 38b79e0d866b9ea17c2caa8ef1170234ab528cad[m
+Merge: 275d2e4 78d0cdd
+Author: Jianliang <jianlan4200@gmail.com>
+Date:   Thu Sep 19 03:44:48 2024 +1000
+
+    Merge branch 'FlightCatalogueManagement'
+
+[33mcommit 78d0cddcd0b17563c651bf3af7702be56745fb36[m
+Author: Jianliang <jianlan4200@gmail.com>
+Date:   Thu Sep 19 03:44:29 2024 +1000
+
+    Change jsp form and model to fit database usage
+    
+    F104 & F105
+
+[33mcommit 275d2e4af5979beb8f95d3d30756b8860704f20d[m
+Merge: 1f5cdec 4c67b2e
+Author: leonnamyers <120074020+leonnamyers@users.noreply.github.com>
+Date:   Wed Sep 18 22:21:03 2024 +1000
+
+    Merge pull request #10 from leonnamyers/CustomerAndStaffManagment
+    
+    Customer and staff management
+
+[33mcommit 4c67b2e84a4a96ec830cf151493d517718188556[m
+Author: leonnamyers <120074020+leonnamyers@users.noreply.github.com>
+Date:   Wed Sep 18 22:20:02 2024 +1000
+
+    fixed conn servlet
+
+[33mcommit ddaff139bb6c284dc501550660d7bcdadaed3cf2[m
+Author: leonnamyers <120074020+leonnamyers@users.noreply.github.com>
+Date:   Wed Sep 18 22:08:43 2024 +1000
+
+    Uncommented + running
+
+[33mcommit 1f5cdecaf7fd603dfe697c2a7d48410afc744b8b[m
+Author: Jianliang <jianlan4200@gmail.com>
+Date:   Wed Sep 18 21:18:29 2024 +1000
+
+    Update arrival time for F104
+    
+    Flight arrival time for later to calculate duration
+
+[33mcommit d688fe6a2f0ca03008e3f9be0f8b485cf92126c3[m
+Author: Jianliang <jianlan4200@gmail.com>
+Date:   Wed Sep 18 20:19:30 2024 +1000
+
+    Change Item Id to int
+    
+    For F104 F105
+
+[33mcommit 8403bbc8c2c06a0911b430519e77ff73b14113b0[m
+Author: monica8823 <Bochi.Shu@student.uts.edu.au>
+Date:   Wed Sep 18 20:10:53 2024 +1000
+
+    DaoPackage
+
+[33mcommit 11a4586428fc2e941c0593d9533652c31fae94e0[m
+Merge: 1ce9e88 e359ad6
+Author: Jianliang <jianlan4200@gmail.com>
+Date:   Tue Sep 17 16:23:17 2024 +1000
+
+    Merge branch 'FlightCatalogueManagement'
+
+[33mcommit e359ad6e66f977f8ff6ea052579e7099a9ed19cc[m
+Author: Jianliang <jianlan4200@gmail.com>
+Date:   Tue Sep 17 16:22:51 2024 +1000
+
+    DB rename
+    
+    TravelWeb
+
+[33mcommit 1ce9e88130b77996efa2149786d62e06cb6fd30c[m
+Author: monica8823 <146050714+monica8823@users.noreply.github.com>
+Date:   Thu Sep 12 21:21:51 2024 +1000
+
+    packageUpdate
+
+[33mcommit fb0ef4f974751e935bbd7acc3ce3f30f7e134c02[m
+Author: leonnamyers <120074020+leonnamyers@users.noreply.github.com>
+Date:   Tue Sep 10 15:12:55 2024 +1000
+
+    fix
+
+[33mcommit 892334498523d564875c8378f384b2dddae1bf5e[m
+Author: leonnamyers <120074020+leonnamyers@users.noreply.github.com>
+Date:   Tue Sep 10 15:01:45 2024 +1000
+
+    cart
+
+[33mcommit f9515be0b9f9fb11e4b941f2d43493feea2bffb1[m
+Author: AnnemareeH <160560543+AnnemareeH@users.noreply.github.com>
+Date:   Tue Sep 10 14:45:23 2024 +1000
+
+    Update navbar.jsp
+    
+    with userListPanel.jsp link
+
+[33mcommit 312afbf55b077495f37e07a6bb2970bf71c2ad62[m
+Author: channy-g <160987384+channy-g@users.noreply.github.com>
+Date:   Tue Sep 10 14:31:46 2024 +1000
+
+    Order details page
+
+[33mcommit 5ba1a8ddce585137cca3bbdafdc7bbbac42de5bd[m
+Author: leonnamyers <120074020+leonnamyers@users.noreply.github.com>
+Date:   Tue Sep 10 10:46:58 2024 +1000
+
+    patched
+
+[33mcommit c39b32f0ea32a89026b915b513e4036561722ae7[m
+Author: leonnamyers <120074020+leonnamyers@users.noreply.github.com>
+Date:   Tue Sep 10 10:39:07 2024 +1000
+
+    patched
+
+[33mcommit 872f6f8709d553ad5d618d4a66fb83b3e718cffa[m
+Merge: 3b1f607 d5fc31d
+Author: leonnamyers <120074020+leonnamyers@users.noreply.github.com>
+Date:   Tue Sep 10 10:37:05 2024 +1000
+
+    Merge branch 'OrderManagement'
+
+[33mcommit d5fc31d204d2728d4a2bd938e4ee3efc851e5563[m
+Author: leonnamyers <120074020+leonnamyers@users.noreply.github.com>
+Date:   Tue Sep 10 10:22:57 2024 +1000
+
+    patching
+
+[33mcommit 788f1bdeba0b2abc947dcbba9a8e33619e8198d8[m
+Author: leonnamyers <120074020+leonnamyers@users.noreply.github.com>
+Date:   Tue Sep 10 10:14:17 2024 +1000
+
+    models semi working - site working, but not Cart page
+
+[33mcommit cb55acdcf0e734d7d156c1f3ec6b48ae10052b33[m
+Author: channy-g <160987384+channy-g@users.noreply.github.com>
+Date:   Tue Sep 10 09:30:35 2024 +1000
+
+    order jsp files
+
+[33mcommit 3b1f607c145c1c5f5f571040ee8d17070650bb75[m
+Author: leonnamyers <120074020+leonnamyers@users.noreply.github.com>
+Date:   Tue Sep 10 06:11:42 2024 +1000
+
+    patching -
+
+[33mcommit 6f0cdf6a60eaa622d195a4484ead24ca40191d86[m
+Author: AnnemareeH <160560543+AnnemareeH@users.noreply.github.com>
+Date:   Tue Sep 10 01:45:39 2024 +1000
+
+    Update web.xml
+    
+    with servlet and servlet-mapping: RegisterPanelController and UpdateUserPanelController
+
+[33mcommit c159970d7340d73b502ce7f5a02b7423d0b84aca[m
+Author: AnnemareeH <160560543+AnnemareeH@users.noreply.github.com>
+Date:   Tue Sep 10 01:42:10 2024 +1000
+
+    Update navbar
+    
+    update with userListPanel link
+
+[33mcommit 6cea6ab5d613c4e65b3af7b1bce72a6908ee3e5e[m
+Author: AnnemareeH <160560543+AnnemareeH@users.noreply.github.com>
+Date:   Tue Sep 10 01:40:50 2024 +1000
+
+    Staff User Management Controllers
+
+[33mcommit a198a7c78abbdefd91f3e58ce10b61b44b726120[m
+Author: AnnemareeH <160560543+AnnemareeH@users.noreply.github.com>
+Date:   Tue Sep 10 01:38:34 2024 +1000
+
+    Staff User Management
+    
+    Login in as admin to view .jsps
+    
+    Currently, userListPanel.jsp:
+    - displays dummy users in a table
+    - shows each user with a view, update, delete profile button
+    - Search users
+    - Register a user with an account
+
+[33mcommit 955680d712ba5de625e99000b3b03887af45f97c[m
+Author: channy-g <160987384+channy-g@users.noreply.github.com>
+Date:   Mon Sep 9 21:53:05 2024 +1000
+
+    updated model classes
+
+[33mcommit b953b08563b0109b59b30713c0e625ef567ad5ca[m
+Author: channy-g <160987384+channy-g@users.noreply.github.com>
+Date:   Mon Sep 9 19:30:00 2024 +1000
+
+    Cart and destination classes + ordercontroller
+
+[33mcommit 04f5fe43fc32c399e4dea8fdba5c6d8ae783e7ed[m
+Author: channy-g <160987384+channy-g@users.noreply.github.com>
+Date:   Mon Sep 9 16:06:42 2024 +1000
+
+    controller classes
+
+[33mcommit ab494c9ff64294dfb75ecfff48c6186abc37148c[m
+Author: channy-g <160987384+channy-g@users.noreply.github.com>
+Date:   Mon Sep 9 13:53:35 2024 +1000
+
+    order jsp changes
+
+[33mcommit 0f54a6268c8870b7ef73a20fa45b898a5a630d4b[m
+Merge: 05a58f4 a60673c
+Author: channy-g <160987384+channy-g@users.noreply.github.com>
+Date:   Mon Sep 9 11:13:18 2024 +1000
+
+    Merge branch 'OrderManagement'
+
+[33mcommit a60673c29cdef3d4bf7b205e04931c6b42527631[m
+Author: channy-g <160987384+channy-g@users.noreply.github.com>
+Date:   Mon Sep 9 11:08:41 2024 +1000
+
+    updated order code
+
+[33mcommit 05a58f4e442f612e9c68892e5d5a8a4dbeaffb1f[m
+Author: Jianliang <jianlan4200@gmail.com>
+Date:   Sun Sep 8 20:48:49 2024 +1000
+
+    F105
+    
+    Hotel model change
+
+[33mcommit 7f09a50c7951b3182316c91cceb1048b1794c87c[m
+Author: Jianliang <jianlan4200@gmail.com>
+Date:   Sun Sep 8 20:35:27 2024 +1000
+
+    Update flights.jsp
+
+[33mcommit 83ca50232c849e05c1ec33d21e689e4d3ec53593[m
+Author: Jianliang <jianlan4200@gmail.com>
+Date:   Sun Sep 8 14:49:37 2024 +1000
+
+    Update index.jsp
+
+[33mcommit d83ddaaada110a3604a8d134c50ee0f383cd0dce[m[33m ([m[1;31morigin/Cart[m[33m)[m
+Author: leonnamyers <120074020+leonnamyers@users.noreply.github.com>
+Date:   Sun Sep 8 14:44:58 2024 +1000
+
+    basic Cart logic
+
+[33mcommit 473eb8c366d98a8bd1a6df42befce3b26f031766[m
+Author: leonnamyers <120074020+leonnamyers@users.noreply.github.com>
+Date:   Sun Sep 8 14:26:37 2024 +1000
+
+    Update navbar.jsp
+
+[33mcommit a277a1dfab2b700e14c119f8b6e5d3ce5b38d1f4[m
+Author: leonnamyers <120074020+leonnamyers@users.noreply.github.com>
+Date:   Sun Sep 8 14:21:42 2024 +1000
+
+    Update navbar.jsp
+
+[33mcommit 906a3efaa2a374bf6afbc193a07b3e48ceab058c[m
+Author: leonnamyers <120074020+leonnamyers@users.noreply.github.com>
+Date:   Sun Sep 8 14:02:04 2024 +1000
+
+    commenting out - fixing merge
+
+[33mcommit 17a200d6634c48c60932821ced8091167a05d6bb[m
+Author: leonnamyers <120074020+leonnamyers@users.noreply.github.com>
+Date:   Sun Sep 8 13:42:40 2024 +1000
+
+    Reapply "Merge branch 'main' into OrderManagement"
+    
+    This reverts commit 1387aed073e106683b9b86d6a1c9ae98b4c8b94f.
+
+[33mcommit 1387aed073e106683b9b86d6a1c9ae98b4c8b94f[m
+Author: leonnamyers <120074020+leonnamyers@users.noreply.github.com>
+Date:   Sun Sep 8 13:41:14 2024 +1000
+
+    Revert "Merge branch 'main' into OrderManagement"
+    
+    This reverts commit d499bdb165fa52c3a745a1f35c0b1e5487706e2c, reversing
+    changes made to 6c0bddbc1cf3a336dd0e928bf8ce239cb405d54f.
+
+[33mcommit d499bdb165fa52c3a745a1f35c0b1e5487706e2c[m
+Merge: 6c0bddb d90f131
+Author: leonnamyers <120074020+leonnamyers@users.noreply.github.com>
+Date:   Sun Sep 8 13:39:22 2024 +1000
+
+    Merge branch 'main' into OrderManagement
+
+[33mcommit d90f131525f32793473212841c50f82c02611295[m
+Author: Jianliang <jianlan4200@gmail.com>
+Date:   Sat Sep 7 19:57:49 2024 +1000
+
+    F104
+    
+    1. Add, Delete operation
+    2. Access control
+
+[33mcommit 617cb07d75cc6ea7844abeece0727df5789fa655[m
+Author: Jianliang <jianlan4200@gmail.com>
+Date:   Sat Sep 7 19:19:31 2024 +1000
+
+    F104
+    
+    Update Functionality
+
+[33mcommit af989fd8cfeb422bdacc2add0dd5381bc83f65b5[m
+Author: Jianliang <jianlan4200@gmail.com>
+Date:   Sat Sep 7 13:20:02 2024 +1000
+
+    F104
+    
+    CRUD jsp
+
+[33mcommit aa29429eda9216d0bccdf3c6269bb5e58285508a[m
+Merge: b3b13bb 1481c70
+Author: Jianliang <jianlan4200@gmail.com>
+Date:   Sat Sep 7 12:53:27 2024 +1000
+
+    Merge branch 'main' into FlightCatalogueManagement
+
+[33mcommit b3b13bb7891b6c1979edcc7c22aaa611717b98f1[m
+Author: Jianliang <jianlan4200@gmail.com>
+Date:   Sat Sep 7 12:49:33 2024 +1000
+
+    F104
+    
+    Flight management for staff
+
+[33mcommit 1481c701d81edc226b615414e4434757d888b5e1[m
+Merge: 6bcc160 48cb555
+Author: leonnamyers <120074020+leonnamyers@users.noreply.github.com>
+Date:   Sat Sep 7 12:27:25 2024 +1000
+
+    Merge pull request #7 from leonnamyers/CustomerAndStaffManagment
+    
+    dummy users for testing
+
+[33mcommit 48cb555f0165b3bf7ef6ea0e321eb386de8574e6[m
+Author: leonnamyers <120074020+leonnamyers@users.noreply.github.com>
+Date:   Sat Sep 7 12:27:07 2024 +1000
+
+    dummy users for testing
+
+[33mcommit 6bcc160981da0fac5f0fe1f9a7329ef509b6e269[m
+Author: Jianliang <jianlan4200@gmail.com>
+Date:   Sat Sep 7 02:45:13 2024 +1000
+
+    Add beautiful img
+
+[33mcommit 1d64c95cd8b8e813f2164bd54e721a1b66be2908[m
+Author: Jianliang <jianlan4200@gmail.com>
+Date:   Sat Sep 7 02:20:37 2024 +1000
+
+    Changing search bar
+
+[33mcommit 193dfc03fa0549fdcbdbcd1819f2a2c642924c10[m
+Author: Jianliang <jianlan4200@gmail.com>
+Date:   Sat Sep 7 01:52:27 2024 +1000
+
+    Did barebone html
+    
+    F104, Customer Interface
+
+[33mcommit 375bf78009b6945f3a51756bb3227f9c6b71ef75[m
+Author: Jianliang <jianlan4200@gmail.com>
+Date:   Fri Sep 6 22:54:56 2024 +1000
+
+    Make a list of item
+    
+    flight item
+
+[33mcommit 109d8c13d35f52698d81f7c850794927f24129d2[m
+Author: Jianliang <jianlan4200@gmail.com>
+Date:   Fri Sep 6 21:50:25 2024 +1000
+
+    Create flightbooking.jsp
+
+[33mcommit 6c0bddbc1cf3a336dd0e928bf8ce239cb405d54f[m
+Author: channy-g <160987384+channy-g@users.noreply.github.com>
+Date:   Fri Sep 6 11:39:17 2024 +1000
+
+    jsp; Place order, post order, cart
+
+[33mcommit d288959c35b288f83cb32e6e76d6f476108706bf[m
+Author: leonnamyers <120074020+leonnamyers@users.noreply.github.com>
+Date:   Thu Sep 5 17:01:17 2024 +1000
+
+    pipelines
+
+[33mcommit 1d069a5936055bacf17038c4d7d1ab032a2553b7[m
+Author: leonnamyers <120074020+leonnamyers@users.noreply.github.com>
+Date:   Thu Sep 5 16:52:09 2024 +1000
+
+    sample page
+
+[33mcommit 97b78067244d59b65ab4503795f12176bc773d41[m
+Author: leonnamyers <Leonna.M.Myers@student.uts.edu.au>
+Date:   Thu Sep 5 16:42:15 2024 +1000
+
+    removing this for pipeline
+
+[33mcommit 367f8a89541497ff6ca02b341d8abb78821e400e[m
+Author: leonnamyers <120074020+leonnamyers@users.noreply.github.com>
+Date:   Thu Sep 5 16:36:24 2024 +1000
+
+    updating yml + fixing errors
+
+[33mcommit 8f28dab05c4f43a6837f6be8a8ddb722d05463ab[m
+Author: mingvuong <Leonna.M.Myers@student.uts.edu.au>
+Date:   Thu Sep 5 16:21:56 2024 +1000
+
+    updating pipeline
+
+[33mcommit 16dfe8f7cfe8a142d0785fcd90e6114aa2d36dee[m
+Merge: 17e5819 67fed0c
+Author: Jianliang <jianlan4200@gmail.com>
+Date:   Tue Sep 3 17:01:42 2024 +1000
+
+    Merge branch 'FlightCatalogueManagement'
+
+[33mcommit 67fed0c62838684606ef3f4618625b396e9098cd[m
+Author: Jianliang <jianlan4200@gmail.com>
+Date:   Tue Sep 3 16:58:20 2024 +1000
+
+    Made basic models
+    
+    Class: Hotel, Flight, Item, Catalogue
+    Features: F104, F105, F107
+
+[33mcommit f82641a794203e1f2e2cc194c3bf3e7316079cb4[m
+Author: channy-g <160987384+channy-g@users.noreply.github.com>
+Date:   Tue Sep 3 16:52:43 2024 +1000
+
+    updated order
+
+[33mcommit 77f6245f7f9befc850b8ff95f5748f229c149b9e[m
+Merge: 8955ecc 53f58a3
+Author: leonnamyers <120074020+leonnamyers@users.noreply.github.com>
+Date:   Tue Sep 3 16:51:05 2024 +1000
+
+    Merge branch 'OrderManagement' of https://github.com/leonnamyers/Travel-Booking-Website into OrderManagement
+
+[33mcommit 8955ecce07715ed84b0c6e7552f70481c2876b2b[m
+Author: leonnamyers <120074020+leonnamyers@users.noreply.github.com>
+Date:   Tue Sep 3 16:40:56 2024 +1000
+
+    Added Order
+
+[33mcommit 53f58a3a48b38c20cd37dee1a21c7c45bdd31b9e[m
+Author: leonnamyers <120074020+leonnamyers@users.noreply.github.com>
+Date:   Tue Sep 3 16:40:56 2024 +1000
+
+    Reapply "Merge branch 'main' into OrderManagement"
+    
+    This reverts commit 6fe0542e528c5dbeb1a2f416b9ea937b666db3f7.
+
+[33mcommit 6fe0542e528c5dbeb1a2f416b9ea937b666db3f7[m
+Author: leonnamyers <120074020+leonnamyers@users.noreply.github.com>
+Date:   Tue Sep 3 16:39:31 2024 +1000
+
+    Revert "Merge branch 'main' into OrderManagement"
+    
+    This reverts commit d981be41943104b266e1eb7558c91d1c9717b4ff, reversing
+    changes made to 65029b706b42e56aaaeb5936f3ca395ae697f779.
+
+[33mcommit d981be41943104b266e1eb7558c91d1c9717b4ff[m
+Merge: 65029b7 17e5819
+Author: channy-g <160987384+channy-g@users.noreply.github.com>
+Date:   Tue Sep 3 16:15:57 2024 +1000
+
+    Merge branch 'main' into OrderManagement
+
+[33mcommit 17e581935f4b00c0637ff872a1e50e8e8584166e[m
+Merge: 8d5a70d 3c8647e
+Author: Bochi_studentEmail <146050714+monica8823@users.noreply.github.com>
+Date:   Tue Sep 3 16:11:26 2024 +1000
+
+    Merge pull request #5 from leonnamyers/packageManagement
+    
+    Package management
+
+[33mcommit 3c8647e73e57d1c6db923e15b797e73d6eaf6f03[m[33m ([m[1;31morigin/packageManagement[m[33m)[m
+Merge: 0c7ffed 8d5a70d
+Author: Bochi_studentEmail <146050714+monica8823@users.noreply.github.com>
+Date:   Tue Sep 3 16:11:16 2024 +1000
+
+    Merge branch 'main' into packageManagement
+
+[33mcommit 0c7ffedd88c2e9f6dfa6a0e6a246458bdf9f36cf[m
+Author: monica8823 <Bochi.Shu@student.uts.edu.au>
+Date:   Tue Sep 3 16:07:19 2024 +1000
+
+    PACKAGE_MANAGEMENT
+
+[33mcommit 8d5a70d8debeb0915dec6339de61b5265c210a49[m
+Author: leonnamyers <120074020+leonnamyers@users.noreply.github.com>
+Date:   Tue Sep 3 16:07:11 2024 +1000
+
+    test
+
+[33mcommit a1694d449b483efcda9ea9dcc4c0e4dd07018ed0[m
+Merge: 9352e2b b6f005b
+Author: monica8823 <Bochi.Shu@student.uts.edu.au>
+Date:   Tue Sep 3 16:06:45 2024 +1000
+
+    Merge branch 'packageManagement' of https://github.com/leonnamyers/Travel-Booking-Website into packageManagement
+
+[33mcommit 65029b706b42e56aaaeb5936f3ca395ae697f779[m
+Author: channy-g <160987384+channy-g@users.noreply.github.com>
+Date:   Tue Sep 3 16:03:12 2024 +1000
+
+    post order
+
+[33mcommit 6e0355192f72d3887622f6a6380c30cacbcad91a[m
+Author: channy-g <160987384+channy-g@users.noreply.github.com>
+Date:   Tue Sep 3 15:58:34 2024 +1000
+
+    place order, post order and cart managment
+
+[33mcommit 2237a34f674e352448ea83998879023fb5626786[m
+Merge: 7a651dd b82fe37
+Author: Jianliang <jianlan4200@gmail.com>
+Date:   Tue Sep 3 15:28:59 2024 +1000
+
+    Merge branch 'main' into FlightCatalogueManagement
+
+[33mcommit b82fe37c6b2ce38f45cb981f1fe9166af39893fd[m
+Author: leonnamyers <120074020+leonnamyers@users.noreply.github.com>
+Date:   Mon Sep 2 11:10:20 2024 +1000
+
+    fixed pipeline - should work now
+    
+    updated the yaml file (pom.xml location)
+
+[33mcommit 7a651dd9d64a4190cba80bdc609b3c0b1e705119[m
+Author: Jianliang <jianlan4200@gmail.com>
+Date:   Sun Sep 1 17:47:37 2024 +1000
+
+    Update Catalogue.java
+
+[33mcommit 1149192f3fa48f33efe0087cee180dd3589e17fe[m
+Merge: 1b67c57 305d73b
+Author: Jianliang <jianlan4200@gmail.com>
+Date:   Sun Sep 1 13:31:33 2024 +1000
+
+    Merge branch 'main' into FlightCatalogueManagement
+
+[33mcommit 305d73bc16d0f0992f99d7dbf2b49af2b7b37187[m
+Author: leonnamyers <120074020+leonnamyers@users.noreply.github.com>
+Date:   Sun Sep 1 13:20:03 2024 +1000
+
+    patched web.xml
+    
+    please check before merging
+
+[33mcommit 1b67c578778885fb12057d2ee58a5c96553c148e[m
+Author: Jianliang <jianlan4200@gmail.com>
+Date:   Sun Sep 1 12:58:35 2024 +1000
+
+    git via vs code take too long
+
+[33mcommit 77e2c0997c18d4ec16c7397d49ecc1c395a5060b[m
+Merge: 477dde5 b6f005b
+Author: Bochi_studentEmail <146050714+monica8823@users.noreply.github.com>
+Date:   Sat Aug 31 21:10:14 2024 +1000
+
+    Merge pull request #4 from leonnamyers/packageManagement
+    
+    packageManagement
+
+[33mcommit b6f005bad9a671bc3b78c43db3f223c79bb1ec8a[m
+Merge: 8237c07 477dde5
+Author: Bochi_studentEmail <146050714+monica8823@users.noreply.github.com>
+Date:   Sat Aug 31 21:09:59 2024 +1000
+
+    Merge branch 'main' into packageManagement
+
+[33mcommit 9352e2b95019bd9c81dd5aced041314f6afc9db8[m
+Author: monica8823 <Bochi.Shu@student.uts.edu.au>
+Date:   Sat Aug 31 14:38:47 2024 +1000
+
+    packageManagement
+
+[33mcommit 8237c075ac0607cf949073050e24fb8b32b8888e[m
+Author: monica8823 <154490803+MonicaShu@users.noreply.github.com>
+Date:   Sat Aug 31 14:38:47 2024 +1000
+
+    packageManagement
+
+[33mcommit 477dde50aed262494470ec94b533f12767285938[m
+Merge: e587d47 570adbc
+Author: leonnamyers <120074020+leonnamyers@users.noreply.github.com>
+Date:   Fri Aug 30 13:14:00 2024 +1000
+
+    Merge pull request #3 from leonnamyers/CustomerAndStaffManagment
+    
+    Unregister logic
+
+[33mcommit 570adbc646229b26b0132d0b8a73ab14947c7439[m
+Author: leonnamyers <120074020+leonnamyers@users.noreply.github.com>
+Date:   Fri Aug 30 13:13:32 2024 +1000
+
+    Unregister logic
+
+[33mcommit e587d47b61fd87f3300bc4ac6899ec5d683d2d71[m
+Author: leonnamyers <120074020+leonnamyers@users.noreply.github.com>
+Date:   Fri Aug 30 13:07:06 2024 +1000
+
+    Update azure-pipelines.yml for Azure Pipelines
+
+[33mcommit eefa41f980a5c6a13fd3552bb39fc2e340ddac1d[m
+Merge: 528c7d7 2c2d7cb
+Author: leonnamyers <120074020+leonnamyers@users.noreply.github.com>
+Date:   Wed Aug 28 18:15:59 2024 +1000
+
+    Merge pull request #2 from leonnamyers/CustomerAndStaffManagment
+    
+    Customer and staff management
+
+[33mcommit 2c2d7cbd540e9e5f5d10118d6460ae5a2baefba9[m
+Author: leonnamyers <120074020+leonnamyers@users.noreply.github.com>
+Date:   Wed Aug 28 18:15:37 2024 +1000
+
+    Update SAMPLE_PAGE.jsp
+
+[33mcommit a6e39e2173b2dc0ff2f67e9fee2168503e7e8403[m
+Author: leonnamyers <120074020+leonnamyers@users.noreply.github.com>
+Date:   Wed Aug 28 17:48:57 2024 +1000
+
+    update user
+
+[33mcommit 528c7d7c12af262b10709ec43f8f8758d08ab9a8[m
+Merge: 74ef505 e2d5ec4
+Author: leonnamyers <120074020+leonnamyers@users.noreply.github.com>
+Date:   Wed Aug 28 17:42:01 2024 +1000
+
+    Merge pull request #1 from leonnamyers/CustomerAndStaffManagment
+    
+    Customer and staff management
+
+[33mcommit e2d5ec4f5d5340a4573e4855c79cd724be18cb2c[m
+Author: leonnamyers <120074020+leonnamyers@users.noreply.github.com>
+Date:   Wed Aug 28 17:39:07 2024 +1000
+
+    servlets updated
+    
+    got rid of access logs
+
+[33mcommit 7ba24fe907580dcea91f5cdc978effac1d2cf8aa[m
+Author: leonnamyers <120074020+leonnamyers@users.noreply.github.com>
+Date:   Wed Aug 28 17:35:12 2024 +1000
+
+    AccDetails
+
+[33mcommit b8c3e64564155f1fc2226600b333035e3f118fe8[m
+Author: leonnamyers <120074020+leonnamyers@users.noreply.github.com>
+Date:   Wed Aug 28 17:33:25 2024 +1000
+
+    Update
+
+[33mcommit 00db0aa73da239d7cdfed115c1af03e77093b707[m
+Author: leonnamyers <120074020+leonnamyers@users.noreply.github.com>
+Date:   Wed Aug 28 17:30:19 2024 +1000
+
+    Login
+
+[33mcommit 322ee216e59959d90012a485ddb90be4cd9cee1c[m
+Author: leonnamyers <120074020+leonnamyers@users.noreply.github.com>
+Date:   Wed Aug 28 17:25:15 2024 +1000
+
+    DummyUsers
+
+[33mcommit 5dd6de21ebf96a332e967018f7ee57fe9c379be9[m
+Author: leonnamyers <120074020+leonnamyers@users.noreply.github.com>
+Date:   Wed Aug 28 17:04:27 2024 +1000
+
+    Register Controller
+
+[33mcommit 9555f9c65aebee4a5a49428a4b63eb3161dc59b1[m
+Author: leonnamyers <120074020+leonnamyers@users.noreply.github.com>
+Date:   Wed Aug 28 16:56:36 2024 +1000
+
+    Fixing controllers
+
+[33mcommit ce7d56dce5f7cfc081c0d2e7085fbe3b35fdaded[m
+Author: leonnamyers <120074020+leonnamyers@users.noreply.github.com>
+Date:   Wed Aug 28 16:53:00 2024 +1000
+
+    Fixing User Models
+
+[33mcommit 74ef505704e9682e4200eb4af3c1976641b45eb3[m
+Author: leonnamyers <120074020+leonnamyers@users.noreply.github.com>
+Date:   Fri Aug 23 16:39:50 2024 +1000
+
+    Commenting out DB code
+
+[33mcommit 9d4d1604cd8167b3042ae1d632e7cdc5687b11dd[m
+Author: leonnamyers <120074020+leonnamyers@users.noreply.github.com>
+Date:   Fri Aug 23 10:57:30 2024 +1000
+
+    Sorry - forgot i was supposed to do this ~!!
+    
+    Tests commented out
+    Let me know if this works/does not x
+
+[33mcommit 34ab47b8d23f65d38f35e4f93c5ce955282bd2e4[m
+Author: leonnamyers <120074020+leonnamyers@users.noreply.github.com>
+Date:   Tue Aug 20 15:31:32 2024 +1000
+
+    Set up CI with Azure Pipelines
+    
+    [skip ci]
+
+[33mcommit f3c46700061c43d0d05e1a724a96f797a23900fc[m
+Author: leonnamyers <120074020+leonnamyers@users.noreply.github.com>
+Date:   Tue Aug 20 14:23:50 2024 +1000
+
+    patched dependencies
+
+[33mcommit ef3b0f96cddba629e56304419e80c178f57fa643[m
+Author: leonnamyers <120074020+leonnamyers@users.noreply.github.com>
+Date:   Tue Aug 20 14:15:58 2024 +1000
+
+    Initial Commit
+
+[33mcommit e845fa043112dbe42f475b7c5a1ca3f8565d6994[m
+Author: leonnamyers <120074020+leonnamyers@users.noreply.github.com>
+Date:   Tue Aug 20 14:10:55 2024 +1000
+
+    Initial commit
