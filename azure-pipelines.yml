@@ -55,7 +55,7 @@ services:
     image: mysql:latest
     env:
       MYSQL_ROOT_PASSWORD: '1234!@#$'
-      MYSQL_DATABASE: travelweb
+      MYSQL_DATABASE: TravelWeb
     ports:
     - 3306:3306
 
@@ -83,7 +83,10 @@ steps:
       echo "Waiting for MySQL..."
       sleep 5
     done
-  displayName: 'Wait for MySQL to be ready'
+    echo "Creating database 'travelweb'..."
+    mysql -h127.0.0.1 -uroot -p1234!@#$ -e "CREATE DATABASE IF NOT EXISTS travelweb;"
+  displayName: 'Wait for MySQL and Create Database'
+
 
 - script: |
     mkdir -p $(Build.ArtifactStagingDirectory)/Release
