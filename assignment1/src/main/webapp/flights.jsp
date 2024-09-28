@@ -14,6 +14,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
         <title>Flight Page</title>
     </head>
+
     <style>
         .div-1 {
             background-color: #a7abe0;
@@ -34,7 +35,7 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
             border-radius: 10px;
             padding: 20px;
-            width: 95%;
+            width: 97%;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -51,12 +52,11 @@
         }
     </style>
     <%
-
             ArrayList<Flight> flightList = (ArrayList<Flight>)session.getAttribute("flightList");
             User user = (User)session.getAttribute("user");
-
             String departureTime = (String)request.getParameter("departureTime");
     %>
+
     <body>
     <nav>
         <h1>Flight</h1>
