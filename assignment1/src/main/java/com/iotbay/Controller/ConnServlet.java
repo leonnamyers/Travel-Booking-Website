@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import com.iotbay.Dao.DBConnector;
 import com.iotbay.Dao.DBManager;
 import com.iotbay.Dao.FlightDAO;
+import com.iotbay.Dao.HotelDAO;
 import com.iotbay.Model.*;
 
 // A get request is sent to this Servlet using jsp:include for any JSP page that may potentially use the DB.
@@ -22,6 +23,7 @@ public class ConnServlet extends HttpServlet {
     private DBConnector db;
     private DBManager manager;
     private FlightDAO flightDAOManager;
+    private HotelDAO hotelDAOManager;
     private Connection conn;
 
     @Override
@@ -59,8 +61,11 @@ public class ConnServlet extends HttpServlet {
         try {
             manager = new DBManager(conn);
             flightDAOManager = new FlightDAO(conn);
+            hotelDAOManager = new HotelDAO(conn);
             ArrayList<Flight> flightList = flightDAOManager.fetchAllFlights();
+            ArrayList<Hotel> hotelList = hotelDAOManager.fetchAllHotels();
             session.setAttribute("flightList", flightList);
+            session.setAttribute("hotelList", hotelList);
         } catch (SQLException ex) {
             //Logger.getLogger(ConnServlet.class.getName()).log(Level.SEVERE, null, ex);
         }

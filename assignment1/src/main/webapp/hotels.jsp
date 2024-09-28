@@ -106,7 +106,7 @@
         %>
     </nav>
 
-    <img src="/images/Hotel.jpeg" width="100%" >
+    <img src="/images/Hotel.jpg" width="100%" >
 
     <div align="center" class="div-1"> 
         <br>
@@ -129,7 +129,8 @@
                         <option value="Hobart"></option>
                     </datalist>
                 </input>
-
+            
+            <label>From:</label>
             <c:if test="${empty checkInTime}">
                 <input name="checkInTime" id="checkInTime" type="date" value=""/>
             </c:if>
@@ -137,6 +138,7 @@
                 <input name="checkInTime" id="checkInTime" type="date" value="<%= checkInTime%>"/>
             </c:if>
 
+            <label>To:</label>
             <c:if test="${empty checkOutTime}">
                 <input name="checkOutTime" id="checkOutTime" type="date" value=""/>
             </c:if>
@@ -180,7 +182,7 @@
         <br/>
         <br/>
         <table>
-            <caption><h2>Flight Booking</h2></caption>
+            <caption><h2>Hotel Booking</h2></caption>
             <tr class="flight-list">
                 <th></th>
                 <th>Hotel</th>
@@ -226,7 +228,7 @@
         <div align="center" class="div-1">
             <div class="staff-container">
             <center>
-                <h1>Flights Catalogue Management</h1>
+                <h1>Hotels Catalogue Management</h1>
             </br>
                 <h2>
                     <form action="http://localhost:8080/addHotel.jsp">
@@ -273,15 +275,15 @@
                     <td><c:out value="${hotel.roomType}" /></td>
                     <td><c:out value="${hotel.roomSize}" /></td>
                     <td><c:out value="${hotel.city}" /></td>
-                    <td><c:out value="${hotel.availableBeginDate}" /></td>
-                    <td><c:out value="${hotel.availableEndDate}" /> hrs</td>
+                    <td><c:out value="${hotel.availableBeginDate}"/></td>
+                    <td><c:out value="${hotel.availableEndDate}"/></td>
                     <td>
                         <form method="POST" action="http://localhost:8080/UpdateHotelFormController">
                             <input type="hidden" name="itemID" value="${hotel.itemID}"/>
                             <input id="updateHotel" type="submit" value="Update"/>
                         </form>
                         <form method="POST" action="http://localhost:8080/DeleteHotelController">
-                            <input type="hidden" name="itemID" value="${Hotel.itemID}"/>
+                            <input type="hidden" name="itemID" value="${hotel.itemID}"/>
                             <input id="deleteHotel" type="submit" value="Delete"/>
                         </form>
                     </td>
@@ -304,8 +306,6 @@
     <% 
     }
     %>  
-
-
     </body>
 </html>
 

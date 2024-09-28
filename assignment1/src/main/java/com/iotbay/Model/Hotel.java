@@ -7,8 +7,8 @@ public class Hotel extends Item{
     private String roomType;
     private String roomSize;
     private String city;
-    private Date availabilityBeginDate;
-    private Date availabilityEndDate;
+    private Date availableBeginDate;
+    private Date availableEndDate;
 
     public Hotel(int itemID, String name, double price, int availability, String img, String roomType,
             String roomSize, String city, Date availabilityBeginDate, Date availabilityEndDate) {
@@ -16,8 +16,8 @@ public class Hotel extends Item{
         this.roomType = roomType;
         this.roomSize = roomSize;
         this.city = city;
-        this.availabilityBeginDate = availabilityBeginDate;
-        this.availabilityEndDate = availabilityEndDate;
+        this.availableBeginDate = availabilityBeginDate;
+        this.availableEndDate = availabilityEndDate;
     }
 
     public String getRoomType() {
@@ -38,20 +38,20 @@ public class Hotel extends Item{
     public void setCity(String city) {
         this.city = city;
     }
-        public Date getAvailabilityBeginDate() {
-        return availabilityBeginDate;
+        public Date getAvailableBeginDate() {
+        return availableBeginDate;
     }
 
-    public void setAvailabilityBeginDate(Date availabilityBeginDate) {
-        this.availabilityBeginDate = availabilityBeginDate;
+    public void setAvailableBeginDate(Date availabilityBeginDate) {
+        this.availableBeginDate = availabilityBeginDate;
     }
 
-    public Date getAvailabilityEndDate() {
-        return availabilityEndDate;
+    public Date getAvailableEndDate() {
+        return availableEndDate;
     }
 
-    public void setAvailabilityEndDate(Date availabilityEndDate) {
-        this.availabilityEndDate = availabilityEndDate;
+    public void setAvailableEndDate(Date availabilityEndDate) {
+        this.availableEndDate = availabilityEndDate;
     }
 
 }
