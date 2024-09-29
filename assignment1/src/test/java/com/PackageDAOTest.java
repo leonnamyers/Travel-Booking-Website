@@ -61,18 +61,28 @@ public class PackageDAOTest {
         }
     }
 
+
     @Test
-    public void testFetchPackageById() throws SQLException {
-        if (isPipelineEnvironment()) {
-            Package pkg = DPackages.stream().filter(p -> p.getItemID() == 35).findFirst().orElse(null);
-            assertNotNull(pkg, "Package should not be null.");
-            assertEquals(pkg.getName(), "Sydney Opera House Tour");
-        } else {
-            Package pkg = packageDAO.fetchPackageById(35);  
-            assertNotNull(pkg, "Package should not be null.");
-            assertEquals(pkg.getName(), "Sydney Opera House Tour");  
-        }
+public void testFetchPackageById() throws SQLException {
+    if (isPipelineEnvironment()) {
+
+        Package pkg = DPackages.stream().filter(p -> p.getItemID() == 35).findFirst().orElse(null);
+        assertNotNull(pkg, "Package should not be null.");
+        assertEquals(pkg.getName(), "Sydney Opera House Tour");
+    } else {
+
+        packageDAO.updatePackage(35, "Updated Sydney Harbour Tour", 150.00, 18, 
+            "updated_harbour.jpg", "Updated description", 
+            "Updated introduction", "Updated activities", 
+            "Updated transportation", "Updated dining", 
+            "Updated special offer", "Updated contact", "0412345679");
+
+        Package pkg = packageDAO.fetchPackageById(35);
+        assertNotNull(pkg, "Package should not be null.");
+        assertEquals(pkg.getName(), "Updated Sydney Harbour Tour");  
     }
+}
+
 
     @Test
     public void testCreatePackage() throws SQLException {
