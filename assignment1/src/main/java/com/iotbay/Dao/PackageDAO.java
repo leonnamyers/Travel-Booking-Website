@@ -16,11 +16,10 @@ public class PackageDAO {
     private PreparedStatement addSt;
 
     // SQL Queries
-    // SQL Queries
-    private String readQuery = "SELECT itemID, name, price, availability, img, description, introduction, activities, transportation, dining, specialOffer, contactName, contactPhone FROM package";
-    private String updateQuery = "UPDATE package SET name=?, price=?, availability=?, img=?, description=?, introduction=?, activities=?, transportation=?, dining=?, specialOffer=?, contactName=?, contactPhone=? WHERE itemID=?";
-    private String deleteQuery = "DELETE FROM package WHERE itemID = ?";
-    private String addQuery = "INSERT INTO package (name, price, availability, img, description, introduction, activities, transportation, dining, specialOffer, contactName, contactPhone) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private String readQuery = "SELECT ITEMID, NAME, PRICE, AVAILABILITY, IMG, DESCRIPTION, INTRODUCTION, ACTIVITIES, TRANSPORTATION, DINING, SPECIALOFFER, CONTACTNAME, CONTACTPHONE FROM PACKAGE";
+    private String updateQuery = "UPDATE PACKAGE SET NAME=?, PRICE=?, AVAILABILITY=?, IMG=?, DESCRIPTION=?, INTRODUCTION=?, ACTIVITIES=?, TRANSPORTATION=?, DINING=?, SPECIALOFFER=?, CONTACTNAME=?, CONTACTPHONE=? WHERE ITEMID=?";
+    private String deleteQuery = "DELETE FROM PACKAGE WHERE ITEMID = ?";
+    private String addQuery = "INSERT INTO PACKAGE (NAME, PRICE, AVAILABILITY, IMG, DESCRIPTION, INTRODUCTION, ACTIVITIES, TRANSPORTATION, DINING, SPECIALOFFER, CONTACTNAME, CONTACTPHONE) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 
     // Constructor with Connection
@@ -61,25 +60,25 @@ public class PackageDAO {
 
     // Fetch a package by its itemID
     public Package fetchPackageById(int itemID) throws SQLException {
-        String query = "SELECT itemID, name, price, availability, img, description, introduction, activities, transportation, dining, specialOffer, contactName, contactPhone FROM package WHERE itemID = ?";
+        String query = "SELECT ITEMID, NAME, PRICE, AVAILABILITY, IMG, DESCRIPTION, INTRODUCTION, ACTIVITIES, TRANSPORTATION, DINING, SPECIALOFFER, CONTACTNAME, CONTACTPHONE FROM PACKAGE WHERE ITEMID = ?";
     
         PreparedStatement stmt = readSt.getConnection().prepareStatement(query);
         stmt.setInt(1, itemID);
         ResultSet rs = stmt.executeQuery();
     
         if (rs.next()) {
-            String name = rs.getString("name");
-            Double price = rs.getDouble("price");
-            int availability = rs.getInt("availability");
-            String img = rs.getString("img");
-            String description = rs.getString("description");
-            String introduction = rs.getString("introduction");
-            String activities = rs.getString("activities");
-            String transportation = rs.getString("transportation");
-            String dining = rs.getString("dining");
-            String specialOffer = rs.getString("specialOffer");
-            String contactName = rs.getString("contactName");
-            String contactPhone = rs.getString("contactPhone");
+            String name = rs.getString("NAME");
+            Double price = rs.getDouble("PRICE");
+            int availability = rs.getInt("AVAILABILITY");
+            String img = rs.getString("IMG");
+            String description = rs.getString("DESCRIPTION");
+            String introduction = rs.getString("INTRODUCTION");
+            String activities = rs.getString("ACTIVITIES");
+            String transportation = rs.getString("TRANSPORTATION");
+            String dining = rs.getString("DINING");
+            String specialOffer = rs.getString("SPECIALOFFER");
+            String contactName = rs.getString("CONTACTNAME");
+            String contactPhone = rs.getString("CONTACTPHONE");
     
             return new Package(itemID, name, price, availability, img, description, introduction, activities, transportation, dining, specialOffer, contactName, contactPhone);
         } else {

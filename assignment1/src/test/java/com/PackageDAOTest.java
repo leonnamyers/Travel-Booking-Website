@@ -41,13 +41,13 @@ public class PackageDAOTest {
     private void setupDData() {
         DPackages = new ArrayList<>();
 
-        Package sydneyOperaHouse = new Package(35, "Sydney Opera House Tour", 150.00, 10, "opera.jpg", "A guided tour of the iconic Sydney Opera House.");
+        Package sydneyOperaHouse = new Package(1, "Sydney Opera House Tour", 150.00, 10, "opera.jpg", "A guided tour of the iconic Sydney Opera House.");
         DPackages.add(sydneyOperaHouse);
 
-        Package greatBarrierReef = new Package(36, "Great Barrier Reef Snorkeling", 400.00, 8, "reef.jpg", "Explore the wonders of the Great Barrier Reef with this snorkeling package.");
+        Package greatBarrierReef = new Package(2, "Great Barrier Reef Snorkeling", 400.00, 8, "reef.jpg", "Explore the wonders of the Great Barrier Reef with this snorkeling package.");
         DPackages.add(greatBarrierReef);
 
-        Package uluruCamelTour = new Package(37, "Uluru Camel Tour", 250.00, 15, "uluru.jpg", "Experience the majesty of Uluru on a camel tour.");
+        Package uluruCamelTour = new Package(3, "Uluru Camel Tour", 250.00, 15, "uluru.jpg", "Experience the majesty of Uluru on a camel tour.");
         DPackages.add(uluruCamelTour);
     }
 
@@ -62,32 +62,40 @@ public class PackageDAOTest {
     }
 
 
+    
     @Test
-public void testFetchPackageById() throws SQLException {
-    if (isPipelineEnvironment()) {
-
-        Package pkg = DPackages.stream().filter(p -> p.getItemID() == 35).findFirst().orElse(null);
-        assertNotNull(pkg, "Package should not be null.");
-        assertEquals(pkg.getName(), "Sydney Opera House Tour");
-    } else {
-
-        packageDAO.updatePackage(35, "Updated Sydney Harbour Tour", 150.00, 18, 
-            "updated_harbour.jpg", "Updated description", 
-            "Updated introduction", "Updated activities", 
-            "Updated transportation", "Updated dining", 
-            "Updated special offer", "Updated contact", "0412345679");
-
-        Package pkg = packageDAO.fetchPackageById(35);
-        assertNotNull(pkg, "Package should not be null.");
-        assertEquals(pkg.getName(), "Updated Sydney Harbour Tour");  
+    public void testFetchPackageById() throws SQLException {
+        if (isPipelineEnvironment()) {
+            // 假设在 pipeline 环境下，我们使用虚拟数据
+            Package pkg = DPackages.stream().filter(p -> p.getItemID() == 1).findFirst().orElse(null);
+            assertNotNull(pkg, "Package should not be null.");
+            assertEquals(pkg.getName(), "Sydney Opera House Tour");
+        } else {
+            // 从数据库中获取现有的 package
+            ArrayList<Package> allPackages = packageDAO.fetchAllPackages();
+            if (!allPackages.isEmpty()) {
+                Package pkg = allPackages.get(0);  // 获取第一个 package
+                packageDAO.updatePackage(pkg.getItemID(), "Updated Sydney Harbour Tour", 150.00, 18, 
+                    "updated_harbour.jpg", "Updated description", 
+                    "Updated introduction", "Updated activities", 
+                    "Updated transportation", "Updated dining", 
+                    "Updated special offer", "Updated contact", "0412345679");
+    
+                Package updatedPackage = packageDAO.fetchPackageById(pkg.getItemID());
+                assertNotNull(updatedPackage, "Package should not be null.");
+                assertEquals(updatedPackage.getName(), "Updated Sydney Harbour Tour");
+            } else {
+                fail("No packages found in the database.");
+            }
+        }
     }
-}
+    
 
 
     @Test
     public void testCreatePackage() throws SQLException {
         if (isPipelineEnvironment()) {
-            DPackages.add(new Package(38, "Sydney Harbour Tour", 120.50, 20, "harbour.jpg", "Beautiful Sydney Harbour Tour"));
+            DPackages.add(new Package(3, "Sydney Harbour Tour", 120.50, 20, "harbour.jpg", "Beautiful Sydney Harbour Tour"));
             assertTrue(DPackages.stream().anyMatch(pkg -> pkg.getName().equals("Sydney Harbour Tour")), "Package should be successfully created.");
         } else {
             packageDAO.createPackage("Sydney Harbour Tour", 120.50, 20, "harbour.jpg", "Beautiful Sydney Harbour Tour", "Explore the beauty of Sydney Harbour", "Boat Tour, Sightseeing", "Private ferry", "Lunch included", "20% discount", "Alice", "0412345678");
