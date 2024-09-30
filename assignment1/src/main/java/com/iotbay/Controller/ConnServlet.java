@@ -71,6 +71,7 @@ public class ConnServlet extends HttpServlet {
         }
         session.setAttribute("manager", manager);
         session.setAttribute("flightDAOManager", flightDAOManager);
+        session.setAttribute("hotelDAOManager", hotelDAOManager);
     }   
 
     @Override

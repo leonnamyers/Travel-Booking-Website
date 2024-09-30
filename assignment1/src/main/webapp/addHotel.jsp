@@ -12,7 +12,7 @@
         <meta http-equiv="Content-Type="text/html; charset=UTF-8">
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="css/navbar.css"> 
-        <title>Flight Page</title>
+        <title>Hotel Page</title>
     </head>
     <style>
         .div-1 {
@@ -62,7 +62,7 @@
     %>
 <body>
     <nav>
-        <h1>Flight</h1>
+        <h1>Hotel</h1>
         <!--If User is logged in-->
         <%
         if (session != null && session.getAttribute("user") != null) { 
@@ -116,7 +116,7 @@
     <div align="center" class="div-1">
         <div  class="update-container">
         <form method="post" action="http://localhost:8080/AddHotelController">
-            <h1>Add new hotel</h1>
+            <h1>Add New Hotel</h1>
             <br/>
             <label>
                 <% if(nameErr != null) { %>
