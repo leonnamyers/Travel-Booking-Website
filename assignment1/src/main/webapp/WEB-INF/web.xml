@@ -216,6 +216,64 @@
         <url-pattern>/PackageDetailsController</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>AddHotelController</servlet-name>
+        <servlet-class>com.iotbay.Controller.AddHotelController</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddHotelController</servlet-name>
+        <url-pattern>/AddHotelController</url-pattern>
+    </servlet-mapping>
 
+    <servlet>
+        <servlet-name>HotelCatalogueController</servlet-name>
+        <servlet-class>com.iotbay.Controller.HotelCatalogueController</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>HotelCatalogueController</servlet-name>
+        <url-pattern>/HotelCatalogueController</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>UpdateHotelFormController</servlet-name>
+        <servlet-class>com.iotbay.Controller.UpdateHotelFormController</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UpdateHotelFormController</servlet-name>
+        <url-pattern>/UpdateHotelFormController</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>UpdateHotelController</servlet-name>
+        <servlet-class>com.iotbay.Controller.UpdateHotelController</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UpdateHotelController</servlet-name>
+        <url-pattern>/UpdateHotelController</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DeleteHotelController</servlet-name>
+        <servlet-class>com.iotbay.Controller.DeleteHotelController</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteHotelController</servlet-name>
+        <url-pattern>/DeleteHotelController</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>FilteringHotelController</servlet-name>
+        <servlet-class>com.iotbay.Controller.FilteringHotelController</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FilteringHotelController</servlet-name>
+        <url-pattern>/FilteringHotelController</url-pattern>
+    </servlet-mapping>
 
 </web-app>

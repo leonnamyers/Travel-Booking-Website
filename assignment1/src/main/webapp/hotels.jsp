@@ -25,7 +25,7 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
             border-radius: 10px;
             padding: 20px;
-            width: 80%;
+            width: 90%;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -56,6 +56,21 @@
             User user = (User)session.getAttribute("user");
             String checkInTime = (String)session.getAttribute("checkInTime");
             String checkOutTime = (String)session.getAttribute("checkOutTime");
+            String roomType = (String)session.getAttribute("roomType");
+            String roomSize = (String)session.getAttribute("roomSize");
+            String city = (String)request.getAttribute("city");
+            String checkInTimeErr = (String)request.getAttribute("checkInTimeErr");
+            String checkOutTimeErr = (String)request.getAttribute("checkOutTimeErr");
+
+            if(roomType == null){
+                roomType ="";
+            }
+            if(roomSize == null){
+                roomSize ="";
+            }
+            if(city == null){
+                city ="";
+            }
     %>
 
     <body>
@@ -110,12 +125,20 @@
 
     <div align="center" class="div-1"> 
         <br>
+        <label>
+            <% if(checkInTimeErr != null) { %>
+            <%=checkInTimeErr %>
+            <% } %>
+            <% if(checkOutTimeErr != null) { %>
+            <%=checkOutTimeErr%>
+            <% } %>
+        </label>
         <br> 
         <div class="search-container">
         <form method="post" action="/FilteringHotelController">
 
             <label>City:</label>
-                <input list="cities" name="city" id="city" type="text" value=""/>
+                <input list="cities" name="city" id="city" type="text" value="<%= city%>"/>
                     <datalist id="cities">
                         <option value="Sydney">
                         <option value="Melbourne">
@@ -145,28 +168,150 @@
             <c:if test="${not empty checkOutTime}">
                 <input name="checkOutTime" id="checkOutTime" type="date" value="<%= checkOutTime%>"/>
             </c:if>
+        <c:choose>
+            <c:when test="${roomType.equals('Single')}">
+                <label>Room Type:</label>
+                <select id="roomType" name="roomType" type="text">
+                    <option value="">All</option>
+                    <option value="Single" selected="selected">Single</option>
+                    <option value="Double">Double</option>
+                    <option value="Triple">Triple</option>
+                    <option value="Family Room">Family Room</option>
+                    <option value="Queen">Queen</option>
+                    <option value="Executive Suite">Executive Suite</option>
+                </select>
+            </c:when>
+            <c:when test="${roomType.equals('Double')}">
+                <label>Room Type:</label>
+                <select id="roomType" name="roomType" type="text">
+                    <option value="">All</option>
+                    <option value="Single">Single</option>
+                    <option value="Double" selected="selected">Double</option>
+                    <option value="Triple">Triple</option>
+                    <option value="Family Room">Family Room</option>
+                    <option value="Queen">Queen</option>
+                    <option value="Executive Suite">Executive Suite</option>
+                </select>
+            </c:when>
+            <c:when test="${roomType.equals('Triple')}">
+                <label>Room Type:</label>
+                <select id="roomType" name="roomType" type="text">
+                    <option value="">All</option>
+                    <option value="Single">Single</option>
+                    <option value="Double">Double</option>
+                    <option value="Triple" selected="selected">Triple</option>
+                    <option value="Family Room">Family Room</option>
+                    <option value="Queen">Queen</option>
+                    <option value="Executive Suite">Executive Suite</option>
+                </select>
+            </c:when>
+            <c:when test="${roomType.equals('Family Room')}">
+                <label>Room Type:</label>
+                <select id="roomType" name="roomType" type="text">
+                    <option value="">All</option>
+                    <option value="Single">Single</option>
+                    <option value="Double">Double</option>
+                    <option value="Triple">Triple</option>
+                    <option value="Family Room" selected="selected">Family Room</option>
+                    <option value="Queen">Queen</option>
+                    <option value="Executive Suite">Executive Suite</option>
+                </select>
+            </c:when>
+            <c:when test="${roomType.equals('Queen')}">
+                <label>Room Type:</label>
+                <select id="roomType" name="roomType" type="text">
+                    <option value="">All</option>
+                    <option value="Single">Single</option>
+                    <option value="Double">Double</option>
+                    <option value="Triple">Triple</option>
+                    <option value="Family Room">Family Room</option>
+                    <option value="Queen" selected="selected">Queen</option>
+                    <option value="Executive Suite">Executive Suite</option>
+                </select>
+            </c:when>
+            <c:when test="${roomType.equals('Executive Suite')}">
+                <label>Room Type:</label>
+                <select id="roomType" name="roomType" type="text">
+                    <option value="">All</option>
+                    <option value="Single">Single</option>
+                    <option value="Double">Double</option>
+                    <option value="Triple">Triple</option>
+                    <option value="Family Room">Family Room</option>
+                    <option value="Queen">Queen</option>
+                    <option value="Executive Suite" selected="selected">Executive Suite</option>
+                </select>
+            </c:when>
+            <c:otherwise>
+                <label>Room Type:</label>
+                <select id="roomType" name="roomType" type="text">
+                    <option value="" selected="selected">All</option>
+                    <option value="Single">Single</option>
+                    <option value="Double">Double</option>
+                    <option value="Triple">Triple</option>
+                    <option value="Family Room">Family Room</option>
+                    <option value="Queen">Queen</option>
+                    <option value="Executive Suite">Executive Suite</option>
+                </select>
+            </c:otherwise>
+        </c:choose>
 
-            <label>Room Type:</label>
-            <select id="roomType" name="roomType" type="text">
-                <option value="" selected="selected">All</option>
-                <option value="Single">Single</option>
-                <option value="Double">Double</option>
-                <option value="Triple">Triple</option>
-                <option value="Family Room">Family Room</option>
-                <option value="Queen">Queen</option>
-                <option value="Executive Suite">Executive Suite</option>
-            </select>
-
-            <label>Room Size:</label>
-            <select id="roomSize" name="roomSize" type="text">
-                <option value="" selected="selected">All</option>
-                <option value="1 person">1 person</option>
-                <option value="2 people">2 people</option>
-                <option value="3 people">3 people</option>
-                <option value="4 people">4 people</option>
-            </select>
+        <c:choose>
+            <c:when test="${roomSize.equals('1 person')}">
+                <label>Room Size:</label>
+                <select id="roomSize" name="roomSize" type="text">
+                    <option value="">All</option>
+                    <option value="1 person" selected="selected">1 person</option>
+                    <option value="2 people">2 people</option>
+                    <option value="3 people">3 people</option>
+                    <option value="4 people">4 people</option>
+                </select>
+            </c:when>
+            <c:when test="${roomSize.equals('2 people')}">
+                <label>Room Size:</label>
+                <select id="roomSize" name="roomSize" type="text">
+                    <option value="">All</option>
+                    <option value="1 person">1 person</option>
+                    <option value="2 people" selected="selected">2 people</option>
+                    <option value="3 people">3 people</option>
+                    <option value="4 people">4 people</option>
+                </select>
+            </c:when>
+            <c:when test="${roomSize.equals('3 people')}">
+                <label>Room Size:</label>
+                <select id="roomSize" name="roomSize" type="text">
+                    <option value="">All</option>
+                    <option value="1 person">1 person</option>
+                    <option value="2 people">2 people</option>
+                    <option value="3 people"selected="selected">3 people</option>
+                    <option value="4 people">4 people</option>
+                </select>
+            </c:when>
+            <c:when test="${roomSize.equals('4 people')}">
+                <label>Room Size:</label>
+                <select id="roomSize" name="roomSize" type="text">
+                    <option value="">All</option>
+                    <option value="1 person">1 person</option>
+                    <option value="2 people">2 people</option>
+                    <option value="3 people">3 people</option>
+                    <option value="4 people" selected="selected">4 people</option>
+                </select>
+            </c:when>
+            <c:otherwise>
+                <label>Room Size:</label>
+                <select id="roomSize" name="roomSize" type="text">
+                    <option value="" selected="selected">All</option>
+                    <option value="1 person">1 person</option>
+                    <option value="2 people">2 people</option>
+                    <option value="3 people">3 people</option>
+                    <option value="4 people">4 people</option>
+                </select>
+            </c:otherwise>
+        </c:choose>
 
             <input type="submit" value="SEARCH">
+        </form>
+        <form method="POST" action="/HotelCatalogueController">
+            <input type="submit" value="LIST ALL">
         </form>
         </div> 
         <br/>

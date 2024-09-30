@@ -76,7 +76,7 @@ public class HotelDAO {
         filterSt.setString(2, filtRoomSize + "%");
         filterSt.setString(3, filtCity + "%");
         filterSt.setString(4, filtAvailableBeginDate);
-        filterSt.setString(4, filtAvailableEndDate);
+        filterSt.setString(5, filtAvailableEndDate);
         ResultSet rs = filterSt.executeQuery();
         
         ArrayList<Hotel> hotels = new ArrayList<Hotel>();
@@ -114,7 +114,7 @@ public class HotelDAO {
         System.out.println("1 row successfully created");
 	}
 
-    public void updateHotel(String name, double price, int availability, String img, String roomType, String roomSize, String city, Date availableBeginDate, Date availableEndDate) throws SQLException{
+    public void updateHotel(int itemID, String name, double price, int availability, String img, String roomType, String roomSize, String city, Date availableBeginDate, Date availableEndDate) throws SQLException{
         updateSt.setString(1, name);
         updateSt.setDouble(2, price);
         updateSt.setInt(3, availability);
@@ -124,6 +124,7 @@ public class HotelDAO {
         updateSt.setString(7, city);
         updateSt.setDate(8, availableBeginDate);
         updateSt.setDate(9, availableEndDate);
+        updateSt.setInt(10, itemID);
 
 
         updateSt.executeUpdate();
