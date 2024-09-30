@@ -33,7 +33,7 @@ public class FilteringHotelController extends HttpServlet{
             String roomSize = request.getParameter("roomSize");
 
             if(checkInTime == null || checkInTime.equals("")){
-                request.setAttribute("checkInTimeErr", "Check-in time can't be empty!");
+                request.setAttribute("checkInTimeErr", "Check-in date can't be empty!");
                 request.setAttribute("city", city);
                 request.setAttribute("roomType", roomType);
                 request.setAttribute("roomSize", roomSize);
@@ -42,7 +42,7 @@ public class FilteringHotelController extends HttpServlet{
             }
 
             if(checkOutTime == null || checkOutTime.equals("")){
-                request.setAttribute("checkOutTimeErr", "Check-out time can't be empty!");
+                request.setAttribute("checkOutTimeErr", "Check-out date can't be empty!");
                 request.setAttribute("city", city);
                 request.setAttribute("roomType", roomType);
                 request.setAttribute("roomSize", roomSize);

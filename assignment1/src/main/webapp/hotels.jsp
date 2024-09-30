@@ -340,7 +340,7 @@
             </tr>
         <c:forEach var="hotel" items="${hotelList}">
             <tr class="flight-list">
-                <td><img width="50px" height="50px" src="images/${hotel.img}"></td>
+                <td><img width="50px" height="100px" src="images/${hotel.img}"></td>
                 <td><c:out value="${hotel.name}" /></td>
                 <fmt:formatNumber var="formattedUnitPrice" type="number" minFractionDigits="2" maxFractionDigits="2" value="${hotel.price}" />
                 <td>$<c:out value="${formattedUnitPrice}" /></td>
@@ -411,7 +411,7 @@
                 </tr>
             <c:forEach var="hotel" items="${hotelList}">
                 <tr class="flight-list">
-                    <td><img width="50px" height="50px" src="images/${hotel.img}"></td>
+                    <td><img width="50px" height="100px" src="images/${hotel.img}"></td>
                     <td><c:out value="${hotel.itemID}"/></td>
                     <td><c:out value="${hotel.name}" /></td>
                     <fmt:formatNumber var="formattedUnitPrice" type="number" minFractionDigits="2" maxFractionDigits="2" value="${hotel.price}" />

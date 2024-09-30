@@ -276,4 +276,14 @@
         <url-pattern>/FilteringHotelController</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>AddHotelToCartController</servlet-name>
+        <servlet-class>com.iotbay.Controller.AddHotelToCartController</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddHotelToCartController</servlet-name>
+        <url-pattern>/AddHotelToCartController</url-pattern>
+    </servlet-mapping>
+
 </web-app>
