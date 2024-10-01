@@ -17,9 +17,8 @@ import com.iotbay.Model.Order;
 
 public class CartController extends HttpServlet {
 
-    public static final String SAVE_BUTTON_VALUE = "Save";
     public static final String CLEAR_BUTTON_VALUE = "Clear cart";
-    public static final String CHECKOUT_BUTTON_VALUE = "Checkout";
+    public static final String PLACE_ORDER_BUTTON_VALUE = "Place Order";
     private static final Logger LOGGER = Logger.getLogger(CartController.class.getName());
 
     @Override
@@ -32,22 +31,37 @@ public class CartController extends HttpServlet {
         HttpSession session = request.getSession();
         Cart cart = (Cart) request.getSession().getAttribute("cart");
 
-        if (cart == null) {
-            cart = new Cart();
-            session.setAttribute("cart", cart); // Initialize the cart if null
-        }
-
         String action = request.getParameter("action");
         if (action == null) action = "";
+
+        if (action != null) {
+            if (action.equals("Place order")) {
+                // Ensure the cart is not empty before proceeding to payment
+                if (cart != null && !cart.isEmpty()) {
+                    // Redirect or forward to payment.jsp
+                    request.getRequestDispatcher("payment.jsp").forward(request, response);
+                } else {
+                    // If cart is empty, show error
+                    response.sendRedirect("error.jsp");
+                }
+            } else if (action.equals("Clear cart")) {
+                // Handle clear cart action
+                cart.clear();
+                response.sendRedirect("cart.jsp");
+            }
+        }
+
+
 
         try {
             switch (action) {
                 case CLEAR_BUTTON_VALUE:
                     clearCart(request, response, cart);
                     break;
-                case CHECKOUT_BUTTON_VALUE:
+                case PLACE_ORDER_BUTTON_VALUE:
                     confirmOrder(request, response, cart);
                     break;
+    
                 default:
                     deleteItem(request, response, cart);
                     break;
@@ -75,7 +89,7 @@ public class CartController extends HttpServlet {
         // DAO stuff using Order
 
         request.getSession().setAttribute("cart", cart);
-        response.sendRedirect("PlaceOrder"); // Redirect to place order page
+        response.sendRedirect("payment.jsp"); // Redirect to payment page
     }
     private void deleteItem(HttpServletRequest request, HttpServletResponse response, Cart cart) throws ServletException, IOException {
         Enumeration<String> parameters = request.getParameterNames();

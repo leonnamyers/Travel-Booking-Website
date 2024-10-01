@@ -65,6 +65,15 @@
     <body>
         <main class="form-container">
             <h2>Enter Payment Details</h2>
+
+            <% 
+            Cart cart = (Cart) request.getSession().getAttribute("cart");
+            double totalPrice = cart.getTotalPrice();
+            %>
+
+            <p> Total Amount: $<%=totalPrice%></p>
+            <!-- Display Total amount-->
+        
             <form action="PaymentController" method="post">
                 <div class="form-element">
                     <label for="cardHolderName">Cardholder's Name:</label>
