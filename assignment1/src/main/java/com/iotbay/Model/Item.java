@@ -58,5 +58,9 @@ public class Item implements Serializable{
         this.img = img;
     }
 
+    Object getId() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
 
 }

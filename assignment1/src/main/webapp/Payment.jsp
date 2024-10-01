@@ -91,7 +91,7 @@
                     <label for="cvv">CVV:</label>
                     <input type="text" name="cvv" id="cvv" required />
                 </div>
-                <button class="general-buttons">Submit Payment</button>
+                <button class="general-buttons">Submit</button>
             </form>
         </main>
     </body>

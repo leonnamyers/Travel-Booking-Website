@@ -52,7 +52,6 @@ public class CartController extends HttpServlet {
         }
 
 
-
         try {
             switch (action) {
                 case CLEAR_BUTTON_VALUE:

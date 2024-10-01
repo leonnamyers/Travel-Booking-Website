@@ -101,7 +101,7 @@
         
                     <div id="cart-buttons">
                         <input type="submit" name="action" value="Clear cart" class="general-buttons btn-outline-light"/>
-                        <input type="submit" name="action" value="Place order" class="add-to-cart-button"/>
+                        <input type="submit" name="action" value="Place order" class="general-buttons btn-outline-light"/>
                     </div>
                 </form>
             </div>
