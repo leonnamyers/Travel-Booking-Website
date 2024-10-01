@@ -1,24 +1,26 @@
-package com.iotbay.Controller;
+package com.iotbay.Controller.CustomerAndStaffManagement;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.iotbay.Controller.UserValidation;
+import com.iotbay.Dao.DBManager;
 import com.iotbay.Model.Address;
 import com.iotbay.Model.Customer;
 import com.iotbay.Model.Staff;
-import com.iotbay.Model.User;
 
-public class UpdateController extends HttpServlet {
+public class RegisterController extends HttpServlet {
     
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException { 
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)   throws ServletException, IOException { 
+
         try {
             HttpSession session = request.getSession();
             String registeredUserType = request.getParameter("userType");
@@ -27,18 +29,17 @@ public class UpdateController extends HttpServlet {
             String firstName = request.getParameter("first_name");
             String lastName = request.getParameter("last_name");
 
-            //DBManager manager = (DBManager) session.getAttribute("manager");
+            DBManager manager = (DBManager) session.getAttribute("manager");
+ 
             UserValidation.clear(session);
-            User oldUserData = (User) session.getAttribute("user");
-            
-            // pre-validation logic to check that all input fields are valid
-            // these generic validations apply whether the User is a Customer OR a Staff.
-            if (!oldUserData.getEmail().equals(email)) {
-                /*if (manager.isDuplicateEmail(email)) {
-                    session.setAttribute("duplicateEmail", "Error: Email is already registered.");
-                    forwardWithError(request, response, session);
-                    return;
-                }*/
+
+            // initial pre-validations for all fields that apply to both Customer and Staff users
+            // error handling
+
+            if (manager.isDuplicateEmail(email)) {
+                session.setAttribute("duplicateEmail", "Error: Email is already registered.");
+                forwardWithError(request, response, session);
+                return;
             } else if (!UserValidation.isEmailValid(email)) {
                 session.setAttribute("emailError", "Error: Email incorrectly formatted. Please try again.");
                 forwardWithError(request, response, session);
@@ -55,22 +56,22 @@ public class UpdateController extends HttpServlet {
                 session.setAttribute("lastNameError", "Error: Last name incorrectly formatted. Please try again.");
                 forwardWithError(request, response, session);
                 return;
-            } 
-
-            // then determine whether a user is a Customer or Staff, and do more specific validation
-            // update the user details in the relevant DB table, then update the user stored in the session
+            }
+            
+            // then check the user type and perform more specific validations
+            // add the user to the relevant DB table and then update the user session
+            
             if (registeredUserType.equalsIgnoreCase("customer")) {
 
-                //  Customer User Update
-
+                // Customer User Registration
                 Address address = new Address(request.getParameter("street_address"), Integer.parseInt(request.getParameter("postcode")), request.getParameter("city"), request.getParameter("state"));
                 String phoneNumber = request.getParameter("phone_number");
                 String mobileNumber = request.getParameter("mobile_number");
 
-                Customer customerUser = new Customer(email, password, firstName, lastName, address);
+                Customer customer = new Customer(email, password, firstName, lastName, address);
 
                 if (phoneNumber != null && !phoneNumber.isEmpty() && phoneNumber.matches("\\d+")) {
-                    ((Customer) customerUser).setHomePhoneNumber(Integer.parseInt(phoneNumber));
+                    ((Customer) customer).setHomePhoneNumber(Integer.parseInt(phoneNumber));
                     if (!UserValidation.isPhoneNumberValid(phoneNumber)) {
                         session.setAttribute("homePhoneError", "Error: Home Phone Number should be 8-16 digits. Please try again.");
                         forwardWithError(request, response, session);
@@ -78,7 +79,7 @@ public class UpdateController extends HttpServlet {
                     }
                 }
                 if (mobileNumber != null && !mobileNumber.isEmpty() && mobileNumber.matches("\\d+")) {
-                    ((Customer) customerUser).setMobilePhoneNumber(Integer.parseInt(mobileNumber));
+                    ((Customer) customer).setMobilePhoneNumber(Integer.parseInt(mobileNumber));
                     if (!UserValidation.isPhoneNumberValid(mobileNumber)) {
                         session.setAttribute("mobilePhoneError", "Error: Mobile Phone Number should be 8-16 digits. Please try again.");
                         forwardWithError(request, response, session);
@@ -100,54 +101,48 @@ public class UpdateController extends HttpServlet {
                     return;
                 }
 
-                //manager.updateCustomer(customerUser, (Customer)session.getAttribute("user"));
-                session.setAttribute("user", (Customer) customerUser);
+                session.setAttribute("user", (Customer) customer);
+                manager.addCustomer(customer, session.getId());
+                response.sendRedirect("welcome.jsp");
 
-            } else if (registeredUserType.equalsIgnoreCase("staff")) {
-
-                // Staff Registration and Update
+            } else {
+                // Staff User Registration
 
                 String staffID = request.getParameter("staff_id");
                 String staffType = request.getParameter("staff_type");
 
                 Staff staff = new Staff(email, password, firstName, lastName);
+
                 if (staffID != null && !staffID.isEmpty() && staffID.matches("\\d+")) {
-                    ((Staff) staff).setStaffID(Integer.parseInt(staffID));
+                    staff.setStaffID(Integer.parseInt(staffID));
                     if (!UserValidation.isStaffIdInvalid(staffID)) {
                         session.setAttribute("staffIDError", "Error: Staff ID expects 8 digits. Please try again.");
+                        forwardWithError(request, response, session);
+                        return;
+                    }
+
+                    if (manager.isDuplicateStaffID(staffID)) {
+                        session.setAttribute("duplicateStaffID", "Error: Staff ID already in system.");
                         forwardWithError(request, response, session);
                         return;
                     }
                 }
 
                 if (staffID != null && !staffType.isEmpty() && staffType.matches("\\d+")) {
-                    ((Staff) staff).setStaffTypeID(Integer.parseInt(staffType));
+                    staff.setStaffTypeID(Integer.parseInt(staffType));
                 } else {
-                    ((Staff) staff).setStaffTypeID(1);
+                    staff.setStaffTypeID(1);
                 }
-                Staff oldData = (Staff) session.getAttribute("user");
-                if (oldData.getStaffID() != staff.getStaffID()) {
-                    /*
-                    if (manager.isDuplicateStaffID(staffID)) {
-                        session.setAttribute("duplicateStaffID", "Error: Staff ID already in system.");
-                        forwardWithError(request, response, session);
-                        return;
-                    }
-                        */
-                }
-                //manager.updateStaff(staff, oldData);
+
                 session.setAttribute("user", (Staff) staff);
+                manager.addStaff(staff, session.getId());
+                response.sendRedirect("welcome.jsp");
             }
-
-            session.setAttribute("updateSuccess", "User successfully updated account details.");
-            response.sendRedirect("account_details.jsp");
-
-        } catch (Exception ex) { //SQLException
-            Logger.getLogger(UpdateController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    // if validations fails for any reason, redirect back to the update page with a relevant error message
     private void forwardWithError(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws ServletException, IOException {
         String[] errorAttributes = {
             "duplicateEmail",
@@ -172,6 +167,6 @@ public class UpdateController extends HttpServlet {
                 break;
             }
         }
-        request.getRequestDispatcher("update_user_details.jsp").forward(request, response);
+        request.getRequestDispatcher("register.jsp").forward(request, response);
     }
 }

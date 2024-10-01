@@ -18,7 +18,7 @@
 
     <servlet>
         <servlet-name>RegisterController</servlet-name>
-        <servlet-class>com.iotbay.Controller.RegisterController</servlet-class>
+        <servlet-class>com.iotbay.Controller.CustomerAndStaffManagement.RegisterController</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
@@ -27,7 +27,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>LoginController</servlet-name>
-        <servlet-class>com.iotbay.Controller.LoginController</servlet-class>
+        <servlet-class>com.iotbay.Controller.CustomerAndStaffManagement.LoginController</servlet-class>
         <load-on-startup>2</load-on-startup>
     </servlet>
     <servlet-mapping>
@@ -36,7 +36,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>UnregisterController</servlet-name>
-        <servlet-class>com.iotbay.Controller.UnregisterController</servlet-class>
+        <servlet-class>com.iotbay.Controller.CustomerAndStaffManagement.UnregisterController</servlet-class>
         <load-on-startup>3</load-on-startup>
     </servlet>
     <servlet-mapping>
@@ -45,7 +45,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>UpdateController</servlet-name>
-        <servlet-class>com.iotbay.Controller.UpdateController</servlet-class>
+        <servlet-class>com.iotbay.Controller.CustomerAndStaffManagement.UpdateController</servlet-class>
         <load-on-startup>4</load-on-startup>
     </servlet>
     <servlet-mapping>

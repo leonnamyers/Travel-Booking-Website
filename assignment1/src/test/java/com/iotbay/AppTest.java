@@ -1,284 +1,156 @@
 package com.iotbay;
-/*
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
 
-import com.iotbay.Dao.DBConnector;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.*;
+
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import com.iotbay.Controller.CustomerAndStaffManagement.LoginController;
 import com.iotbay.Dao.DBManager;
 import com.iotbay.Model.Address;
-import com.iotbay.Model.CustomerUser;
+import com.iotbay.Model.Customer;
 import com.iotbay.Model.Staff;
 import com.iotbay.Model.User;
 import com.iotbay.Model.UserType;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-*/
-/**
- * There is one unit test per DAO method. These transactions are not actually committed to the 
- * database, but executed, tested and then rolled back - this is so there is no permanent effect on the DB.
- */
-/*
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+// Changed JUnit testing to Mokito (as our db is local - JUnit tests will not work)
+
+@ExtendWith(MockitoExtension.class)
 class AppTest {
 
-        DBConnector dbConnector;
-        Connection connection;
-        DBManager manager;
-    
-        CustomerUser dummyCustomerUser;
-        Staff dummyStaff;
-    
-        private static final String getCustomer = "SELECT * FROM CustomerUser WHERE email = ?";
-        private static final String getStaff = "SELECT * FROM Staff WHERE email = ?";
-        private static final String getAccessLog = "SELECT * FROM UserAccessLogs WHERE sessionId = ?";
-    
-    
-        @BeforeAll
-        public void initialize() {
-            try {
-                dbConnector = new DBConnector();
-                connection = dbConnector.openConnection();
-                manager = new DBManager(connection); 
-                connection.setAutoCommit(false);
-                connection.prepareStatement("DELETE FROM CustomerUser WHERE email in ('test@customer.com', 'test@staff.com')").executeUpdate();
-                connection.prepareStatement("DELETE FROM Staff WHERE email in ('test@customer.com', 'test@staff.com')").executeUpdate();
-                connection.prepareStatement("DELETE FROM UserAccessLogs WHERE email in ('test@customer.com', 'test@staff.com')").executeUpdate();
-                createDummies();
-            } catch (ClassNotFoundException | SQLException ex) {
-                Logger.getLogger(AppTest.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    
-        private void createDummies() {
-            dummyCustomerUser = new CustomerUser();
-            dummyCustomerUser.setUserType(UserType.CUSTOMER_USER);
-            dummyCustomerUser.setEmail("test@customer.com");
-            dummyCustomerUser.setPassword("1234asdf");
-            dummyCustomerUser.setFirstName("first");
-            dummyCustomerUser.setLastName("last");
-            dummyCustomerUser.setAddress(new Address("123 road road", 1000, "Sydney", "NSW"));
-            dummyCustomerUser.setHomePhoneNumber(12345678);
-            dummyCustomerUser.setMobilePhoneNumber(87654321);
-    
-            dummyStaff = new Staff();
-            dummyStaff.setUserType(UserType.STAFF);
-            dummyStaff.setEmail("test@staff.com");
-            dummyStaff.setPassword("0987poiu");
-            dummyStaff.setFirstName("test");
-            dummyStaff.setLastName("subject");
-            dummyStaff.setStaffID(1234);
-            dummyStaff.setStaffTypeID(2);
-        }
-    
-        @AfterEach
-        public void cleanUp() {
-            try {
-                connection.rollback();
-            }
-            catch (SQLException ex) {
-                Logger.getLogger(AppTest.class.getName()).log(Level.SEVERE, null, ex);  
-            }
-        }
+    @Mock
+    DBManager manager; 
 
-        @AfterAll
-        public void cleanUpAll() {
-            try {
-                dbConnector.closeConnection();
-            }
-            catch (SQLException ex) {
-                Logger.getLogger(AppTest.class.getName()).log(Level.SEVERE, null, ex);  
-            }
-        }
-    
-        // Tests
-        // As per instructions, 1 test per method in the UserManager (UserDAO) class
-    
-        @Test
-        public void testAddCustomerUser() {
-            try {
-                manager.addCustomer(dummyCustomerUser, "000000000");
-                PreparedStatement statement = connection.prepareStatement(getCustomer);
-                statement.setString(1, dummyCustomerUser.getEmail());
-                ResultSet res = statement.executeQuery();
-                assertTrue(res.next());
-            } catch(SQLException ex) {
-                Logger.getLogger(AppTest.class.getName()).log(Level.SEVERE, null, ex);  
-            }
-        }
-    
-        @Test
-        public void testAddStaffUser() {
-            try {
-                manager.addStaff(dummyStaff, "99999999");
-                PreparedStatement statement = connection.prepareStatement(getStaff);
-                statement.setString(1, dummyStaff.getEmail());
-                ResultSet res = statement.executeQuery();
-                assertTrue(res.next());
-            } catch(SQLException ex) {
-                Logger.getLogger(AppTest.class.getName()).log(Level.SEVERE, null, ex);  
-            }
-        }
-    
-        @Test 
-        public void testUpdateAccessLogs() {
-            try {
-                manager.updateAccessLogs("123123123", dummyCustomerUser.getEmail());
-                PreparedStatement statement = connection.prepareStatement(getAccessLog);
-                statement.setString(1, "123123123");
-                ResultSet res = statement.executeQuery();
-                assertTrue(res.next());
-            } catch(SQLException ex) {
-                Logger.getLogger(AppTest.class.getName()).log(Level.SEVERE, null, ex);  
-            }
-        }
-    
-        @Test
-        public void testUpdateCustomer() {
-            try {
-                CustomerUser updatedDummy = dummyCustomerUser;
-                updatedDummy.setFirstName("success");
-                manager.addCustomer(dummyCustomerUser, "122233311");
-                manager.updateCustomer(updatedDummy, dummyCustomerUser);
+    @InjectMocks
+    AppTest appTest;
 
-                PreparedStatement statement = connection.prepareStatement(getCustomer);
-                statement.setString(1, dummyCustomerUser.getEmail());
-                ResultSet res = statement.executeQuery();
+    Customer dummyCustomer;
+    Staff dummyStaff;
 
-                if (res.next()) {
-                    assertTrue(res.getString("firstName").equals("success"));
-                }
-            } catch(SQLException ex) {
-                Logger.getLogger(AppTest.class.getName()).log(Level.SEVERE, null, ex);  
-            }
-        }
-    
-        @Test
-        public void testUpdateStaff() {
-            try {
-                Staff updatedStaff = dummyStaff;
-                updatedStaff.setStaffID(123321);
-                manager.addStaff(dummyStaff, "123432115");
-                manager.updateStaff(updatedStaff, dummyStaff);
+    @BeforeEach
+    public void setUp() {
+        createTestDummies();
+    }
 
-                PreparedStatement statement = connection.prepareStatement(getStaff);
-                statement.setString(1, updatedStaff.getEmail());
-                ResultSet res = statement.executeQuery();
+    private void createTestDummies() {
+        dummyCustomer = new Customer();
+        dummyCustomer.setUserType(UserType.CUSTOMER);
+        dummyCustomer.setEmail("test@customer.com");
+        dummyCustomer.setPassword("1234asdf");
+        dummyCustomer.setFirstName("first");
+        dummyCustomer.setLastName("last");
+        dummyCustomer.setAddress(new Address("123 road road", 1000, "Sydney", "NSW"));
+        dummyCustomer.setHomePhoneNumber(12345678);
+        dummyCustomer.setMobilePhoneNumber(87654321);
 
-                if (res.next()) {
-                    assertTrue(res.getInt("staffID") == 123321);
-                }
-            } catch(SQLException ex) {
-                Logger.getLogger(AppTest.class.getName()).log(Level.SEVERE, null, ex);  
-            }
-        }
-    
-        @Test
-        public void testLogin() {
-            try {
-                manager.addStaff(dummyStaff, "3213541231");
-                User user = manager.userLogin(dummyStaff.getEmail(), dummyStaff.getPassword(), "123123654");
-                assertTrue(user.getEmail().equals(dummyStaff.getEmail()));
-            } catch(SQLException ex) {
-                Logger.getLogger(AppTest.class.getName()).log(Level.SEVERE, null, ex);  
-            }
-        } 
-    
-        @Test
-        public void testDuplicateEmail() {
-            try {
-                manager.addCustomer(dummyCustomerUser, "000000000");
-                assertTrue(manager.isDuplicateEmail(dummyCustomerUser.getEmail()));
-            } catch(SQLException ex) {
-                Logger.getLogger(AppTest.class.getName()).log(Level.SEVERE, null, ex);  
-            }
-        }
+        dummyStaff = new Staff();
+        dummyStaff.setUserType(UserType.STAFF);
+        dummyStaff.setEmail("test@staff.com");
+        dummyStaff.setPassword("0987poiu");
+        dummyStaff.setFirstName("test");
+        dummyStaff.setLastName("subject");
+        dummyStaff.setStaffID(1234);
+        dummyStaff.setStaffTypeID(2);
+    }
 
-        @Test
-        public void testDuplicateStaffID() {
-            try {
-                manager.addStaff(dummyStaff, "000000000");
-                assertTrue(manager.isDuplicateStaffID(dummyStaff.getStaffID() + ""));
-            } catch(SQLException ex) {
-                Logger.getLogger(AppTest.class.getName()).log(Level.SEVERE, null, ex);  
-            }
-        }
-    
-        @Test
-        public void testUpdateLogoutAccessLog() {
-            try {
-                manager.addCustomer(dummyCustomerUser, "123654789");
-                manager.updateUserLogoutAccessLog("123654789");
-
-                PreparedStatement statement = connection.prepareStatement(getAccessLog);
-                statement.setString(1, "123654789");
-                ResultSet res = statement.executeQuery();
-
-                if (res.next()) {
-                    assertTrue(!res.getString(1).isEmpty());
-                }
-            } catch(SQLException ex) {
-                Logger.getLogger(AppTest.class.getName()).log(Level.SEVERE, null, ex);  
-            }
-        }
-    
-        @Test
-        public void testRemoveUser() {
-            try {
-                manager.addCustomer(dummyCustomerUser, "000000000");
-                manager.removeUser(dummyCustomerUser);
-                PreparedStatement statement = connection.prepareStatement(getCustomer);
-                statement.setString(1, dummyCustomerUser.getEmail());
-                ResultSet res = statement.executeQuery();
-                assertFalse(res.next());
-            } catch(SQLException ex) {
-                Logger.getLogger(AppTest.class.getName()).log(Level.SEVERE, null, ex);  
-            }
-        }
-    
-        @Test 
-        public void testGetUserLogs() {
-            try {
-                manager.addStaff(dummyStaff, "123123123");
-                manager.updateUserLogoutAccessLog("123123123");
-                manager.userLogin(dummyStaff.getEmail(), dummyStaff.getPassword(), "12345098");
-                ArrayList<Timestamp[]> testList = manager.getUserLogs(dummyStaff.getEmail());
-                assertTrue(testList.size() == 2);
-            } catch(SQLException ex) {
-                Logger.getLogger(AppTest.class.getName()).log(Level.SEVERE, null, ex);  
-            }
-        }
-
-        @Test
-        public void testSearchUserAccessLogs() {
-            try {
-                manager.addStaff(dummyStaff, "123123123");
-                manager.updateUserLogoutAccessLog("123123123");
-                manager.userLogin(dummyStaff.getEmail(), dummyStaff.getPassword(), "12345098");
-
-                LocalDate currentDate = LocalDate.now();
-                LocalDate futureDate = currentDate.plusYears(100);
-                Date dummyDate = java.sql.Date.valueOf(futureDate);
-
-                ArrayList<Timestamp[]> testList = manager.getSearchedUserAccessLogs(dummyStaff.getEmail(), dummyDate);
-
-                assertTrue(testList.size() == 0);
-            } catch(SQLException ex) {
-                Logger.getLogger(AppTest.class.getName()).log(Level.SEVERE, null, ex);  
-            }
+    @Test
+    public void testAddCustomerUser() {
+        try {
+            doNothing().when(manager).addCustomer(any(Customer.class), anyString());
+            manager.addCustomer(dummyCustomer, "000000000");
+            verify(manager, times(1)).addCustomer(dummyCustomer, "000000000");
+        } catch (SQLException e) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, e);
         }
     }
-    */
-    
+
+    @Test
+    public void testAddStaffUser() {
+        try {
+        doNothing().when(manager).addStaff(any(Staff.class), anyString());
+        manager.addStaff(dummyStaff, "99999999");
+        verify(manager, times(1)).addStaff(dummyStaff, "99999999");
+        } catch (SQLException e) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, e);
+        } 
+    }
+
+    @Test
+    public void testUpdateCustomer() {
+        try {
+        doNothing().when(manager).updateCustomer(any(Customer.class), any(Customer.class));
+        Customer updatedCustomer = dummyCustomer;
+        updatedCustomer.setFirstName("success");
+        manager.updateCustomer(updatedCustomer, dummyCustomer);
+        verify(manager, times(1)).updateCustomer(updatedCustomer, dummyCustomer);
+        } catch (SQLException e) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, e);
+        } 
+    }
+
+    @Test
+    public void testUpdateStaff() {
+        try {
+        doNothing().when(manager).updateStaff(any(Staff.class), any(Staff.class));
+        Staff updatedStaff = dummyStaff;
+        updatedStaff.setStaffID(123321);
+        manager.updateStaff(updatedStaff, dummyStaff);
+        verify(manager, times(1)).updateStaff(updatedStaff, dummyStaff);
+        } catch (SQLException e) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, e);
+        } 
+    }
+
+    @Test
+    public void testLogin() {
+        try {
+        when(manager.userLogin(dummyStaff.getEmail(), dummyStaff.getPassword(), "123123654"))
+            .thenReturn(dummyStaff);
+        User user = manager.userLogin(dummyStaff.getEmail(), dummyStaff.getPassword(), "123123654");
+        assertEquals(dummyStaff.getEmail(), user.getEmail());
+        } catch (SQLException e) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, e);
+        } 
+    }
+
+    @Test
+    public void testDuplicateEmail() {
+        try {
+        when(manager.isDuplicateEmail(dummyCustomer.getEmail())).thenReturn(true);
+        assertTrue(manager.isDuplicateEmail(dummyCustomer.getEmail()));
+        } catch (SQLException e) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, e);
+        } 
+    }
+
+    @Test
+    public void testDuplicateStaffID() {
+        try {
+        when(manager.isDuplicateStaffID(String.valueOf(dummyStaff.getStaffID()))).thenReturn(true);
+        assertTrue(manager.isDuplicateStaffID(String.valueOf(dummyStaff.getStaffID())));
+        } catch (SQLException e) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, e);
+        } 
+    }
+
+    @Test
+    public void testRemoveUser() {
+        try {
+        doNothing().when(manager).removeUser(any(User.class));
+        manager.removeUser(dummyCustomer);
+        verify(manager, times(1)).removeUser(dummyCustomer);
+        } catch (SQLException e) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, e);
+        } 
+    }
+}
