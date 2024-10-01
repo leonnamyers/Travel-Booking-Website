@@ -19,7 +19,7 @@ public class DBManager {
     // Customer and Staff Queries
     private final String customerLoginQuery = "SELECT * FROM Customer WHERE email=? AND password=?";
     private final String staffLoginQuery = "SELECT * FROM Staff WHERE email=? AND password=?";
-    private final String updateCustomerQuery = "UPDATE Customer SET email=?, password=?, first_name=?, last_name=?, street=?, postcode=?, city=?, state=?, home_phone_number=?, mobile_phone_number=? WHERE email=?";
+    private final String updateCustomerQuery = "UPDATE Customer SET email=?, password=?, first_name=?, last_name=?, street_address=?, postcode=?, city=?, state=?, home_phone_number=?, mobile_phone_number=? WHERE email=?";
     private final String updateStaffQuery = "UPDATE Staff SET email=?, password=?, first_name=?, last_name=?, staff_id=?, staff_type_id=? WHERE email=?";
     private final String addCustomerQuery = "INSERT INTO Customer (email, password, first_name, last_name, street_address, postcode, city, state, home_phone_number, mobile_phone_number) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private final String addStaffQuery = "INSERT INTO Staff (email, password, first_name, last_name, staff_id, staff_type_id) VALUES (?, ?, ?, ?, ?, ?)";
@@ -133,17 +133,17 @@ public class DBManager {
                     address.setCity(result.getString("city"));
                     address.setPostcode(result.getInt("postcode"));
                     address.setState(result.getString("state"));
-                    address.setStreetAddress(result.getString("streetAddress"));
+                    address.setStreetAddress(result.getString("street_address"));
                     customer.setAddress(address);
-                    customer.setFirstName(result.getString("firstName"));
-                    customer.setLastName(result.getString("lastName"));
+                    customer.setFirstName(result.getString("first_name"));
+                    customer.setLastName(result.getString("last_name"));
 
-                    Integer homePhoneNumber = result.getInt("homePhoneNumber");
+                    Integer homePhoneNumber = result.getInt("home_phone_number");
                     if (homePhoneNumber != null) {
                         customer.setHomePhoneNumber(homePhoneNumber);
                     }
 
-                    Integer mobilePhoneNumber = result.getInt("mobilePhoneNumber");
+                    Integer mobilePhoneNumber = result.getInt("mobile_phone_number");
                     if (mobilePhoneNumber != null) {
                         customer.setMobilePhoneNumber(mobilePhoneNumber);
                     }
@@ -169,12 +169,12 @@ public class DBManager {
     
             if (result.next()) {
                 Staff staff = new Staff();
-                staff.setStaffID(result.getInt("staffID"));
+                staff.setStaffID(result.getInt("staff_iD"));
                 staff.setEmail(result.getString("email"));
                 staff.setPassword(result.getString("password"));
-                staff.setFirstName(result.getString("firstName"));
-                staff.setLastName(result.getString("lastName"));
-                staff.setStaffTypeID(result.getInt("staffTypeID"));
+                staff.setFirstName(result.getString("first_name"));
+                staff.setLastName(result.getString("last_name"));
+                staff.setStaffTypeID(result.getInt("staff_type_id"));
 
                 return staff;
             }
