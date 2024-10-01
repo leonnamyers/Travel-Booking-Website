@@ -1,4 +1,4 @@
-package com.iotbay.Controller;
+package com.iotbay.Controller.CustomerAndStaffManagement;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import com.iotbay.Controller.UserValidation;
 import com.iotbay.Dao.DBManager;
 import com.iotbay.Model.Address;
 import com.iotbay.Model.Customer;
