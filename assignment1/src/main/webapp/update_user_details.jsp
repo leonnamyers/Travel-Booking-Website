@@ -12,35 +12,9 @@
         <link rel="stylesheet" href="css/style.css">
         <script type="text/javascript" src="js/index.js"></script>
         <title>Update User Details</title>
-        <nav>
-            <h1>Update User Details</h1>
-            <%
-            if (session != null && session.getAttribute("user") != null) { 
-            %>
-            <ul>
-                <li><a href="cart.jsp">Cart</a></li>
-                <li><a href="index.jsp">Home</a></li>
-                <li><a href="account_details.jsp">Account</a></li>
-                <li><a href="logout.jsp">Logout</a></li>
-            </ul>
-
-            <!--Menu Items => If User is NOT logged in-->
-
-            <%
-            } else {
-            %>
-            <ul>
-                <li><a href="cart.jsp">Cart</a></li>
-                <li><a href="index.jsp">Home</a></li>
-                <li><a href="login.jsp">Login</a></li>
-                <li><a href="register.jsp">Register</a></li>
-            </ul>
-            <% 
-            }
-            %>
-        </nav>
     </head>
     <body>
+        <jsp:include page="navbar.jsp" flush="true" />
         <% 
         String errorMessage = (String)request.getAttribute("errorMessage");
         if (errorMessage == null) {
