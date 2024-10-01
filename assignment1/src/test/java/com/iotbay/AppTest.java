@@ -23,7 +23,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-// Changed JUnit testing to Mokito (as our db is local - tests will not work)
+// Changed JUnit testing to Mokito (as our db is local - JUnit tests will not work)
 
 @ExtendWith(MockitoExtension.class)
 class AppTest {
