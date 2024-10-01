@@ -19,17 +19,17 @@ public class DBManager {
     // Customer and Staff Queries
     private final String customerLoginQuery = "SELECT * FROM Customer WHERE email=? AND password=?";
     private final String staffLoginQuery = "SELECT * FROM Staff WHERE email=? AND password=?";
-    private final String updateCustomerQuery = "UPDATE Customer SET email=?, password=?, firstName=?, lastName=?, streetAddress=?, postcode=?, city=?, state=?, homePhoneNumber=?, mobilePhoneNumber=? WHERE email=?";
-    private final String updateStaffQuery = "UPDATE Staff SET email=?, password=?, firstName=?, lastName=?, staffID=?, staffTypeID=? WHERE email=?";
-    private final String addCustomerQuery = "INSERT INTO Customer (email, password, firstName, lastName, streetAddress, postcode, city, state, homePhoneNumber, mobilePhoneNumber) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    private final String addStaffQuery = "INSERT INTO Staff (email, password, firstName, lastName, staffID, staffTypeID) VALUES (?, ?, ?, ?, ?, ?)";
+    private final String updateCustomerQuery = "UPDATE Customer SET email=?, password=?, first_name=?, last_name=?, street=?, postcode=?, city=?, state=?, home_phone_number=?, mobile_phone_number=? WHERE email=?";
+    private final String updateStaffQuery = "UPDATE Staff SET email=?, password=?, first_name=?, last_name=?, staff_id=?, staff_type_id=? WHERE email=?";
+    private final String addCustomerQuery = "INSERT INTO Customer (email, password, first_name, last_name, street_address, postcode, city, state, home_phone_number, mobile_phone_number) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private final String addStaffQuery = "INSERT INTO Staff (email, password, first_name, last_name, staff_id, staff_type_id) VALUES (?, ?, ?, ?, ?, ?)";
     private final String removeStaffQuery = "DELETE FROM Staff WHERE email= ?";
     private final String removeCustomerUserQuery = "DELETE FROM Customer WHERE email = ?";
 
     // Data Validation Queries
     private final String checkCustomerUserDuplicateEmail = "SELECT COUNT(*) FROM Customer WHERE email = ?";
     private final String checkStaffUserDuplicateEmail = "SELECT COUNT(*) FROM Staff WHERE email = ?";
-    private final String checkDuplicateStaffIDQuery =  "SELECT COUNT(*) FROM Staff WHERE StaffId = ?";
+    private final String checkDuplicateStaffIDQuery =  "SELECT COUNT(*) FROM Staff WHERE staff_id = ?";
     
     private Connection connection;
 
