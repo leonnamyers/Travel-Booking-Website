@@ -1,4 +1,4 @@
-package com.iotbay.Controller;
+package com.iotbay.Controller.CustomerAndStaffManagement;
 
 import java.io.IOException;
 import java.util.logging.Level;

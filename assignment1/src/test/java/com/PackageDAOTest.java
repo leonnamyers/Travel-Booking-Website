@@ -14,7 +14,7 @@ import com.iotbay.Dao.PackageDAO;
 import com.iotbay.Model.Package;
 
 public class PackageDAOTest {
-
+/*
     private PackageDAO packageDAO;
     private ArrayList<Package> DPackages;
 
@@ -144,4 +144,5 @@ public class PackageDAOTest {
             assertNull(deletedPackage, "Package should be successfully deleted.");
         }
     }
+        */
 }

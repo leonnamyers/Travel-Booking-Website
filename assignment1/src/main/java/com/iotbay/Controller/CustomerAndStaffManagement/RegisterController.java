@@ -1,4 +1,4 @@
-package com.iotbay.Controller;
+package com.iotbay.Controller.CustomerAndStaffManagement;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import com.iotbay.Controller.UserValidation;
 import com.iotbay.Dao.DBManager;
 import com.iotbay.Model.Address;
 import com.iotbay.Model.Customer;
@@ -32,7 +34,8 @@ public class RegisterController extends HttpServlet {
             UserValidation.clear(session);
 
             // initial pre-validations for all fields that apply to both Customer and Staff users
-            /* Error Handling
+            // error handling
+
             if (manager.isDuplicateEmail(email)) {
                 session.setAttribute("duplicateEmail", "Error: Email is already registered.");
                 forwardWithError(request, response, session);
@@ -54,20 +57,21 @@ public class RegisterController extends HttpServlet {
                 forwardWithError(request, response, session);
                 return;
             }
-                */
             
             // then check the user type and perform more specific validations
             // add the user to the relevant DB table and then update the user session
+            
             if (registeredUserType.equalsIgnoreCase("customer")) {
+
                 // Customer User Registration
                 Address address = new Address(request.getParameter("street_address"), Integer.parseInt(request.getParameter("postcode")), request.getParameter("city"), request.getParameter("state"));
                 String phoneNumber = request.getParameter("phone_number");
                 String mobileNumber = request.getParameter("mobile_number");
 
-                Customer customerUser = new Customer(email, password, firstName, lastName, address);
+                Customer customer = new Customer(email, password, firstName, lastName, address);
 
                 if (phoneNumber != null && !phoneNumber.isEmpty() && phoneNumber.matches("\\d+")) {
-                    ((Customer) customerUser).setHomePhoneNumber(Integer.parseInt(phoneNumber));
+                    ((Customer) customer).setHomePhoneNumber(Integer.parseInt(phoneNumber));
                     if (!UserValidation.isPhoneNumberValid(phoneNumber)) {
                         session.setAttribute("homePhoneError", "Error: Home Phone Number should be 8-16 digits. Please try again.");
                         forwardWithError(request, response, session);
@@ -75,7 +79,7 @@ public class RegisterController extends HttpServlet {
                     }
                 }
                 if (mobileNumber != null && !mobileNumber.isEmpty() && mobileNumber.matches("\\d+")) {
-                    ((Customer) customerUser).setMobilePhoneNumber(Integer.parseInt(mobileNumber));
+                    ((Customer) customer).setMobilePhoneNumber(Integer.parseInt(mobileNumber));
                     if (!UserValidation.isPhoneNumberValid(mobileNumber)) {
                         session.setAttribute("mobilePhoneError", "Error: Mobile Phone Number should be 8-16 digits. Please try again.");
                         forwardWithError(request, response, session);
@@ -97,8 +101,8 @@ public class RegisterController extends HttpServlet {
                     return;
                 }
 
-                session.setAttribute("user", (Customer) customerUser);
-                manager.addCustomer(customerUser, session.getId());
+                session.setAttribute("user", (Customer) customer);
+                manager.addCustomer(customer, session.getId());
                 response.sendRedirect("welcome.jsp");
 
             } else {
@@ -131,7 +135,7 @@ public class RegisterController extends HttpServlet {
                 }
 
                 session.setAttribute("user", (Staff) staff);
-                //manager.addStaff(staff, session.getId());
+                manager.addStaff(staff, session.getId());
                 response.sendRedirect("welcome.jsp");
             }
         } catch (SQLException ex) {

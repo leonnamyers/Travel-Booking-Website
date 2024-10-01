@@ -2,10 +2,12 @@ package com.iotbay.Dao;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
+import com.iotbay.Model.Address;
 import com.iotbay.Model.Customer;
 import com.iotbay.Model.Staff;
 import com.iotbay.Model.User;
@@ -14,25 +16,21 @@ import com.iotbay.Model.User;
 // Any Controller classes that read from and write to the DB should call methods from the DBManager and add their queries here
 
 public class DBManager {
-    private final String customerLoginQuery = "SELECT * FROM CustomerUser WHERE email=? AND password=?";
+    // Customer and Staff Queries
+    private final String customerLoginQuery = "SELECT * FROM Customer WHERE email=? AND password=?";
     private final String staffLoginQuery = "SELECT * FROM Staff WHERE email=? AND password=?";
-    private final String updateCustomerQuery = "UPDATE CustomerUser SET email=?, password=?, firstName=?, lastName=?, streetAddress=?, postcode=?, city=?, state=?, homePhoneNumber=?, mobilePhoneNumber=? WHERE email=?";
-    private final String updateStaffQuery = "UPDATE Staff SET email=?, password=?, firstName=?, lastName=?, staffID=?, staffTypeID=? WHERE email=?";
-    private final String addCustomerQuery = "INSERT INTO Customer (email, password, firstName, lastName, streetAddress, postcode, city, state, homePhoneNumber, mobilePhoneNumber) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    private final String addStaffQuery = "INSERT INTO Staff (email, password, firstName, lastName, staffID, staffTypeID) VALUES (?, ?, ?, ?, ?, ?)";
+    private final String updateCustomerQuery = "UPDATE Customer SET email=?, password=?, first_name=?, last_name=?, street=?, postcode=?, city=?, state=?, home_phone_number=?, mobile_phone_number=? WHERE email=?";
+    private final String updateStaffQuery = "UPDATE Staff SET email=?, password=?, first_name=?, last_name=?, staff_id=?, staff_type_id=? WHERE email=?";
+    private final String addCustomerQuery = "INSERT INTO Customer (email, password, first_name, last_name, street_address, postcode, city, state, home_phone_number, mobile_phone_number) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private final String addStaffQuery = "INSERT INTO Staff (email, password, first_name, last_name, staff_id, staff_type_id) VALUES (?, ?, ?, ?, ?, ?)";
     private final String removeStaffQuery = "DELETE FROM Staff WHERE email= ?";
-    private final String removeCustomerUserQuery = "DELETE FROM CustomerUser WHERE email = ?";
-    private final String updateUserLogQuery = "INSERT INTO UserAccessLogs (sessionId, email) VALUES (?, ?)";
-    private final String setUserLogoutQuery = "UPDATE UserAccessLogs SET logoutDateTime = CURRENT_TIMESTAMP WHERE sessionId = ?";
-    private final String getUserAccessDataQuery = "SELECT loginDateTime, logoutDateTime FROM UserAccessLogs WHERE email = ?";
-    private final String checkCustomerUserDuplicateEmail = "SELECT COUNT(*) FROM CustomerUser WHERE email = ?";
-    private final String checkStaffUserDuplicateEmail = "SELECT COUNT(*) FROM Staff WHERE email = ?";
-    private final String checkDuplicateStaffIDQuery =  "SELECT COUNT(*) FROM Staff WHERE StaffId = ?";
-    private final String updateUserAccessLogsEmailQuery = "UPDATE UserAccessLogs SET email = ? WHERE email = ?";
-    private final String deleteUserAccessLogQuery = "DELETE FROM UserAccessLogs WHERE email = ?";
-    private final String searchUserAccessLogsQuery = "SELECT loginDateTime, logoutDateTime FROM UserAccessLogs WHERE email = ? AND (DATE(loginDateTime) = ? OR DATE(logoutDateTime) = ?)";
-    // private PackageDAO packageDAO;
+    private final String removeCustomerUserQuery = "DELETE FROM Customer WHERE email = ?";
 
+    // Data Validation Queries
+    private final String checkCustomerUserDuplicateEmail = "SELECT COUNT(*) FROM Customer WHERE email = ?";
+    private final String checkStaffUserDuplicateEmail = "SELECT COUNT(*) FROM Staff WHERE email = ?";
+    private final String checkDuplicateStaffIDQuery =  "SELECT COUNT(*) FROM Staff WHERE staff_id = ?";
+    
     private Connection connection;
 
     public DBManager(Connection connection) throws SQLException {
@@ -61,7 +59,6 @@ public class DBManager {
     }
 
     public void addStaff(Staff staff, String sessionId) throws SQLException {
-        /*
         PreparedStatement statement = connection.prepareStatement(addStaffQuery);
         statement.setString(1, staff.getEmail());
         statement.setString(2, staff.getPassword());
@@ -71,28 +68,14 @@ public class DBManager {
         statement.setInt(6, staff.getStaffTypeID());
         statement.executeUpdate();
 
-        updateAccessLogs(sessionId, staff.getEmail());
-        */
     }
 
     /*
-     * Update Access Logs by adding entries to the UserAccessLogs table at login/registration and logout time.
-     * Can be private as its only called through this class, but made it public so it can be unit tested
+     * Only used for the update account (Customer & Staff) details feature
      */
-     public void updateAccessLogs(String sessionID, String email) throws SQLException {
-        /*
-        PreparedStatement statement = connection.prepareStatement(updateUserLogQuery);
-        statement.setString(1, sessionID);
-        statement.setString(2, email);
-        statement.executeUpdate();
-        */
-     }
 
-    /*
-     * Only used for the update details feature
-     */
     public void updateCustomer(Customer newData, Customer oldData) throws SQLException {
-        /*
+
         PreparedStatement statement = connection.prepareStatement(updateCustomerQuery);
         statement.setString(1, newData.getEmail());
         statement.setString(2, newData.getPassword());
@@ -111,23 +94,10 @@ public class DBManager {
             System.out.println("Update failed - Customer not found");
         }
         statement.close();
-
-        updateEmailInUserAccessLogs(newData.getEmail(), oldData.getEmail());
-        */
+        
     }
-    
-
-   // private void updateEmailInUserAccessLogs(String newEmail, String oldEmail) throws SQLException {
-        /*
-        PreparedStatement statement = connection.prepareStatement(updateUserAccessLogsEmailQuery);
-        statement.setString(1, newEmail);
-        statement.setString(2, oldEmail);
-        statement.executeUpdate();
-        */
-    // }
 
     public void updateStaff(Staff newData, Staff oldData) throws SQLException {
-        /*
         PreparedStatement statement = connection.prepareStatement(updateStaffQuery);
         statement.setString(1, newData.getEmail());
         statement.setString(2, newData.getPassword());
@@ -143,58 +113,52 @@ public class DBManager {
         }
         statement.close();
 
-        updateEmailInUserAccessLogs(newData.getEmail(), oldData.getEmail());
-        */
     } 
 
     /*
      * Login
      */
+
     public User userLogin(String email, String password, String sessionId) throws SQLException {
-        /*
         try (PreparedStatement customerStatement = connection.prepareStatement(customerLoginQuery)) {
             customerStatement.setString(1, email);
             customerStatement.setString(2, password);
             ResultSet result = customerStatement.executeQuery();
     
             if (result.next()) {
-                CustomerUser customerUser = new CustomerUser();
-                    customerUser.setEmail(result.getString("email"));
-                    customerUser.setPassword(result.getString("password"));
+                Customer customer = new Customer();
+                    customer.setEmail(result.getString("email"));
+                    customer.setPassword(result.getString("password"));
                     Address address = new Address();
                     address.setCity(result.getString("city"));
                     address.setPostcode(result.getInt("postcode"));
                     address.setState(result.getString("state"));
                     address.setStreetAddress(result.getString("streetAddress"));
-                    customerUser.setAddress(address);
-                    customerUser.setFirstName(result.getString("firstName"));
-                    customerUser.setLastName(result.getString("lastName"));
-                    customerUser.setActivated(result.getBoolean("isActivated"));
+                    customer.setAddress(address);
+                    customer.setFirstName(result.getString("firstName"));
+                    customer.setLastName(result.getString("lastName"));
 
                     Integer homePhoneNumber = result.getInt("homePhoneNumber");
                     if (homePhoneNumber != null) {
-                        customerUser.setHomePhoneNumber(homePhoneNumber);
+                        customer.setHomePhoneNumber(homePhoneNumber);
                     }
 
                     Integer mobilePhoneNumber = result.getInt("mobilePhoneNumber");
                     if (mobilePhoneNumber != null) {
-                        customerUser.setMobilePhoneNumber(mobilePhoneNumber);
+                        customer.setMobilePhoneNumber(mobilePhoneNumber);
                     }
 
+                    /*
                     Integer paymentID = result.getInt("savedPaymentID");
                     if (paymentID != null) {
                         customerUser.setSavedPaymentID(paymentID);
                     }
-
-                    Integer shipmentID = result.getInt("savedShipmentID");
-                    if (shipmentID != null) {
-                        customerUser.setSavedShipmentID(shipmentID);
-                    }
+                        */
 
                     // update login logs
-                    updateAccessLogs(sessionId, email);
 
-                    return customerUser;
+
+                    return customer;
             }
         }
     
@@ -211,9 +175,6 @@ public class DBManager {
                 staff.setFirstName(result.getString("firstName"));
                 staff.setLastName(result.getString("lastName"));
                 staff.setStaffTypeID(result.getInt("staffTypeID"));
-                
-                // update login logs
-                updateAccessLogs(sessionId, email);
 
                 return staff;
             }
@@ -223,23 +184,6 @@ public class DBManager {
 
         // user cannot be found (login details incorrect)
         return null;
-        */
-        return null;
-    }
-
-    /*
-     * Logout
-     */
-
-    public void updateUserLogoutAccessLog(String sessionId) {
-        /*
-        try (PreparedStatement statement = connection.prepareStatement(setUserLogoutQuery)) {
-            statement.setString(1, sessionId);
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println("Error updating logout logs: " + e);
-        }
-            */
     }
 
     /*
@@ -247,9 +191,8 @@ public class DBManager {
      */
 
     public void removeUser(User user) throws SQLException {
-        /*
         switch (user.getUserType()) {
-            case CUSTOMER_USER:
+            case CUSTOMER:
                 PreparedStatement customerStatement = connection.prepareStatement(removeCustomerUserQuery);
                     customerStatement.setString(1, user.getEmail());
                     customerStatement.executeUpdate();
@@ -261,12 +204,7 @@ public class DBManager {
                 break;
             default:
                 System.out.println("Error removing User: Can't find UserType");
-            }
-            // remove logs
-            PreparedStatement removeAccessLogs = connection.prepareStatement(deleteUserAccessLogQuery);
-            removeAccessLogs.setString(1, user.getEmail());
-            removeAccessLogs.executeUpdate();
-            */
+        }
     }
 
     /*
@@ -274,7 +212,6 @@ public class DBManager {
      */
 
     public boolean isDuplicateEmail(String email) throws SQLException {
-        /*
         PreparedStatement preparedCustomerUserStatement = connection.prepareStatement(checkCustomerUserDuplicateEmail); 
         preparedCustomerUserStatement.setString(1, email);
         ResultSet customerResultSet = preparedCustomerUserStatement.executeQuery();
@@ -299,12 +236,9 @@ public class DBManager {
         } else {
             return false;
         }
-            */
-            return false;
     }
 
     public boolean isDuplicateStaffID(String staffID) throws SQLException {
-        /*
         PreparedStatement preparedStaffStatement = connection.prepareStatement(checkDuplicateStaffIDQuery); 
         preparedStaffStatement.setString(1, staffID);
         ResultSet staffResultSet = preparedStaffStatement.executeQuery();
@@ -316,51 +250,12 @@ public class DBManager {
             } else {
                 return false;
             }
-        }
-        return true;
-        */
+        }      
         return false;
     }
 
-    /*
-     * User Access Logs
-     */
 
-    // row 0 == Login time
-    // row 1 == Logout time
-    public ArrayList<Timestamp[]> getUserLogs(String email) throws SQLException{
-        ArrayList<Timestamp[]> results = new ArrayList<>();
-        /*
-        PreparedStatement statement = connection.prepareStatement(getUserAccessDataQuery);
-        statement.setString(1, email);
-        ResultSet rs =  statement.executeQuery();
-        while (rs.next()) {
-            Timestamp[] row = new Timestamp[2];
-            row[0] = rs.getTimestamp("loginDateTime");
-            row[1] = rs.getTimestamp("logoutDateTime");
-            results.add(row);
-        }
-            */
-        return results;
-    }
-
-    public ArrayList<Timestamp[]> getSearchedUserAccessLogs(String email, Date date) throws SQLException {
-        ArrayList<Timestamp[]> logs = new ArrayList<>();
-        /*
-        PreparedStatement statement = connection.prepareStatement(searchUserAccessLogsQuery);
-        statement.setString(1, email);
-        statement.setDate(2, date);
-        statement.setDate(3, date);
-        
-        ResultSet resultSet = statement.executeQuery();
-        while (resultSet.next()) {
-            Timestamp loginTime = resultSet.getTimestamp("loginDateTime");
-            Timestamp logoutTime = resultSet.getTimestamp("logoutDateTime");
-            logs.add(new Timestamp[]{loginTime, logoutTime});
-        }
-            */
-        return logs;
-    }
+    
     /*
     public void placeOrder(Order order) {
                 try {
