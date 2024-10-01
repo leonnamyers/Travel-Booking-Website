@@ -15,8 +15,6 @@
     </head>
     <body>
         <jsp:include page="navbar.jsp" flush="true" />
-        
-
         <div class="outer-container">
             <div class="flex-container" style="flex-direction: column;">
                 <%
