@@ -63,7 +63,7 @@ public class UpdateController extends HttpServlet {
             // update the user details in the relevant DB table, then update the user stored in the session
             if (registeredUserType.equalsIgnoreCase("customer")) {
 
-                //  Customer User Update
+                //  Customer Update
 
                 Address address = new Address(request.getParameter("street_address"), Integer.parseInt(request.getParameter("postcode")), request.getParameter("city"), request.getParameter("state"));
                 String phoneNumber = request.getParameter("phone_number");
@@ -107,7 +107,7 @@ public class UpdateController extends HttpServlet {
 
             } else if (registeredUserType.equalsIgnoreCase("staff")) {
 
-                // Staff Registration and Update
+                // Staff Update
 
                 String staffID = request.getParameter("staff_id");
                 String staffType = request.getParameter("staff_type");
