@@ -1,6 +1,7 @@
 package com.iotbay.Controller.CustomerAndStaffManagement;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -11,7 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.iotbay.Controller.UserValidation;
+import com.iotbay.Dao.DBManager;
+import com.iotbay.Model.Customer;
 import com.iotbay.Model.DummyUsers;
+import com.iotbay.Model.Staff;
 import com.iotbay.Model.User;
 
 // Logs in the stored user by verifying username and password information against the database
@@ -25,7 +29,7 @@ public class LoginController extends HttpServlet {
             HttpSession session = request.getSession();
             String email = request.getParameter("email");
             String password = request.getParameter("password");
-            //DBManager manager = (DBManager) session.getAttribute("manager");
+            DBManager manager = (DBManager) session.getAttribute("manager");
             UserValidation.clear(session);
 
             
@@ -46,24 +50,21 @@ public class LoginController extends HttpServlet {
                     session.setAttribute("user", DummyUsers.getDummyAdmin());
                     session.setAttribute("welcomeMessage", "You have successfully logged in!");
                     response.sendRedirect("welcome.jsp?login=success");
-                } else {
+                } else if (email.equals("customer@customer.com")) {
                     // dummy customer
                     session.setAttribute("user", DummyUsers.getDummyCustomer());
                     session.setAttribute("welcomeMessage", "You have successfully logged in!");
                     response.sendRedirect("welcome.jsp?login=success");
-                }
-
-                // Dummy Customer
+                } else {
                 
-                /*
-                user = manager.userLogin(email, password, session.getId());
+                    user = manager.userLogin(email, password, session.getId());
                 if (user != null) {
                     switch(user.getUserType()) {
                         case CUSTOMER:
-                        session.setAttribute("user", (Customer)user);
+                        session.setAttribute("user", (Customer) user);
                         break;
                         case STAFF:
-                        session.setAttribute("user", (Staff)user);
+                        session.setAttribute("user", (Staff) user);
                         default:
                             break;
                     }
@@ -74,11 +75,12 @@ public class LoginController extends HttpServlet {
                     session.setAttribute("loginError", "User cannot be found. Please try again.");
                     request.getRequestDispatcher("login.jsp?login=failure").include(request, response);
                 }
-                    */
             }
-
-        } catch (Exception ex) {//SQLException ex) {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+     } catch (SQLException ex) { 
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+     }
     }
 }
+
