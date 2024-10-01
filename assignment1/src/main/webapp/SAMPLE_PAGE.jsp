@@ -11,21 +11,7 @@
     <link rel="stylesheet" href="css/style.css"> 
     <script type="text/javascript" src="js/index.js"></script>
     <title>Name of your page</title>
-    <nav>
-        <h1>Name of your page</h1>
-
         <!--
-            Menu Items => 
-
-                            If your page is accessible to logged in users and unlogged users
-                            add them to both
-
-                            If not:
-                            I recommend adding them to both of these columns while you are
-                            so it's easier to debug // create // look at pages
-
-                            Once you are finished debugging, delete it from the one it doesn't need to be in.
-
                             >> If you need to make options for 'only staff' or 'only customer' pages/: <<
 
                             There are a few ways:
@@ -64,40 +50,10 @@
                             
                             3) ^^ or a switch statement
 
-
-                            You will also have to go through and add that to other people's pages, so
-                            it might also be a good idea to ask/tell people to try avoid merge conflicts
         -->
-
-        <!--Menu Items => If User is logged in-->
-
-        <%
-        if (session != null && session.getAttribute("user") != null) {
-        %>
-        <ul>
-            <li><a href="Cart.jsp">Cart</a></li>
-            <li><a href="index.jsp">Home</a></li>
-            <li><a href="account_details.jsp">Account</a></li>
-            <li><a href="logout.jsp">Logout</a></li>
-        </ul>
-
-        <!--Menu Items => If User is NOT logged in-->
-
-        <%
-        } else {
-        %>
-        <ul>
-            <li><a href="Cart.jsp">Cart</a></li>
-            <li><a href="index.jsp">Home</a></li>
-            <li><a href="login.jsp">Login</a></li>
-            <li><a href="register.jsp">Register</a></li>
-        </ul>
-        <% 
-        }
-        %>
-    </nav>
 </head>
 <body>
+    <jsp:include page="navbar.jsp" flush="true" /> <!-- navbar -> don't forget to add/change  -->
     <div class="outer-container">
         <div class="flex-container">
             <div>
