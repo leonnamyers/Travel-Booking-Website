@@ -85,7 +85,7 @@
             <li><a href="index.jsp">Home</a></li>
             <li><a href="account_details.jsp">Account</a></li>
             <li><a href="logout.jsp">Logout</a></li>
-                <a href="cart.jsp">
+                <a href="Cart.jsp">
                     <button class ="shopping-cart-button" >
                         <i class="fas fa-shopping-cart"></i>
                         <% Cart cart = (Cart) request.getSession().getAttribute("cart");%>
@@ -105,7 +105,7 @@
             <li><a href="index.jsp">Home</a></li>
             <li><a href="login.jsp">Login</a></li>
             <li><a href="register.jsp">Register</a></li>
-                <a href="cart.jsp">
+                <a href="Cart.jsp">
                     <button class ="shopping-cart-button" >
                         <i class="fas fa-shopping-cart"></i>
                         <% Cart cart = (Cart) request.getSession().getAttribute("cart");%>
