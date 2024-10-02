@@ -54,7 +54,6 @@
         String price = (String)request.getParameter("price");
         String availability = (String)request.getParameter("availability");
     
-        <!-- get error messages-->
         String nameErr = (String) request.getAttribute("nameErr");
         String departureTimeErr = (String) request.getAttribute("departureTimeErr");
         String arrivalTimeErr = (String) request.getAttribute("arrivalTimeErr");

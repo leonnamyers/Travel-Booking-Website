@@ -40,11 +40,12 @@
             justify-content: center;
         }
     </style>
+    <!-- get flight attribute that are for updating 
+     get validation messages-->
     <%
-        <!-- get flight attribute that are for updating -->
         User user = (User)session.getAttribute("user");
         Flight updatingFlight = (Flight) session.getAttribute("updatingFlight");
-        <!-- get validation messages -->
+
         String nameErr = (String) request.getAttribute("nameErr");
         String departureTimeErr = (String) request.getAttribute("departureTimeErr");
         String arrivalTimeErr = (String) request.getAttribute("arrivalTimeErr");

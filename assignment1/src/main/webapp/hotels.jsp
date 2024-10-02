@@ -61,7 +61,6 @@
             String roomType = (String)session.getAttribute("roomType");
             String roomSize = (String)session.getAttribute("roomSize");
             String city = (String)request.getAttribute("city");
-            <!-- get seaching validation messages -->
             String checkInTimeErr = (String)request.getAttribute("checkInTimeErr");
             String checkOutTimeErr = (String)request.getAttribute("checkOutTimeErr");
 

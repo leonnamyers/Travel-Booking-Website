@@ -39,12 +39,12 @@
             justify-content: center;
         }
     </style>
-
+    <!-- get hotel attribute that are for updating 
+     get validation messages-->
     <%
-        <!-- get hotel attribute that are for updating -->
         User user = (User)session.getAttribute("user");
         Hotel updatingHotel = (Hotel) session.getAttribute("updatingHotel");
-        <!-- get validation messages -->
+
         String nameErr = (String) request.getAttribute("nameErr");
         String priceErr = (String) request.getAttribute("priceErr");
         String availabilityErr = (String) request.getAttribute("availabilityErr");
