@@ -15,11 +15,24 @@
 
         DAO and java class (model): FlightDAO.java, Flight.java
 
-        Controllers: AddFlightController.java, DeleteFlightController.java, FilteringFlightController.java, FlightCatalogueController.java, UpdateFlightController.java, UpdateFlightFormController
+        Controllers: AddFlightController.java, AddFlightToCartController.java, DeleteFlightController.java, FilteringFlightController.java, FlightCatalogueController.java, UpdateFlightController.java, UpdateFlightFormController
 
         Testing Code: FlightDAOTest.java test the connection between dbeaver database and models
 
         Error mitigation: utilised servlet/controller side validation, as well as preformatted input that avoid errors in all jsp.
         
     HotelCatalogueManagement - Jialan Guo
+        I did the CRUD feature for staff to manage hotels, as well as adding the hotel as Item to clients' shopping cart. 
+        This include,
+
+        JSP (view): addHotel.jsp, addHotelOperation.jsp,deleteHotel.jsp,hotels.jsp,updateHotel.jsp,UpdateHotelOperation.jsp,hotelBookingDateErr.jsp
+
+        DAO and java class (model): HotelDAO.java, Hotel.java, CustomerHotel.java
+
+        Controllers: AddHotelController.java, AddHotelToCartController.java, DeleteHotelController.java, FilteringHotelController.java, HotelCatalogueController.java, UpdateHotelController.java, UpdateHotelFormController
+
+        Testing Code: HotelDAOTest.java test the connection between dbeaver database and models
+
+        Error mitigation: utilised servlet/controller side validation, as well as preformatted input that avoid errors in all jsp.
+     
 

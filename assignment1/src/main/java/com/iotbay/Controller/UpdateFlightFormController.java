@@ -21,15 +21,15 @@ public class UpdateFlightFormController extends HttpServlet{
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
-        //getting the itemID from request object
+        //getting the itemID from request
         int itemID = Integer.parseInt(request.getParameter("itemID"));
         
         HttpSession session = request.getSession();
         FlightDAO flightDAOManager = (FlightDAO) session.getAttribute("flightDAOManager");
         
         try{
-            //set request object with attribute product of that specific ID
-            //So the product data can be used in productForm, and also indicate it should perform an updating action.
+            //forward request with request attribute that is an existing 
+            //flight to display its data in the updateFlight form
             Flight existingFlight = flightDAOManager.fetchFlight(itemID);
             
             RequestDispatcher dispatcher = request.getRequestDispatcher("updateFlight.jsp");

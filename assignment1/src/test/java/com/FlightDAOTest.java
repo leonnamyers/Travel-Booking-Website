@@ -33,7 +33,7 @@ public class FlightDAOTest {
     //     ArrayList<Flight> allFlights = flightDAOManager.fetchAllFlights();
     //     assertEquals(allFlights.size(), 10);
     // }
-    // //Search
+    // //Read: Search
     // @Test
     // public void testFetchFilteredFlights() throws SQLException {
     //     ArrayList<Flight> filteredFlights = flightDAOManager.fetchFilteredFlights("", "", "2024-02-03", "");

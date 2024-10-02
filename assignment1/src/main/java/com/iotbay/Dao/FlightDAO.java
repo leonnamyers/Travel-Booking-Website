@@ -13,7 +13,8 @@ import java.util.HashMap;
 import com.iotbay.Model.*;
 
 public class FlightDAO {
-
+    //CRUD statements for FlightCatalogue table
+    //Item st for get flight as item (super class) 
     private Statement st;
 	private PreparedStatement readSt;
     private PreparedStatement filterSt;
@@ -22,9 +23,7 @@ public class FlightDAO {
 	private PreparedStatement deleteSt;
     private PreparedStatement getFlightItemSt;
     private PreparedStatement getFlightSt;
-    // private PreparedStatement updateAvailabilitySt;
 
-    private PreparedStatement fetchStockSt;
 	private String readQuery = "SELECT itemID, name, price, availability, img, startTime, endTime, departureCity, destinationCity, stops, seatType, (TIME_TO_SEC(TIMEDIFF(endTime,startTime))/3600) FROM FlightCatalogue ORDER BY name";
     private String filterQuery = "SELECT itemID, name, price, availability, img, startTime, endTime, departureCity, destinationCity, stops, seatType, (TIME_TO_SEC(TIMEDIFF(endTime,startTime))/3600) FROM FlightCatalogue WHERE departureCity LIKE ? and destinationCity LIKE ? and seatType LIKE ? and startTime LIKE ? ORDER BY name";
 	private String createQuery = "INSERT INTO FlightCatalogue (name, price, availability, img, startTime, endTime, departureCity, destinationCity, stops, seatType) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -32,8 +31,6 @@ public class FlightDAO {
 	private String deleteQuery = "DELETE FROM FlightCatalogue WHERE itemID= ?";
     private String getFlightItemQuery = "SELECT name, price, availability, img FROM FlightCatalogue WHERE itemID = ?";
     private String getFlightQuery = "SELECT name, price, availability, img, startTime, endTime, departureCity, destinationCity, stops, seatType, (TIME_TO_SEC(TIMEDIFF(endTime,startTime))/3600) FROM FlightCatalogue WHERE itemID = ?";
-    // private String updateAvailabilityQuery = "UPDATE FlightCatalogue SET availability= ? WHERE itemID= ?";
-    private String fetchStock = "SELECT ProductInStock FROM Product WHERE ProductID=?";
 
     public FlightDAO(Connection connection) throws SQLException {
 		connection.setAutoCommit(true);
@@ -47,7 +44,7 @@ public class FlightDAO {
         getFlightSt = connection.prepareStatement(getFlightQuery);
 	}
 
-    // Read Operation: 
+    //Read Operation:
     public ArrayList<Flight> fetchAllFlights() throws SQLException {
         
         ArrayList<Flight> flights = new ArrayList();
@@ -74,6 +71,7 @@ public class FlightDAO {
         return flights;
     }
 
+    //Read Operation: Search
     public ArrayList<Flight> fetchFilteredFlights(String filtDepCity, String filtDesCity,String filtDepTime, String filtSeatType) throws SQLException {
 
         filterSt.setString(1, filtDepCity + "%");
@@ -104,7 +102,7 @@ public class FlightDAO {
         }
         return flights;
     }
-
+    //Create Operation:
     public void createFlight(String name, double price, int availability, String img, Timestamp startTime, Timestamp endTime, String departureCity, String destinationCity, String stops, String seatType) throws SQLException {
 		
 		createSt.setString(1, name);
@@ -122,6 +120,7 @@ public class FlightDAO {
         System.out.println("1 row successfully created");
 	}
 
+    //Update Operation:
     public void updateFlight(int itemID, String name, double price, int availability, String img, Timestamp startTime, Timestamp endTime, String departureCity, String destinationCity, String stops, String seatType) throws SQLException{
         
         updateSt.setString(1, name);
@@ -140,6 +139,7 @@ public class FlightDAO {
         System.out.println("1 row successfully updated");
     }
 
+    //Delete Operation:
     public void deleteFlight(int itemID) throws SQLException{
         
         deleteSt.setInt(1, itemID);
@@ -148,6 +148,7 @@ public class FlightDAO {
         System.out.println("1 row successfully deleted");
     }
 
+    //Add to Cart: get the item to add to cart
     public Item fetchFlightItem(int itemID) throws SQLException{
         
         getFlightItemSt.setInt(1, itemID);

@@ -39,7 +39,8 @@
             justify-content: center;
         }
     </style>
-
+    <!-- get hotel attribute that are for updating 
+     get validation messages-->
     <%
         User user = (User)session.getAttribute("user");
         Hotel updatingHotel = (Hotel) session.getAttribute("updatingHotel");
@@ -79,6 +80,8 @@
             }
             %>
         </nav>
+
+        <!-- management block -->
         <div align="center" class="div-1">
             <br/>
             <br/>
@@ -101,13 +104,15 @@
             <br/>
             <br/>
         </div>
-
+        
+        <!-- Updating form -->
         <div align="center" class="div-1">
             <div  class="update-container">
             <form method="post" action="http://localhost:8080/UpdateHotelController">
                 <h1>Update The Hotel</h1>
                 <br/>
                 <label>
+                    <!-- Updating validation -->
                     <% if(nameErr != null) { %>
                     <%=nameErr%>
                     <% } %>
@@ -132,6 +137,7 @@
                 </label>
                 <br/>
 
+                <!-- inputs -->
                 <div>
                 <label>Hotel: </label>
                 <input list="hotel-list" name="name" id="name" type="text" value="<c:out value='${updatingHotel.name}' />"/>

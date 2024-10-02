@@ -26,19 +26,23 @@ public class FilteringFlightController extends HttpServlet{
 
         HttpSession session = request.getSession();
         FlightDAO flightDAOManager = (FlightDAO) session.getAttribute("flightDAOManager");
-        String filtDepCity = (String)request.getParameter("departure");
-        String filtDesCity = (String)request.getParameter("destination");
-
-        String filtDepTime = (String)request.getParameter("departureTime");
-
-        String filtSeatType = request.getParameter("seats");
+        //get filtering data from search form
+        String departureCity = (String)request.getParameter("departure");
+        String destinationCity = (String)request.getParameter("destination");
+        String departureTime = (String)request.getParameter("departureTime");
+        String seatType = request.getParameter("seats");
 
         
         try{
-            ArrayList<Flight> flightList = flightDAOManager.fetchFilteredFlights(filtDepCity, filtDesCity, filtDepTime, filtSeatType);
+            //no valiation made because all inputs are default empty string
+            //using like '%' (empty string) operation will return all instances
+            //fetch all flights and set it as session list to be displayed
+            ArrayList<Flight> flightList = flightDAOManager.fetchFilteredFlights(departureCity, destinationCity, departureTime, seatType);
             session.setAttribute("flightList", flightList);
-
-            request.setAttribute("departureTime", filtDepTime);
+            request.setAttribute("departureCity", departureCity);
+            request.setAttribute("destinationCity", destinationCity);
+            request.setAttribute("departureTime", departureTime);
+            request.setAttribute("seatType", seatType);
             request.getRequestDispatcher("flights.jsp").include(request, response);
         }
         catch(SQLException e){

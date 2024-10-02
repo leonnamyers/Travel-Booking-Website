@@ -4,6 +4,7 @@ import java.sql.*;
 
 
 public class CustomerHotel extends Item{
+    //Customers' booked hotel
     private Date checkInTime;
     private Date checkOutTime;
     private String roomType;

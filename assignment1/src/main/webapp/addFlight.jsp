@@ -40,6 +40,8 @@
             justify-content: center;
         }
     </style>
+    <!-- get request parameters of previously entered input
+     if redirection ever happen, that way the data don't lost -->
     <%
         ArrayList<Flight> flightList = (ArrayList<Flight>)session.getAttribute("flightList");
         User user = (User)session.getAttribute("user");   
@@ -51,7 +53,7 @@
         String img = (String)request.getParameter("img");
         String price = (String)request.getParameter("price");
         String availability = (String)request.getParameter("availability");
-
+    
         String nameErr = (String) request.getAttribute("nameErr");
         String departureTimeErr = (String) request.getAttribute("departureTimeErr");
         String arrivalTimeErr = (String) request.getAttribute("arrivalTimeErr");
@@ -90,6 +92,7 @@
         %>
     </nav>
 
+    <!-- Management block -->
     <div align="center" class="div-1">
         <br/>
         <br/>
@@ -114,7 +117,7 @@
     </div>
 
 
-
+    <!-- Add flight form with error validation -->
     <div align="center" class="div-1">
         <div  class="update-container">
         <form method="post" action="http://localhost:8080/AddFlightController">

@@ -23,6 +23,7 @@ public class HotelCatalogueController extends HttpServlet{
         HttpSession session = request.getSession();
         HotelDAO hotelDAOManager = (HotelDAO) session.getAttribute("hotelDAOManager");
         try{
+            //fetch current hotel list in the database, set it to display
             ArrayList<Hotel> hotelList = hotelDAOManager.fetchAllHotels();
             session.setAttribute("hotelList", hotelList);
             response.sendRedirect("hotels.jsp");

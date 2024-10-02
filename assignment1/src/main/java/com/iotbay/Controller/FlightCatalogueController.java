@@ -23,6 +23,7 @@ public class FlightCatalogueController extends HttpServlet{
         HttpSession session = request.getSession();
         FlightDAO flightDAOManager = (FlightDAO) session.getAttribute("flightDAOManager");
         try{
+            //fetch current flight list in the database, set it to display
             ArrayList<Flight> flightList = flightDAOManager.fetchAllFlights();
             session.setAttribute("flightList", flightList);
             response.sendRedirect("flights.jsp");

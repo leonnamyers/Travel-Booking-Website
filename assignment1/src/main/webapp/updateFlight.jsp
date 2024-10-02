@@ -40,6 +40,8 @@
             justify-content: center;
         }
     </style>
+    <!-- get flight attribute that are for updating 
+     get validation messages-->
     <%
         User user = (User)session.getAttribute("user");
         Flight updatingFlight = (Flight) session.getAttribute("updatingFlight");
@@ -81,7 +83,8 @@
         }
         %>
     </nav>
-
+    
+    <!-- management block -->
     <div align="center" class="div-1">
         <br/>
         <br/>
@@ -106,7 +109,7 @@
     </div>
 
 
-
+    <!-- Updating form -->
     <div align="center" class="div-1">
         <div class="update-container">
         <!-- update -->
@@ -116,6 +119,7 @@
         <h1>Update the flight</h1>
             <br/>
             <label>
+                <!-- Updating validation -->
                 <% if(nameErr != null) { %>
                 <%=nameErr%></h1
                 <% } %>

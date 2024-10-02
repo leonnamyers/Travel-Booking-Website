@@ -46,7 +46,7 @@
         </br>
         </br>
         <!-- feedback message -->
-        <h1 align = "center"> You have successfully delete the hotel!</h1>   
+        <h1 align = "center"> Please search with check in and out date for the hotel!</h1>   
         </br>
         </br>
         <form align = "center" action="http://localhost:8080/hotels.jsp">

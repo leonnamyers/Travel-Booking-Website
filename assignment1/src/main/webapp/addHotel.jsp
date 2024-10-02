@@ -40,8 +40,9 @@
             justify-content: center;
         }
     </style>
+    <!-- get request parameters of previously entered input
+     if redirection ever happen, that way the data don't lost -->
     <%
-    
         ArrayList<Hotel> hotelList = (ArrayList<Hotel>)session.getAttribute("hotelList");
         User user = (User)session.getAttribute("user");   
         String name = (String)request.getParameter("name");
@@ -87,7 +88,7 @@
         }
         %>
     </nav>
-
+    <!-- management block -->
     <div align="center" class="div-1">
         <br/>
         <br/>
@@ -111,8 +112,7 @@
     <br/>
     </div>
 
-
-
+     <!-- Add hotel form with error validation -->
     <div align="center" class="div-1">
         <div  class="update-container">
         <form method="post" action="http://localhost:8080/AddHotelController">
