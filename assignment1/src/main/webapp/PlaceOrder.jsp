@@ -2,6 +2,8 @@
 <%@page import="javax.servlet.http.HttpSession"%>
 <%@page import="com.iotbay.Model.User" %>
 <%@page import="com.iotbay.Model.Cart" %>
+<%@page import="com.iotbay.Model.Flight" %>
+<%@page import="com.iotbay.Model.Hotel" %>
 <%@page import="com.iotbay.Model.Order" %>
 
 

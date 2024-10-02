@@ -36,6 +36,7 @@ public class PlaceOrderController extends HttpServlet {
             return;
         }
 
+
         // Retrieve form data from the request
         String firstname = request.getParameter("First Name");
         String lastname = request.getParameter("Last Name");

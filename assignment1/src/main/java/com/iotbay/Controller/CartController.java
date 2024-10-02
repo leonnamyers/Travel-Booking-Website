@@ -31,6 +31,10 @@ public class CartController extends HttpServlet {
         HttpSession session = request.getSession();
         Cart cart = (Cart) request.getSession().getAttribute("cart");
 
+        if (cart == null) {
+            cart = new Cart();
+        }
+
         String action = request.getParameter("action");
         if (action == null) action = "";
 
