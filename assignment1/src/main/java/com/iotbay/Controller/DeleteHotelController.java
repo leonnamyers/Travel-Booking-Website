@@ -17,12 +17,13 @@ public class DeleteHotelController extends HttpServlet{
     
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
+        //get item from hidden field in the hotel list  
         int itemID = Integer.parseInt(request.getParameter("itemID"));
         HttpSession session = request.getSession();
         HotelDAO hotelDAOManager = (HotelDAO) session.getAttribute("hotelDAOManager");
         
         try{
+            //finish delete operation using HotelDAO, redirect to feedback page
             hotelDAOManager.deleteHotel(itemID);
             ArrayList<Hotel> hotelList = hotelDAOManager.fetchAllHotels();
             session.setAttribute("hotelList", hotelList);

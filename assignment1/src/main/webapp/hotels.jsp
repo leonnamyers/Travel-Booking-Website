@@ -51,6 +51,8 @@
             justify-content: center;
         }
     </style>
+    <!-- get request parameters of filtering data so when redirection
+     happens the data don't lose -->
     <%
             ArrayList<Hotel> Hotel = (ArrayList<Hotel>)session.getAttribute("hotelList");
             User user = (User)session.getAttribute("user");
@@ -59,6 +61,7 @@
             String roomType = (String)session.getAttribute("roomType");
             String roomSize = (String)session.getAttribute("roomSize");
             String city = (String)request.getAttribute("city");
+            <!-- get seaching validation messages -->
             String checkInTimeErr = (String)request.getAttribute("checkInTimeErr");
             String checkOutTimeErr = (String)request.getAttribute("checkOutTimeErr");
 
@@ -123,9 +126,13 @@
 
     <img src="/images/Hotel.jpg" width="100%" >
 
+    <!-- search form with validation messages -->
     <div align="center" class="div-1"> 
         <br>
+        <label>Please search with seleted date to indicate booking duration</label>
+        <br>
         <label>
+            <!-- search validation -->
             <% if(checkInTimeErr != null) { %>
             <%=checkInTimeErr %>
             <% } %>
@@ -318,6 +325,7 @@
         <br/> 
     </div>
 
+    <!-- hotels display for customer, with add to cart button -->
     <%
         if ((user == null) || (user != null && user.getUserType() == UserType.CUSTOMER)) { 
     %>
@@ -367,6 +375,7 @@
     <% 
         Staff staff = (Staff)session.getAttribute("user");
     %>
+    <!-- hotels display for clerk staff, with update and delete buttons -->
     <%
     if (staff.getStaffTypeID()==1) { 
     %>

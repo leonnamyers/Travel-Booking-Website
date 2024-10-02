@@ -51,6 +51,8 @@
             justify-content: center;
         }
     </style>
+    <!-- get request parameters of filtering data so when redirection
+    happens the data don't lose -->
     <%
             ArrayList<Flight> flightList = (ArrayList<Flight>)session.getAttribute("flightList");
             User user = (User)session.getAttribute("user");
@@ -122,6 +124,7 @@
 
     <img src="/images/flightPhoto.jpeg" width="100%" >
 
+    <!-- search form -->
     <div align="center" class="div-1"> 
         <br>
         <br> 
@@ -208,6 +211,7 @@
         <br/> 
     </div>
 
+    <!-- flights display for customer, with add to cart button -->
     <%
         if ((user == null) || (user != null && user.getUserType() == UserType.CUSTOMER)) { 
     %>
@@ -262,6 +266,7 @@
     <%
     } else if(user != null && user.getUserType() == UserType.STAFF) {
     %>
+    <!-- flights display for clerk staff, with update and delete buttons -->
     <% 
         Staff staff = (Staff)session.getAttribute("user");
     %>

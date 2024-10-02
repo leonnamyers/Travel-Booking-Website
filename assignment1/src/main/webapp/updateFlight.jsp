@@ -41,9 +41,10 @@
         }
     </style>
     <%
+        <!-- get flight attribute that are for updating -->
         User user = (User)session.getAttribute("user");
         Flight updatingFlight = (Flight) session.getAttribute("updatingFlight");
-
+        <!-- get validation messages -->
         String nameErr = (String) request.getAttribute("nameErr");
         String departureTimeErr = (String) request.getAttribute("departureTimeErr");
         String arrivalTimeErr = (String) request.getAttribute("arrivalTimeErr");
@@ -81,7 +82,8 @@
         }
         %>
     </nav>
-
+    
+    <!-- management block -->
     <div align="center" class="div-1">
         <br/>
         <br/>
@@ -106,7 +108,7 @@
     </div>
 
 
-
+    <!-- Updating form -->
     <div align="center" class="div-1">
         <div class="update-container">
         <!-- update -->
@@ -116,6 +118,7 @@
         <h1>Update the flight</h1>
             <br/>
             <label>
+                <!-- Updating validation -->
                 <% if(nameErr != null) { %>
                 <%=nameErr%></h1
                 <% } %>

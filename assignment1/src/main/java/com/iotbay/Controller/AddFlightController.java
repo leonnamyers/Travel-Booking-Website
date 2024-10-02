@@ -24,28 +24,26 @@ public class AddFlightController extends HttpServlet {
         HttpSession session = request.getSession();
         FlightDAO flightDAOManager = (FlightDAO) session.getAttribute("flightDAOManager");
         
-        //get the product data from request object 
+        //get the flight data from the add form
         String name = request.getParameter("name");
-
         String startTime = (String)request.getParameter("startTime");
-
         String endTime = (String)request.getParameter("endTime");
-        
         String departureCity = (String)request.getParameter("departureCity");
         String destinationCity = (String)request.getParameter("destinationCity");
         String img = (String)request.getParameter("img");
         String stops = (String)request.getParameter("stops");
         String seatType = (String)request.getParameter("seatType");
 
+        //prepare to validate the form inputs price and availability
         double price = 0;
         int availability = 0;
         String enteredPrice = request.getParameter("price");
         String enteredAvailability= request.getParameter("availability");
-        boolean isPrice = isDouble(request.getParameter("price"));
-        boolean isAvailability = isInteger(request.getParameter("availability"));
+        boolean isPrice = isDouble(enteredPrice);
+        boolean isAvailability = isInteger(enteredAvailability);
 
        
-
+        //input validation, if invalid, send back inputs with error messages
         //check empty name
         if(name == null||name.equals(""))
         {
@@ -147,7 +145,7 @@ public class AddFlightController extends HttpServlet {
             return;
         }
 
-        //check if price input is not a number
+        //check if price input is not a double
         if(!isPrice)
         {
             request.setAttribute("priceErr", "Invalid price input!");
@@ -163,7 +161,7 @@ public class AddFlightController extends HttpServlet {
             request.getRequestDispatcher("addFlight.jsp").forward(request, response);
             return;
         }
-        //check if availability is not a int
+        //check if availability is not an int
         if(!isAvailability){
             
             request.setAttribute("availabilityErr", "Invalid availability input!");
@@ -180,20 +178,26 @@ public class AddFlightController extends HttpServlet {
             return;
         }
 
-  
+        
         else{
             
             try{
+                //Create variables from the input strings to create new flight
+                //The html timestamp has different format compare to sql.Timestamp
+                //Formatting:
                 String correctStartTime = startTime.replace("T"," ");
                 correctStartTime+=":00";
                 Timestamp startTimeStamp = Timestamp.valueOf(correctStartTime);
+
                 String correctEndTime = endTime.replace("T"," ");
                 correctEndTime+=":00";
                 Timestamp endTimeStamp = Timestamp.valueOf(correctEndTime);
+
                 //get availability and price after ensuring they are numbers
                 availability = Integer.parseInt(request.getParameter("availability"));
                 price = Double.parseDouble(request.getParameter("price"));
                 
+                //check if the input numbers are valid
                 if(availability <= 0){
                     request.setAttribute("availabilityErr", "Invalid availability input");
                     request.setAttribute("name", name);
@@ -222,8 +226,8 @@ public class AddFlightController extends HttpServlet {
                     request.getRequestDispatcher("addFlight.jsp").forward(request, response);
                     return;
                 }
-                //Finish updating operation and redirect staff back to the list of devices
-                
+
+                //Finish creating operation and redirect staff to feedback jsp
                 flightDAOManager.createFlight(name, price, availability, img, startTimeStamp, endTimeStamp, departureCity, destinationCity, stops, seatType);
                 ArrayList<Flight> flightList = flightDAOManager.fetchAllFlights();
                 session.setAttribute("flightList", flightList);
@@ -236,6 +240,7 @@ public class AddFlightController extends HttpServlet {
         }
     }
 
+    //Validation methods
     private static boolean isDouble(String str) { 
         try {  
           Double.parseDouble(str);  
@@ -243,16 +248,15 @@ public class AddFlightController extends HttpServlet {
         } catch(NumberFormatException e){  
           return false;  
         }  
-      }
+    }
       
-      //Number checking method for stock
-      private static boolean isInteger(String str){
+    private static boolean isInteger(String str){
         try {  
-          Integer.parseInt(str);  
-          return true;
+            Integer.parseInt(str);  
+            return true;
         } catch(NumberFormatException e){  
-          return false;  
+            return false;  
         }  
-      }
+    }
     
 }

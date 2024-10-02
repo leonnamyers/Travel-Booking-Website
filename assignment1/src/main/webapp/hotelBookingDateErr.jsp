@@ -45,7 +45,8 @@
         </nav>
         </br>
         </br>
-        <h1 align = "center"> Please enter the check in and out date for the hotel!</h1>   
+        <!-- feedback message -->
+        <h1 align = "center"> Please search with check in and out date for the hotel!</h1>   
         </br>
         </br>
         <form align = "center" action="http://localhost:8080/hotels.jsp">

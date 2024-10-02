@@ -45,6 +45,7 @@
         </nav>
         </br>
         </br>
+        <!-- feedback message -->
         <h1 align = "center"> You have successfully delete the hotel!</h1>   
         </br>
         </br>
