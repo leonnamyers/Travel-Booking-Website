@@ -88,12 +88,22 @@
                         <tr>
                             <th>Product</th>
                             <th>Unit Price</th>
+                            <th>  </th>
                         </tr>
                         <% int itemNumber = 0;
                             for (Item item : cart.getItems()) { %>
                             <tr>
                                 <td><%=item.getName()%></td>
                                 <td>$<%=item.getPrice()%></td>
+                                <td>
+                                    <form method="post" action="CartController">
+                                        <input type="hidden" name="action" value="deleteItem" />
+                                        <input type="hidden" name="remove<%=itemNumber%>" value="<%=itemNumber%>" />
+                                        <button type="submit" class="delete-button"/>
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </td>
                             </tr>
                         <% itemNumber++; } %>
                     </table>
