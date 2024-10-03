@@ -44,6 +44,7 @@
     </nav>
     </br>
     </br>
+    <!-- feedback message -->
         <center>
             <h1>You have deleted the flight!</h1>
         </center>

@@ -51,6 +51,8 @@
             justify-content: center;
         }
     </style>
+    <!-- get request parameters of filtering data so when redirection
+     happens the data don't lose -->
     <%
             ArrayList<Hotel> Hotel = (ArrayList<Hotel>)session.getAttribute("hotelList");
             User user = (User)session.getAttribute("user");
@@ -84,7 +86,7 @@
             <li><a href="index.jsp">Home</a></li>
             <li><a href="account_details.jsp">Account</a></li>
             <li><a href="logout.jsp">Logout</a></li>
-                <a href="cart.jsp">
+                <a href="Cart.jsp">
                     <button class ="shopping-cart-button" >
                         <i class="fas fa-shopping-cart"></i>
                         <% Cart cart = (Cart) request.getSession().getAttribute("cart");%>
@@ -104,7 +106,7 @@
             <li><a href="index.jsp">Home</a></li>
             <li><a href="login.jsp">Login</a></li>
             <li><a href="register.jsp">Register</a></li>
-                <a href="cart.jsp">
+                <a href="Cart.jsp">
                     <button class ="shopping-cart-button" >
                         <i class="fas fa-shopping-cart"></i>
                         <% Cart cart = (Cart) request.getSession().getAttribute("cart");%>
@@ -123,9 +125,13 @@
 
     <img src="/images/Hotel.jpg" width="100%" >
 
+    <!-- search form with validation messages -->
     <div align="center" class="div-1"> 
         <br>
+        <label>Please search with seleted date to indicate booking duration</label>
+        <br>
         <label>
+            <!-- search validation -->
             <% if(checkInTimeErr != null) { %>
             <%=checkInTimeErr %>
             <% } %>
@@ -318,6 +324,7 @@
         <br/> 
     </div>
 
+    <!-- hotels display for customer, with add to cart button -->
     <%
         if ((user == null) || (user != null && user.getUserType() == UserType.CUSTOMER)) { 
     %>
@@ -340,7 +347,7 @@
             </tr>
         <c:forEach var="hotel" items="${hotelList}">
             <tr class="flight-list">
-                <td><img width="50px" height="50px" src="images/${hotel.img}"></td>
+                <td><img width="50px" height="100px" src="images/${hotel.img}"></td>
                 <td><c:out value="${hotel.name}" /></td>
                 <fmt:formatNumber var="formattedUnitPrice" type="number" minFractionDigits="2" maxFractionDigits="2" value="${hotel.price}" />
                 <td>$<c:out value="${formattedUnitPrice}" /></td>
@@ -367,6 +374,7 @@
     <% 
         Staff staff = (Staff)session.getAttribute("user");
     %>
+    <!-- hotels display for clerk staff, with update and delete buttons -->
     <%
     if (staff.getStaffTypeID()==1) { 
     %>
@@ -411,7 +419,7 @@
                 </tr>
             <c:forEach var="hotel" items="${hotelList}">
                 <tr class="flight-list">
-                    <td><img width="50px" height="50px" src="images/${hotel.img}"></td>
+                    <td><img width="50px" height="100px" src="images/${hotel.img}"></td>
                     <td><c:out value="${hotel.itemID}"/></td>
                     <td><c:out value="${hotel.name}" /></td>
                     <fmt:formatNumber var="formattedUnitPrice" type="number" minFractionDigits="2" maxFractionDigits="2" value="${hotel.price}" />

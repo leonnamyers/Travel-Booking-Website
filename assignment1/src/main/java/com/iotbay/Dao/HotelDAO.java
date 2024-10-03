@@ -13,6 +13,8 @@ import com.iotbay.Model.*;
 import java.time.Duration;
 
 public class HotelDAO {
+    //CRUD statements for HotelCatalogue and CustomerHotel table
+    //Item st for get hotel as item (super class) 
     private Statement st;
 	private PreparedStatement readSt;
     private PreparedStatement filterSt;
@@ -23,7 +25,6 @@ public class HotelDAO {
     private PreparedStatement createCustomerHotelSt;
     private PreparedStatement getCustomerHotelSt;
     private PreparedStatement getCustomerHotelItemSt;
-
 
     private String readQuery = "SELECT itemID, name, price, availability, img, roomType, roomSize, city, availableBeginDate, availableEndDate From HotelCatalogue ORDER BY name";
     private String filterQuery = "SELECT itemID, name, price, availability, img, roomType, roomSize, city, availableBeginDate, availableEndDate FROM HotelCatalogue where roomType LIKE ? and roomSize LIKE ? and city LIKE ? and availableBeginDate <= ? and availableEndDate >= ? ORDER BY name";
@@ -49,7 +50,7 @@ public class HotelDAO {
         getCustomerHotelItemSt = connection.prepareStatement(getCustomerHotelItemQuery);
 	}
 
-        // Read Operation: 
+    // Read Operation: 
     public ArrayList<Hotel> fetchAllHotels() throws SQLException {
         ArrayList<Hotel> hotels = new ArrayList<Hotel>();
         ResultSet rs = readSt.executeQuery();
@@ -71,6 +72,7 @@ public class HotelDAO {
         return hotels;
     }
 
+    // Read Operation: Search
     public ArrayList<Hotel> fetchFilteredHotel(String filtRoomType, String filtRoomSize, String filtCity, String filtAvailableBeginDate, String filtAvailableEndDate) throws SQLException {
         filterSt.setString(1, filtRoomType + "%");
         filterSt.setString(2, filtRoomSize + "%");
@@ -99,6 +101,7 @@ public class HotelDAO {
         return hotels;
     }
 
+    //Create Operation: 
     public void createHotel(String name, double price, int availability, String img, String roomType, String roomSize, String city, Date availableBeginDate, Date availableEndDate) throws SQLException {
 		createSt.setString(1, name);
 		createSt.setDouble(2, price);
@@ -114,6 +117,7 @@ public class HotelDAO {
         System.out.println("1 row successfully created");
 	}
 
+    //Update Operation: 
     public void updateHotel(int itemID, String name, double price, int availability, String img, String roomType, String roomSize, String city, Date availableBeginDate, Date availableEndDate) throws SQLException{
         updateSt.setString(1, name);
         updateSt.setDouble(2, price);
@@ -131,10 +135,9 @@ public class HotelDAO {
         System.out.println("1 row successfully updated");
     }
 
+    //Delete Operation: 
     public void deleteHotel(int itemID) throws SQLException{
-        
         deleteSt.setInt(1, itemID);
-
         deleteSt.executeUpdate();
         System.out.println("1 row successfully deleted");
     }
@@ -161,25 +164,26 @@ public class HotelDAO {
         return null;
     }
 
+    //Create hotel order to be added to customer's cart
     public void createCustomerHotel(int itemID, String name, double price, int availability, String img, Date checkInTime, Date checkOutTime, String roomType, String roomSize, String city) throws SQLException {
         createCustomerHotelSt.setInt(1, itemID);
-        createCustomerHotelSt.setString(1, name);
-		createCustomerHotelSt.setDouble(2, price);
-		createCustomerHotelSt.setInt(3, availability);
-		createCustomerHotelSt.setString(4, img);
-        createCustomerHotelSt.setDate(5, checkInTime);
-        createCustomerHotelSt.setDate(6, checkOutTime);
-        createCustomerHotelSt.setString(7, roomType);
-        createCustomerHotelSt.setString(8, roomSize);
-        createCustomerHotelSt.setString(9, city);
+        createCustomerHotelSt.setString(2, name);
+		createCustomerHotelSt.setDouble(3, price);
+		createCustomerHotelSt.setInt(4, availability);
+		createCustomerHotelSt.setString(5, img);
+        createCustomerHotelSt.setDate(6, checkInTime);
+        createCustomerHotelSt.setDate(7, checkOutTime);
+        createCustomerHotelSt.setString(8, roomType);
+        createCustomerHotelSt.setString(9, roomSize);
+        createCustomerHotelSt.setString(10, city);
 
         createCustomerHotelSt.executeUpdate();
         System.out.println("1 row successfully created");
 	}
-
+    //Get customer's hotel order
     public CustomerHotel fetchCustomerHotel(int itemID) throws SQLException{
         getCustomerHotelSt.setInt(1, itemID);
-        ResultSet rs = getHotelSt.executeQuery();
+        ResultSet rs = getCustomerHotelSt.executeQuery();
         CustomerHotel hotel;
         while (rs.next()) {
             String name = rs.getString(1);
@@ -193,15 +197,16 @@ public class HotelDAO {
             String city = rs.getString(9);
             
 
-            hotel = new CustomerHotel(checkInTime, checkOutTime, itemID, name, itemID, availability, img, roomType, roomSize, city);
+            hotel = new CustomerHotel(checkInTime,checkOutTime,itemID,name,price,availability,img,roomType,roomSize,city);
             return hotel;
         }
         return null;
     }
 
+    //Get customer's hotel order as item(super class)
     public Item fetchCustomerHotelItem(int itemID) throws SQLException{
         getCustomerHotelItemSt.setInt(1, itemID);
-        ResultSet rs = getHotelSt.executeQuery();
+        ResultSet rs = getCustomerHotelItemSt.executeQuery();
         Item hotelItem;
 
         while (rs.next()) {

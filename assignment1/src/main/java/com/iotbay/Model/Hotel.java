@@ -3,7 +3,8 @@ import java.sql.*;
 
 
 public class Hotel extends Item{
-
+    
+    //skeleton hotel
     private String roomType;
     private String roomSize;
     private String city;

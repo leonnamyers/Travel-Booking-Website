@@ -51,10 +51,27 @@
             justify-content: center;
         }
     </style>
+    <!-- get request parameters of filtering data so when redirection
+    happens the data don't lose -->
     <%
             ArrayList<Flight> flightList = (ArrayList<Flight>)session.getAttribute("flightList");
             User user = (User)session.getAttribute("user");
-            String departureTime = (String)request.getParameter("departureTime");
+            String departureCity = (String)request.getAttribute("departureCity");
+            String destinationCity = (String)request.getAttribute("destinationCity");
+            String departureTime = (String)request.getAttribute("departureTime");
+            String seatType = (String)request.getAttribute("seatType");
+
+            if(departureCity == null){
+                departureCity = "";
+            }
+
+            if(destinationCity == null){
+                destinationCity = "";
+            }
+
+            if(departureTime == null){
+                departureTime = "";
+            }
     %>
 
     <body>
@@ -68,7 +85,7 @@
             <li><a href="index.jsp">Home</a></li>
             <li><a href="account_details.jsp">Account</a></li>
             <li><a href="logout.jsp">Logout</a></li>
-                <a href="cart.jsp">
+                <a href="Cart.jsp">
                     <button class ="shopping-cart-button" >
                         <i class="fas fa-shopping-cart"></i>
                         <% Cart cart = (Cart) request.getSession().getAttribute("cart");%>
@@ -88,7 +105,7 @@
             <li><a href="index.jsp">Home</a></li>
             <li><a href="login.jsp">Login</a></li>
             <li><a href="register.jsp">Register</a></li>
-                <a href="cart.jsp">
+                <a href="Cart.jsp">
                     <button class ="shopping-cart-button" >
                         <i class="fas fa-shopping-cart"></i>
                         <% Cart cart = (Cart) request.getSession().getAttribute("cart");%>
@@ -107,6 +124,7 @@
 
     <img src="/images/flightPhoto.jpeg" width="100%" >
 
+    <!-- search form -->
     <div align="center" class="div-1"> 
         <br>
         <br> 
@@ -114,7 +132,7 @@
         <form method="post" action="/FilteringFlightController">
 
             <label>Departure:</label>
-                <input list="departures" name="departure" id="departure" type="text" value=""/>
+                <input list="departures" name="departure" id="departure" type="text" value="<%= departureCity%>"/>
                     <datalist id="departures">
                         <option value="Sydney">
                         <option value="Melbourne">
@@ -131,7 +149,7 @@
 
 
             <label>Destination:</label>
-                <input list="destinations" name="destination" id="destination" type="text" value=""/>
+                <input list="destinations" name="destination" id="destination" type="text" value="<%= destinationCity%>"/>
                     <datalist id="destinations">
                         <option value="Sydney">
                         <option value="Melbourne">
@@ -144,23 +162,47 @@
                         <option value="Christmas Island"></option>
                         <option value="Hobart"></option>
                     </datalist>
-                </input>
+            </input>
 
-            <c:if test="${empty departureTime}">
-                <input name="departureTime" id="departureTime" type="date" value=""/>
-            </c:if>
-            <c:if test="${not empty departureTime}">
-                <input name="departureTime" id="departureTime" type="date" value="<%= departureTime%>"/>
-            </c:if>
-
-            <label>Seat</label>
- 
-            <select id="seats" name="seats" type="text">
-                <option value="" selected="selected">All</option>
-                <option value="Economy">Economy</option>
-                <option value="Premium Economy">Premium Economy</option>
-                <option value="Business">Business</option>
-            </select>
+            <input name="departureTime" id="departureTime" type="date" value="<%= departureTime%>"/>
+        <c:choose>
+            <c:when test="${seatType.equals('Economy')}">
+                <label>Seat</label>
+                <select id="seats" name="seats" type="text">
+                    <option value="">All</option>
+                    <option value="Economy" selected="selected">Economy</option>
+                    <option value="Premium Economy">Premium Economy</option>
+                    <option value="Business">Business</option>
+                </select>
+            </c:when>
+            <c:when test="${seatType.equals('Premium Economy')}">
+                <label>Seat</label>
+                <select id="seats" name="seats" type="text">
+                    <option value="">All</option>
+                    <option value="Economy">Economy</option>
+                    <option value="Premium Economy" selected="selected">Premium Economy</option>
+                    <option value="Business">Business</option>
+                </select>
+            </c:when>
+            <c:when test="${seatType.equals('Business')}">
+                <label>Seat</label>
+                <select id="seats" name="seats" type="text">
+                    <option value="">All</option>
+                    <option value="Economy">Economy</option>
+                    <option value="Premium Economy">Premium Economy</option>
+                    <option value="Business" selected="selected">Business</option>
+                </select>
+            </c:when>
+            <c:otherwise>
+                <label>Seat</label>
+                <select id="seats" name="seats" type="text">
+                    <option value="" selected="selected">All</option>
+                    <option value="Economy">Economy</option>
+                    <option value="Premium Economy">Premium Economy</option>
+                    <option value="Business">Business</option>
+                </select>
+            </c:otherwise>
+        </c:choose>
 
             <input type="submit" value="SEARCH">
         </form>
@@ -169,6 +211,7 @@
         <br/> 
     </div>
 
+    <!-- flights display for customer, with add to cart button -->
     <%
         if ((user == null) || (user != null && user.getUserType() == UserType.CUSTOMER)) { 
     %>
@@ -223,6 +266,7 @@
     <%
     } else if(user != null && user.getUserType() == UserType.STAFF) {
     %>
+    <!-- flights display for clerk staff, with update and delete buttons -->
     <% 
         Staff staff = (Staff)session.getAttribute("user");
     %>
