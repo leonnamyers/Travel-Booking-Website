@@ -3,16 +3,25 @@ package com.iotbay.Model;
 import java.io.Serializable;
 
 public class Order implements Serializable {
-    Customer customer;
-    Cart cart;
+    private Customer customer;
+    private Cart cart;
+    private int orderID;
 
     public Order() {
-
     }
 
-    public Order(Customer customer, Order order) {
+    public Order(int orderID, Customer customer, Cart cart) {
+        this.orderID = orderID;
         this.customer = customer;
         this.cart = cart;
+    }
+
+    public int getOrderID() {
+        return orderID;
+    }
+
+    public void setOrderID(int orderID) {
+        this.orderID = orderID;
     }
 
     public Customer getCustomer() {
@@ -30,6 +39,7 @@ public class Order implements Serializable {
     public void setCart(Cart cart) {
         this.cart = cart;
     }
+}
 
     
 

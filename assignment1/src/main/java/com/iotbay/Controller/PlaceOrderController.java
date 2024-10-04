@@ -10,6 +10,8 @@ import javax.servlet.http.HttpSession;
 
 import com.iotbay.Model.Cart;
 
+
+
 public class PlaceOrderController extends HttpServlet {
 
     @Override
@@ -17,13 +19,14 @@ public class PlaceOrderController extends HttpServlet {
         HttpSession session = request.getSession();
         Cart cart = (Cart) session.getAttribute("cart");
 
+
         if (cart == null || cart.isEmpty()) {
-            response.sendRedirect(request.getContextPath() + "/cart.jsp"); // Redirect to cart if empty
+            response.sendRedirect("cart.jsp"); // Redirect to cart if empty
             return;
         }
 
-        request.setAttribute("cart", cart); // Send cart details to JSP
-        request.getRequestDispatcher("placeOrder.jsp").forward(request, response); // Show order summary
+        request.setAttribute("cart", cart);
+        request.getRequestDispatcher("placeOrder.jsp").forward(request, response); 
     }
 
     @Override
@@ -32,7 +35,7 @@ public class PlaceOrderController extends HttpServlet {
         Cart cart = (Cart) session.getAttribute("cart");
 
         if (cart == null || cart.isEmpty()) {
-            response.sendRedirect(request.getContextPath() + "/cart.jsp"); // Redirect if cart is empty
+            response.sendRedirect("cart.jsp"); // Redirect if cart is empty
             return;
         }
 
@@ -46,8 +49,9 @@ public class PlaceOrderController extends HttpServlet {
         String returnDate = request.getParameter("returnDate");
         int passengers = Integer.parseInt(request.getParameter("passengers"));
 
+
         // Save the order in the database, for instance
 
-        response.sendRedirect(request.getContextPath() + "/PostOrder.jsp");
+        response.sendRedirect("PostOrder.jsp");
     }
 }

@@ -103,7 +103,9 @@ public class CartController extends HttpServlet {
                 index = Integer.parseInt(element.replace("remove", ""));
             }
         }
-        cart.deleteItem(index);
+        if (index >= 0 && index < cart.getItems().size()) {
+            cart.removeItem(index);
+        }
         request.getSession().setAttribute("cart", cart);
         serveJSP(request, response, "cart.jsp");
     }
