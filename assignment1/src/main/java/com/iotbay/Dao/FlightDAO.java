@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import com.iotbay.Model.Flight;
 import com.iotbay.Model.Item;
 
+
 public class FlightDAO {
     //CRUD statements for FlightCatalogue table
     //Item st for get flight as item (super class) 

@@ -17,9 +17,8 @@ import com.iotbay.Model.Order;
 
 public class CartController extends HttpServlet {
 
-    public static final String SAVE_BUTTON_VALUE = "Save changes";
     public static final String CLEAR_BUTTON_VALUE = "Clear cart";
-    public static final String CONFIRM_ORDER_BUTTON_VALUE = "Confirm order";
+    public static final String PLACE_ORDER_BUTTON_VALUE = "Place Order";
     private static final Logger LOGGER = Logger.getLogger(CartController.class.getName());
 
     @Override
@@ -34,23 +33,41 @@ public class CartController extends HttpServlet {
 
         if (cart == null) {
             cart = new Cart();
-            session.setAttribute("cart", cart); // Initialize the cart if null
         }
 
         String action = request.getParameter("action");
         if (action == null) action = "";
+
+        if (action != null) {
+            if (action.equals("Place order")) {
+                // Ensure the cart is not empty before proceeding to payment
+                if (cart != null && !cart.isEmpty()) {
+                    // Redirect or forward to payment.jsp
+                    request.getRequestDispatcher("payment.jsp").forward(request, response);
+                } else {
+                    // If cart is empty, show error
+                    response.sendRedirect("error.jsp");
+                }
+            } else if (action.equals("Clear cart")) {
+                // Handle clear cart action
+                cart.clear();
+                response.sendRedirect("cart.jsp");
+            }
+        }
+
 
         try {
             switch (action) {
                 case CLEAR_BUTTON_VALUE:
                     clearCart(request, response, cart);
                     break;
-                case CONFIRM_ORDER_BUTTON_VALUE:
+                case PLACE_ORDER_BUTTON_VALUE:
                     confirmOrder(request, response, cart);
                     break;
-                /*default:
-                    updateOrRemoveItem(request, response, cart);
-                    break;*/
+    
+                default:
+                    deleteItem(request, response, cart);
+                    break;
             }
         } catch (Exception ex) {
             LOGGER.log(Level.SEVERE, "Error processing cart action: {0}", ex.getMessage());
@@ -75,10 +92,26 @@ public class CartController extends HttpServlet {
         // DAO stuff using Order
 
         request.getSession().setAttribute("cart", cart);
-        response.sendRedirect("place-order"); // Redirect to place order page
+        response.sendRedirect("payment.jsp"); // Redirect to payment page
+    }
+    private void deleteItem(HttpServletRequest request, HttpServletResponse response, Cart cart) throws ServletException, IOException {
+        Enumeration<String> parameters = request.getParameterNames();
+        int index = -1;
+        while (parameters.hasMoreElements()) {
+            String element = parameters.nextElement();
+            if (element.contains("remove")) {
+                index = Integer.parseInt(element.replace("remove", ""));
+            }
+        }
+        if (index >= 0 && index < cart.getItems().size()) {
+            cart.deleteItem(index);
+        }
+        request.getSession().setAttribute("cart", cart);
+        serveJSP(request, response, "cart.jsp");
     }
 
     private void serveJSP(HttpServletRequest request, HttpServletResponse response, String page) throws ServletException, IOException {
         request.getRequestDispatcher(page).forward(request, response);
     }
+
 }

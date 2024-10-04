@@ -66,8 +66,6 @@ public class OrderDAO {
                 String seatType = rs.getString(11);
                 int hours = rs.getInt(12);
 
-                Flight flight = new Flight();
-                flights.add(flight);
         }
         return flights;
     }
@@ -95,9 +93,6 @@ public class OrderDAO {
             String stops = rs.getString(10);
             String seatType = rs.getString(11);
             int hours = rs.getInt(12);
-
-            Flight flight = new Flight();
-            flights.add(flight);
         }
         return flights;
     }
@@ -181,8 +176,6 @@ public class OrderDAO {
                 String seatType = rs.getString(10);
                 int hours = rs.getInt(11);
 
-            flight = new Flight();
-            return flight;
         }
 
         return null;

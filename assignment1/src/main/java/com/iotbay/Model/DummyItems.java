@@ -1,11 +1,11 @@
-package com.iotbay.Model;
+// package com.iotbay.Model;
 
-public class DummyItems {
+// public class DummyItems {
 
-    public static Flight createDummyFlight() {
-        return new Flight(
+//     public static Flight createDummyFlight() {
+//         return new Flight(
 
-        );
-    }
-}
+//         );
+//     }
+// }
 
