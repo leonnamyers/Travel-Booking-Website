@@ -67,8 +67,6 @@ public class Order implements Serializable {
         */
       
 
-}
-
     /*
     private int bookingNumber;
     private String customerEmail;
