@@ -11,15 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import com.iotbay.Dao.DBConnector;
 import com.iotbay.Dao.DBManager;
-<<<<<<< Updated upstream
 import com.iotbay.Model.Cart;
-=======
-import com.iotbay.Dao.FlightDAO;
-import com.iotbay.Dao.HotelDAO;
-import com.iotbay.Model.Cart;
-import com.iotbay.Model.Flight;
-import com.iotbay.Model.Hotel;
->>>>>>> Stashed changes
 
 // A get request is sent to this Servlet using jsp:include for any JSP page that may potentially use the DB.
 // The DB connection and DBManager is only created once and stored in the session to be shared across the app

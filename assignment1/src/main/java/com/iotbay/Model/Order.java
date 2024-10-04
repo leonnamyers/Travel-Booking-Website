@@ -5,13 +5,12 @@ import java.io.Serializable;
 public class Order implements Serializable {
     Customer customer;
     Cart cart;
-    // Payment -> later
 
     public Order() {
 
     }
 
-    public Order(Customer customer, Order order) {
+    public Order(Customer customer, Cart cart) {
         this.customer = customer;
         this.cart = cart;
     }
