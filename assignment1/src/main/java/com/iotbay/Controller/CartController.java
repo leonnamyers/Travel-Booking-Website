@@ -1,6 +1,7 @@
 package com.iotbay.Controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Enumeration;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.iotbay.Dao.OrderDAO;
 import com.iotbay.Model.Cart;
 import com.iotbay.Model.Customer;
 import com.iotbay.Model.Order;
@@ -86,14 +88,36 @@ public class CartController extends HttpServlet {
 
         // Create Order
         Order order = new Order();
-        order.setCart((Cart) request.getAttribute("cart"));
-        order.setCustomer((Customer) request.getAttribute("user"));
+        Customer customer = (Customer) request.getSession().getAttribute("user");
+
+        if (customer == null) {
+            response.sendRedirect("login.jsp");
+            return;
+        }
+    
+        order.setCart(cart);
+        order.setCustomer(customer);
+
 
         // DAO stuff using Order
-
-        request.getSession().setAttribute("cart", cart);
-        response.sendRedirect("payment.jsp"); // Redirect to payment page
+        OrderDAO orderDAO = new OrderDAO();
+        
+        try {
+        orderDAO.placeOrder(order); // Place the order in the database
+        cart.clear(); // Clear the cart after successful order placement
+        request.getSession().setAttribute("orderSuccess", "Your order has been placed successfully!");
+        response.sendRedirect("orderConfirmation.jsp"); // Redirect to confirmation page
+        
+    } catch (SQLException e) {
+        LOGGER.log(Level.SEVERE, "Error placing order: {0}", e.getMessage());
+        request.getSession().setAttribute("error.jsp", "Error placing the order. Please try again.");
+        response.sendRedirect("cart.jsp"); // Redirect back to the cart
     }
+
+
+        
+    }
+
     private void deleteItem(HttpServletRequest request, HttpServletResponse response, Cart cart) throws ServletException, IOException {
         Enumeration<String> parameters = request.getParameterNames();
         int index = -1;

@@ -9,7 +9,11 @@ import java.util.ArrayList;
 import com.iotbay.Model.Order;
 
 
+
 public class OrderDAO {
+
+    private Connection connection;
+
     // CRUD statements for Order table
     private PreparedStatement createSt;
     private PreparedStatement readSt;
@@ -24,6 +28,19 @@ public class OrderDAO {
     private String deleteQuery = "DELETE FROM Orders WHERE orderID = ?";
     private String getOrderQuery = "SELECT orderID, customerID, cartID FROM Orders WHERE orderID = ?";
 
+    public void placeOrder(Order order) throws SQLException {
+        String sql = "INSERT INTO orders (customer_id, total_amount, order_date) VALUES (?, ?, ?)";
+
+        try (Connection connection = Connection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            
+            preparedStatement.setString(1, order.getCustomer().getEmail()); // Assuming Order has a method to get the customer
+            preparedStatement.setDouble(2, order.getCart().getTotalPrice()); // Assuming Cart has a method to get total amount
+            preparedStatement.setTimestamp(3, new java.sql.Timestamp(System.currentTimeMillis())); // Current time for order date
+
+            preparedStatement.executeUpdate();
+        }
+    }
     public OrderDAO(Connection connection) throws SQLException {
         connection.setAutoCommit(true);
         createSt = connection.prepareStatement(createQuery);
@@ -47,7 +64,7 @@ public class OrderDAO {
         ResultSet rs = readSt.executeQuery();
         while (rs.next()) {
             int orderID = rs.getInt(1);
-            int customerID = rs.getInt(2);
+            String customerEmail = rs.getString(2);
             int cartID = rs.getInt(3);
             Order order = new Order(orderID, customer, cart);
             orders.add(order);
@@ -76,7 +93,7 @@ public class OrderDAO {
         getOrderSt.setInt(1, orderID);
         ResultSet rs = getOrderSt.executeQuery();
         if (rs.next()) {
-            int customerID = rs.getInt(2);
+            String customerEmail = rs.getString(2);
             int cartID = rs.getInt(3);
             return new Order(orderID, customer, cart);
         }
