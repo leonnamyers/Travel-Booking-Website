@@ -4,6 +4,7 @@
 <%@page import="com.iotbay.Model.Cart" %>
 <%@page import="com.iotbay.Model.Flight" %>
 <%@page import="com.iotbay.Model.Hotel" %>
+<%@page import="com.iotbay.Model.Package" %>
 <%@page import="com.iotbay.Model.Order" %>
 
 
@@ -16,7 +17,7 @@
 
         <script type="text/javascript" src="/js/index.js">
         </script>
-        <title>Dream Escape - Order Placed!</title>
+        <title>Dream Escape</title>
         <nav>
             <ul>
                 <<li><a href="index.jsp">Home</a></li>
@@ -42,7 +43,7 @@
             <h2 class="form-element">Travel Details:</h2>
 
             <div class="form-container">
-                <form action="/PlaceOrderController" method="post">
+                <form action="/UpdatePlaceOrderController" method="post">
                     <div class="form-element">
                         <label for="first-name">First Name:</label>
                         <input type="text" name="firstName" id="first-name" required />
