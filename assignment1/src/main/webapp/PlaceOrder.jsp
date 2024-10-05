@@ -52,12 +52,12 @@
                         <input type="text" name="lastName" id="last-name" required />
                     </div>
                     <div class="form-element">
-                        <label for="email">Email:</label>
-                        <input type="email" name="email" id="email" required />
+                        <label for="passengers">Number of Passengers:</label>
+                        <input type="number" name="passengers" id="passengers" min="1" required />
                     </div>
                     <div class="form-element">
-                        <label for="destination">Destination:</label>
-                        <input type="text" name="destination" id="destination" required />
+                        <label for="seatType">Seat Type:</label>
+                        <input type="text" name="seatType" id="seatType" required />
                     </div>
                     <div class="form-element">
                         <label for="departureDate">Departure Date:</label>
@@ -67,11 +67,7 @@
                         <label for="returnDate">Return Date:</label>
                         <input type="date" name="returnDate" id="returnDate" required />
                     </div>
-                    <div class="form-element">
-                        <label for="passengers">Number of Passengers:</label>
-                        <input type="number" name="passengers" id="passengers" min="1" required />
-                    </div>
-                    <button class="general-buttons form-element">Book Now ></button>
+                    <button class="general-buttons form-element">Update Details</button>
                 </form>
             </div>
         </div>
