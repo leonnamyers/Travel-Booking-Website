@@ -19,11 +19,11 @@ public class OrderDAO {
     private PreparedStatement getOrderSt;
 
     // SQL Queries
-    private String createQuery = "INSERT INTO Orders (customerID, cartID, totalPrice, orderDate) VALUES(?, ?, ?, ?)";
-    private String readQuery = "SELECT orderID, customerID, cartID, totalPrice, orderDate FROM Orders";
-    private String updateQuery = "UPDATE Orders SET customerID = ?, cartID = ?, totalPrice = ?, orderDate = ? WHERE orderID = ?";
+    private String createQuery = "INSERT INTO Orders (customerID, totalPrice, orderDate) VALUES(?, ?, ?, ?)";
+    private String readQuery = "SELECT orderID, customerID, totalPrice, orderDate FROM Orders";
+    private String updateQuery = "UPDATE Orders SET customerID = ?, totalPrice = ?, orderDate = ? WHERE orderID = ?";
     private String deleteQuery = "DELETE FROM Orders WHERE orderID = ?";
-    private String getOrderQuery = "SELECT orderID, customerID, cartID, totalPrice, orderDate FROM Orders WHERE orderID = ?";
+    private String getOrderQuery = "SELECT orderID, customerID, totalPrice, orderDate FROM Orders WHERE orderID = ?";
 
     // Constructor
     public OrderDAO(Connection connection) throws SQLException {
@@ -51,7 +51,6 @@ public class OrderDAO {
         while (rs.next()) {
             int orderID = rs.getInt(1);
             String customerID = rs.getString(2);
-            int cartID = rs.getInt(3);
             double totalPrice = rs.getDouble(4);
             java.sql.Timestamp orderDate = rs.getTimestamp(5);
 
@@ -82,8 +81,7 @@ public class OrderDAO {
         getOrderSt.setInt(1, orderID);
         ResultSet rs = getOrderSt.executeQuery();
         if (rs.next()) {
-            String customerID = rs.getString(2);  // Fetching customer email as ID
-            int cartID = rs.getInt(3);
+            String customerID = rs.getString(2);
             double totalPrice = rs.getDouble(4);
             java.sql.Timestamp orderDate = rs.getTimestamp(5);
 
