@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 import com.iotbay.Dao.OrderDAO;
 import com.iotbay.Model.Cart;
 
-public class FlightOrderController extends HttpServlet {
+public class PlaceOrderController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
