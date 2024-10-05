@@ -1,11 +1,8 @@
 package com.iotbay.Dao;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.util.ArrayList;
 
 import com.iotbay.Model.Address;
 import com.iotbay.Model.Customer;
@@ -25,6 +22,9 @@ public class DBManager {
     private final String addStaffQuery = "INSERT INTO Staff (email, password, first_name, last_name, staff_id, staff_type_id) VALUES (?, ?, ?, ?, ?, ?)";
     private final String removeStaffQuery = "DELETE FROM Staff WHERE email= ?";
     private final String removeCustomerUserQuery = "DELETE FROM Customer WHERE email = ?";
+
+    private final String fetchCustomerIdQuery = "SELECT customer_id FROM Customer WHERE email=?";
+
 
     // Data Validation Queries
     private final String checkCustomerUserDuplicateEmail = "SELECT COUNT(*) FROM Customer WHERE email = ?";
@@ -184,6 +184,28 @@ public class DBManager {
 
         // user cannot be found (login details incorrect)
         return null;
+    }
+
+    public int fetchCustomerId(String email) throws SQLException {
+        int customerId = -1; // Default value if no ID is found
+
+        // Prepare statement to execute the query
+        PreparedStatement statement = connection.prepareStatement(fetchCustomerIdQuery);
+        statement.setString(1, email);
+
+        // Execute the query and get the result set
+        ResultSet result = statement.executeQuery();
+
+        // Extract customer ID if a result is found
+        if (result.next()) {
+            customerId = result.getInt("customer_id");
+        }
+
+        // Close the resources
+        result.close();
+        statement.close();
+
+        return customerId; // Return the fetched ID or -1 if not found
     }
 
     /*

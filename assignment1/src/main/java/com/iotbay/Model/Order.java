@@ -1,21 +1,29 @@
 package com.iotbay.Model;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
+
 
 public class Order implements Serializable {
     private Customer customer;
     private Cart cart;
     private int orderID;
+    private double totalPrice;
+    private Timestamp orderDate;
 
+    // Default constructor
     public Order() {
     }
 
-    public Order(int orderID, Customer customer, Cart cart) {
+    public Order(int orderID, String customerID, int cartID, double totalPrice, Timestamp orderDate) {
         this.orderID = orderID;
         this.customer = customer;
         this.cart = cart;
+        this.totalPrice = totalPrice;
+        this.orderDate = orderDate;
     }
 
+    // Getter and setter methods
     public int getOrderID() {
         return orderID;
     }
@@ -39,7 +47,25 @@ public class Order implements Serializable {
     public void setCart(Cart cart) {
         this.cart = cart;
     }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public Timestamp getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(Timestamp orderDate) {
+        this.orderDate = orderDate;
+
+    }
 }
+
 
     
 
