@@ -1,6 +1,8 @@
 package com.iotbay.Controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.sql.Timestamp;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -8,11 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.iotbay.Dao.OrderDAO;
 import com.iotbay.Model.Cart;
 
-
-
-public class PlaceOrderController extends HttpServlet {
+public class FlightOrderController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -26,7 +27,7 @@ public class PlaceOrderController extends HttpServlet {
         }
 
         request.setAttribute("cart", cart);
-        request.getRequestDispatcher("placeOrder.jsp").forward(request, response); 
+        request.getRequestDispatcher("FlightOrder.jsp").forward(request, response); 
     }
 
     @Override
@@ -39,7 +40,6 @@ public class PlaceOrderController extends HttpServlet {
             return;
         }
 
-
         // Retrieve form data from the request
         String firstname = request.getParameter("First Name");
         String lastname = request.getParameter("Last Name");
@@ -50,8 +50,30 @@ public class PlaceOrderController extends HttpServlet {
         int passengers = Integer.parseInt(request.getParameter("passengers"));
 
 
-        // Save the order in the database, for instance
+        OrderDAO orderDAO = (OrderDAO) session.getAttribute("orderDAO");
 
-        response.sendRedirect("PostOrder.jsp");
+        if (orderDAO == null) {
+            response.sendRedirect("error.jsp"); // Handle case if DAO is not available in the session
+            return;
+        }
+
+        try {
+            // Create the order in the database
+            String customerID = email; 
+            double totalPrice = cart.getTotalPrice();
+            Timestamp orderDate = new Timestamp(System.currentTimeMillis());
+
+            // Call the DAO method to save the order
+            orderDAO.createOrder(customerID, totalPrice, orderDate);
+
+            // Clear the cart after placing the order
+            cart.clear();
+            session.setAttribute("cart", cart);
+
+            response.sendRedirect("PostOrder.jsp"); // Redirect to post-order confirmation page
+        } catch (SQLException e) {
+            e.printStackTrace();
+            response.sendRedirect("error.jsp"); // Redirect to an error page in case of failure
+        }
     }
 }

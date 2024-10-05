@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import com.iotbay.Model.Customer;
@@ -21,9 +22,9 @@ public class OrderDAO {
     // SQL Queries
     private String createQuery = "INSERT INTO Orders (customerID, totalPrice, orderDate) VALUES(?, ?, ?, ?)";
     private String readQuery = "SELECT orderID, customerID, totalPrice, orderDate FROM Orders";
-    private String updateQuery = "UPDATE Orders SET customerID = ?, totalPrice = ?, orderDate = ? WHERE orderID = ?";
     private String deleteQuery = "DELETE FROM Orders WHERE orderID = ?";
     private String getOrderQuery = "SELECT orderID, customerID, totalPrice, orderDate FROM Orders WHERE orderID = ?";
+    private String updateQuery = "UPDATE Orders SET firstName = ?, lastName = ?, email = ?, destination = ?, departureDate = ?, returnDate = ?, passengers = ?, seatType = ?, totalPrice = ?, orderDate = ? WHERE orderID = ?";
 
     // Constructor
     public OrderDAO(Connection connection) throws SQLException {
@@ -36,7 +37,7 @@ public class OrderDAO {
     }
 
     // Create Operation: Place a new order
-    public void createOrder(String customerID, double totalPrice, java.sql.Timestamp orderDate) throws SQLException {
+    public void createOrder(String customerID, double totalPrice, Timestamp orderDate) throws SQLException {
         createSt.setString(1, customerID);
         createSt.setDouble(3, totalPrice);
         createSt.setTimestamp(4, orderDate);
@@ -60,11 +61,18 @@ public class OrderDAO {
     }
 
     // Update Operation: Update an order's details
-    public void updateOrder(int orderID, String customerID, double totalPrice, java.sql.Timestamp orderDate) throws SQLException {
-        updateSt.setString(1, customerID);
-        updateSt.setDouble(3, totalPrice);
-        updateSt.setTimestamp(4, orderDate);
-        updateSt.setInt(5, orderID);
+    public void updateOrder(int orderID, String firstName, String lastName, String email, String destination, String departureDate, String returnDate, int passengers, String seatType, double totalPrice, Timestamp orderDate) throws SQLException {
+        updateSt.setString(1, firstName);
+        updateSt.setString(2, lastName);
+        updateSt.setString(3, email);
+        updateSt.setString(4, destination);
+        updateSt.setString(5, departureDate);
+        updateSt.setString(6, returnDate);
+        updateSt.setInt(7, passengers);
+        updateSt.setString(8, seatType);
+        updateSt.setDouble(9, totalPrice);
+        updateSt.setTimestamp(10, orderDate);
+        updateSt.setInt(11, orderID);
         updateSt.executeUpdate();
         System.out.println("Order successfully updated");
     }
@@ -83,8 +91,7 @@ public class OrderDAO {
         if (rs.next()) {
             String customerID = rs.getString(2);
             double totalPrice = rs.getDouble(4);
-            java.sql.Timestamp orderDate = rs.getTimestamp(5);
-
+            Timestamp orderDate = rs.getTimestamp(5);
         }
         return null;
     }

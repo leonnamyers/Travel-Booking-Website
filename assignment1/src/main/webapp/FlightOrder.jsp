@@ -43,7 +43,7 @@
             <h2 class="form-element">Travel Details:</h2>
 
             <div class="form-container">
-                <form action="/UpdateFlightOrderController" method="post">
+                <form action="/FlightOrderController" method="post">
                     <div class="form-element">
                         <label for="first-name">First Name:</label>
                         <input type="text" name="firstName" id="first-name" required />
