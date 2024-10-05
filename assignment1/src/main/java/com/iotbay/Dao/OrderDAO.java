@@ -57,7 +57,6 @@ public class OrderDAO {
             java.sql.Timestamp orderDate = rs.getTimestamp(5);
 
             Customer customer = fetchCustomerByID(customerID);
-
             orders.add(new Order(orderID, customer, totalPrice, orderDate));
         }
         return orders;
@@ -92,7 +91,6 @@ public class OrderDAO {
             java.sql.Timestamp orderDate = rs.getTimestamp(5);
 
             Customer customer = fetchCustomerByID(customerID);
-
             return new Order(orderID, customerID, totalPrice, orderDate);
         }
         return null;

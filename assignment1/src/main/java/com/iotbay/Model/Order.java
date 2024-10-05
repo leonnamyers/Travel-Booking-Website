@@ -15,13 +15,12 @@ public class Order implements Serializable {
     public Order() {
     }
 
-    public Order(int orderID, int customerID, int cartID, double totalPrice, Timestamp orderDate) {
+    public Order(int orderID, int customerID, double totalPrice, Timestamp orderDate) {
         this.orderID = orderID;
         this.totalPrice = totalPrice;
         this.orderDate = orderDate;
         // You'll need to fetch the customer and cart objects based on their IDs.
         this.customer = fetchCustomerByID(customerID);
-        this.cart = fetchCartByID(cartID);
     }
 
     // Getter and setter methods
