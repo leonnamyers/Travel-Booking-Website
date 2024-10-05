@@ -1,18 +1,36 @@
 package com.iotbay.Model;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
+
 
 public class Order implements Serializable {
-    Customer customer;
-    Cart cart;
+    private Customer customer;
+    private Cart cart;
+    private int orderID;
+    private double totalPrice;
+    private Timestamp orderDate;
 
+    // Default constructor
     public Order() {
-
     }
 
-    public Order(Customer customer, Cart cart) {
-        this.customer = customer;
-        this.cart = cart;
+    public Order(int orderID, int customerID, int cartID, double totalPrice, Timestamp orderDate) {
+        this.orderID = orderID;
+        this.totalPrice = totalPrice;
+        this.orderDate = orderDate;
+        // You'll need to fetch the customer and cart objects based on their IDs.
+        this.customer = fetchCustomerByID(customerID);
+        this.cart = fetchCartByID(cartID);
+    }
+
+    // Getter and setter methods
+    public int getOrderID() {
+        return orderID;
+    }
+
+    public void setOrderID(int orderID) {
+        this.orderID = orderID;
     }
 
     public Customer getCustomer() {
@@ -31,93 +49,28 @@ public class Order implements Serializable {
         this.cart = cart;
     }
 
-    
-
-    /*
-    CREATE TABLE `Order` (
-        `order_id` int NOT NULL,
-        `email` varchar(100) DEFAULT NULL,
-        `order_date` date DEFAULT NULL,
-        PRIMARY KEY (`order_id`)
-      )
-       
-      CREATE TABLE `OrderLine` (
-        `order_id` int NOT NULL,
-        `item_id` int NOT NULL,
-        `item_type` char(2) NOT NULL,
-        `quantity` int NOT NULL,
-        `payment_id` int DEFAULT NULL,
-        `item_price` decimal(10,2) DEFAULT NULL,
-        `total_price` decimal(10,2) GENERATED ALWAYS AS ((`item_price` * `quantity`)) STORED,
-        PRIMARY KEY (`order_id`,`item_id`,`item_type`),
-        KEY `item_id` (`item_id`,`item_type`),
-        CONSTRAINT `orderline_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `Order` (`order_id`),
-        CONSTRAINT `orderline_ibfk_2` FOREIGN KEY (`item_id`, `item_type`) REFERENCES `Item` (`item_id`, `item_type`)
-      )
-        */
-      
-
-}
-
-    /*
-    private int bookingNumber;
-    private String customerEmail;
-    private String destination;
-    private String departureDate;
-    private String returnDate;
-    private int numberOfPassengers;
-
-    // Default constructor
-    public Order() {
+    public double getTotalPrice() {
+        return totalPrice;
     }
 
-    // Getters and setters
-    public int getBookingNumber() {
-        return bookingNumber;
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
-    public void setBookingNumber(int bookingNumber) {
-        this.bookingNumber = bookingNumber;
+    public Timestamp getOrderDate() {
+        return orderDate;
     }
 
-    public String getCustomerEmail() {
-        return customerEmail;
+    public void setOrderDate(Timestamp orderDate) {
+        this.orderDate = orderDate;
     }
 
-    public void setCustomerEmail(String customerEmail) {
-        this.customerEmail = customerEmail;
-    }
+    // These methods need to be implemented to fetch the customer and cart based on their IDs
+    private Customer fetchCustomerByID(int customerID) {
+        CustomerDAO customerDAO = new CustomerDAO();
+        Customer customer = customerDAO.getCustomerByID(customerID);
 
-    public String getDestination() {
-        return destination;
-    }
 
-    public void setDestination(String destination) {
-        this.destination = destination;
-    }
-
-    public String getDepartureDate() {
-        return departureDate;
-    }
-
-    public void setDepartureDate(String departureDate) {
-        this.departureDate = departureDate;
-    }
-
-    public String getReturnDate() {
-        return returnDate;
-    }
-
-    public void setReturnDate(String returnDate) {
-        this.returnDate = returnDate;
-    }
-
-    public int getNumberOfPassengers() {
-        return numberOfPassengers;
-    }
-
-    public void setNumberOfPassengers(int numberOfPassengers) {
-        this.numberOfPassengers = numberOfPassengers;
+        return new Customer(); 
     }
 }
-    */

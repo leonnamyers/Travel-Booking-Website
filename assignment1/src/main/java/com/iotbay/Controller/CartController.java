@@ -103,7 +103,7 @@ public class CartController extends HttpServlet {
         OrderDAO orderDAO = new OrderDAO();
         
         try {
-        orderDAO.placeOrder(order); // Place the order in the database
+        orderDAO.Order(order); // Place the order in the database
         cart.clear(); // Clear the cart after successful order placement
         request.getSession().setAttribute("orderSuccess", "Your order has been placed successfully!");
         response.sendRedirect("orderConfirmation.jsp"); // Redirect to confirmation page
@@ -113,7 +113,6 @@ public class CartController extends HttpServlet {
         request.getSession().setAttribute("error.jsp", "Error placing the order. Please try again.");
         response.sendRedirect("cart.jsp"); // Redirect back to the cart
     }
-
 
         
     }
