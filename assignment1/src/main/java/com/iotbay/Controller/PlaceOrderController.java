@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import com.iotbay.Dao.OrderDAO;
 import com.iotbay.Model.Cart;
+import com.iotbay.Model.Order;
 
 public class PlaceOrderController extends HttpServlet {
 
@@ -65,6 +66,8 @@ public class PlaceOrderController extends HttpServlet {
 
             // Call the DAO method to save the order
             orderDAO.createOrder(customerID, totalPrice, orderDate);
+
+            Order order = new Order(destination, Timestamp.valueOf(departureDate), Timestamp.valueOf(returnDate), passengers, totalPrice);
 
             // Clear the cart after placing the order
             cart.clear();

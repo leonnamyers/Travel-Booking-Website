@@ -274,3 +274,19 @@ h2.form-element {
     font-size: 1.2em;
 }
 
+.orderbutton-container {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 20px;
+}
+.orderbutton-container div {
+    flex-grow: 1;
+    text-align: center;
+}
+.orderbutton-container button {
+    padding: 10px 20px;
+    width: 150px;
+    text-align: center;
+    font-size: 14px;
+}
+

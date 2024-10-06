@@ -18,7 +18,6 @@ import com.iotbay.Model.Order;
 
 public class CartController extends HttpServlet {
 
-    public static final String CLEAR_BUTTON_VALUE = "Clear cart";
     public static final String PLACE_ORDER_BUTTON_VALUE = "Place Order";
     private static final Logger LOGGER = Logger.getLogger(CartController.class.getName());
 
@@ -41,33 +40,23 @@ public class CartController extends HttpServlet {
         if (action == null) action = "";
 
         try {
-            switch (action) {
-                case CLEAR_BUTTON_VALUE:
-                    clearCart(request, response, cart);
-                    break;
-                case PLACE_ORDER_BUTTON_VALUE:
-                    placeOrder(request, response, cart);
-                    break;
-                default:
-                    deleteItem(request, response, cart);
-                    break;
+            if (PLACE_ORDER_BUTTON_VALUE.equals(action)) {
+                placeOrder(request, response, cart);
+            } else {
+                deleteItem(request, response, cart);
             }
         } catch (Exception ex) {
             LOGGER.log(Level.SEVERE, "Error processing cart action: {0}", ex.getMessage());
             response.sendRedirect("error.jsp");
         }
+
+        response.sendRedirect("Payment.jsp");
     }
 
-    private void clearCart(HttpServletRequest request, HttpServletResponse response, Cart cart) throws ServletException, IOException {
-        cart.clear();
-        request.getSession().setAttribute("cart", cart);
-        serveJSP(request, response, "cart.jsp");
-    }
-
-    private void placeOrder(HttpServletRequest request, HttpServletResponse response, Cart cart) throws IOException {
+    private void placeOrder(HttpServletRequest request, HttpServletResponse response, Cart cart) throws ServletException, IOException {
         if (cart == null || cart.isEmpty()) {
-            // If cart is empty, redirect back to cart.jsp with an error message
             request.setAttribute("errorMessage", "Your cart is empty. Please add items before placing an order.");
+            serveJSP(request, response, "cart.jsp");
             return;
         }
 
@@ -80,10 +69,7 @@ public class CartController extends HttpServlet {
         OrderDAO orderDAO = (OrderDAO) request.getSession().getAttribute("orderDAO");
         if (orderDAO == null) {
             response.sendRedirect("error.jsp");
-            return;
-        }
-
-        else {
+        } else {
             response.sendRedirect("Payment.jsp"); // Redirect to payment page
         }
     }

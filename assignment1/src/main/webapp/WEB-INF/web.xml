@@ -157,6 +157,15 @@
         <servlet-name>PlaceOrderController</servlet-name>
         <url-pattern>/PlaceOrderController</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>CancelOrderController</servlet-name>
+        <servlet-class>com.iotbay.Controller.CancelOrderController</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CancelOrderController</servlet-name>
+        <url-pattern>/CancelOrderController</url-pattern>
+    </servlet-mapping>
 
     <servlet>
         <servlet-name>PostOrderController</servlet-name>
