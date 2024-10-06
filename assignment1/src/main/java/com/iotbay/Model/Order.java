@@ -1,29 +1,35 @@
 package com.iotbay.Model;
 
-import java.io.Serializable;
 import java.sql.Timestamp;
 
-
-public class Order implements Serializable {
-    private Customer customer;
-    private Cart cart;
+public class Order {
+    
     private int orderID;
+    private Cart cart;
+    private String customerID;
     private double totalPrice;
     private Timestamp orderDate;
+    private String destination;
+    private String departureDate;
+    private String returnDate;
+    private String seatType;
 
-    // Default constructor
-    public Order() {
-    }
-
-    public Order(int orderID, String customerID, int cartID, double totalPrice, Timestamp orderDate) {
-        this.orderID = orderID;
-        this.customer = customer;
-        this.cart = cart;
+    // Constructor
+    public Order(String customerID, double totalPrice, Timestamp orderDate, String destination, String departureDate, String returnDate, String seatType) {
+        this.customerID = customerID;
         this.totalPrice = totalPrice;
         this.orderDate = orderDate;
+        this.destination = destination;
+        this.departureDate = departureDate;
+        this.returnDate = returnDate;
+        this.seatType = seatType;
     }
 
-    // Getter and setter methods
+    // Getters and setters
+
+    public Order() {
+        
+    }
     public int getOrderID() {
         return orderID;
     }
@@ -32,20 +38,19 @@ public class Order implements Serializable {
         this.orderID = orderID;
     }
 
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
     public Cart getCart() {
         return cart;
     }
 
     public void setCart(Cart cart) {
         this.cart = cart;
+    }
+    public String getCustomerID() {
+        return customerID;
+    }
+
+    public void setCustomerID(String customerID) {
+        this.customerID = customerID;
     }
 
     public double getTotalPrice() {
@@ -62,64 +67,6 @@ public class Order implements Serializable {
 
     public void setOrderDate(Timestamp orderDate) {
         this.orderDate = orderDate;
-
-    }
-}
-
-
-    
-
-    /*
-    CREATE TABLE `Order` (
-        `order_id` int NOT NULL,
-        `email` varchar(100) DEFAULT NULL,
-        `order_date` date DEFAULT NULL,
-        PRIMARY KEY (`order_id`)
-      )
-       
-      CREATE TABLE `OrderLine` (
-        `order_id` int NOT NULL,
-        `item_id` int NOT NULL,
-        `item_type` char(2) NOT NULL,
-        `quantity` int NOT NULL,
-        `payment_id` int DEFAULT NULL,
-        `item_price` decimal(10,2) DEFAULT NULL,
-        `total_price` decimal(10,2) GENERATED ALWAYS AS ((`item_price` * `quantity`)) STORED,
-        PRIMARY KEY (`order_id`,`item_id`,`item_type`),
-        KEY `item_id` (`item_id`,`item_type`),
-        CONSTRAINT `orderline_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `Order` (`order_id`),
-        CONSTRAINT `orderline_ibfk_2` FOREIGN KEY (`item_id`, `item_type`) REFERENCES `Item` (`item_id`, `item_type`)
-      )
-        */
-      
-
-    /*
-    private int bookingNumber;
-    private String customerEmail;
-    private String destination;
-    private String departureDate;
-    private String returnDate;
-    private int numberOfPassengers;
-
-    // Default constructor
-    public Order() {
-    }
-
-    // Getters and setters
-    public int getBookingNumber() {
-        return bookingNumber;
-    }
-
-    public void setBookingNumber(int bookingNumber) {
-        this.bookingNumber = bookingNumber;
-    }
-
-    public String getCustomerEmail() {
-        return customerEmail;
-    }
-
-    public void setCustomerEmail(String customerEmail) {
-        this.customerEmail = customerEmail;
     }
 
     public String getDestination() {
@@ -146,12 +93,11 @@ public class Order implements Serializable {
         this.returnDate = returnDate;
     }
 
-    public int getNumberOfPassengers() {
-        return numberOfPassengers;
+    public String getSeatType() {
+        return seatType;
     }
 
-    public void setNumberOfPassengers(int numberOfPassengers) {
-        this.numberOfPassengers = numberOfPassengers;
+    public void setSeatType(String seatType) {
+        this.seatType = seatType;
     }
 }
-    */

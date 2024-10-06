@@ -2,6 +2,9 @@
 <%@ page import="javax.servlet.http.HttpSession" %>
 <%@ page import="javax.servlet.http.HttpServletRequest" %>
 <%@ page import="com.iotbay.Model.*" %>
+<%@ page import="com.iotbay.Dao.*" %>
+
+
 
 <!DOCTYPE html>
 <html>
@@ -33,10 +36,6 @@
                                     <td><%= user.getEmail() %></td>
                                 </tr>
                                 <tr>
-                                    <th>Destination:</th>
-                                    <td><%= order.getDestination() %></td>
-                                </tr>
-                                <tr>
                                     <th>Departure Date:</th>
                                     <td><%= order.getDepartureDate() %></td>
                                 </tr>
@@ -45,16 +44,8 @@
                                     <td><%= order.getReturnDate() %></td>
                                 </tr>
                                 <tr>
-                                    <th>Number of Passengers:</th>
-                                    <td><%= order.getPassengers() %></td>
-                                </tr>
-                                <tr>
-                                    <th>Total Price:</th>
-                                    <td>$<%= order.getTotalPrice() %></td>
-                                </tr>
-                                <tr>
-                                    <th>Order Date:</th>
-                                    <td><%= order.getOrderDate() %></td>
+                                    <th>Seat Type:</th>
+                                    <td>$<%= order.getSeatType() %></td>
                                 </tr>
                             </table>
                             <div class="orderbutton-container">

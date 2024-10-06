@@ -68,7 +68,6 @@
                     <td><%= item.getName() %></td>
                     <td>$<%= item.getPrice() %></td>
                     <td>
-                        <input type="hidden" name="action" value="deleteItem" />
                         <input type="hidden" name="remove<%= itemNumber %>" value="<%= itemNumber %>" />
                         <button type="submit" class="delete-button">
                             <i class="fas fa-trash"></i>
@@ -79,7 +78,7 @@
             </table>
             <h2 id="total-price">Total: $<%= cart.getTotalPrice() %></h2>
             <div id="cart-buttons">
-                <input type="submit" name="action" value="Place Order" class="general-buttons btn-outline-light"/>
+                <button onclick="window.location.href='Payment.jsp';">Place Order</button>
             </div>
         </form>
         <% } %>

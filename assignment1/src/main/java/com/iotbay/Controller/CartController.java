@@ -13,7 +13,6 @@ import javax.servlet.http.HttpSession;
 
 import com.iotbay.Dao.OrderDAO;
 import com.iotbay.Model.Cart;
-import com.iotbay.Model.Customer;
 import com.iotbay.Model.Order;
 
 public class CartController extends HttpServlet {
@@ -45,12 +44,11 @@ public class CartController extends HttpServlet {
             } else {
                 deleteItem(request, response, cart);
             }
-        } catch (Exception ex) {
+        } catch (IOException ex) {
             LOGGER.log(Level.SEVERE, "Error processing cart action: {0}", ex.getMessage());
             response.sendRedirect("error.jsp");
         }
 
-        response.sendRedirect("Payment.jsp");
     }
 
     private void placeOrder(HttpServletRequest request, HttpServletResponse response, Cart cart) throws ServletException, IOException {
@@ -63,14 +61,22 @@ public class CartController extends HttpServlet {
         // Create Order
         Order order = new Order();
         order.setCart(cart);
-        order.setCustomer((Customer) request.getSession().getAttribute("user"));
 
         // Save Order
-        OrderDAO orderDAO = (OrderDAO) request.getSession().getAttribute("orderDAO");
-        if (orderDAO == null) {
-            response.sendRedirect("error.jsp");
-        } else {
-            response.sendRedirect("Payment.jsp"); // Redirect to payment page
+        OrderDAO orderDAO = new OrderDAO();
+        try {
+            boolean orderSaved = orderDAO.saveOrder(order);
+            if (orderSaved) {
+                request.setAttribute("order", order);
+                response.sendRedirect("Payment.jsp"); // Redirect to payment page
+            } else {
+                request.setAttribute("errorMessage", "There was an error saving your order. Please try again.");
+                serveJSP(request, response, "cart.jsp");
+            }
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Error saving order: {0}", e.getMessage());
+            request.setAttribute("errorMessage", "Error processing your order. Please try again later.");
+            serveJSP(request, response, "cart.jsp");
         }
     }
 

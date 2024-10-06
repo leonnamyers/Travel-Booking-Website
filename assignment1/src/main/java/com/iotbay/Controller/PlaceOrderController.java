@@ -12,7 +12,6 @@ import javax.servlet.http.HttpSession;
 
 import com.iotbay.Dao.OrderDAO;
 import com.iotbay.Model.Cart;
-import com.iotbay.Model.Order;
 
 public class PlaceOrderController extends HttpServlet {
 
@@ -23,7 +22,7 @@ public class PlaceOrderController extends HttpServlet {
 
 
         if (cart == null || cart.isEmpty()) {
-            response.sendRedirect("cart.jsp"); // Redirect to cart if empty
+            response.sendRedirect("cart.jsp"); 
             return;
         }
 
@@ -37,7 +36,7 @@ public class PlaceOrderController extends HttpServlet {
         Cart cart = (Cart) session.getAttribute("cart");
 
         if (cart == null || cart.isEmpty()) {
-            response.sendRedirect("cart.jsp"); // Redirect if cart is empty
+            response.sendRedirect("cart.jsp"); 
             return;
         }
 
@@ -48,35 +47,55 @@ public class PlaceOrderController extends HttpServlet {
         String destination = request.getParameter("destination");
         String departureDate = request.getParameter("departureDate");
         String returnDate = request.getParameter("returnDate");
-        int passengers = Integer.parseInt(request.getParameter("passengers"));
+        String seatType = request.getParameter("seatType");
 
+        // Validate that none of the form fields are empty
+        if (firstname == null || lastname == null || email == null || destination == null ||
+                departureDate == null || returnDate == null || seatType == null ||
+                firstname.isEmpty() || lastname.isEmpty() || email.isEmpty() || destination.isEmpty() ||
+                departureDate.isEmpty() || returnDate.isEmpty() || seatType.isEmpty()) {
+            request.setAttribute("errorMessage", "All fields are required!");
+            request.getRequestDispatcher("FlightOrder.jsp").forward(request, response);
+            return;
+        }
 
         OrderDAO orderDAO = (OrderDAO) session.getAttribute("orderDAO");
 
         if (orderDAO == null) {
-            response.sendRedirect("error.jsp"); // Handle case if DAO is not available in the session
+            response.sendRedirect("error.jsp"); 
             return;
         }
 
         try {
             // Create the order in the database
-            String customerID = email; 
+            String customerID = email;
             double totalPrice = cart.getTotalPrice();
             Timestamp orderDate = new Timestamp(System.currentTimeMillis());
 
-            // Call the DAO method to save the order
-            orderDAO.createOrder(customerID, totalPrice, orderDate);
+            // Begin transaction (assuming transaction support in DAO)
+            orderDAO.beginTransaction();
 
-            Order order = new Order(destination, Timestamp.valueOf(departureDate), Timestamp.valueOf(returnDate), passengers, totalPrice);
+            // Call the DAO method to save the order
+            orderDAO.createOrder(customerID, totalPrice, orderDate, destination, departureDate, returnDate, seatType);
+
+            // Commit the transaction
+            orderDAO.commitTransaction();
 
             // Clear the cart after placing the order
             cart.clear();
             session.setAttribute("cart", cart);
 
-            response.sendRedirect("PostOrder.jsp"); // Redirect to post-order confirmation page
+            response.sendRedirect("Payment.jsp"); 
         } catch (SQLException e) {
             e.printStackTrace();
+            try {
+                // Rollback transaction in case of failure
+                orderDAO.rollbackTransaction();
+            } catch (SQLException rollbackEx) {
+                rollbackEx.printStackTrace();
+            }
             response.sendRedirect("error.jsp"); // Redirect to an error page in case of failure
         }
     }
+
 }
