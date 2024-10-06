@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.iotbay.Dao.OrderDAO;
 import com.iotbay.Model.Cart;
 import com.iotbay.Model.Customer;
 import com.iotbay.Model.Order;
@@ -29,15 +30,15 @@ public class CartController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-        Cart cart = (Cart) request.getSession().getAttribute("cart");
+        Cart cart = (Cart) session.getAttribute("cart");
 
         if (cart == null) {
             cart = new Cart();
+            session.setAttribute("cart", cart);
         }
 
         String action = request.getParameter("action");
         if (action == null) action = "";
-
 
         try {
             switch (action) {
@@ -47,7 +48,6 @@ public class CartController extends HttpServlet {
                 case PLACE_ORDER_BUTTON_VALUE:
                     placeOrder(request, response, cart);
                     break;
-    
                 default:
                     deleteItem(request, response, cart);
                     break;
@@ -76,12 +76,18 @@ public class CartController extends HttpServlet {
         order.setCart(cart);
         order.setCustomer((Customer) request.getSession().getAttribute("user"));
 
-        // DAO stuff using Order
+        // Save Order
+        OrderDAO orderDAO = (OrderDAO) request.getSession().getAttribute("orderDAO");
+        if (orderDAO == null) {
+            response.sendRedirect("error.jsp");
+            return;
+        }
 
-        request.getSession().setAttribute("cart", new Cart());
-        
-        response.sendRedirect("Payment.jsp"); // Redirect to payment page
+        else {
+            response.sendRedirect("Payment.jsp"); // Redirect to payment page
+        }
     }
+
     private void deleteItem(HttpServletRequest request, HttpServletResponse response, Cart cart) throws ServletException, IOException {
         Enumeration<String> parameters = request.getParameterNames();
         int index = -1;
@@ -101,5 +107,4 @@ public class CartController extends HttpServlet {
     private void serveJSP(HttpServletRequest request, HttpServletResponse response, String page) throws ServletException, IOException {
         request.getRequestDispatcher(page).forward(request, response);
     }
-
 }
