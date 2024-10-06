@@ -26,6 +26,7 @@
             <li><a href="index.jsp">Home</a></li>
             <li><a href="account_details.jsp">Account</a></li>
             <li><a href="logout.jsp">Logout</a></li>
+            <li>
                 <a href="cart.jsp">
                     <button class ="shopping-cart-button" >
                         <i class="fas fa-shopping-cart"></i>
@@ -37,6 +38,7 @@
                         <% } %>
                     </button>
                 </a>
+            </li>
         </ul>
         <%
         } else {
@@ -45,6 +47,7 @@
             <li><a href="index.jsp">Home</a></li>
             <li><a href="login.jsp">Login</a></li>
             <li><a href="register.jsp">Register</a></li>
+            <li>
                 <a href="cart.jsp">
                     <button class ="shopping-cart-button" >
                         <i class="fas fa-shopping-cart"></i>
@@ -56,24 +59,18 @@
                         <% } %>
                     </button>
                 </a>
+            </li>
         </ul>
         <%
         }
         %>
+    </div>
     </nav>
 </head>
     <body>
         <main class="text-display">
-
-
             <% 
             Cart cart = (Cart) session.getAttribute("cart");
-            
-            User user = (User) session.getAttribute("user");
-            if (user != null && cart != null) {
-                cart.addItemToCart(DummyItems.createDummyFlight());
-            }
-
             if (cart == null || cart.isEmpty()) {
             %>
                 <div id="empty-cart">
@@ -82,40 +79,36 @@
                 </div>
             <% }  else {%>
             <h1 class="page-heading">Your cart</h1>
-            <div id="cart">
-                <form method="post" action="CartController">
-                    <table class="display-table">
-                        <tr>
-                            <th>Product</th>
-                            <th>Unit Price</th>
-                            <th>  </th>
-                        </tr>
+            <form method="post" action="CartController">
+                <table class="display-table">
+                    <tr>
+                        <th>Product</th>
+                        <th>Unit Price</th>
+                        <th>  </th>
+                    </tr>
                         <% int itemNumber = 0;
                             for (Item item : cart.getItems()) { %>
                             <tr>
-                                <td><%=item.getName()%></td>
-                                <td>$<%=item.getPrice()%></td>
-                                <td>
-                                    <form method="post" action="CartController">
-                                        <input type="hidden" name="action" value="deleteItem" />
-                                        <input type="hidden" name="remove<%=itemNumber%>" value="<%=itemNumber%>" />
-                                        <button type="submit" class="delete-button"/>
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                    </form>
-                                </td>
-                            </tr>
-                        <% itemNumber++; } %>
-                    </table>
-                    <h2 id="total-price">Total: $<%=cart.getTotalPrice()%></h2>
+                            <td><%=item.getName()%></td>
+                            <td>$<%=item.getPrice()%></td>
+                            <td>
+                                <input type="hidden" name="action" value="deleteItem" />
+                                <input type="hidden" name="remove<%=itemNumber%>" value="<%=itemNumber%>" />
+                                <button type="submit" class="delete-button"/>
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    <% itemNumber++; } %>
+                </table>
+                <h2 id="total-price">Total: $<%=cart.getTotalPrice()%></h2>
         
-                    <div id="cart-buttons">
-                        <input type="submit" name="action" value="Clear cart" class="general-buttons btn-outline-light"/>
-                        <input type="submit" name="action" value="Place order" class="general-buttons btn-outline-light"/>
-                    </div>
-                </form>
-            </div>
-            <% } %>
-        </main>
-    </body>
+                <div id="cart-buttons">
+                    <input type="submit" name="action" value="Clear cart" class="general-buttons btn-outline-light"/>
+                    <input type="submit" name="action" value="Place order" class="general-buttons btn-outline-light"/>
+                </div>
+            </form>
+        <% } %>
+    </main>
+</body>
 </html>

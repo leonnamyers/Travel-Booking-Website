@@ -38,23 +38,6 @@ public class CartController extends HttpServlet {
         String action = request.getParameter("action");
         if (action == null) action = "";
 
-        if (action != null) {
-            if (action.equals("Place order")) {
-                // Ensure the cart is not empty before proceeding to payment
-                if (cart != null && !cart.isEmpty()) {
-                    // Redirect or forward to payment.jsp
-                    request.getRequestDispatcher("payment.jsp").forward(request, response);
-                } else {
-                    // If cart is empty, show error
-                    response.sendRedirect("error.jsp");
-                }
-            } else if (action.equals("Clear cart")) {
-                // Handle clear cart action
-                cart.clear();
-                response.sendRedirect("cart.jsp");
-            }
-        }
-
 
         try {
             switch (action) {
@@ -62,7 +45,7 @@ public class CartController extends HttpServlet {
                     clearCart(request, response, cart);
                     break;
                 case PLACE_ORDER_BUTTON_VALUE:
-                    confirmOrder(request, response, cart);
+                    placeOrder(request, response, cart);
                     break;
     
                 default:
@@ -81,18 +64,23 @@ public class CartController extends HttpServlet {
         serveJSP(request, response, "cart.jsp");
     }
 
-    private void confirmOrder(HttpServletRequest request, HttpServletResponse response, Cart cart) throws IOException {
-        //updateQuantities(request, cart);
+    private void placeOrder(HttpServletRequest request, HttpServletResponse response, Cart cart) throws IOException {
+        if (cart == null || cart.isEmpty()) {
+            // If cart is empty, redirect back to cart.jsp with an error message
+            request.setAttribute("errorMessage", "Your cart is empty. Please add items before placing an order.");
+            return;
+        }
 
         // Create Order
         Order order = new Order();
-        order.setCart((Cart) request.getAttribute("cart"));
-        order.setCustomer((Customer) request.getAttribute("user"));
+        order.setCart(cart);
+        order.setCustomer((Customer) request.getSession().getAttribute("user"));
 
         // DAO stuff using Order
 
-        request.getSession().setAttribute("cart", cart);
-        response.sendRedirect("payment.jsp"); // Redirect to payment page
+        request.getSession().setAttribute("cart", new Cart());
+        
+        response.sendRedirect("Payment.jsp"); // Redirect to payment page
     }
     private void deleteItem(HttpServletRequest request, HttpServletResponse response, Cart cart) throws ServletException, IOException {
         Enumeration<String> parameters = request.getParameterNames();

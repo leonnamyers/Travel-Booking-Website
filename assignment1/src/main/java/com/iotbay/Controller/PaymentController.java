@@ -46,6 +46,6 @@ public class PaymentController extends HttpServlet {
         // Add your payment logic here (save payment, process transaction, etc.)
 
         // Forward to the PostOrder.jsp page after successful payment
-        request.getRequestDispatcher("PostOrder.jsp").forward(request, response);
+        request.getRequestDispatcher("FlightOrder.jsp").forward(request, response);
     }
 }

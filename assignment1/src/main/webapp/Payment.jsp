@@ -26,17 +26,6 @@
             <li><a href="index.jsp">Home</a></li>
             <li><a href="account_details.jsp">Account</a></li>
             <li><a href="logout.jsp">Logout</a></li>
-                <a href="cart.jsp">
-                    <button class ="shopping-cart-button" >
-                        <i class="fas fa-shopping-cart"></i>
-                        <% Cart cart = (Cart) request.getSession().getAttribute("cart");%>
-                        <% if (cart == null) { %>
-                        $0.00
-                        <% } else { %>
-                        $<%=cart.getTotalPrice()%>
-                        <% } %>
-                    </button>
-                </a>
         </ul>
         <%
         } else {
@@ -45,17 +34,6 @@
             <li><a href="index.jsp">Home</a></li>
             <li><a href="login.jsp">Login</a></li>
             <li><a href="register.jsp">Register</a></li>
-                <a href="cart.jsp">
-                    <button class ="shopping-cart-button" >
-                        <i class="fas fa-shopping-cart"></i>
-                        <% Cart cart = (Cart) request.getSession().getAttribute("cart");%>
-                        <% if (cart == null) { %>
-                        $0.00
-                        <% } else { %>
-                        $<%=cart.getTotalPrice()%>
-                        <% } %>
-                    </button>
-                </a>
         </ul>
         <%
         }
@@ -66,7 +44,7 @@
         <main class="form-container">
             <h2>Enter Payment Details</h2>
 
-            <% 
+            <%
             Cart cart = (Cart) request.getSession().getAttribute("cart");
             double totalPrice = cart.getTotalPrice();
             %>
