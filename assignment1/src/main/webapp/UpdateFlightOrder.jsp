@@ -33,32 +33,39 @@
 
             <div class="form-container">
                 <form action="/UpdateFlightOrderController" method="post">
+                    <input type="hidden" name="orderID" value="${order.orderID}"/>
+                
                     <div class="form-element">
                         <label for="first-name">First Name:</label>
-                        <input type="text" name="firstName" id="first-name" required />
+                        <input type="text" name="firstName" id="first-name" value="${order.firstName}" required />
                     </div>
                     <div class="form-element">
                         <label for="last-name">Last Name:</label>
-                        <input type="text" name="lastName" id="last-name" required />
+                        <input type="text" name="lastName" id="last-name" value="${order.lastName}" required />
                     </div>
                     <div class="form-element">
-                        <label for="passengers">Number of Passengers:</label>
-                        <input type="number" name="passengers" id="passengers" min="1" required />
+                        <label for="email">Email:</label>
+                        <input type="email" name="email" id="email" value="${order.email}" required />
                     </div>
                     <div class="form-element">
                         <label for="seatType">Seat Type:</label>
-                        <input type="text" name="seatType" id="seatType" required />
+                        <input type="text" name="seatType" id="seatType" value="${order.seatType}" required />
                     </div>
                     <div class="form-element">
                         <label for="departureDate">Departure Date:</label>
-                        <input type="date" name="departureDate" id="departureDate" required />
+                        <input type="date" name="departureDate" id="departureDate" value="${order.departureDate}" required />
                     </div>
                     <div class="form-element">
                         <label for="returnDate">Return Date:</label>
-                        <input type="date" name="returnDate" id="returnDate" required />
+                        <input type="date" name="returnDate" id="returnDate" value="${order.returnDate}" required />
+                    </div>
+                    <div class="form-element">
+                        <label for="totalPrice">Total Price:</label>
+                        <input type="number" name="totalPrice" id="totalPrice" value="${order.totalPrice}" step="0.01" required />
                     </div>
                     <button class="general-buttons form-element">Update Details</button>
                 </form>
+                
             </div>
         </div>
     </main>

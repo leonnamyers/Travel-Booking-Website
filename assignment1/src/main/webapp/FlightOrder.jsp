@@ -70,7 +70,8 @@
                             </form>
                         </div>
                         <div>
-                            <form action="UpdateFlightOrderController" method="POST">
+                            <form action="UpdateFlightOrderController" method="GET">
+                                <input type="hidden" name="orderID" value="<%= order.getOrderID() %>"/>
                                 <button type="submit">Update Order</button>
                             </form>
                         </div>

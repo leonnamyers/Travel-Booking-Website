@@ -20,10 +20,8 @@ public class UpdateFlightOrderController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-        
-        // Get the order ID from the request
+
         int orderID = Integer.parseInt(request.getParameter("orderID"));
-        
         // Initialize DB connection and OrderDAO
         DBConnector dbConnector = null;
         Connection connection = null;
@@ -55,7 +53,6 @@ public class UpdateFlightOrderController extends HttpServlet {
             }
         }
     }
-
     // Method to process the updated order details
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -93,7 +90,7 @@ public class UpdateFlightOrderController extends HttpServlet {
                 // After updating, redirect to a confirmation or order summary page
                 response.sendRedirect("FlightOrder.jsp");
             } else {
-                response.sendRedirect("error.jsp"); // Handle case where order doesn't exist
+                response.sendRedirect("error.jsp");
             }
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
