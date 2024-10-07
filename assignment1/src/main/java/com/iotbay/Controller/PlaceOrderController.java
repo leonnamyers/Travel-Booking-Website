@@ -1,6 +1,7 @@
 package com.iotbay.Controller;
 
 import java.io.IOException;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
@@ -10,8 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.iotbay.Dao.DBConnector;
 import com.iotbay.Dao.OrderDAO;
 import com.iotbay.Model.Cart;
+import com.iotbay.Model.Order;
 
 public class PlaceOrderController extends HttpServlet {
 
@@ -59,43 +62,43 @@ public class PlaceOrderController extends HttpServlet {
             return;
         }
 
-        OrderDAO orderDAO = (OrderDAO) session.getAttribute("orderDAO");
-
-        if (orderDAO == null) {
-            response.sendRedirect("error.jsp"); 
-            return;
-        }
-
+        DBConnector dbConnector = null;
+        Connection connection = null;
+        
         try {
-            // Create the order in the database
-            String customerID = email;
-            double totalPrice = cart.getTotalPrice();
+            dbConnector = new DBConnector();
+            connection = dbConnector.openConnection();
+            OrderDAO orderDAO = new OrderDAO(connection);
+
+            // Create the order object using form data and cart details
             Timestamp orderDate = new Timestamp(System.currentTimeMillis());
+            double totalPrice = cart.getTotalPrice(); // Assuming getTotalPrice() is available in Cart
 
-            // Begin transaction (assuming transaction support in DAO)
-            orderDAO.beginTransaction();
+            Order order = new Order(email, totalPrice, orderDate, destination, departureDate, returnDate, seatType);
+            order.setCart(cart); // Associate the cart with the order
 
-            // Call the DAO method to save the order
-            orderDAO.createOrder(customerID, totalPrice, orderDate, destination, departureDate, returnDate, seatType);
-
-            // Commit the transaction
-            orderDAO.commitTransaction();
+            // Save the order to the database
+            orderDAO.createOrder(order, email, totalPrice, orderDate, destination, departureDate, returnDate, seatType);
 
             // Clear the cart after placing the order
             cart.clear();
             session.setAttribute("cart", cart);
 
-            response.sendRedirect("Payment.jsp"); 
-        } catch (SQLException e) {
+            // Redirect to payment page after successful order placement
+            response.sendRedirect("Payment.jsp");
+
+        } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
-            try {
-                // Rollback transaction in case of failure
-                orderDAO.rollbackTransaction();
-            } catch (SQLException rollbackEx) {
-                rollbackEx.printStackTrace();
+            response.sendRedirect("error.jsp");
+        } finally {
+            // Ensure the connection is closed
+            if (dbConnector != null) {
+                try {
+                    dbConnector.closeConnection();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
-            response.sendRedirect("error.jsp"); // Redirect to an error page in case of failure
         }
     }
-
 }

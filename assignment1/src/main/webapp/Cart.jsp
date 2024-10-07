@@ -78,7 +78,7 @@
             </table>
             <h2 id="total-price">Total: $<%= cart.getTotalPrice() %></h2>
             <div id="cart-buttons">
-                <button onclick="window.location.href='Payment.jsp';">Place Order</button>
+                <input type="submit" name="action" value="Place Order" class="general-buttons btn-outline-light"/>
             </div>
         </form>
         <% } %>

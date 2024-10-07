@@ -1,6 +1,9 @@
 package com.iotbay.Controller;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.Enumeration;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -11,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.iotbay.Dao.DBConnector;
 import com.iotbay.Dao.OrderDAO;
 import com.iotbay.Model.Cart;
 import com.iotbay.Model.Order;
@@ -60,25 +64,37 @@ public class CartController extends HttpServlet {
 
         // Create Order
         Order order = new Order();
-        order.setCart(cart);
+        order.setCustomerID((String) request.getSession().getAttribute("customerID")); // Assuming customer ID is stored in session
+        order.setTotalPrice(cart.getTotalPrice());
+        order.setOrderDate(new Timestamp(System.currentTimeMillis()));
 
-        // Save Order
-        OrderDAO orderDAO = new OrderDAO();
+        DBConnector dbConnector = null;
+        Connection connection = null;
+
         try {
-            boolean orderSaved = orderDAO.saveOrder(order);
-            if (orderSaved) {
-                request.setAttribute("order", order);
-                response.sendRedirect("Payment.jsp"); // Redirect to payment page
-            } else {
-                request.setAttribute("errorMessage", "There was an error saving your order. Please try again.");
-                serveJSP(request, response, "cart.jsp");
-            }
-        } catch (Exception e) {
-            LOGGER.log(Level.SEVERE, "Error saving order: {0}", e.getMessage());
+            dbConnector = new DBConnector();
+            connection = dbConnector.openConnection();
+
+            OrderDAO orderDAO = new OrderDAO(connection);
+
+            orderDAO.createOrder(order, order.getCustomerID(), order.getTotalPrice(), order.getOrderDate(),
+            order.getDestination(), order.getDepartureDate(), 
+            order.getReturnDate(), order.getSeatType());
+
+            response.sendRedirect("Payment.jsp");
+        } catch (ClassNotFoundException | SQLException e) {
             request.setAttribute("errorMessage", "Error processing your order. Please try again later.");
-            serveJSP(request, response, "cart.jsp");
+        serveJSP(request, response, "cart.jsp");
+        } finally {
+            if (dbConnector != null) {
+                try {
+                    dbConnector.closeConnection(); // Close the connection in the finally block
+            } catch (SQLException e) {
+                    e.printStackTrace();
+            }
         }
     }
+}
 
     private void deleteItem(HttpServletRequest request, HttpServletResponse response, Cart cart) throws ServletException, IOException {
         Enumeration<String> parameters = request.getParameterNames();
