@@ -32,6 +32,7 @@ public class PlaceOrderController extends HttpServlet {
         request.getRequestDispatcher("FlightOrder.jsp").forward(request, response);
     }
 
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
@@ -63,7 +64,7 @@ public class PlaceOrderController extends HttpServlet {
 
         Timestamp orderDate = new Timestamp(System.currentTimeMillis());
         double totalPrice = cart.getTotalPrice();
-        Order order = new Order(email, totalPrice, orderDate, destination, departureDate, returnDate, seatType);
+        Order order = new Order();
         order.setCart(cart);
 
         System.out.println("Order details: " + order.toString());

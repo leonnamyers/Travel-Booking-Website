@@ -84,7 +84,7 @@ public class UpdateFlightOrderController extends HttpServlet {
 
             if (existingOrder != null) {
                 // Create a new Order object with the updated values
-                Order updatedOrder = new Order(email, updatedTotalPrice, updatedOrderDate, destination, departureDate, returnDate, seatType);
+                Order updatedOrder = new Order();
                 updatedOrder.setOrderID(orderID);
 
                 // Update the order in the database
@@ -93,7 +93,7 @@ public class UpdateFlightOrderController extends HttpServlet {
                 // After updating, redirect to a confirmation or order summary page
                 response.sendRedirect("FlightOrder.jsp");
             } else {
-                response.sendRedirect("error.jsp");
+                response.sendRedirect("error.jsp"); // Handle case where order doesn't exist
             }
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();

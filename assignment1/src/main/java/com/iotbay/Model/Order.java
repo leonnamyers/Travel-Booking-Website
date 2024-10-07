@@ -10,12 +10,12 @@ public class Order {
     private double totalPrice;
     private Timestamp orderDate;
     private String destination;
-    private String departureDate;
-    private String returnDate;
+    private Timestamp departureDate;
+    private Timestamp returnDate;
     private String seatType;
 
     // Constructor
-    public Order(String customerID, double totalPrice, Timestamp orderDate, String destination, String departureDate, String returnDate, String seatType) {
+    public Order(String customerID, double totalPrice, Timestamp orderDate, String destination, Timestamp departureDate, Timestamp returnDate, String seatType) {
         this.customerID = customerID;
         this.totalPrice = totalPrice;
         this.orderDate = orderDate;
@@ -77,19 +77,19 @@ public class Order {
         this.destination = destination;
     }
 
-    public String getDepartureDate() {
+    public Timestamp getDepartureDate() {
         return departureDate;
     }
 
-    public void setDepartureDate(String departureDate) {
+    public void setDepartureDate(Timestamp departureDate) {
         this.departureDate = departureDate;
     }
 
-    public String getReturnDate() {
+    public Timestamp getReturnDate() {
         return returnDate;
     }
 
-    public void setReturnDate(String returnDate) {
+    public void setReturnDate(Timestamp returnDate) {
         this.returnDate = returnDate;
     }
 

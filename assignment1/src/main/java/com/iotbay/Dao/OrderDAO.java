@@ -34,8 +34,8 @@ public class OrderDAO {
         statement.setDouble(2, order.getTotalPrice());
         statement.setTimestamp(3, order.getOrderDate());
         statement.setString(4, order.getDestination());
-        statement.setString(5, order.getDepartureDate());
-        statement.setString(6, order.getReturnDate());
+        statement.setTimestamp(5, order.getDepartureDate());
+        statement.setTimestamp(6, order.getReturnDate());
         statement.setString(7, order.getSeatType());
         
     statement.executeUpdate();
@@ -54,8 +54,8 @@ public class OrderDAO {
             double totalPrice = rs.getDouble(3);
             Timestamp orderDate = rs.getTimestamp(4);
             String destination = rs.getString(5);
-            String departureDate = rs.getString(6);
-            String returnDate = rs.getString(7);
+            Timestamp departureDate = rs.getTimestamp(6);
+            Timestamp returnDate = rs.getTimestamp(7);
             String seatType = rs.getString(8);
     
             Order order = new Order(customerID, totalPrice, orderDate, destination, departureDate, returnDate, seatType);
@@ -70,8 +70,8 @@ public class OrderDAO {
         statement.setDouble(2, newOrderData.getTotalPrice());
         statement.setTimestamp(3, newOrderData.getOrderDate());
         statement.setString(4, newOrderData.getDestination());
-        statement.setString(5, newOrderData.getDepartureDate());
-        statement.setString(6, newOrderData.getReturnDate());
+        statement.setTimestamp(5, newOrderData.getDepartureDate());
+        statement.setTimestamp(6, newOrderData.getReturnDate());
         statement.setString(7, newOrderData.getSeatType());
         statement.setInt(8, oldOrderData.getOrderID()); // Assuming Order has a method getOrderID()
     
@@ -105,8 +105,8 @@ public class OrderDAO {
             double totalPrice = rs.getDouble(3);
             Timestamp orderDate = rs.getTimestamp(4);
             String destination = rs.getString(5);
-            String departureDate = rs.getString(6);
-            String returnDate = rs.getString(7);
+            Timestamp departureDate = rs.getTimestamp(6);
+            Timestamp returnDate = rs.getTimestamp(7);
             String seatType = rs.getString(8);
     
             // Create and return the Order object
@@ -138,6 +138,12 @@ public class OrderDAO {
             e.printStackTrace(); // Simple error logging
             return false; // Return false if there was an error saving the order
         }
+    }
+
+    public void createOrder(Order order, String customerID, double totalPrice, Timestamp orderDate, String destination,
+            Timestamp departureDate, Timestamp returnDate, String seatType) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'createOrder'");
     }
 }
 
