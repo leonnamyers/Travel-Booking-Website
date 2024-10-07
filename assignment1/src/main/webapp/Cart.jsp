@@ -78,9 +78,7 @@
             </table>
             <h2 id="total-price">Total: $<%= cart.getTotalPrice() %></h2>
             <div id="cart-buttons">
-                <form method="post" action="PayementController">
                 <input type="submit" name="action" value="Place Order" class="general-buttons btn-outline-light"/>
-                </form>
             </div>
         </form>
         <% } %>

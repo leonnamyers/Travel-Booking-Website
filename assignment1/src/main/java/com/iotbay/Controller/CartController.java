@@ -90,6 +90,8 @@ public class CartController extends HttpServlet {
         }
     }
 
+    response.sendRedirect("Payment.jsp");
+
 }
 
     private void deleteItem(HttpServletRequest request, HttpServletResponse response, Cart cart) throws ServletException, IOException {
