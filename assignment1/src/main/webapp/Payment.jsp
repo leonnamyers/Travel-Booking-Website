@@ -69,7 +69,9 @@
                     <label for="cvv">CVV:</label>
                     <input type="text" name="cvv" id="cvv" required />
                 </div>
-                <button class="general-buttons">Submit</button>
+                <form method="post" action="PlaceOrderController">
+                    <input type="submit" name="action" value="Submit" class="general-buttons btn-outline-light"/>
+                </form>
             </form>
         </main>
     </body>

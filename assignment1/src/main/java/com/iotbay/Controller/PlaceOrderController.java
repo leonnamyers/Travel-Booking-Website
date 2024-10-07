@@ -23,14 +23,13 @@ public class PlaceOrderController extends HttpServlet {
         HttpSession session = request.getSession();
         Cart cart = (Cart) session.getAttribute("cart");
 
-
         if (cart == null || cart.isEmpty()) {
-            response.sendRedirect("cart.jsp"); 
+            response.sendRedirect("cart.jsp");
             return;
         }
 
         request.setAttribute("cart", cart);
-        request.getRequestDispatcher("FlightOrder.jsp").forward(request, response); 
+        request.getRequestDispatcher("FlightOrder.jsp").forward(request, response);
     }
 
     @Override
@@ -39,11 +38,11 @@ public class PlaceOrderController extends HttpServlet {
         Cart cart = (Cart) session.getAttribute("cart");
 
         if (cart == null || cart.isEmpty()) {
-            response.sendRedirect("cart.jsp"); 
+            response.sendRedirect("cart.jsp");
             return;
         }
 
-        // Retrieve form data from the request
+        // Retrieve form data from the request (order details)
         String firstname = request.getParameter("First Name");
         String lastname = request.getParameter("Last Name");
         String email = request.getParameter("email");
@@ -52,7 +51,7 @@ public class PlaceOrderController extends HttpServlet {
         String returnDate = request.getParameter("returnDate");
         String seatType = request.getParameter("seatType");
 
-        // Validate that none of the form fields are empty
+        // Validate form inputs
         if (firstname == null || lastname == null || email == null || destination == null ||
                 departureDate == null || returnDate == null || seatType == null ||
                 firstname.isEmpty() || lastname.isEmpty() || email.isEmpty() || destination.isEmpty() ||
@@ -62,36 +61,34 @@ public class PlaceOrderController extends HttpServlet {
             return;
         }
 
+        Timestamp orderDate = new Timestamp(System.currentTimeMillis());
+        double totalPrice = cart.getTotalPrice();
+        Order order = new Order(email, totalPrice, orderDate, destination, departureDate, returnDate, seatType);
+        order.setCart(cart);
+
+        System.out.println("Order details: " + order.toString());
+
+        // Create an Order and save it in the database
         DBConnector dbConnector = null;
         Connection connection = null;
-        
+
         try {
             dbConnector = new DBConnector();
             connection = dbConnector.openConnection();
             OrderDAO orderDAO = new OrderDAO(connection);
-
-            // Create the order object using form data and cart details
-            Timestamp orderDate = new Timestamp(System.currentTimeMillis());
-            double totalPrice = cart.getTotalPrice(); // Assuming getTotalPrice() is available in Cart
-
-            Order order = new Order(email, totalPrice, orderDate, destination, departureDate, returnDate, seatType);
-            order.setCart(cart); // Associate the cart with the order
-
             // Save the order to the database
             orderDAO.createOrder(order, email, totalPrice, orderDate, destination, departureDate, returnDate, seatType);
 
-            // Clear the cart after placing the order
-            cart.clear();
-            session.setAttribute("cart", cart);
+            // Store the order details in the session
+            session.setAttribute("order", order);
 
-            // Redirect to payment page after successful order placement
-            response.sendRedirect("Payment.jsp");
+            // Redirect to FlightOrder.jsp for order summary
+            response.sendRedirect("FlightOrder.jsp");
 
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
             response.sendRedirect("error.jsp");
         } finally {
-            // Ensure the connection is closed
             if (dbConnector != null) {
                 try {
                     dbConnector.closeConnection();

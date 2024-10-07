@@ -12,7 +12,7 @@ import com.iotbay.Model.Order;
 public class OrderDAO {
 
     // SQL Queries
-    private String createQuery = "INSERT INTO Order (customerID, totalPrice, orderDate, destination, departureDate, returnDate, seatType) VALUES(?, ?, ?, ?, ?, ?, ?)";
+    private String createQuery = "INSERT INTO Order (CustomerID, totalPrice, orderDate, destination, departureDate, returnDate, seatType) VALUES(?, ?, ?, ?, ?, ?, ?)";
     private String readQuery = "SELECT orderID, customerID, totalPrice, orderDate, destination, departureDate, returnDate, seatType FROM Orders";
     private String deleteQuery = "DELETE FROM Orders WHERE orderID = ?";
     private String getOrderQuery = "SELECT orderID, customerID, totalPrice, orderDate, destination, departureDate, returnDate, seatType FROM Orders WHERE orderID = ?";

@@ -53,6 +53,9 @@ public class CartController extends HttpServlet {
             response.sendRedirect("error.jsp");
         }
 
+        response.sendRedirect("Payment.jsp");
+
+
     }
 
     private void placeOrder(HttpServletRequest request, HttpServletResponse response, Cart cart) throws ServletException, IOException {
@@ -82,6 +85,7 @@ public class CartController extends HttpServlet {
             order.getReturnDate(), order.getSeatType());
 
             response.sendRedirect("Payment.jsp");
+
         } catch (ClassNotFoundException | SQLException e) {
             request.setAttribute("errorMessage", "Error processing your order. Please try again later.");
         serveJSP(request, response, "cart.jsp");
@@ -94,6 +98,7 @@ public class CartController extends HttpServlet {
             }
         }
     }
+
 }
 
     private void deleteItem(HttpServletRequest request, HttpServletResponse response, Cart cart) throws ServletException, IOException {
