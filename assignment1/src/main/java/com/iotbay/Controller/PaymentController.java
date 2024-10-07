@@ -43,9 +43,28 @@ public class PaymentController extends HttpServlet {
         String expiryDate = request.getParameter("expiryDate");
         String cvv = request.getParameter("cvv");
 
-        // Add your payment logic here (save payment, process transaction, etc.)
+        if (cardNumber == null || !cardNumber.matches("\\d{16}")) {
+            request.setAttribute("errorMessage", "Invalid card number.");
+            request.getRequestDispatcher("Payment.jsp").forward(request, response);
+            return;
+        }
+    
+        // Validate expiry date (should be MM/YY format)
+        if (expiryDate == null || !expiryDate.matches("(0[1-9]|1[0-2])/\\d{2}")) {
+            request.setAttribute("errorMessage", "Invalid expiry date.");
+            request.getRequestDispatcher("Payment.jsp").forward(request, response);
+            return;
+        }
+    
+        // Validate CVV (should be 3 or 4 digits)
+        if (cvv == null || !cvv.matches("\\d{3,4}")) {
+            request.setAttribute("errorMessage", "Invalid CVV.");
+            request.getRequestDispatcher("Payment.jsp").forward(request, response);
+            return;
+        }
 
-        // Forward to the PostOrder.jsp page after successful payment
-        request.getRequestDispatcher("PlaceOrder.jsp").forward(request, response);
+        // Add payment logic here (save payment, etc.)
+
+        request.getRequestDispatcher("FlightOrder.jsp").forward(request, response);
     }
 }

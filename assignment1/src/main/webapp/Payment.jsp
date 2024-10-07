@@ -51,8 +51,39 @@
 
             <p> Total Amount: $<%=totalPrice%></p>
             <!-- Display Total amount-->
+
+            <script type="text/javascript">
+                function validatePaymentForm() {
+                    var cardNumber = document.getElementById("cardNumber").value;
+                    var expiryDate = document.getElementById("expiryDate").value;
+                    var cvv = document.getElementById("cvv").value;
+                    
+                    // Card number should be 16 digits
+                    var cardNumberPattern = /^\d{16}$/;
+                    if (!cardNumberPattern.test(cardNumber)) {
+                        alert("Please enter a valid 16-digit card number.");
+                        return false;
+                    }
+            
+                    // Expiry date should be in MM/YY format
+                    var expiryDatePattern = /^(0[1-9]|1[0-2])\/\d{2}$/;
+                    if (!expiryDatePattern.test(expiryDate)) {
+                        alert("Please enter a valid expiry date in MM/YY format.");
+                        return false;
+                    }
+            
+                    // CVV should be 3 or 4 digits
+                    var cvvPattern = /^\d{3,4}$/;
+                    if (!cvvPattern.test(cvv)) {
+                        alert("Please enter a valid 3 or 4 digit CVV.");
+                        return false;
+                    }
+            
+                    return true;
+                }
+            </script>
         
-            <form action="PaymentController" method="post">
+            <form action="PaymentController" method="post" onsubmit="return validatePaymentForm()">
                 <div class="form-element">
                     <label for="cardHolderName">Cardholder's Name:</label>
                     <input type="text" name="cardHolderName" id="cardHolderName" required />
@@ -69,9 +100,7 @@
                     <label for="cvv">CVV:</label>
                     <input type="text" name="cvv" id="cvv" required />
                 </div>
-                <form method="post" action="PlaceOrderController">
                     <input type="submit" name="action" value="Submit" class="general-buttons btn-outline-light"/>
-                </form>
             </form>
         </main>
     </body>

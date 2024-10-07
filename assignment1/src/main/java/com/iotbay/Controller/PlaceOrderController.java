@@ -29,7 +29,7 @@ public class PlaceOrderController extends HttpServlet {
         }
 
         request.setAttribute("cart", cart);
-        request.getRequestDispatcher("FlightOrder.jsp").forward(request, response);
+        response.sendRedirect("Payment.jsp");
     }
 
 
@@ -82,9 +82,9 @@ public class PlaceOrderController extends HttpServlet {
 
             // Store the order details in the session
             session.setAttribute("order", order);
+            
+            request.getRequestDispatcher("PostOrder.jsp").forward(request, response);
 
-            // Redirect to FlightOrder.jsp for order summary
-            response.sendRedirect("FlightOrder.jsp");
 
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
