@@ -20,8 +20,9 @@
                 <div>
                     <%
                     User user = (User) session.getAttribute("user");
+                    Cart cart = (Cart) session.getAttribute("cart");
                     Order order = (Order) session.getAttribute("order");
-
+                    
                     if (user == null) {
                         out.println("<p>Error: User not found in session.</p>");
                     }
@@ -32,6 +33,7 @@
                     if (user != null && order != null) {
                     %>
                     <h2>Flight Order Summary</h2>
+                    
                     <table>
                         <tr>
                             <th>Customer Name:</th>

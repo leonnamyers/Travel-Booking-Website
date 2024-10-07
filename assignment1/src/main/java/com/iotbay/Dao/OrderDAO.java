@@ -139,12 +139,6 @@ public class OrderDAO {
             return false; // Return false if there was an error saving the order
         }
     }
-
-    public void createOrder(Order order, String customerID, double totalPrice, Timestamp orderDate, String destination,
-            Timestamp departureDate, Timestamp returnDate, String seatType) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'createOrder'");
-    }
 }
 
 

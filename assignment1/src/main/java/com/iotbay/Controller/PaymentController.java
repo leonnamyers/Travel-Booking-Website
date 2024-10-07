@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.iotbay.Model.Cart;
+import com.iotbay.Model.Order;
 
 public class PaymentController extends HttpServlet {
     
@@ -31,6 +32,12 @@ public class PaymentController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         Cart cart = (Cart) session.getAttribute("cart");
+        Order order = (Order) session.getAttribute("order");
+
+        if (order == null) {
+            order = new Order();
+            session.setAttribute("order", order);
+        }
 
         // Check if cart is empty
         if (cart == null || cart.isEmpty()) {
@@ -62,6 +69,9 @@ public class PaymentController extends HttpServlet {
             request.getRequestDispatcher("Payment.jsp").forward(request, response);
             return;
         }
+
+        order.setCart(cart);
+        session.setAttribute("order", order);
 
         // Add payment logic here (save payment, etc.)
 

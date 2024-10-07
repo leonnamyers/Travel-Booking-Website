@@ -22,14 +22,19 @@ public class PlaceOrderController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         Cart cart = (Cart) session.getAttribute("cart");
+        Order order = (Order) session.getAttribute("order");
+
+        if (order == null) {
+            order = new Order();
+            session.setAttribute("order", order);
+
+        }
 
         if (cart == null || cart.isEmpty()) {
             response.sendRedirect("cart.jsp");
             return;
         }
 
-        request.setAttribute("cart", cart);
-        response.sendRedirect("Payment.jsp");
     }
 
 
@@ -42,6 +47,9 @@ public class PlaceOrderController extends HttpServlet {
             response.sendRedirect("cart.jsp");
             return;
         }
+
+        request.setAttribute("cart", cart);
+        response.sendRedirect("FlightOrder.jsp");
 
         // Retrieve form data from the request (order details)
         String firstname = request.getParameter("First Name");
@@ -64,8 +72,10 @@ public class PlaceOrderController extends HttpServlet {
 
         Timestamp orderDate = new Timestamp(System.currentTimeMillis());
         double totalPrice = cart.getTotalPrice();
+
         Order order = new Order();
         order.setCart(cart);
+        session.setAttribute("order", order);
 
         System.out.println("Order details: " + order.toString());
 
