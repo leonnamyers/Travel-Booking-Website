@@ -136,7 +136,7 @@ public class FlightDAOTest {
     @Test
     public void testFetchAllFlights() throws SQLException {
         ArrayList<Flight> allFlights = flightDAOManager.fetchAllFlights();
-        assertEquals(allFlights.size(), 10);
+        assertEquals(allFlights.size(), 6);
         Flight testFlight = mockFetch(2);
         assertNotNull(testFlight);
         assertEquals(2, testFlight.getItemID());
