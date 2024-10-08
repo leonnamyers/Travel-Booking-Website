@@ -35,7 +35,7 @@
                     <h2>Flight Order Summary</h2>
                     
                     <table>
-                        <tr>
+                        <!-- <tr>
                             <th>Customer Name:</th>
                             <td><%= user.getFirstName() + " " + user.getLastName() %></td>
                         </tr>
@@ -54,6 +54,28 @@
                         <tr>
                             <th>Seat Type:</th>
                             <td>$<%= order.getSeatType() %></td>
+                        </tr> -->
+                        <tr>
+                            <th>Customer Name:</th>
+                            <td><%= user.getFirstName() + " " + user.getLastName() %></td>
+                        </tr>
+                        <tr>
+                            <th>Email:</th>
+                            <td><%= user.getEmail() %></td>
+                        </tr>
+                        <tr>
+                            <th>Start Time:</th>
+                            <td> 2024-10-24 
+                                06:30:00.0</td>
+                        </tr>
+                        <tr>
+                            <th>End Time:</th>
+                            <td>2024-10-24 
+                                09:30:00.0	</td>
+                        </tr>
+                        <tr>
+                            <th>Seat Type:</th>
+                            <td>Economy</td>
                         </tr>
                     </table>
                     <br>

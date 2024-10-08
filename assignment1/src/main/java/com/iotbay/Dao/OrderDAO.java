@@ -25,7 +25,7 @@ public class OrderDAO {
         connection.setAutoCommit(true);
     }
 
-    // Create Operation
+    //Create Operation
     public void createOrder(Order order) throws SQLException {
         PreparedStatement statement = connection.prepareStatement(createQuery);
         statement.setString(1, order.getCustomerID());
@@ -39,6 +39,8 @@ public class OrderDAO {
         statement.executeUpdate();
         statement.close();
     }
+
+
 
     // Read Operation
     public ArrayList<Order> fetchAllOrders() throws SQLException {
@@ -84,6 +86,7 @@ public class OrderDAO {
         }
         statement.close();
     }
+
 
     // Delete Operation
     public void deleteOrder(int orderID) throws SQLException {
