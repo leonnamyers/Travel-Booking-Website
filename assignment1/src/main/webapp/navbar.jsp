@@ -20,7 +20,7 @@
         <li><a href="index.jsp">Home</a></li>
         <li><a href="account_details.jsp">Account</a></li>
         <li><a href="logout.jsp">Logout</a></li>
-        <a href="cart.jsp">
+        <a href="Cart.jsp">
             <button class ="shopping-cart-button" >
                 <i class="fas fa-shopping-cart"></i>
                 <% Cart cart = (Cart) request.getSession().getAttribute("cart");%>
@@ -40,7 +40,7 @@
         <li><a href="index.jsp">Home</a></li>
         <li><a href="login.jsp">Login</a></li>
         <li><a href="register.jsp">Register</a></li>
-        <a href="cart.jsp">
+        <a href="Cart.jsp">
             <button class ="shopping-cart-button" >
                 <i class="fas fa-shopping-cart"></i>
                 <% Cart cart = (Cart) request.getSession().getAttribute("cart");%>
@@ -60,7 +60,7 @@
 <nav>
     <ul>
         <li><a href="PackageController?action=loadPackages">Package Booking</a></li>
-        <li><a href="index.jsp?page=cruise">Cruise</a></li>
+        <li><a href="CruiseController?action=loadCruises">Cruise Booking</a></li>
         <li><a href="//localhost:8080/flights.jsp">Flight</a></li>
         <li><a href="//localhost:8080/hotels.jsp">Hotel</a></li>
         <!-- Show User List only for Staff users -->
