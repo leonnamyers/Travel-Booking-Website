@@ -22,13 +22,6 @@
                 window.location.href = "update_user_details.jsp";
             }
 
-            function redirectToViewAccessLogs() {
-                window.location.href = "view_access_logs.jsp";
-            }
-
-            function redirectToSearchAccessLogs() {
-                window.location.href = "search_access_logs.jsp";
-            }
         </script>
     </head>
     <body>
@@ -104,12 +97,6 @@
                         </div>
                         <div style="padding-top: 10%;">
                             <button style="padding: 2%; width: 150px; text-align: center;" onclick="redirectToUnregisterPage()">Unregister</button>
-                        </div>
-                        <div style="padding-top: 10%; margin-left: 10px;">
-                            <button style="padding: 2%; width: 150px; text-align: center;" onclick="redirectToViewAccessLogs()">Access Logs</button>
-                        </div>
-                        <div style="padding-top: 10%; margin-left: 10px;">
-                            <button style="padding: 2%; width: 150px; text-align: center;" onclick="redirectToSearchAccessLogs()">Search Access Logs</button>
                         </div>
                     </div>
                 </div>
