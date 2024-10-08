@@ -5,24 +5,26 @@ import java.sql.Timestamp;
 public class Order {
     
     private int orderID;
-    private Cart cart;
     private String customerID;
-    private double totalPrice;
+    private Cart cart;
+    private int TotalPrice;
     private Timestamp orderDate;
-    private String destination;
-    private Timestamp departureDate;
-    private Timestamp returnDate;
+    private Timestamp startTime;
+    private Timestamp endTime;
     private String seatType;
+    private String roomType;
 
     // Constructor
-    public Order(String customerID, double totalPrice, Timestamp orderDate, String destination, Timestamp departureDate, Timestamp returnDate, String seatType) {
+    public Order(int orderID, String customerID, Cart cart, Timestamp orderDate, int TotalPrice, Timestamp startTime, Timestamp endTime, String seatType, String roomType) {
+        this.orderID = orderID;
         this.customerID = customerID;
-        this.totalPrice = totalPrice;
+        this.cart = cart;
+        this.TotalPrice = TotalPrice;
         this.orderDate = orderDate;
-        this.destination = destination;
-        this.departureDate = departureDate;
-        this.returnDate = returnDate;
+        this.startTime = startTime;
+        this.endTime = endTime;
         this.seatType = seatType;
+        this.roomType = roomType;
     }
 
     // Getters and setters
@@ -53,12 +55,12 @@ public class Order {
         this.customerID = customerID;
     }
 
-    public double getTotalPrice() {
-        return totalPrice;
+    public int getTotalPrice() {
+        return TotalPrice;
     }
 
     public void setTotalPrice(double totalPrice) {
-        this.totalPrice = totalPrice;
+        this.TotalPrice = (int) totalPrice;
     }
 
     public Timestamp getOrderDate() {
@@ -69,28 +71,20 @@ public class Order {
         this.orderDate = orderDate;
     }
 
-    public String getDestination() {
-        return destination;
+    public Timestamp getStartTime() {
+        return startTime;
     }
 
-    public void setDestination(String destination) {
-        this.destination = destination;
+    public void setStartTime(Timestamp startTime) {
+        this.startTime = startTime;
     }
 
-    public Timestamp getDepartureDate() {
-        return departureDate;
+    public Timestamp getEndTime() {
+        return endTime;
     }
 
-    public void setDepartureDate(Timestamp departureDate) {
-        this.departureDate = departureDate;
-    }
-
-    public Timestamp getReturnDate() {
-        return returnDate;
-    }
-
-    public void setReturnDate(Timestamp returnDate) {
-        this.returnDate = returnDate;
+    public void setEndTime(Timestamp endTime) {
+        this.endTime = endTime;
     }
 
     public String getSeatType() {
@@ -99,5 +93,13 @@ public class Order {
 
     public void setSeatType(String seatType) {
         this.seatType = seatType;
+    }
+
+    public String getRoomType() {
+        return roomType;
+    }
+
+    public void setRoomType(String roomType) {
+        this.roomType = roomType;
     }
 }

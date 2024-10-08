@@ -11,78 +11,77 @@ import com.iotbay.Model.Order;
 
 public class OrderDAO {
 
-    // SQL Queries
-    private String createQuery = "INSERT INTO Order (CustomerID, totalPrice, orderDate, destination, departureDate, returnDate, seatType) VALUES(?, ?, ?, ?, ?, ?, ?)";
-    private String readQuery = "SELECT orderID, customerID, totalPrice, orderDate, destination, departureDate, returnDate, seatType FROM Orders";
+    private String createQuery = "INSERT INTO Orders (customerID, orderDate, startTime, endTime, seatType, roomType, totalPrice) VALUES(?, ?, ?, ?, ?, ?, ?)";
+    private String readQuery = "SELECT orderID, customerID, orderDate, startTime, endTime, seatType, roomType, totalPrice FROM Orders";
     private String deleteQuery = "DELETE FROM Orders WHERE orderID = ?";
-    private String getOrderQuery = "SELECT orderID, customerID, totalPrice, orderDate, destination, departureDate, returnDate, seatType FROM Orders WHERE orderID = ?";
-    private String updateQuery = "UPDATE Orders SET firstName = ?, lastName = ?, email = ?, destination = ?, departureDate = ?, returnDate = ?, passengers = ?, seatType = ?, totalPrice = ?, orderDate = ? WHERE orderID = ?";
+    private String getOrderQuery = "SELECT orderID, customerID, orderDate, startTime, endTime, seatType, roomType, totalPrice FROM Orders WHERE orderID = ?";
+    private String updateQuery = "UPDATE Orders SET customerID = ?, orderDate = ?, startTime = ?, endTime = ?, seatType = ?, roomType = ?, totalPrice = ? WHERE orderID = ?";
 
     private Connection connection;
 
     // Constructor
-
     public OrderDAO(Connection connection) throws SQLException {
         this.connection = connection;
         connection.setAutoCommit(true);
     }
 
     // Create Operation
-    public void createOrder(Order order, String customerID, double totalPrice, Timestamp orderDate, String destination, String departureDate, String returnDate, String seatType) throws SQLException {
+    public void createOrder(Order order) throws SQLException {
         PreparedStatement statement = connection.prepareStatement(createQuery);
         statement.setString(1, order.getCustomerID());
-        statement.setDouble(2, order.getTotalPrice());
-        statement.setTimestamp(3, order.getOrderDate());
-        statement.setString(4, order.getDestination());
-        statement.setTimestamp(5, order.getDepartureDate());
-        statement.setTimestamp(6, order.getReturnDate());
-        statement.setString(7, order.getSeatType());
-        
-    statement.executeUpdate();
+        statement.setTimestamp(2, order.getOrderDate());
+        statement.setTimestamp(3, order.getStartTime());
+        statement.setTimestamp(4, order.getEndTime());
+        statement.setString(5, order.getSeatType());
+        statement.setString(6, order.getRoomType());
+        statement.setInt(7, order.getTotalPrice());
+
+        statement.executeUpdate();
+        statement.close();
     }
 
     // Read Operation
     public ArrayList<Order> fetchAllOrders() throws SQLException {
         ArrayList<Order> orders = new ArrayList<>();
-        String fetchAllOrdersQuery = "SELECT * FROM Orders"; // Adjust the query if necessary
-        PreparedStatement statement = connection.prepareStatement(fetchAllOrdersQuery);
+        PreparedStatement statement = connection.prepareStatement(readQuery);
         ResultSet rs = statement.executeQuery();
         
         while (rs.next()) {
-            int orderID = rs.getInt(1);
-            String customerID = rs.getString(2);
-            double totalPrice = rs.getDouble(3);
-            Timestamp orderDate = rs.getTimestamp(4);
-            String destination = rs.getString(5);
-            Timestamp departureDate = rs.getTimestamp(6);
-            Timestamp returnDate = rs.getTimestamp(7);
-            String seatType = rs.getString(8);
+            int orderID = rs.getInt("orderID");
+            String customerID = rs.getString("customerID");
+            Timestamp orderDate = rs.getTimestamp("orderDate");
+            Timestamp startTime = rs.getTimestamp("startTime");
+            Timestamp endTime = rs.getTimestamp("endTime");
+            String seatType = rs.getString("seatType");
+            String roomType = rs.getString("roomType");
+            int totalPrice = rs.getInt("totalPrice");
     
-            Order order = new Order(customerID, totalPrice, orderDate, destination, departureDate, returnDate, seatType);
+            Order order = new Order();
             orders.add(order);
         }
+        rs.close();
+        statement.close();
         return orders;
     }
+
     // Update Operation
-    public void updateOrder(Order oldOrderData, Order newOrderData) throws SQLException {
+    public void updateOrder(Order order) throws SQLException {
         PreparedStatement statement = connection.prepareStatement(updateQuery);
-        statement.setString(1, newOrderData.getCustomerID());
-        statement.setDouble(2, newOrderData.getTotalPrice());
-        statement.setTimestamp(3, newOrderData.getOrderDate());
-        statement.setString(4, newOrderData.getDestination());
-        statement.setTimestamp(5, newOrderData.getDepartureDate());
-        statement.setTimestamp(6, newOrderData.getReturnDate());
-        statement.setString(7, newOrderData.getSeatType());
-        statement.setInt(8, oldOrderData.getOrderID()); // Assuming Order has a method getOrderID()
-    
+        statement.setString(1, order.getCustomerID());
+        statement.setTimestamp(2, order.getOrderDate());
+        statement.setTimestamp(3, order.getStartTime());
+        statement.setTimestamp(4, order.getEndTime());
+        statement.setString(5, order.getSeatType());
+        statement.setString(6, order.getRoomType());
+        statement.setInt(7, order.getTotalPrice());
+        statement.setInt(8, order.getOrderID());
+        
         int rowsAffected = statement.executeUpdate();
-    
         if (rowsAffected == 0) {
             System.out.println("Update failed - Order not found");
         } else {
             System.out.println("Order successfully updated");
         }
-    
         statement.close();
     }
 
@@ -91,7 +90,7 @@ public class OrderDAO {
         PreparedStatement statement = connection.prepareStatement(deleteQuery);
         statement.setInt(1, orderID);
         statement.executeUpdate();
-
+        statement.close();
     }
 
     // Get single order by ID
@@ -101,44 +100,44 @@ public class OrderDAO {
         
         ResultSet rs = statement.executeQuery();
         if (rs.next()) {
-            String customerID = rs.getString(2);
-            double totalPrice = rs.getDouble(3);
-            Timestamp orderDate = rs.getTimestamp(4);
-            String destination = rs.getString(5);
-            Timestamp departureDate = rs.getTimestamp(6);
-            Timestamp returnDate = rs.getTimestamp(7);
-            String seatType = rs.getString(8);
-    
-            // Create and return the Order object
-            Order order = new Order(customerID, totalPrice, orderDate, destination, departureDate, returnDate, seatType);
-            statement.close(); // Close the statement after execution
+            String customerID = rs.getString("customerID");
+            Timestamp orderDate = rs.getTimestamp("orderDate");
+            Timestamp startTime = rs.getTimestamp("startTime");
+            Timestamp endTime = rs.getTimestamp("endTime");
+            String seatType = rs.getString("seatType");
+            String roomType = rs.getString("roomType");
+            int totalPrice = rs.getInt("totalPrice");
+
+            Order order = new Order();
+            rs.close();
+            statement.close();
             return order;
         }
-    
-        statement.close(); // Close the statement if no order is found
-        return null; // Return null if the order doesn't exist
+
+        rs.close();
+        statement.close();
+        return null;
     }
 
     public boolean saveOrder(Order order) {
-        String sql = "INSERT INTO orders (customer_id, order_date) VALUES (?, ?)";
-
-
+        String sql = "INSERT INTO Orders (customerID, orderDate, startTime, endTime, seatType, roomType, totalPrice) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (
             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
-            // Assuming Customer class has a method getId() to get the customer ID
             preparedStatement.setString(1, order.getCustomerID());
             preparedStatement.setTimestamp(2, order.getOrderDate());
+            preparedStatement.setTimestamp(3, order.getStartTime());
+            preparedStatement.setTimestamp(4, order.getEndTime());
+            preparedStatement.setString(5, order.getSeatType());
+            preparedStatement.setString(6, order.getRoomType());
+            preparedStatement.setInt(7, order.getTotalPrice());
 
-            // Execute the insert statement
             int rowsAffected = preparedStatement.executeUpdate();
-            return rowsAffected > 0; // Return true if the order was saved successfully
+            return rowsAffected > 0;
 
         } catch (SQLException e) {
-            e.printStackTrace(); // Simple error logging
-            return false; // Return false if there was an error saving the order
+            e.printStackTrace();
+            return false;
         }
     }
 }
-
-

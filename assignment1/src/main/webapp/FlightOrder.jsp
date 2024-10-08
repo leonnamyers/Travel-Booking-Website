@@ -44,12 +44,12 @@
                             <td><%= user.getEmail() %></td>
                         </tr>
                         <tr>
-                            <th>Departure Date:</th>
-                            <td><%= order.getDepartureDate() %></td>
+                            <th>Start Time:</th>
+                            <td><%= order.getStartTime() %></td>
                         </tr>
                         <tr>
-                            <th>Return Date:</th>
-                            <td><%= order.getReturnDate() %></td>
+                            <th>End Time:</th>
+                            <td><%= order.getEndTime() %></td>
                         </tr>
                         <tr>
                             <th>Seat Type:</th>

@@ -69,11 +69,10 @@ public class UpdateFlightOrderController extends HttpServlet {
             String firstname = request.getParameter("FirstName");
             String lastname = request.getParameter("LastName");
             String email = request.getParameter("email");
-            String destination = request.getParameter("destination");
-            String departureDate = request.getParameter("departureDate");
-            String returnDate = request.getParameter("returnDate");
+            String startTime = request.getParameter("departureDate");
+            String endTime = request.getParameter("returnDate");
             String seatType = request.getParameter("seatType");
-            double updatedTotalPrice = Double.parseDouble(request.getParameter("totalPrice"));
+            String roomType = request.getParameter("roomType");
             Timestamp updatedOrderDate = new Timestamp(System.currentTimeMillis());
 
             // Fetch the existing order to update
@@ -85,7 +84,7 @@ public class UpdateFlightOrderController extends HttpServlet {
                 updatedOrder.setOrderID(orderID);
 
                 // Update the order in the database
-                orderDAO.updateOrder(existingOrder, updatedOrder);
+                orderDAO.updateOrder(updatedOrder);
 
                 // After updating, redirect to a confirmation or order summary page
                 response.sendRedirect("FlightOrder.jsp");

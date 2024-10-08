@@ -16,6 +16,7 @@ import com.iotbay.Dao.OrderDAO;
 import com.iotbay.Model.Cart;
 import com.iotbay.Model.Order;
 
+
 public class PlaceOrderController extends HttpServlet {
 
     @Override
@@ -55,23 +56,22 @@ public class PlaceOrderController extends HttpServlet {
         String firstname = request.getParameter("First Name");
         String lastname = request.getParameter("Last Name");
         String email = request.getParameter("email");
-        String destination = request.getParameter("destination");
-        String departureDate = request.getParameter("departureDate");
-        String returnDate = request.getParameter("returnDate");
+        String startTime = request.getParameter("startTime");
+        String endTime = request.getParameter("endTime");
         String seatType = request.getParameter("seatType");
+        String roomType = request.getParameter("roomType");
 
         // Validate form inputs
-        if (firstname == null || lastname == null || email == null || destination == null ||
-                departureDate == null || returnDate == null || seatType == null ||
-                firstname.isEmpty() || lastname.isEmpty() || email.isEmpty() || destination.isEmpty() ||
-                departureDate.isEmpty() || returnDate.isEmpty() || seatType.isEmpty()) {
+        if (firstname == null || lastname == null || email == null ||
+                startTime == null || endTime == null || seatType == null || roomType == null ||
+                firstname.isEmpty() || lastname.isEmpty() || email.isEmpty() ||
+                startTime.isEmpty() || endTime.isEmpty() || seatType.isEmpty() || roomType.isEmpty()) {
             request.setAttribute("errorMessage", "All fields are required!");
             request.getRequestDispatcher("FlightOrder.jsp").forward(request, response);
             return;
         }
 
         Timestamp orderDate = new Timestamp(System.currentTimeMillis());
-        double totalPrice = cart.getTotalPrice();
 
         Order order = new Order();
         order.setCart(cart);
@@ -88,7 +88,8 @@ public class PlaceOrderController extends HttpServlet {
             connection = dbConnector.openConnection();
             OrderDAO orderDAO = new OrderDAO(connection);
             // Save the order to the database
-            orderDAO.createOrder(order, email, totalPrice, orderDate, destination, departureDate, returnDate, seatType);
+
+            orderDAO.createOrder(order);
 
             // Store the order details in the session
             session.setAttribute("order", order);
