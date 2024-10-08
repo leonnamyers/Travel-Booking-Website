@@ -60,7 +60,7 @@
 <nav>
     <ul>
         <li><a href="PackageController?action=loadPackages">Package Booking</a></li>
-        <li><a href="index.jsp?page=cruise">Cruise</a></li>
+        <li><a href="CruiseController?action=loadCruises">Cruise Booking</a></li>
         <li><a href="//localhost:8080/flights.jsp">Flight</a></li>
         <li><a href="//localhost:8080/hotels.jsp">Hotel</a></li>
         <li><a href="userListPanel.jsp">User List</a></li>

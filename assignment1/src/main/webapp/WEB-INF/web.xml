@@ -215,6 +215,15 @@
         <servlet-name>PackageDetailsController</servlet-name>
         <url-pattern>/PackageDetailsController</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>CruiseController</servlet-name>
+        <servlet-class>com.iotbay.Controller.CruiseController</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CruiseController</servlet-name>
+        <url-pattern>/CruiseController</url-pattern>
+    </servlet-mapping>
 
 
 
