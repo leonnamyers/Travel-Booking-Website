@@ -4,6 +4,11 @@
 <%@page import="javax.servlet.http.HttpServletRequest"%>
 <%@page import="com.iotbay.*" %>
 <%@ page import="com.iotbay.Model.*" %>
+<!--
+    Customer and Staff Account Management
+        Unregister Page - Confirms whether the User wishes to continue unregistering
+        If 'confirm' is selected, the User is removed from the DB - else the process is ceased.
+-->
 
 <!DOCTYPE html>
 <html>

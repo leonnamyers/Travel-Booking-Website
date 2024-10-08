@@ -36,3 +36,53 @@
         Error mitigation: utilised servlet/controller side validation, as well as preformatted input that avoid errors in all jsp.
      
 
+
+
+    CustomerAccountManagement - Leonna Myers
+    StaffAccountManagement - Leonna Myers
+        I handled the features pertaining to basic User (Customer and Staff) functionality (login, logout, register, update, unregister).
+        This includes,
+        
+        JSP (view):
+            account_details.jsp
+            index.jsp
+            login.jsp
+            logout.jsp
+            register.jsp
+            unregister.jsp
+            update_user_details.jsp
+            welcome.jsp
+            error.jsp
+        
+        DAO:            
+            DBManager.java
+        
+        Models: (Shared Responsibility with Anne Marie)
+            Address.java
+            Customer.java
+            DummyUsers.java
+            Staff.java
+            StaffType.java
+            User.java
+            UserType.java
+        
+        Controller:
+            CustomerAndStaffManagement Folder {
+                LoginController.java
+                RegisterController.java
+                UnregisterController.java
+                UpdateController.java
+            }
+            UserValidation.java
+        
+        Testing:
+             AppTest.java
+                Tested the logic and each DB methods (DBManager) at least once
+        
+        Error Mitigation:
+            Used both server and client side error handling
+                Server (see DataValidation.java & DBManager (Data Validation section(towards the bottom)))
+                Client (Ensures required input fields are not Null, and fields are formatted correctly (in conjunction with server side error handling))
+            JSP pages checks for User access
+            Null values and Error throwing/catching is accounted for (see UserValidation.java, JSP pages and Controller classes)
+            

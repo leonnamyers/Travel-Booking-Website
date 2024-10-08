@@ -23,7 +23,8 @@ import com.iotbay.Model.Staff;
 import com.iotbay.Model.User;
 import com.iotbay.Model.UserType;
 
-// Changed JUnit testing to Mokito (as our db is local - JUnit tests will not work)
+// Changed JUnit testing to use Mokito (as our db is local)
+// Tests the DBManager methods
 
 @ExtendWith(MockitoExtension.class)
 class AppTest {

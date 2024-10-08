@@ -5,6 +5,13 @@
 <%@ page import="com.iotbay.Dao.DBManager" %>
 <%@ page import="com.iotbay.Model.*" %>
 
+<!--
+    Customer and Staff Account Management
+        Logout Page
+        Invalidates current session
+        Displays message to tell the User that they are logging out and being redirected to the home page (index) - lasts for a second.
+-->
+
 <!DOCTYPE html>
 <html>
 <head>

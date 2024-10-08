@@ -4,6 +4,11 @@
 <%@ page import="com.iotbay.Model.*" %>
 <%@page import="java.sql.Timestamp" %>
 <%@page import="java.util.ArrayList"%>
+<!--
+    Customer and Staff Account Management
+        Displays text if User has successfully unregistered
+-->
+        
 <!DOCTYPE html>
 <html>
     <head>

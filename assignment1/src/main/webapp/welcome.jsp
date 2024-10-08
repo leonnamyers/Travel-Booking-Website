@@ -4,6 +4,11 @@
 <%@ page import="javax.servlet.http.HttpServletRequest" %>
 <%@ page import="com.iotbay.Model.*" %>
 
+<!--
+    Customer and Staff Account Management
+        Landing page for Users that successfully login or register (with relevant message)
+-->
+
 <!DOCTYPE html>
 <html>
 <head>
