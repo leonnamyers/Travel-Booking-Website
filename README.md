@@ -85,4 +85,42 @@
                 Client (Ensures required input fields are not Null, and fields are formatted correctly (in conjunction with server side error handling))
             JSP pages checks for User access
             Null values and Error throwing/catching is accounted for (see UserValidation.java, JSP pages and Controller classes)
-            
+
+
+
+    AdminStaffUserManagement - Anne Maree Hoang
+        My task revolved around user management features for Staff members (either Clerk or System Admin).
+        This includes the basic CRUD operations as well viewing a list of users and searching users.
+        
+        Files I worked with:
+        JSP (view):
+            accountDetailsPanel.jsp
+            registerPanel.jsp
+            updateUserPanel.jsp
+            userListPanel.jsp
+        
+        DAO:            
+            AdminStaffUserMgmtDAO.java
+        
+        Models: (Shared Responsibility with Leonna)
+            Address.java
+            Customer.java
+            DummyUsers.java
+            Staff.java
+            StaffType.java
+            User.java
+            UserType.java
+        
+        Controller:
+            AdminStaffUserMgmtController.java
+            UserValidation.java
+        
+        Testing:
+            AdminStaffUserMgmtTest.java
+        
+        Error Mitigation:
+            Used both server and client side error handling
+                Server (see DataValidation.java & DBManager (Data Validation section(towards the bottom)))
+                Client (Ensures required input fields are not Null, and fields are formatted correctly (in conjunction with server side error handling))
+            JSP pages checks for User access
+            Null values and Error throwing/catching is accounted for (see UserValidation.java, JSP pages and Controller classes)
