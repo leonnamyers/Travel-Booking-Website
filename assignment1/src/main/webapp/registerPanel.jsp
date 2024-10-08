@@ -7,59 +7,34 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link rel="stylesheet" href="css/style.css">
-    <script>
-        function showForm(role) {
-            const customerForm = document.getElementById('customer-form');
-            const staffForm = document.getElementById('staff-form');
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="css/style.css">
+        <script type="text/javascript" src="js/index.js"></script>
+        <title>Register New User</title>
+        <jsp:include page="navbar.jsp" flush="true" />
 
-            if (role === 'customer') {
-                customerForm.style.display = 'flex';
-                staffForm.style.display = 'none';
-            } else if (role === 'staff') {
-                staffForm.style.display = 'flex';
-                customerForm.style.display = 'none';
+        <script>
+            function showForm(role) {
+                const customerForm = document.getElementById('customer-form');
+                const staffForm = document.getElementById('staff-form');
+
+                if (role === 'customer') {
+                    customerForm.style.display = 'flex';
+                    staffForm.style.display = 'none';
+                } else if (role === 'staff') {
+                    staffForm.style.display = 'flex';
+                    customerForm.style.display = 'none';
+                }
             }
-        }
-    </script>
-    <title>Register</title>
+        </script>
+        
+    </head>
 </head>
 <body>
-    <nav>
-        <h1>Register</h1>
-        <%
-        if (session != null && session.getAttribute("user") != null) { 
-        %>
-        <ul>
-            <li><a href="index.jsp">Home</a></li>
-            <li><a href="account_details.jsp">Account</a></li>
-            <li><a href="logout.jsp">Logout</a></li>
-        </ul>
-
-        <!--Menu Items => If User is NOT logged in-->
-
-        <%
-        } else {
-        %>
-        <ul>
-            <li><a href="index.jsp">Home</a></li>
-            <li><a href="login.jsp">Login</a></li>
-            <li><a href="register.jsp">Register</a></li>
-        </ul>
-        <% 
-        }
-        %>
-    </nav>
-
 
     <% 
 
-    
-        /*
-            Register logic
-            If registration is invalid, it redirects to this page and displays the error here.
-        */
         String errorMessage = (String)request.getAttribute("errorMessage");
         if (errorMessage == null) {
             errorMessage = "";
@@ -98,8 +73,9 @@
             <div id="customer-form">
                 <div>
                     <h3 style="padding: 5%;">Please enter your customer details:</h3>
-                        <form action="/RegisterPanelController" method="post" class="login-form">
-                            <input type="hidden" id="userTypeCustomer" name="userType" value="customer">
+                        <form action="AdminStaffUserMgmtController" method="post" class="login-form">
+                            <input type="hidden" name="action" value="addUser">
+                            <input type="hidden" id="userTypeHidden" name="userType" value="customer">
                             <div id="form-item">
                                 <label for="email">Email:</label>
                                 <input type="email" id="email" name="email" maxlength="60" required>
@@ -157,9 +133,6 @@
                                 <div id="register-buttons">
                                     <button type="submit">Register</button>
                                 </div>
-
-                                
-
                             </div>
                         </form>
     <!-- 
@@ -169,7 +142,8 @@
             <div id="staff-form" style="display: none;">
                 <h3 style="padding: 5%;">Enter your staff details:</h3>
                 <div>
-                <form action="/RegisterPanelController" method="post" class="staff-form">
+                <form action="AdminStaffUserMgmtController" method="post" class="staff-form">
+                    <input type="hidden" name="action" value="addUser">
                     <input type="hidden" id="userTypeStaff" name="userType" value="staff">
                     <div id="form-item">
                         <label for="staff_id">Staff ID (8 Digits):</label>
@@ -195,11 +169,11 @@
                         <label for="staff_type">Staff Type:</label>
                         </div>
                         <div>
-                        <select id="staff_type" name="staff_type" style="font-size: medium;" required>
-                            <option value="">Select a type</option>
-                            <option value="1">Stock Clerk</option>
-                            <option value="2">System Admin</option>
-                        </select>
+                            <select id="staff_type" name="staff_type" style="font-size: medium;" required>
+                                <option value="">Select a type</option>
+                                <option value="1">Stock Clerk</option>
+                                <option value="2">System Admin</option>
+                            </select>
                         </div>
                     </div>
                         <div id="register-buttons" style="padding: 5%;">
@@ -208,12 +182,9 @@
                 </form>
             </div>
         </div>
-            <%
-            } else {
-            %>
-            <p> Error: You do not have permission to register users. </p>
-            <%
-            }
+        <% } else { %>
+            <p>Error: You do not have permission to register users.</p>
+        <% }
         }
         %>
         <jsp:include page="/ConnServlet" flush="true" />
