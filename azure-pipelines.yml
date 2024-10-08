@@ -19,8 +19,6 @@ steps:
   inputs:
     mavenPomFile: 'assignment1/pom.xml'
     goals: 'clean package'
-    publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
     javaHomeOption: 'JDKVersion'
     mavenVersionOption: 'Default'
     mavenAuthenticateFeed: false
@@ -55,3 +53,14 @@ steps:
     artifactName: 'drop'
     publishLocation: 'Container'
   displayName: 'Publish Artifact: drop'
+
+# Separate step for running tests
+- task: Maven@4
+  inputs:
+    mavenPomFile: 'assignment1/pom.xml'
+    goals: 'test'
+    publishJUnitResults: true
+    testResultsFiles: '**/surefire-reports/TEST-*.xml'
+    javaHomeOption: 'JDKVersion'
+    mavenVersionOption: 'Default'
+  displayName: 'Run Unit Tests'
