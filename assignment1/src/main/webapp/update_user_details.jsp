@@ -4,6 +4,12 @@
 <%@ page import="javax.servlet.http.HttpServletRequest" %>
 <%@ page import="com.iotbay.*" %>
 <%@ page import="com.iotbay.Model.*" %>
+<!--
+    Customer and Staff Account Management
+        Update account information
+        Current saved user data is displayed as the default (except the password).
+        Valid data must be input to successfully register (no duplicate email, email formatting, password formatting etc - see UserValidation and DBManager (Database Validation section))
+-->
 
 <!DOCTYPE html>
 <html>

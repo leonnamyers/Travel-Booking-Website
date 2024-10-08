@@ -14,6 +14,7 @@ import com.iotbay.Model.User;
 
 // This class contains and executes all of the SQL queries and PreparedStatements across the entire app
 // Any Controller classes that read from and write to the DB should call methods from the DBManager and add their queries here
+// User Database Validation also below
 
 public class DBManager {
     // Customer and Staff Queries

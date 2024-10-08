@@ -4,6 +4,13 @@
 <%@ page import="com.iotbay.*" %>
 <%@ page import="com.iotbay.Model.*" %>
 
+<!--
+    Customer and Staff Account Management
+        User Registration Page
+        There is a button that switches between Staff and Customer, with their corresponding forms
+        Valid data must be input to successfully register (no duplicate email, email formatting, password formatting etc - see UserValidation and DBManager (Database Validation section))
+-->
+
 <!DOCTYPE html>
 <html>
 <head>
