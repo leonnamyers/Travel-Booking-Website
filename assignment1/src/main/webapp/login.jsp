@@ -4,6 +4,13 @@
 <%@ page import="java.util.Random"%>
 <%@ page import="com.iotbay.*" %>
 <%@ page import="com.iotbay.Model.*" %>
+
+<!--
+    Customer and Staff Account Management
+        User Login Page
+        Shows error message (if login invalid/incorrect)
+-->
+
 <!DOCTYPE html>
 <html>
 <head>

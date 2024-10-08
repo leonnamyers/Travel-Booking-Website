@@ -5,6 +5,13 @@
 <%@ page import="com.iotbay.*" %>
 <%@ page import="com.iotbay.Model.*" %>
 
+
+<!--
+    Customer and Staff Account Management
+        Displays User account information
+        Update and Unregister accessible through this page
+-->
+
 <!DOCTYPE html>
 <html>
     <head>
