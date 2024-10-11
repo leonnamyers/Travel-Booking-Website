@@ -3,7 +3,6 @@ package com.iotbay.Controller;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.Enumeration;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,7 +16,6 @@ import javax.servlet.http.HttpSession;
 import com.iotbay.Dao.DBConnector;
 import com.iotbay.Dao.OrderDAO;
 import com.iotbay.Model.Cart;
-import com.iotbay.Model.Customer;
 import com.iotbay.Model.Order;
 
 public class CartController extends HttpServlet {
@@ -65,14 +63,14 @@ public class CartController extends HttpServlet {
 
         // Create Order
         Order order = new Order();
-        Customer customer = (Customer) request.getSession().getAttribute("user");
+        // Customer customer = (Customer) request.getSession().getAttribute("user");
         
 
-        order.setCustomerID(customer.getEmail()); // Assuming customer ID is stored in session
-        order.setTotalPrice(cart.getTotalPrice());
-        order.setOrderDate(new Timestamp(System.currentTimeMillis()));
-        order.setStartTime(new Timestamp(System.currentTimeMillis()));
-        order.setEndTime(new Timestamp(System.currentTimeMillis()));
+        // order.setCustomerID(customer.getEmail()); // Assuming customer ID is stored in session
+        // order.setTotalPrice(cart.getTotalPrice());
+        // order.setOrderDate(new Timestamp(System.currentTimeMillis()));
+        // order.setStartTime(new Timestamp(System.currentTimeMillis()));
+        // order.setEndTime(new Timestamp(System.currentTimeMillis()));
 
 
         DBConnector dbConnector = null;
@@ -83,7 +81,6 @@ public class CartController extends HttpServlet {
             connection = dbConnector.openConnection();
 
             OrderDAO orderDAO = new OrderDAO(connection);
-
             orderDAO.createOrder(order);
 
         } catch (ClassNotFoundException | SQLException e) {

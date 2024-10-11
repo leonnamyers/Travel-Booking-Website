@@ -36,8 +36,6 @@
         Error mitigation: utilised servlet/controller side validation, as well as preformatted input that avoid errors in all jsp.
      
 
-
-
     CustomerAccountManagement - Leonna Myers
     StaffAccountManagement - Leonna Myers
         I handled the features pertaining to basic User (Customer and Staff) functionality (login, logout, register, update, unregister).
@@ -124,3 +122,28 @@
                 Client (Ensures required input fields are not Null, and fields are formatted correctly (in conjunction with server side error handling))
             JSP pages checks for User access
             Null values and Error throwing/catching is accounted for (see UserValidation.java, JSP pages and Controller classes)
+
+    OrderMangement - Chandana Gangishetty 
+    Payment Managemnt- Chandana Gangishetty 
+
+    My task was to process an order seamlessly when an item is added to cart, while handling CRUD operations. This required building functionality that would allow users to add items to their cart, update quantities, view their current order, and remove items as needed. Similarly, with the payment feature, I had integrated a payment form for users to enter their card details, so that they can pay for their order. The payment process was designed to validate the card information, handle any errors in real-time (such as incorrect card details), and ultimately allow users to make a secure payment to finalize their order.
+
+    Files I have worked with: 
+    Controllers: 
+    Cart Controller
+    PlaceOrderController 
+    UpdateFlightOrderController 
+    CancelOrderController
+    PostOrderController
+
+
+    Dao: 
+    OrderDao
+
+
+    Models: 
+    Cart.java
+    Order.java
+    Payment.java
+
+    Error mitigation: utilised servlet/controller side validation, as well as preformatted input that avoid errors in all jsp.
