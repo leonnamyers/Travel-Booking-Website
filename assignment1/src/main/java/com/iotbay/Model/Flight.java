@@ -11,7 +11,9 @@ public class Flight extends Item {
     private String stops;
     private String seatType;
 
-
+    public Flight(){
+        super();
+    }
     public Flight(int itemID, String name, double price, int availability, String img, Timestamp startTime, Timestamp endTime,
      String departureCity, String destinationCity, int hours, String stops, String seatType){
         super(itemID, name, price, availability,img);

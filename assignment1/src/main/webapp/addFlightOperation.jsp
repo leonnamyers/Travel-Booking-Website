@@ -35,7 +35,7 @@
             } else {
             %>
             <ul>
-                <li><a href="Cart.jsp">Cart</a></li>
+                <li><a href="cart.jsp">Cart</a></li>
                 <li><a href="index.jsp">Home</a></li>
                 <li><a href="login.jsp">Login</a></li>
                 <li><a href="register.jsp">Register</a></li>
