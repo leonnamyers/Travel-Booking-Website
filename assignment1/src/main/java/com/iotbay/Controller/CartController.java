@@ -3,7 +3,6 @@ package com.iotbay.Controller;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.Enumeration;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -64,9 +63,15 @@ public class CartController extends HttpServlet {
 
         // Create Order
         Order order = new Order();
-        order.setCustomerID((String) request.getSession().getAttribute("customerID")); // Assuming customer ID is stored in session
-        order.setTotalPrice(cart.getTotalPrice());
-        order.setOrderDate(new Timestamp(System.currentTimeMillis()));
+        // Customer customer = (Customer) request.getSession().getAttribute("user");
+        
+
+        // order.setCustomerID(customer.getEmail()); // Assuming customer ID is stored in session
+        // order.setTotalPrice(cart.getTotalPrice());
+        // order.setOrderDate(new Timestamp(System.currentTimeMillis()));
+        // order.setStartTime(new Timestamp(System.currentTimeMillis()));
+        // order.setEndTime(new Timestamp(System.currentTimeMillis()));
+
 
         DBConnector dbConnector = null;
         Connection connection = null;
@@ -76,6 +81,7 @@ public class CartController extends HttpServlet {
             connection = dbConnector.openConnection();
 
             OrderDAO orderDAO = new OrderDAO(connection);
+            orderDAO.createOrder(order);
 
         } catch (ClassNotFoundException | SQLException e) {
             request.setAttribute("errorMessage", "Error processing your order. Please try again later.");
@@ -90,7 +96,7 @@ public class CartController extends HttpServlet {
         }
     }
 
-    response.sendRedirect("Payment.jsp");
+        response.sendRedirect("Payment.jsp");
 
 }
 

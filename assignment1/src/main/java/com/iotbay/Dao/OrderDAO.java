@@ -11,12 +11,12 @@ import com.iotbay.Model.Order;
 
 public class OrderDAO {
 
-    private String createQuery = "INSERT INTO Orders (customerID, orderDate, startTime, endTime, seatType, roomType, totalPrice) VALUES(?, ?, ?, ?, ?, ?, ?)";
-    private String readQuery = "SELECT orderID, customerID, orderDate, startTime, endTime, seatType, roomType, totalPrice FROM Orders";
-    private String deleteQuery = "DELETE FROM Orders WHERE orderID = ?";
-    private String getOrderQuery = "SELECT orderID, customerID, orderDate, startTime, endTime, seatType, roomType, totalPrice FROM Orders WHERE orderID = ?";
-    private String updateQuery = "UPDATE Orders SET customerID = ?, orderDate = ?, startTime = ?, endTime = ?, seatType = ?, roomType = ?, totalPrice = ? WHERE orderID = ?";
-
+    private String createQuery = "INSERT INTO Orders (OrderID, email, order_date, StartTime, EndTime, seatType, RoomType, totalPrice) VALUES(?, ?, ?, ?, ?, ?, ?)";
+    private String readQuery = "SELECT OrderID, email, order_date, StartTime, EndTime, seatType, RoomType, totalPrice FROM Orders";
+    private String deleteQuery = "DELETE FROM Orders WHERE OrderID = ?";
+    private String getOrderQuery = "SELECT OrderID, email, order_date, StartTime, EndTime, seatType, RoomType, totalPrice FROM Orders WHERE OrderID = ?";
+    private String updateQuery = "UPDATE Orders SET email = ?, order_date = ?, StartTime = ?, EndTime = ?, seatType = ?, RoomType = ?, totalPrice = ? WHERE OrderID = ?";
+    
     private Connection connection;
 
     // Constructor
@@ -25,20 +25,22 @@ public class OrderDAO {
         connection.setAutoCommit(true);
     }
 
-    // Create Operation
+    //Create Operation
     public void createOrder(Order order) throws SQLException {
         PreparedStatement statement = connection.prepareStatement(createQuery);
-        statement.setString(1, order.getCustomerID());
-        statement.setTimestamp(2, order.getOrderDate());
-        statement.setTimestamp(3, order.getStartTime());
-        statement.setTimestamp(4, order.getEndTime());
-        statement.setString(5, order.getSeatType());
-        statement.setString(6, order.getRoomType());
-        statement.setInt(7, order.getTotalPrice());
+        statement.setInt(1, order.getOrderID());
+        statement.setString(2, order.getCustomerID());
+        statement.setTimestamp(3, order.getOrderDate());
+        statement.setTimestamp(4, order.getStartTime());
+        statement.setTimestamp(5, order.getEndTime());
+        statement.setString(6, order.getSeatType());
+        statement.setString(7, order.getRoomType());
+        statement.setInt(8, order.getTotalPrice());
 
         statement.executeUpdate();
         statement.close();
     }
+
 
     // Read Operation
     public ArrayList<Order> fetchAllOrders() throws SQLException {
@@ -47,13 +49,13 @@ public class OrderDAO {
         ResultSet rs = statement.executeQuery();
         
         while (rs.next()) {
-            int orderID = rs.getInt("orderID");
-            String customerID = rs.getString("customerID");
-            Timestamp orderDate = rs.getTimestamp("orderDate");
-            Timestamp startTime = rs.getTimestamp("startTime");
-            Timestamp endTime = rs.getTimestamp("endTime");
+            String customerID = rs.getString("email");
+            Timestamp orderDate = rs.getTimestamp("order_date");
+            Timestamp startTime = rs.getTimestamp("StartTime");
+            Timestamp endTime = rs.getTimestamp("EndTime");
             String seatType = rs.getString("seatType");
-            String roomType = rs.getString("roomType");
+            String roomType = rs.getString("RoomType");
+            int orderID = rs.getInt("OrderID");
             int totalPrice = rs.getInt("totalPrice");
     
             Order order = new Order();
@@ -67,14 +69,13 @@ public class OrderDAO {
     // Update Operation
     public void updateOrder(Order order) throws SQLException {
         PreparedStatement statement = connection.prepareStatement(updateQuery);
-        statement.setString(1, order.getCustomerID());
-        statement.setTimestamp(2, order.getOrderDate());
-        statement.setTimestamp(3, order.getStartTime());
-        statement.setTimestamp(4, order.getEndTime());
-        statement.setString(5, order.getSeatType());
-        statement.setString(6, order.getRoomType());
-        statement.setInt(7, order.getTotalPrice());
-        statement.setInt(8, order.getOrderID());
+        statement.setString(2, order.getCustomerID());
+        statement.setTimestamp(3, order.getOrderDate());
+        statement.setTimestamp(4, order.getStartTime());
+        statement.setTimestamp(5, order.getEndTime());
+        statement.setString(6, order.getSeatType());
+        statement.setString(7, order.getRoomType());
+        statement.setInt(8, order.getTotalPrice());
         
         int rowsAffected = statement.executeUpdate();
         if (rowsAffected == 0) {
@@ -84,6 +85,7 @@ public class OrderDAO {
         }
         statement.close();
     }
+
 
     // Delete Operation
     public void deleteOrder(int orderID) throws SQLException {
@@ -119,25 +121,19 @@ public class OrderDAO {
         return null;
     }
 
-    public boolean saveOrder(Order order) {
-        String sql = "INSERT INTO Orders (customerID, orderDate, startTime, endTime, seatType, roomType, totalPrice) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        try (
-            PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+    // public boolean saveOrder(Order order) {
+    //     PreparedStatement statement = connection.prepareStatement(saveOrderQuery) {
+    //     statement.setString(1, order.getCustomerID());
+    //     statement.setTimestamp(2, order.getOrderDate());
+    //     statement.setTimestamp(3, order.getStartTime());
+    //     statement.setTimestamp(4, order.getEndTime());
+    //     statement.setString(5, order.getSeatType());
+    //     statement.setString(6, order.getRoomType());
+    //     statement.setInt(7, order.getTotalPrice());
 
-            preparedStatement.setString(1, order.getCustomerID());
-            preparedStatement.setTimestamp(2, order.getOrderDate());
-            preparedStatement.setTimestamp(3, order.getStartTime());
-            preparedStatement.setTimestamp(4, order.getEndTime());
-            preparedStatement.setString(5, order.getSeatType());
-            preparedStatement.setString(6, order.getRoomType());
-            preparedStatement.setInt(7, order.getTotalPrice());
+    //     int rowsAffected = statement.executeUpdate();
+    //     return rowsAffected > 0;
 
-            int rowsAffected = preparedStatement.executeUpdate();
-            return rowsAffected > 0;
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
+    //     }
+    // }
 }

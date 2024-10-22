@@ -7,7 +7,6 @@
 <%@page import="com.iotbay.Model.Package" %>
 <%@page import="com.iotbay.Model.Order" %>
 
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -15,13 +14,11 @@
         <link rel="stylesheet" href="/css/style.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-        <script type="text/javascript" src="/js/index.js">
-        </script>
+        <script type="text/javascript" src="/js/index.js"></script>
         <title>Dream Escape</title>
         <nav>
             <ul>
-                <<li><a href="index.jsp">Home</a></li>
-                <li><a href="account_details.jsp">Account</a></li>
+                <li><a href="index.jsp">Home</a></li>
                 <li><a href="logout.jsp">Logout</a></li>
             </ul>
         </nav>
@@ -52,20 +49,15 @@
                         <input type="text" name="seatType" id="seatType" value="${order.seatType}" required />
                     </div>
                     <div class="form-element">
-                        <label for="departureDate">Departure Date:</label>
-                        <input type="date" name="departureDate" id="departureDate" value="${order.departureDate}" required />
+                        <label for="startTime">Start Time:</label>
+                        <input type="datetime-local" name="startTime" id="startTime" value="${order.startTime}" required />
                     </div>
                     <div class="form-element">
-                        <label for="returnDate">Return Date:</label>
-                        <input type="date" name="returnDate" id="returnDate" value="${order.returnDate}" required />
-                    </div>
-                    <div class="form-element">
-                        <label for="totalPrice">Total Price:</label>
-                        <input type="number" name="totalPrice" id="totalPrice" value="${order.totalPrice}" step="0.01" required />
+                        <label for="endTime">End Time:</label>
+                        <input type="datetime-local" name="endTime" id="endTime" value="${order.endTime}" required />
                     </div>
                     <button class="general-buttons form-element">Update Details</button>
                 </form>
-                
             </div>
         </div>
     </main>
