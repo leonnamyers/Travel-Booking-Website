@@ -1,0 +1,124 @@
+/* 页面整体设置 */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+/* 主标题样式 */
+h1.cruisebooking-heading {
+    text-align: center;
+    font-size: 36px;
+    margin-top: 20px;
+    color: white; /* 设置字体颜色为白色 */
+    background-color: red; /* 设置背景颜色为红色 */
+    padding: 10px; /* 添加内边距 */
+    border-radius: 5px; /* 圆角效果 */
+}
+
+/* 搜索框样式 */
+.cruisebooking-search-form {
+    text-align: center;
+    margin: 20px;
+}
+
+.cruisebooking-search-form label {
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+.cruisebooking-search-form input {
+    padding: 5px;
+    font-size: 16px;
+}
+
+.cruisebooking-search-button {
+    padding: 5px 10px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+/* 邮轮列表样式 */
+.cruisebooking-cruise-list {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin: 20px;
+}
+
+.cruisebooking-cruise-item {
+    background-color: white;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    width: 30%;
+    text-align: center;
+}
+
+.cruisebooking-cruise-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.cruisebooking-cruise-name {
+    font-size: 20px;
+    margin: 10px 0;
+    color: #333;
+}
+
+.cruisebooking-cruise-description {
+    font-size: 14px;
+    color: #666;
+}
+
+.cruisebooking-cruise-price {
+    font-size: 18px;
+    font-weight: bold;
+    color: #007bff;
+    margin: 10px 0;
+}
+
+.cruisebooking-cruise-duration,
+.cruisebooking-cruise-port,
+.cruisebooking-cruise-departure {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+/* 按钮样式 */
+.cruisebooking-cruise-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+.cruisebooking-cruise-button:hover {
+    background-color: #0056b3;
+}
+
+/* 无邮轮时的提示 */
+.cruisebooking-no-cruises {
+    text-align: center;
+    color: #666;
+    font-size: 18px;
+}
+
+/* 错误消息样式 */
+.error-message {
+    text-align: center;
+    color: red;
+    font-size: 16px;
+    font-weight: bold;
+}
