@@ -69,6 +69,10 @@
                         <th>Email</th>
                         <th>First Name</th>
                         <th>Last Name</th>
+                        <%-- Only Admin can view --%>
+                        <% if (user != null && user.getUserType() == UserType.STAFF && ((Staff) user).getStaffTypeID() == 2) { %>
+                            <th>Role</th>
+                        <% } %>
                         <th>Action</th>
                     </tr>
                     <% if (users == null || users.isEmpty()) { %>
@@ -79,6 +83,17 @@
                                 <td><%= u.getEmail() %></td>
                                 <td><%= u.getFirstName() %></td>
                                 <td><%= u.getLastName() %></td>
+
+                                <%-- Only Admin can view --%>
+                                <% if (user != null && user.getUserType() == UserType.STAFF && ((Staff) user).getStaffTypeID() == 2) { 
+                                    if (u.getUserType() == UserType.CUSTOMER) { %>
+                                        <td>Customer</td>
+                                    <% } else if (u.getUserType() == UserType.STAFF) { 
+                                        Staff staffUser = (Staff) u; %>
+                                        <td><%= staffUser.getStaffTypeID() == 1 ? "Clerk" : "System Admin" %></td>
+                                    <% } 
+                                } %>
+
                                 <td>
                                     <form action="AdminStaffUserMgmtController" method="POST">
                                         <input type="hidden" name="email" value="<%= u.getEmail() %>">
