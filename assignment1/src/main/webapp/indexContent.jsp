@@ -101,7 +101,7 @@ h3 {
   height: 342px;
   list-style: none;
   background: #fff;
-  cursor: pointer;
+  cursor: default;
   padding-bottom: 15px;
   flex-direction: column;
   border-radius: 8px;
