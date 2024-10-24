@@ -27,6 +27,47 @@
         <script type="text/javascript" src="js/index.js"></script>
         <title>User List</title>
         <jsp:include page="navbar.jsp" flush="true" />
+        <style>
+            table {
+                width: 100%;
+                table-layout: auto;
+                border-collapse: collapse;
+                font-family: Arial, sans-serif;
+            }
+
+            th {
+                background-color: #555;
+                color: white;
+                padding: 12px;
+                text-align: left;
+                font-weight: bold;
+            }
+
+            td {
+                min-width: 150px;
+                max-width: 300px;
+                white-space: nowrap;
+            }
+
+            tr:nth-child(even) {
+                background-color: #f2f2f2;
+            }
+
+            tr:hover {
+                background-color: #ddd;
+            }
+
+            td, th {
+                padding: 8px;
+                border: 1px solid #ccc;
+                text-align: left;
+            }
+
+            .flex-container{
+            width:60%;
+            }
+        
+        </style>
     </head>
     <body onload="startTime()">
         <div class="outer-container">
@@ -106,6 +147,7 @@
                             </tr>
                     <% } } %>
                 </table>
+                
 
                 <%
                     if (users == null) {
