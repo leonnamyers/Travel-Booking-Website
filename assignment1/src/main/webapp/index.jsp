@@ -34,7 +34,7 @@
 
                 <!-- Content will be loaded based on navigation -->
                 <div class="content">
-                    <!-- No default content, only show based on navigation -->
+                    <jsp:include page="indexContent.jsp" flush="true" />
                 </div>
             </div>
         </div>
