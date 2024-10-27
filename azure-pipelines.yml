@@ -66,6 +66,7 @@ steps:
   displayName: 'Run Unit Tests'
 
 - script: |
-  echo "Deploying to Production environment..."
-displayName: 'Deploy to Production'
-environment: 'Travel Website'
+    echo "Deploying to Production environment..."
+  displayName: 'Deploy to Production'
+  env:
+    environment: 'Travel Website'
