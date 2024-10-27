@@ -1,6 +1,8 @@
 package com.iotbay.Controller;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,23 +11,36 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.iotbay.Dao.CruiseDAO;
+import com.iotbay.Dao.DBConnector;
 import com.iotbay.Model.Cruise;
 import com.iotbay.Model.User;
 import com.iotbay.Model.UserType;
 
 public class CruiseController extends HttpServlet {
 
-    private List<Cruise> cruiseList;
+    private CruiseDAO cruiseDAO;
+    private static final List<String> imagePaths = new ArrayList<>();
 
     @Override
     public void init() throws ServletException {
+        try {
+            DBConnector dbConnector = new DBConnector();
+            Connection connection = dbConnector.openConnection();
+            if (connection != null) {
+                cruiseDAO = new CruiseDAO(connection);
+            } else {
+                throw new ServletException("Failed to connect to the database");
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+            throw new ServletException("Database connection error", e);
+        }
 
-        cruiseList = new ArrayList<>();
-        cruiseList.add(new Cruise(1, "Sydney Harbour Cruise", 150.00, "Sydney", "Enjoy a scenic cruise in Sydney Harbour", 50));
-        cruiseList.add(new Cruise(2, "Great Barrier Reef Cruise", 200.00, "Cairns", "Explore the beauty of the Great Barrier Reef", 30));
-        cruiseList.add(new Cruise(3, "Tasmanian Wilderness Cruise", 180.00, "Hobart", "Discover the wild landscapes of Tasmania", 40));
-        cruiseList.add(new Cruise(4, "Melbourne Coastal Cruise", 120.00, "Melbourne", "Cruise along the stunning Melbourne coastline", 60));
-
+        imagePaths.add("images/Bali_island.jpg");
+        imagePaths.add("images/great_barrier_reef.jpg");
+        imagePaths.add("images/kangaroo_island_wildlife.jpg");
+        imagePaths.add("images/Tasmania.jpg");
     }
 
     @Override
@@ -37,23 +52,30 @@ public class CruiseController extends HttpServlet {
         User user = (User) request.getSession().getAttribute("user");
         System.out.println("User: " + (user != null ? user.getUserType() : "Anonymous"));
 
-        if ("loadCruises".equals(action)) {
-            loadCruises(request, response);
-        } else if ("searchByPort".equals(action)) {
-            searchCruisesByPort(request, response);
-        } else if ("addCruise".equals(action) && user != null && user.getUserType() == UserType.STAFF) {
-            request.getRequestDispatcher("/cruiseForm.jsp").forward(request, response);
-        } else if ("viewDetails".equals(action)) {
-            int cruiseId = Integer.parseInt(request.getParameter("cruiseId"));
-            Cruise cruise = findCruiseById(cruiseId);
-            if (cruise != null) {
-                request.setAttribute("selectedCruise", cruise);
-                request.getRequestDispatcher("/cruiseDetails.jsp").forward(request, response);
+        try {
+            if ("loadCruises".equals(action)) {
+                loadCruises(request, response);
+            } else if ("searchByPort".equals(action)) {
+                searchCruisesByPort(request, response);
+            } else if ("searchByDate".equals(action)) {
+                searchCruisesByDate(request, response);  
+            } else if ("addCruise".equals(action) && user != null && user.getUserType() == UserType.STAFF) {
+                request.getRequestDispatcher("/cruiseForm.jsp").forward(request, response);
+            } else if ("viewDetails".equals(action)) {
+                int cruiseId = Integer.parseInt(request.getParameter("cruiseId"));
+                Cruise cruise = cruiseDAO.fetchCruiseById(cruiseId);
+                if (cruise != null) {
+                    request.setAttribute("selectedCruise", cruise);
+                    request.getRequestDispatcher("/cruiseDetails.jsp").forward(request, response);
+                } else {
+                    response.sendRedirect("cruiseBooking.jsp");
+                }
             } else {
-                response.sendRedirect("cruiseBooking.jsp");  // 修改为 cruiseBooking.jsp
+                response.sendRedirect("index.jsp");
             }
-        } else {
-            response.sendRedirect("index.jsp");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new ServletException("Database error occurred");
         }
     }
 
@@ -66,59 +88,74 @@ public class CruiseController extends HttpServlet {
         User user = (User) request.getSession().getAttribute("user");
         System.out.println("User: " + (user != null ? user.getUserType() : "Anonymous"));
 
-        if (user != null && user.getUserType() == UserType.STAFF) {
-            if ("addCruise".equals(action)) {
-                addCruise(request, response);
+        try {
+            if (user != null && user.getUserType() == UserType.STAFF) {
+                if ("addCruise".equals(action)) {
+                    addCruise(request, response);
+                }
+            } else {
+                response.sendRedirect("noPermission.jsp");
             }
-        } else {
-            response.sendRedirect("noPermission.jsp");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new ServletException("Error processing cruise");
         }
     }
 
     private void loadCruises(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        request.setAttribute("cruises", cruiseList);
-        request.getRequestDispatcher("cruiseBooking.jsp").forward(request, response);  // 修改为 cruiseBooking.jsp
+            throws SQLException, ServletException, IOException {
+        List<Cruise> cruises = cruiseDAO.fetchAllCruises();
+        assignImagePaths(cruises); 
+        request.setAttribute("cruises", cruises);
+        request.getRequestDispatcher("cruiseBooking.jsp").forward(request, response);
     }
 
     private void searchCruisesByPort(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws SQLException, ServletException, IOException {
         String port = request.getParameter("port");
-        List<Cruise> filteredCruises = new ArrayList<>();
-        for (Cruise cruise : cruiseList) {
-            if (cruise.getPort().equalsIgnoreCase(port)) {
-                filteredCruises.add(cruise);
-            }
-        }
+        List<Cruise> filteredCruises = cruiseDAO.searchCruisesByPort(port);
+        assignImagePaths(filteredCruises); 
         request.setAttribute("cruises", filteredCruises);
-        request.getRequestDispatcher("cruiseBooking.jsp").forward(request, response);  // 修改为 cruiseBooking.jsp
+        request.getRequestDispatcher("cruiseBooking.jsp").forward(request, response);
+    }
+
+
+    private void searchCruisesByDate(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, ServletException, IOException {
+        String startDate = request.getParameter("startDate");
+        String endDate = request.getParameter("endDate");
+        List<Cruise> filteredCruises = cruiseDAO.searchCruisesByDate(startDate, endDate);
+        assignImagePaths(filteredCruises); 
+        request.setAttribute("cruises", filteredCruises);
+        request.getRequestDispatcher("cruiseBooking.jsp").forward(request, response);
     }
 
     private void addCruise(HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException {
-   
-        Cruise cruise = new Cruise();
-        cruise.setItemID(cruiseList.size() + 1); 
+            throws SQLException, IOException, ServletException {
 
-        cruise.setName(request.getParameter("name"));
-        cruise.setPrice(Double.parseDouble(request.getParameter("price")));
-        cruise.setPort(request.getParameter("port"));
-        cruise.setDescription(request.getParameter("description"));
-        cruise.setAvailability(Integer.parseInt(request.getParameter("availability")));
+        String name = request.getParameter("name");
+        double price = Double.parseDouble(request.getParameter("price"));
+        int availability = Integer.parseInt(request.getParameter("availability"));
+        String img = request.getParameter("img");
+        String port = request.getParameter("port");
+        String description = request.getParameter("description");
+        int duration = Integer.parseInt(request.getParameter("duration"));
+        String departureDate = request.getParameter("departureDate");
+        String specialOffer = request.getParameter("specialOffer");
+        String location = request.getParameter("location");
 
-        cruiseList.add(cruise);
-        System.out.println("Added new cruise: " + cruise.getName());
+        cruiseDAO.createCruise(name, price, availability, img, port, description, duration, departureDate, specialOffer, location);
 
+        System.out.println("Added new cruise: " + name);
         response.sendRedirect("CruiseController?action=loadCruises");
     }
 
-    private Cruise findCruiseById(int cruiseId) {
-        for (Cruise cruise : cruiseList) {
-            if (cruise.getItemID() == cruiseId) {
-                return cruise;
-            }
+ 
+    private void assignImagePaths(List<Cruise> cruises) {
+        for (int i = 0; i < cruises.size(); i++) {
+            Cruise cruise = cruises.get(i);
+          
+            cruise.setImg(imagePaths.get(i % imagePaths.size()));
         }
-        return null;
     }
-
 }
