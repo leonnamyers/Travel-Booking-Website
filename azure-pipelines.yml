@@ -64,3 +64,13 @@ steps:
     javaHomeOption: 'JDKVersion'
     mavenVersionOption: 'Default'
   displayName: 'Run Unit Tests'
+
+# Deployment job to an environment
+jobs:
+  - job: DeployToProduction
+    displayName: 'Deploy to Production Environment'
+    environment: 'Travel Website'
+    steps:
+      - script: |
+          echo "Deploying to Production environment..."
+        displayName: 'Run deployment script'
