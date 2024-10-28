@@ -90,7 +90,7 @@
                 <h1>Hotel Catalogue Management</h1>
                 <br/>
                 <h2>
-                    <form action="http://localhost:8080/addHotel.jsp">
+                    <form action="addHotel.jsp">
                         <button type="submit">ADD NEW HOTEL</button>
                     </form>
                     &nbsp;&nbsp;&nbsp;
@@ -108,7 +108,7 @@
         <!-- Updating form -->
         <div align="center" class="div-1">
             <div  class="update-container">
-            <form method="post" action="http://localhost:8080/UpdateHotelController">
+            <form method="post" action="/UpdateHotelController">
                 <h1>Update The Hotel</h1>
                 <br/>
                 <label>

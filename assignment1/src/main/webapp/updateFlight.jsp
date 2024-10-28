@@ -93,7 +93,7 @@
             <h1>Flight Catalogue Management</h1>
             <br/>
             <h2>
-                <form action="http://localhost:8080/addFlight.jsp">
+                <form action="addFlight.jsp">
                     <button type="submit">ADD NEW FLIGHT</button>
                 </form>
                 &nbsp;&nbsp;&nbsp;
