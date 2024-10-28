@@ -4,7 +4,7 @@ trigger:
       - main
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: 'ubuntu-latest'
 
 services:
   mysql:
@@ -13,7 +13,7 @@ services:
       MYSQL_ROOT_PASSWORD: '1234!@#$'
       MYSQL_DATABASE: TravelWeb
     ports:
-    - 3306:3306
+      - 3306:3306
     options: --health-cmd="mysqladmin ping --silent" --health-interval=10s --health-timeout=5s --health-retries=3
 
 steps:
@@ -66,3 +66,27 @@ steps:
     javaHomeOption: 'JDKVersion'
     mavenVersionOption: 'Default'
   displayName: 'Run Unit Tests'
+
+- task: DownloadPipelineArtifact@2
+  inputs:
+    source: 'current'
+    artifact: 'drop'
+    path: '$(Pipeline.Workspace)/drop'
+  displayName: 'Download Artifact'
+
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      # Copy the .war file to the Tomcat webapps directory
+      Copy-Item "$(Pipeline.Workspace)\drop\app-package.zip" "C:\path\to\tomcat\webapps" -Force
+  displayName: 'Copy .war to Tomcat Webapps Directory'
+
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      # Restart Tomcat service on Windows
+      net stop Tomcat9
+      net start Tomcat9
+  displayName: 'Restart Tomcat'
