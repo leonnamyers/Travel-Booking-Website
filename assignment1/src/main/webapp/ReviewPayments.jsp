@@ -24,10 +24,6 @@
                     
                     <table>
                         <tr>
-                            <th>Payment ID:</th>
-                            <td><%= payment.getPaymentID() %></td>
-                        </tr>
-                        <tr>
                             <th>Cardholder Name:</th>
                             <td><%= payment.getCardHolderName() %></td>
                         </tr>
@@ -48,7 +44,7 @@
 
                     <div class="orderbutton-container">
                         <div>
-                            <form action="RemovePaymentDetailsController" method="POST">
+                            <form action="DeletePaymentDetailsController" method="POST">
                                 <button type="submit">Remove Details</button>
                             </form>
                         </div>

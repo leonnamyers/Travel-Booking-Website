@@ -202,6 +202,16 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>DeletePaymentDetailsController</servlet-name>
+        <servlet-class>com.iotbay.Controller.DeletePaymentDetailsController</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeletePaymentDetailsController</servlet-name>
+        <url-pattern>/DeletePaymentDetailsController</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
     <servlet-name>EditPackageController</servlet-name>
     <servlet-class>com.iotbay.Controller.EditPackageController</servlet-class>
     <load-on-startup>1</load-on-startup>
