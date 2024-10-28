@@ -1,5 +1,7 @@
 trigger:
-  - main
+  branches:
+    include:
+      - main
 
 pool:
   vmImage: ubuntu-latest
@@ -11,7 +13,7 @@ services:
       MYSQL_ROOT_PASSWORD: '1234!@#$'
       MYSQL_DATABASE: TravelWeb
     ports:
-      - 3306:3306
+    - 3306:3306
     options: --health-cmd="mysqladmin ping --silent" --health-interval=10s --health-timeout=5s --health-retries=3
 
 steps:
@@ -21,6 +23,9 @@ steps:
     goals: 'clean package'
     javaHomeOption: 'JDKVersion'
     mavenVersionOption: 'Default'
+    mavenAuthenticateFeed: false
+    effectivePomSkip: false
+    sonarQubeRunAnalysis: false
   displayName: 'Build and Package Maven Project'
 
 - script: |
@@ -40,7 +45,9 @@ steps:
 - script: |
     mkdir -p $(Build.ArtifactStagingDirectory)/Release
     cp assignment1/target/*.war $(Build.ArtifactStagingDirectory)/Release/
-  displayName: 'Copy Build Output'
+    cd $(Build.ArtifactStagingDirectory)/Release
+    zip -r app-package.zip .
+  displayName: 'Package Build Output into .zip'
 
 - task: PublishBuildArtifacts@1
   inputs:
@@ -49,25 +56,13 @@ steps:
     publishLocation: 'Container'
   displayName: 'Publish Artifact: drop'
 
-- stage: Deploy
-  displayName: 'Deploy to Travel Website'
-  jobs:
-  - deployment: 'DeployToTravelWebsite'
-    displayName: 'Deploy .war to VM'
-    environment: 
-      name: 'Travel Website'
-      resourceType: 'VirtualMachine'
-    strategy:
-      runOnce:
-        deploy:
-          steps:
-          - download: current
-            artifact: drop
-          - script: |
-              Copy-Item "$(System.ArtifactsDirectory)\drop\*.war" 'C:\Program Files\Apache Software Foundation\Tomcat 9.0\webapps' -Force
-            displayName: 'Copy .war to Tomcat Webapps Directory'
-          - script: |
-              net stop Tomcat9
-              net start Tomcat9
-            displayName: 'Restart Tomcat'
-
+# Separate step for running tests
+- task: Maven@4
+  inputs:
+    mavenPomFile: 'assignment1/pom.xml'
+    goals: 'test'
+    publishJUnitResults: true
+    testResultsFiles: '**/surefire-reports/TEST-*.xml'
+    javaHomeOption: 'JDKVersion'
+    mavenVersionOption: 'Default'
+  displayName: 'Run Unit Tests'
