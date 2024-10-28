@@ -31,8 +31,8 @@ public class OrderDAO {
         statement.setInt(1, order.getOrderID());
         statement.setString(2, order.getCustomerID());
         statement.setTimestamp(3, order.getOrderDate());
-        statement.setTimestamp(4, order.getStartTime());
-        statement.setTimestamp(5, order.getEndTime());
+        statement.setString(4, order.getStartTime());
+        statement.setString(5, order.getEndTime());
         statement.setString(6, order.getSeatType());
         statement.setString(7, order.getRoomType());
         statement.setInt(8, order.getTotalPrice());
@@ -51,8 +51,8 @@ public class OrderDAO {
         while (rs.next()) {
             String customerID = rs.getString("email");
             Timestamp orderDate = rs.getTimestamp("order_date");
-            Timestamp startTime = rs.getTimestamp("StartTime");
-            Timestamp endTime = rs.getTimestamp("EndTime");
+            String startTime = rs.getString("StartTime");
+            String endTime = rs.getString("EndTime");
             String seatType = rs.getString("seatType");
             String roomType = rs.getString("RoomType");
             int orderID = rs.getInt("OrderID");
@@ -71,8 +71,8 @@ public class OrderDAO {
         PreparedStatement statement = connection.prepareStatement(updateQuery);
         statement.setString(2, order.getCustomerID());
         statement.setTimestamp(3, order.getOrderDate());
-        statement.setTimestamp(4, order.getStartTime());
-        statement.setTimestamp(5, order.getEndTime());
+        statement.setString(4, order.getStartTime());
+        statement.setString(5, order.getEndTime());
         statement.setString(6, order.getSeatType());
         statement.setString(7, order.getRoomType());
         statement.setInt(8, order.getTotalPrice());
@@ -104,8 +104,8 @@ public class OrderDAO {
         if (rs.next()) {
             String customerID = rs.getString("customerID");
             Timestamp orderDate = rs.getTimestamp("orderDate");
-            Timestamp startTime = rs.getTimestamp("startTime");
-            Timestamp endTime = rs.getTimestamp("endTime");
+            String startTime = rs.getString("startTime");
+            String endTime = rs.getString("endTime");
             String seatType = rs.getString("seatType");
             String roomType = rs.getString("roomType");
             int totalPrice = rs.getInt("totalPrice");

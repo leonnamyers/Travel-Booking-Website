@@ -35,7 +35,7 @@ public class UpdateFlightOrderController extends HttpServlet {
 
             if (order != null) {
                 request.setAttribute("order", order);
-                request.getRequestDispatcher("updateFlightOrder.jsp").forward(request, response);
+                request.getRequestDispatcher("UpdateFlightOrder.jsp").forward(request, response);
             } else {
                 response.sendRedirect("error.jsp");
             }
@@ -66,8 +66,6 @@ public class UpdateFlightOrderController extends HttpServlet {
             OrderDAO orderDAO = new OrderDAO(connection);
 
             int orderID = Integer.parseInt(request.getParameter("orderID"));
-            String firstname = request.getParameter("FirstName");
-            String lastname = request.getParameter("LastName");
             String email = request.getParameter("email");
             String startTime = request.getParameter("departureDate");
             String endTime = request.getParameter("returnDate");
@@ -76,18 +74,25 @@ public class UpdateFlightOrderController extends HttpServlet {
             Timestamp updatedOrderDate = new Timestamp(System.currentTimeMillis());
 
             // Fetch the existing order to update
+
             Order existingOrder = orderDAO.fetchOrder(orderID);
 
             if (existingOrder != null) {
                 // Create a new Order object with the updated values
                 Order updatedOrder = new Order();
                 updatedOrder.setOrderID(orderID);
+                updatedOrder.setCustomerID(email);
+                updatedOrder.setStartTime(startTime);
+                updatedOrder.setEndTime(endTime);
+                updatedOrder.setSeatType(seatType);
+                updatedOrder.setRoomType(roomType);
+                updatedOrder.setOrderDate(updatedOrderDate);
 
                 // Update the order in the database
                 orderDAO.updateOrder(updatedOrder);
 
                 // After updating, redirect to a confirmation or order summary page
-                response.sendRedirect("FlightOrder.jsp");
+                response.sendRedirect("UpdateFlightOrder.jsp");
             } else {
                 response.sendRedirect("error.jsp");
             }

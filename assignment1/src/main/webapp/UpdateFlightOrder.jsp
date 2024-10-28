@@ -32,29 +32,22 @@
                 <form action="/UpdateFlightOrderController" method="post">
                     <input type="hidden" name="orderID" value="${order.orderID}"/>
                 
-                    <div class="form-element">
-                        <label for="first-name">First Name:</label>
-                        <input type="text" name="firstName" id="first-name" value="${order.firstName}" required />
-                    </div>
-                    <div class="form-element">
-                        <label for="last-name">Last Name:</label>
-                        <input type="text" name="lastName" id="last-name" value="${order.lastName}" required />
-                    </div>
+
                     <div class="form-element">
                         <label for="email">Email:</label>
-                        <input type="email" name="email" id="email" value="${order.email}" required />
+                        <input type="text" name="email" id="email" required />
                     </div>
                     <div class="form-element">
                         <label for="seatType">Seat Type:</label>
-                        <input type="text" name="seatType" id="seatType" value="${order.seatType}" required />
+                        <input type="text" name="seatType" id="seatType" required />
                     </div>
                     <div class="form-element">
                         <label for="startTime">Start Time:</label>
-                        <input type="datetime-local" name="startTime" id="startTime" value="${order.startTime}" required />
+                        <input type="text" name="startTime" id="startTime" required />
                     </div>
                     <div class="form-element">
                         <label for="endTime">End Time:</label>
-                        <input type="datetime-local" name="endTime" id="endTime" value="${order.endTime}" required />
+                        <input type="text" name="endTime" id="endTime" required />
                     </div>
                     <button class="general-buttons form-element">Update Details</button>
                 </form>

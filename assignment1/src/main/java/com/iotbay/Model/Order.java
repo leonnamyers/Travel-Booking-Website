@@ -9,13 +9,13 @@ public class Order {
     private Cart cart;
     private int TotalPrice;
     private Timestamp orderDate;
-    private Timestamp startTime;
-    private Timestamp endTime;
+    private String startTime;
+    private String endTime;
     private String seatType;
     private String roomType;
 
     // Constructor
-    public Order(int orderID, String customerID, Cart cart, Timestamp orderDate, int TotalPrice, Timestamp startTime, Timestamp endTime, String seatType, String roomType) {
+    public Order(int orderID, String customerID, Cart cart, Timestamp orderDate, int TotalPrice, String startTime, String endTime, String seatType, String roomType) {
         this.orderID = orderID;
         this.customerID = customerID;
         this.cart = cart;
@@ -71,22 +71,22 @@ public class Order {
         this.orderDate = orderDate;
     }
 
-    public Timestamp getStartTime() {
-        return startTime;
+    public String getStartTime() {
+        return startTime;  
+    }    
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;  
     }
 
-    public void setStartTime(Timestamp startTime) {
-        this.startTime = startTime;
-    }
+    public String getEndTime() {
+        return endTime;    
+    }    
 
-    public Timestamp getEndTime() {
-        return endTime;
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;  
     }
-
-    public void setEndTime(Timestamp endTime) {
-        this.endTime = endTime;
-    }
-
+   
     public String getSeatType() {
         return seatType;
     }

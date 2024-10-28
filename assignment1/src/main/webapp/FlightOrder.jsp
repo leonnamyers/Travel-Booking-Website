@@ -85,10 +85,9 @@
                                 <button type="submit">Cancel Order</button>
                             </form>
                         </div>
-                        
                         <div>
-                            <form action="PostOrderController" method="POST">
-                                <button type="submit">Confirm Order</button>
+                            <form action="ReviewPaymentsController" method="POST">
+                                <button type="submit">Review Payments</button>
                             </form>
                         </div>
                         <div>
@@ -98,6 +97,8 @@
                             </form>
                         </div>
                     </div>
+                </div>
+
                 <%
                 } else {
                 %>

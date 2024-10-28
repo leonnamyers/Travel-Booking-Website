@@ -33,6 +33,22 @@ public class DBConnector extends DB {
 		this.conn = conn;
 	}
 
+	public Connection getConnection() throws SQLException, ClassNotFoundException {
+        if (this.conn == null || this.conn.isClosed()) {
+            // Re-initialize if connection is closed or null
+            Class.forName(driver);
+            
+            Properties dbProperties = new Properties();
+            dbProperties.put("user", dbuser);
+            dbProperties.put("password", dbpass);
+            dbProperties.put("allowPublicKeyRetrieval", "true");
+            dbProperties.put("useSSL", "false");
+
+            conn = DriverManager.getConnection(URL + db, dbProperties);
+        }
+        return this.conn;
+    }
+
 	public void closeConnection() throws SQLException {
 		this.conn.close();
 	}
