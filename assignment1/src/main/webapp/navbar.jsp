@@ -61,8 +61,8 @@
     <ul>
         <li><a href="PackageController?action=loadPackages">Package Booking</a></li>
         <li><a href="CruiseController?action=loadCruises">Cruise Booking</a></li>
-        <li><a href="//localhost:8080/flights.jsp">Flight</a></li>
-        <li><a href="//localhost:8080/hotels.jsp">Hotel</a></li>
+        <li><a href="flights.jsp">Flight</a></li>
+        <li><a href="hotels.jsp">Hotel</a></li>
         <!-- Show User List only for Staff users -->
         <%
             User user = (User) session.getAttribute("user");

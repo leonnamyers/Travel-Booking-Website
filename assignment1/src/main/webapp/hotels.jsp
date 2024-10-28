@@ -384,7 +384,7 @@
                 <h1>Hotels Catalogue Management</h1>
             </br>
                 <h2>
-                    <form action="http://localhost:8080/addHotel.jsp">
+                    <form action="addHotel.jsp">
                         <button type="submit">ADD NEW HOTEL</button>
                     </form>
                     &nbsp;&nbsp;&nbsp;
@@ -431,11 +431,11 @@
                     <td><c:out value="${hotel.availableBeginDate}"/></td>
                     <td><c:out value="${hotel.availableEndDate}"/></td>
                     <td>
-                        <form method="POST" action="http://localhost:8080/UpdateHotelFormController">
+                        <form method="POST" action="/UpdateHotelFormController">
                             <input type="hidden" name="itemID" value="${hotel.itemID}"/>
                             <input id="updateHotel" type="submit" value="Update"/>
                         </form>
-                        <form method="POST" action="http://localhost:8080/DeleteHotelController">
+                        <form method="POST" action="/DeleteHotelController">
                             <input type="hidden" name="itemID" value="${hotel.itemID}"/>
                             <input id="deleteHotel" type="submit" value="Delete"/>
                         </form>

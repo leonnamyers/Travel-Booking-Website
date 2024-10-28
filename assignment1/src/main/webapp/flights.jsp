@@ -279,7 +279,7 @@
                 <h1>Flights Catalogue Management</h1>
                <br/>
                 <h2>
-                    <form action="http://localhost:8080/addFlight.jsp">
+                    <form action="addFlight.jsp">
                         <button type="submit">ADD NEW FLIGHT</button>
                     </form>
                     &nbsp;&nbsp;&nbsp;
@@ -330,11 +330,11 @@
                     <td><c:out value="${flight.stops}" /></td>
                     <td><c:out value="${flight.seatType}" /></td>
                     <td>
-                        <form method="POST" action="http://localhost:8080/UpdateFlightFormController">
+                        <form method="POST" action="/UpdateFlightFormController">
                             <input type="hidden" name="itemID" value="${flight.itemID}"/>
                             <input id="updateFlight" type="submit" value="Update"/>
                         </form>
-                        <form method="POST" action="http://localhost:8080/DeleteFlightController">
+                        <form method="POST" action="/DeleteFlightController">
                             <input type="hidden" name="itemID" value="${flight.itemID}"/>
                             <input id="deleteFlight" type="submit" value="Delete"/>
                         </form>
