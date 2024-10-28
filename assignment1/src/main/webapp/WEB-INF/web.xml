@@ -308,4 +308,34 @@
         <url-pattern>/AddHotelToCartController</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+    <servlet-name>CruiseDetailsController</servlet-name>
+    <servlet-class>com.iotbay.Controller.CruiseDetailsController</servlet-class>
+    <load-on-startup>1</load-on-startup>
+</servlet>
+<servlet-mapping>
+    <servlet-name>CruiseDetailsController</servlet-name>
+    <url-pattern>/CruiseDetailsController</url-pattern>
+</servlet-mapping>
+
+<servlet>
+        <servlet-name>EditCruiseController</servlet-name>
+        <servlet-class>com.iotbay.Controller.EditCruiseController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EditCruiseController</servlet-name>
+        <url-pattern>/EditCruiseController</url-pattern>
+    </servlet-mapping>
+
+ 
+    <servlet>
+        <servlet-name>DeleteCruiseController</servlet-name>
+        <servlet-class>com.iotbay.Controller.DeleteCruiseController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteCruiseController</servlet-name>
+        <url-pattern>/DeleteCruiseController</url-pattern>
+    </servlet-mapping>
+
+
 </web-app>

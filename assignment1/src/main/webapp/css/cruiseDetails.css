@@ -1,0 +1,89 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.cruise-image-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.cruise-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.cruise-title-container {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.cruise-name {
+    font-size: 32px;
+    color: #333;
+}
+
+.cruise-details-container {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px;
+}
+
+.cruise-details-left, .cruise-details-right {
+    width: 45%;
+}
+
+.cruise-title {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.cruise-details-left p {
+    font-size: 16px;
+    margin: 10px 0;
+}
+
+.cruise-details-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.cruise-details-form label {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.cruise-details-form input,
+.cruise-details-form select {
+    padding: 10px;
+    font-size: 14px;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.cruise-details-button {
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.cruise-details-button:hover {
+    background-color: #0056b3;
+}
+
+.footer-container {
+    margin-top: 50px;
+    text-align: center;
+    padding: 20px;
+    background-color: #333;
+    color: white;
+}
