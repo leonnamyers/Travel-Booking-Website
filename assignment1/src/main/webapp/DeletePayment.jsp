@@ -13,7 +13,7 @@
         <jsp:include page="navbar.jsp" flush="true" />
         <div class="outer-container">
             <div class="flex-container">
-                    <p>No payment details found.</p>
+                    <p>Payment details successfully deleted.</p>
                     <br>
                 </div>
             </div>
