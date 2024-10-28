@@ -86,7 +86,7 @@
                             </form>
                         </div>
                         <div>
-                            <form action="ReviewPaymentsController" method="POST">
+                            <form action="ReviewPaymentsController" method="GET">
                                 <button type="submit">Review Payments</button>
                             </form>
                         </div>

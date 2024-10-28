@@ -28,21 +28,36 @@ public class ReviewPaymentsController extends HttpServlet {
             connection = dbConnector.openConnection();
             PaymentDAO paymentDAO = new PaymentDAO(connection);
 
-            // Retrieve payment ID as a request parameter, not from User object
-            String paymentIDParam = request.getParameter("paymentID");
-            if (paymentIDParam != null && !paymentIDParam.isEmpty()) {
-                int paymentID = Integer.parseInt(paymentIDParam);
+            Payment sessionPayment = (Payment) session.getAttribute("payment");
+            if (sessionPayment != null) {
+                
+                Payment fullPayment = paymentDAO.fetchPayment(sessionPayment.getPaymentID());
+                if (fullPayment != null) {
+                    request.setAttribute("payment", fullPayment);
+                } else {
+                    request.setAttribute("error", "Payment details not found.");
+                }
 
-                // Fetch payment using paymentDAO
-                Payment payment = paymentDAO.fetchPayment(paymentID);
-                if (payment != null) {
-                    request.setAttribute("payment", payment);
+            } else {
+                // Retrieve payment ID as a request parameter, not from User object
+                String paymentIDParam = request.getParameter("paymentID");
+                if (paymentIDParam != null && !paymentIDParam.isEmpty()) {
+                    int paymentID = Integer.parseInt(paymentIDParam);
+
+                    // Fetch payment using paymentDAO
+                    Payment fullPayment = paymentDAO.fetchPayment(paymentID);
+                    if (fullPayment != null) {
+                        request.setAttribute("payment", fullPayment);
+                    } else {
+                        request.setAttribute("error", "Payment details not found.");
+                    }
                 } else {
                     request.setAttribute("error", "Payment details not found.");
                 }
             }
 
             request.getRequestDispatcher("ReviewPayments.jsp").forward(request, response);
+            
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
             response.sendRedirect("error.jsp");

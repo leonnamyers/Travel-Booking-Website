@@ -22,7 +22,7 @@
                     %>
                     <h2>Payment Details</h2>
                     
-                    <!-- <table>
+                    <table>
                         <tr>
                             <th>Payment ID:</th>
                             <td><%= payment.getPaymentID() %></td>
@@ -42,28 +42,6 @@
                         <tr>
                             <th>CVV:</th>
                             <td>***</td>
-                        </tr>
-                    </table> -->
-                    <table>
-                        <tr>
-                            <th>Payment ID:</th>
-                            <td><%= payment.getPaymentID() %></td>
-                        </tr>
-                        <tr>
-                            <th>Cardholder Name:</th>
-                            <td>Carla Smith%></td>
-                        </tr>
-                        <tr>
-                            <th>Card Number:</th>
-                            <td>1234567812345678<%= payment.getCardNumber().substring(12) %></td>
-                        </tr>
-                        <tr>
-                            <th>Expiry Date:</th>
-                            <td>09/09 %></td>
-                        </tr>
-                        <tr>
-                            <th>CVV:</th>
-                            <td>***</td> <!-- Masking CVV for security -->
                         </tr>
                     </table>
                     <br>
@@ -86,8 +64,8 @@
                         </div>
                     </div>
 
-                    <% 
-                    } else { 
+                    <%
+                    } else {
                     %>
                     <p>No payment details found.</p>
                     <% 

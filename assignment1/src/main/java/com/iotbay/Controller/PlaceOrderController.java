@@ -13,8 +13,10 @@ import javax.servlet.http.HttpSession;
 
 import com.iotbay.Dao.DBConnector;
 import com.iotbay.Dao.OrderDAO;
+import com.iotbay.Dao.PaymentDAO;
 import com.iotbay.Model.Cart;
 import com.iotbay.Model.Order;
+import com.iotbay.Model.Payment;
 
 
 public class PlaceOrderController extends HttpServlet {
@@ -25,17 +27,33 @@ public class PlaceOrderController extends HttpServlet {
         Cart cart = (Cart) session.getAttribute("cart");
         Order order = (Order) session.getAttribute("order");
 
-        if (order == null) {
-            order = new Order();
-            session.setAttribute("order", order);
+        DBConnector dbConnector = null;
+        Connection connection = null;
 
+        try {
+            dbConnector = new DBConnector();
+            connection = dbConnector.openConnection();
+            PaymentDAO paymentDAO = new PaymentDAO(connection);
+
+            Payment payment = (Payment) session.getAttribute("payment");
+            if (payment != null) {
+                Payment fullPayment = paymentDAO.fetchPayment(payment.getPaymentID());
+                request.setAttribute("payment", fullPayment);
+            }
+
+            request.getRequestDispatcher("ReviewPayments.jsp").forward(request, response);
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+            response.sendRedirect("error.jsp");
+        } finally {
+            if (dbConnector != null) {
+                try {
+                    dbConnector.closeConnection();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
-
-        if (cart == null || cart.isEmpty()) {
-            response.sendRedirect("cart.jsp");
-            return;
-        }
-
     }
 
 

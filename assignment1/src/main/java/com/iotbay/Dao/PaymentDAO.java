@@ -46,14 +46,14 @@ public class PaymentDAO {
         ResultSet rs = statement.executeQuery();
 
         while (rs.next()) {
-            int paymentID = rs.getInt("payment_id");
+            int payment_id = rs.getInt("payment_id");
             String email = rs.getString("email");
             String cardNumber = rs.getString("card_number");
             Date expirationDate = rs.getDate("expiration_date");
             String cvv = rs.getString("cvv");
             String cardHolderName = rs.getString("Cardholder_Name");
 
-            Payment payment = new Payment(paymentID, email, cardNumber, expirationDate, cvv, cardHolderName);
+            Payment payment = new Payment(payment_id, email, cardNumber, expirationDate, cvv, cardHolderName);
             payments.add(payment);
         }
 
@@ -91,9 +91,9 @@ public class PaymentDAO {
     }
 
     // Get single Payment by ID
-    public Payment fetchPayment(int paymentID) throws SQLException {
+    public Payment fetchPayment(int payment_id) throws SQLException {
         PreparedStatement statement = connection.prepareStatement(getPaymentQuery);
-        statement.setInt(1, paymentID);
+        statement.setInt(1, payment_id);
 
         ResultSet rs = statement.executeQuery();
         if (rs.next()) {
@@ -103,7 +103,7 @@ public class PaymentDAO {
             String cvv = rs.getString("cvv");
             String cardHolderName = rs.getString("Cardholder_Name");
 
-            Payment payment = new Payment(paymentID, email, cardNumber, expirationDate, cvv, cardHolderName);
+            Payment payment = new Payment(payment_id, email, cardNumber, expirationDate, cvv, cardHolderName);
             rs.close();
             statement.close();
             return payment;
