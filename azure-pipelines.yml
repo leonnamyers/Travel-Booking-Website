@@ -70,3 +70,4 @@ steps:
               net stop Tomcat9
               net start Tomcat9
             displayName: 'Restart Tomcat'
+
