@@ -10,7 +10,7 @@ steps:
 # Optional: Restart Tomcat (if needed)
 - task: PowerShellOnTargetMachines@3
   inputs:
-    Machines: '20.211.84.154'
+    Machines: '20.211.84.154:5985'
     AdminUserName: 'MyLowCostVM\leonna'
     AdminPassword: 'DreamEscapes@1'
     ScriptToExecute: |
