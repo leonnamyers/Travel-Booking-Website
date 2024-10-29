@@ -67,10 +67,23 @@ steps:
     mavenVersionOption: 'Default'
   displayName: 'Run Unit Tests'
 
-- task: PowerShell@2
+- task: PowerShellOnTargetMachines@3
   inputs:
-    targetType: 'inline'
-    script: |
-      $ip = (Invoke-RestMethod -Uri http://ipinfo.io/ip).Trim()
-          Write-Output "Agent IP Address: $ip"
-        displayName: 'Get Agent IP Address'
+    Machines: '20.211.84.154'
+    AdminUserName: 'leonna'
+    AdminPassword: '$(DreamEscapes@1)' 
+    ScriptToExecute: |
+      # Copy artifact to Tomcat webapps directory
+      Copy-Item -Path $(Build.ArtifactStagingDirectory)\Release\*.war -Destination 'C:\Program Files\Apache Software Foundation\Tomcat 9.0\webapps' -Force
+  displayName: 'Deploy .war file to Tomcat on Windows VM'
+  
+- task: PowerShellOnTargetMachines@3
+  inputs:
+    Machines: '20.211.84.154'
+    AdminUserName: 'leonna'
+    AdminPassword: '$(DreamEscapes@1)' 
+    ScriptToExecute: |
+      Stop-Service -Name "Tomcat9"
+      Start-Service -Name "Tomcat9"
+  displayName: 'Restart Tomcat Service on Windows VM'
+
