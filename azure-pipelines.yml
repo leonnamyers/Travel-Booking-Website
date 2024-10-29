@@ -36,7 +36,7 @@ steps:
 - task: PowerShellOnTargetMachines@3
   inputs:
     Machines: '20.211.84.154'  # Public IP address of your Windows VM
-    AdminUserName: 'leonna'      # Your admin username
+    AdminUserName: 'MyLowCostVM\leonna'      # Your admin username
     AdminPassword: 'DreamEscapes@1'  # Use a secure variable instead
     ScriptToExecute: |
       # Copy artifact to Tomcat webapps directory
@@ -47,7 +47,7 @@ steps:
 - task: PowerShellOnTargetMachines@3
   inputs:
     Machines: '20.211.84.154'
-    AdminUserName: 'leonna'
+    AdminUserName: 'MyLowCostVM\leonna'
     AdminPassword: 'DreamEscapes@1'
     ScriptToExecute: |
       Stop-Service -Name "Tomcat9"
