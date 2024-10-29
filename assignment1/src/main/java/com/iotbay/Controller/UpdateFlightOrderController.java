@@ -22,6 +22,7 @@ public class UpdateFlightOrderController extends HttpServlet {
         HttpSession session = request.getSession();
 
         int orderID = Integer.parseInt(request.getParameter("orderID"));
+        
         // Initialize DB connection and OrderDAO
         DBConnector dbConnector = null;
         Connection connection = null;
@@ -78,6 +79,7 @@ public class UpdateFlightOrderController extends HttpServlet {
             Order existingOrder = orderDAO.fetchOrder(orderID);
 
             if (existingOrder != null) {
+                
                 // Create a new Order object with the updated values
                 Order updatedOrder = new Order();
                 updatedOrder.setOrderID(orderID);

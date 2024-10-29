@@ -17,6 +17,7 @@
     <main class="text-display">
         <h1>Your destination has been booked!</h1>
         <h2>Thank you for using Dream Escape</h2>
+        <p><a href="index.jsp">Go to Home Page</a></p>
     </main>
 </body>
 </html>

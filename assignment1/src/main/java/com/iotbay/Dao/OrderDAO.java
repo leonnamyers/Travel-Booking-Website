@@ -120,20 +120,4 @@ public class OrderDAO {
         statement.close();
         return null;
     }
-
-    // public boolean saveOrder(Order order) {
-    //     PreparedStatement statement = connection.prepareStatement(saveOrderQuery) {
-    //     statement.setString(1, order.getCustomerID());
-    //     statement.setTimestamp(2, order.getOrderDate());
-    //     statement.setTimestamp(3, order.getStartTime());
-    //     statement.setTimestamp(4, order.getEndTime());
-    //     statement.setString(5, order.getSeatType());
-    //     statement.setString(6, order.getRoomType());
-    //     statement.setInt(7, order.getTotalPrice());
-
-    //     int rowsAffected = statement.executeUpdate();
-    //     return rowsAffected > 0;
-
-    //     }
-    // }
 }

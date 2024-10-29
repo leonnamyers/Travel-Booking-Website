@@ -136,10 +136,15 @@
     UpdateFlightOrderController 
     CancelOrderController
     PostOrderController
+    PayemntController
+    ReviewPaymentsController
+    DeletePaymentDetailsController
+    UpdatePaymentDetailsController
 
 
     Dao: 
     OrderDao
+    PaymentDao
 
 
     Models: 
