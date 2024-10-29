@@ -68,16 +68,18 @@ steps:
     sshEndpoint: 'linux-ssh'  # Your SSH service connection name
     runOptions: 'commands'
     commands: |
-      # Stop Tomcat server
+      # Stop Jetty server
+      sudo systemctl stop jetty9.timer
       sudo systemctl stop jetty9
 
       # Remove existing .war file if needed
       sudo rm -f /var/lib/jetty9/webapps/assignment1-1.0-SNAPSHOT.war
       
-      # Copy the new .war file to Tomcat's webapps directory
+      # Copy the new .war file to Jetty's webapps directory
       sudo cp /home/leonna/assignment1-1.0-SNAPSHOT.war /var/lib/jetty9/webapps/
       
-      # Start Tomcat server
+      # Start Jetty server
+      sudo systemctl start jetty9.timer
       sudo systemctl start jetty9
 
 
