@@ -50,6 +50,10 @@ steps:
   displayName: 'Download Artifacts'
 # New steps for deploying to Tomcat
 # Step 3: Push the .war file to the Linux VM
+- script: |
+    echo "Contents of the drop directory:"
+    ls -l $(Pipeline.Workspace)/drop
+  displayName: 'List Artifact Contents'
 - task: SSH@0
   inputs:
     sshEndpoint: 'linux-ssh'  # Your SSH service connection name
