@@ -21,7 +21,7 @@ public class DeletePaymentDetailsController extends HttpServlet {
             session.removeAttribute("payment");
         }
 
-        // Display thank-you message
+        // Display message
         request.getRequestDispatcher("DeletePayment.jsp").forward(request, response);
     }
 }
