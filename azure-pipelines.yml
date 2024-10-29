@@ -7,42 +7,6 @@ pool:
   vmImage: 'windows-latest'  # Keep using a Windows agent
 
 steps:
-- task: Maven@4
-  inputs:
-    mavenPomFile: 'assignment1/pom.xml'
-    goals: 'clean package'
-    javaHomeOption: 'JDKVersion'
-    mavenVersionOption: 'Default'
-    mavenAuthenticateFeed: false
-    effectivePomSkip: false
-    sonarQubeRunAnalysis: false
-  displayName: 'Build and Package Maven Project'
-
-- task: PowerShell@2
-  inputs:
-    targetType: 'inline'
-    script: |
-      mkdir -Force "$(Build.ArtifactStagingDirectory)\Release"
-      Copy-Item -Path 'assignment1\target\*.war' -Destination "$(Build.ArtifactStagingDirectory)\Release" -Force
-  displayName: 'Copy .war file to Staging Directory'
-
-- task: PublishBuildArtifacts@1
-  inputs:
-    pathToPublish: '$(Build.ArtifactStagingDirectory)\Release'
-    artifactName: 'drop'
-    publishLocation: 'Container'
-  displayName: 'Publish Artifact: drop'
-
-- task: PowerShellOnTargetMachines@3
-  inputs:
-    Machines: '20.211.84.154'  # Public IP address of your Windows VM
-    AdminUserName: 'leonna'      # Your admin username
-    AdminPassword: 'DreamEscapes@1'  # Use a secure variable instead
-    ScriptToExecute: |
-      # Copy artifact to Tomcat webapps directory
-      Copy-Item -Path "$(Build.ArtifactStagingDirectory)\Release\*.war" -Destination 'C:\Program Files\Apache Software Foundation\Tomcat 9.0\webapps' -Force
-  displayName: 'Deploy .war file to Tomcat on Windows VM'
-
 # Optional: Restart Tomcat (if needed)
 - task: PowerShellOnTargetMachines@3
   inputs:
@@ -53,14 +17,3 @@ steps:
       Stop-Service -Name "Tomcat9"
       Start-Service -Name "Tomcat9"
   displayName: 'Restart Tomcat Service on Windows VM'
-
-# Optional: Run tests if applicable
-- task: Maven@4
-  inputs:
-    mavenPomFile: 'assignment1/pom.xml'
-    goals: 'test'
-    publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    javaHomeOption: 'JDKVersion'
-    mavenVersionOption: 'Default'
-  displayName: 'Run Unit Tests'
