@@ -69,8 +69,8 @@ steps:
     runOptions: 'commands'
     commands: |
       # Stop Tomcat server
-      sudo systemctl start jetty9
-      
+      sudo systemctl stop jetty9
+
       # Remove existing .war file if needed
       sudo rm -f /var/lib/jetty9/webapps/assignment1-1.0-SNAPSHOT.war
       
@@ -78,7 +78,7 @@ steps:
       sudo cp /home/leonna/assignment1-1.0-SNAPSHOT.war /var/lib/jetty9/webapps/
       
       # Start Tomcat server
-      sudo systemctl stop jetty9
+      sudo systemctl start jetty9
 
 
 
