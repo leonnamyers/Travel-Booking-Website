@@ -7,13 +7,26 @@ pool:
   vmImage: 'windows-latest'  # Keep using a Windows agent
 
 steps:
+- task: DownloadSecureFile@1
+  inputs:
+    secureFile: 'certificate.cer'
+  name: winrmCert
+
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      $certPath = "$(winrmCert.secureFilePath)"
+      Import-Certificate -FilePath $certPath -CertStoreLocation Cert:\LocalMachine\Root
+      Write-Output "Certificate installed successfully."
+
 # Optional: Restart Tomcat (if needed)
 - task: PowerShellOnTargetMachines@3
   inputs:
     Machines: '20.211.84.154' 
     AdminUserName: 'MyLowCostVM\leonna'
     AdminPassword: 'DreamEscapes@1'
-    UseSSL: false
+    UseSSL: true
     ScriptToExecute: |
       Stop-Service -Name "Tomcat9"
       Start-Service -Name "Tomcat9"
