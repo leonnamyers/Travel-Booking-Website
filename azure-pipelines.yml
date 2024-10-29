@@ -45,20 +45,24 @@ steps:
 - task: DownloadBuildArtifacts@0
   inputs:
     buildType: 'current'
-    artifactName: 'drop'  # Specify the name of the artifact to download
+    artifactName: 'drop'
     downloadPath: '$(Pipeline.Workspace)'
   displayName: 'Download Artifacts'
-# New steps for deploying to Tomcat
-# Step 3: Push the .war file to the Linux VM
+
 - script: |
     echo "Contents of the drop directory:"
     ls -l $(Pipeline.Workspace)/drop
   displayName: 'List Artifact Contents'
   
+- task: DownloadSecureFile@1
+  name: downloadSSHKey
+  inputs:
+    secureFile: 'privatekey.pem'
+
 - script: |
-    # Copy the .war file from Pipeline.Workspace to the Linux VM
-    scp -o StrictHostKeyChecking=no $(Pipeline.Workspace)/drop/assignment1-1.0-SNAPSHOT.war leonna@20.11.41.60:/var/lib/tomcat10/webapps/
-  displayName: 'Copy .war file to Linux VM'  
+    chmod 600 $(downloadSSHKey.secureFilePath)  # Set permissions for the private key
+    scp -i $(downloadSSHKey.secureFilePath) -o StrictHostKeyChecking=no $(Pipeline.Workspace)/drop/assignment1-1.0-SNAPSHOT.war leonna@20.11.41.60:/var/lib/tomcat10/webapps/
+  displayName: 'Copy .war file to Linux VM'
 - task: SSH@0
   inputs:
     sshEndpoint: 'linux-ssh'  # Your SSH service connection name
