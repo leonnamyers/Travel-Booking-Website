@@ -68,6 +68,9 @@ steps:
       # Remove existing .war file if needed
       sudo rm -f /var/lib/tomcat10/webapps/assignment1-1.0-SNAPSHOT.war
       
+      echo "Contents of Release directory:"
+      ls $(Pipeline.Workspace)/Release
+
       # Copy the new .war file to Tomcat's webapps directory
       sudo cp $(Pipeline.Workspace)/Release/assignment1-1.0-SNAPSHOT.war /var/lib/tomcat10/webapps/
       
