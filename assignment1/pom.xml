@@ -72,9 +72,6 @@
                   <httpConnector>
                       <port>8080</port>
                   </httpConnector>
-                    <webApp>
-                        <contextPath>/dreamescapes</contextPath> <!-- Custom URL path for the WAR -->
-                    </webApp>
               </configuration>
           </plugin>
           <plugin>
