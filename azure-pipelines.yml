@@ -76,7 +76,7 @@ steps:
       sudo rm -f /var/lib/jetty9/webapps/assignment1-1.0-SNAPSHOT.war
       
       # Copy the new .war file to Jetty's webapps directory
-      sudo cp /home/leonna/assignment1-1.0-SNAPSHOT.war /var/lib/jetty9/webapps/
+      sudo cp /home/leonna/assignment1-1.0-SNAPSHOT.war /var/lib/jetty9/webapps/ROOT.war
       
       # Start Jetty server
       sudo systemctl start jetty9.timer
