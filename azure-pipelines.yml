@@ -10,9 +10,10 @@ steps:
 # Optional: Restart Tomcat (if needed)
 - task: PowerShellOnTargetMachines@3
   inputs:
-    Machines: '20.211.84.154:5985'
+    Machines: '20.211.84.154' 
     AdminUserName: 'MyLowCostVM\leonna'
     AdminPassword: 'DreamEscapes@1'
+    UseSSL: false
     ScriptToExecute: |
       Stop-Service -Name "Tomcat9"
       Start-Service -Name "Tomcat9"
