@@ -4,17 +4,7 @@ trigger:
       - main
 
 pool:
-  vmImage: 'windows-latest'  # Change to a Windows agent
-
-services:
-  mysql:
-    image: mysql:latest
-    env:
-      MYSQL_ROOT_PASSWORD: '1234!@#$'
-      MYSQL_DATABASE: TravelWeb
-    ports:
-    - 3306:3306
-    options: --health-cmd="mysqladmin ping --silent" --health-interval=10s --health-timeout=5s --health-retries=3
+  vmImage: 'windows-latest'  # Keep using a Windows agent
 
 steps:
 - task: Maven@4
@@ -29,27 +19,13 @@ steps:
   displayName: 'Build and Package Maven Project'
 
 - script: |
-    echo "Waiting for MySQL to be ready..."
-    for i in {1..30}; do
-      if mysqladmin ping -h127.0.0.1 --silent; then
-        echo "MySQL is up!"
-        break
-      fi
-      echo "Waiting for MySQL..."
-      sleep 5
-    done
-    echo "Creating database 'TravelWeb'..."
-    mysql -h127.0.0.1 -uroot -p'1234!@#$' -e "CREATE DATABASE IF NOT EXISTS TravelWeb;"
-  displayName: 'Wait for MySQL and Create Database'
-
-- script: |
-    mkdir -p $(Build.ArtifactStagingDirectory)/Release
-    cp assignment1/target/*.war $(Build.ArtifactStagingDirectory)/Release/
+    mkdir -p $(Build.ArtifactStagingDirectory)\Release
+    Copy-Item -Path assignment1\target\*.war -Destination $(Build.ArtifactStagingDirectory)\Release\ -Force
   displayName: 'Copy .war file to Staging Directory'
 
 - task: PublishBuildArtifacts@1
   inputs:
-    pathToPublish: '$(Build.ArtifactStagingDirectory)/Release'
+    pathToPublish: '$(Build.ArtifactStagingDirectory)\Release'
     artifactName: 'drop'
     publishLocation: 'Container'
   displayName: 'Publish Artifact: drop'
@@ -63,7 +39,7 @@ steps:
       # Copy artifact to Tomcat webapps directory
       Copy-Item -Path $(Build.ArtifactStagingDirectory)\Release\*.war -Destination 'C:\Program Files\Apache Software Foundation\Tomcat 9.0\webapps' -Force
   displayName: 'Deploy .war file to Tomcat on Windows VM'
-  
+
 # Optional: Restart Tomcat (if needed)
 - task: PowerShellOnTargetMachines@3
   inputs:
@@ -75,8 +51,7 @@ steps:
       Start-Service -Name "Tomcat9"
   displayName: 'Restart Tomcat Service on Windows VM'
 
-
-# Separate step for running tests
+# Optional: Run tests if applicable
 - task: Maven@4
   inputs:
     mavenPomFile: 'assignment1/pom.xml'
