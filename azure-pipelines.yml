@@ -69,9 +69,10 @@ steps:
       sudo rm -f /var/lib/tomcat10/webapps/assignment1-1.0-SNAPSHOT.war
       
       # Copy the new .war file to Tomcat's webapps directory
-      sudo cp $(Build.ArtifactStagingDirectory)/Release/assignment1-1.0-SNAPSHOT.war /var/lib/tomcat10/webapps/
+      sudo cp $(Pipeline.Workspace)/Release/assignment1-1.0-SNAPSHOT.war /var/lib/tomcat10/webapps/
       
       # Start Tomcat server
       sudo systemctl start tomcat10
+
 
 
