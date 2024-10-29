@@ -61,7 +61,7 @@ steps:
 
 - script: |
     chmod 600 $(downloadSSHKey.secureFilePath)  # Set permissions for the private key
-    scp -i $(downloadSSHKey.secureFilePath) -o StrictHostKeyChecking=no $(Pipeline.Workspace)/drop/assignment1-1.0-SNAPSHOT.war leonna@20.11.41.60:/var/lib/tomcat10/webapps/
+    scp -i $(downloadSSHKey.secureFilePath) -o StrictHostKeyChecking=no $(Pipeline.Workspace)/drop/assignment1-1.0-SNAPSHOT.war leonna@20.11.41.60:/home/leonna/
   displayName: 'Copy .war file to Linux VM'
 - task: SSH@0
   inputs:
@@ -75,7 +75,7 @@ steps:
       sudo rm -f /var/lib/tomcat10/webapps/assignment1-1.0-SNAPSHOT.war
       
       # Copy the new .war file to Tomcat's webapps directory
-      sudo cp $(Pipeline.Workspace)/drop/assignment1-1.0-SNAPSHOT.war /var/lib/tomcat10/webapps/
+      sudo cp /leonna/home/assignment1-1.0-SNAPSHOT.war /var/lib/tomcat10/webapps/
       
       # Start Tomcat server
       sudo systemctl start tomcat10
