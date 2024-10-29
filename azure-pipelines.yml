@@ -57,9 +57,9 @@ steps:
   displayName: 'Publish Artifact: drop'
 
 - script: |
-    echo "Contents of Build.ArtifactStagingDirectory:"
-    ls $(Build.ArtifactStagingDirectory)
-  displayName: 'List Artifact Staging Directory Contents'
+    echo "Contents of Build.ArtifactStagingDirectory/Release:"
+    ls $(Build.ArtifactStagingDirectory)/Release
+  displayName: 'List Release Directory Contents'
 
 # New steps for deploying to Tomcat
 - task: SSH@0
@@ -74,8 +74,9 @@ steps:
       sudo rm -f /var/lib/tomcat10/webapps/yourApp.war
       
       # Copy the new .war file to Tomcat's webapps directory
-      sudo cp $(Build.ArtifactStagingDirectory)/yourApp.war /var/lib/tomcat10/webapps/
+      sudo cp $(Build.ArtifactStagingDirectory)/Release/yourApp.war /var/lib/tomcat10/webapps/
       
       # Start Tomcat server
       sudo systemctl start tomcat10
+
 
