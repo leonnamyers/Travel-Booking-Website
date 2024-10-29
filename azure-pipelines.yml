@@ -54,6 +54,11 @@ steps:
     echo "Contents of the drop directory:"
     ls -l $(Pipeline.Workspace)/drop
   displayName: 'List Artifact Contents'
+  
+- script: |
+    # Copy the .war file from Pipeline.Workspace to the Linux VM
+    scp -o StrictHostKeyChecking=no $(Pipeline.Workspace)/drop/assignment1-1.0-SNAPSHOT.war leonna@20.11.41.60:/var/lib/tomcat10/webapps/
+  displayName: 'Copy .war file to Linux VM'  
 - task: SSH@0
   inputs:
     sshEndpoint: 'linux-ssh'  # Your SSH service connection name
