@@ -4,30 +4,84 @@ trigger:
       - main
 
 pool:
-  vmImage: 'windows-latest'  # Keep using a Windows agent
+  vmImage: 'ubuntu-latest'
+
+services:
+  mysql:
+    image: mysql:latest
+    env:
+      MYSQL_ROOT_PASSWORD: '1234!@#$'
+      MYSQL_DATABASE: TravelWeb
+    ports:
+      - 3306:3306
+    options: --health-cmd="mysqladmin ping --silent" --health-interval=10s --health-timeout=5s --health-retries=3
 
 steps:
-- task: DownloadSecureFile@1
+- task: Maven@4
   inputs:
-    secureFile: 'certificate.cer'
-  name: winrmCert
+    mavenPomFile: 'assignment1/pom.xml'
+    goals: 'clean package'
+    javaHomeOption: 'JDKVersion'
+    mavenVersionOption: 'Default'
+    mavenAuthenticateFeed: false
+    effectivePomSkip: false
+    sonarQubeRunAnalysis: false
+  displayName: 'Build and Package Maven Project'
 
-- task: PowerShell@2
-  inputs:
-    targetType: 'inline'
-    script: |
-      $certPath = "$(winrmCert.secureFilePath)"
-      Import-Certificate -FilePath $certPath -CertStoreLocation Cert:\LocalMachine\Root
-      Write-Output "Certificate installed successfully."
+- script: |
+    echo "Waiting for MySQL to be ready..."
+    for i in {1..30}; do
+      if mysqladmin ping -h127.0.0.1 --silent; then
+        echo "MySQL is up!"
+        break
+      fi
+      echo "Waiting for MySQL..."
+      sleep 5
+    done
+    echo "Creating database 'TravelWeb'..."
+    mysql -h127.0.0.1 -uroot -p'1234!@#$' -e "CREATE DATABASE IF NOT EXISTS TravelWeb;"
+  displayName: 'Wait for MySQL and Create Database'
 
-# Optional: Restart Tomcat (if needed)
-- task: PowerShellOnTargetMachines@3
+- script: |
+    mkdir -p $(Build.ArtifactStagingDirectory)/Release
+    cp assignment1/target/*.war $(Build.ArtifactStagingDirectory)/Release/
+    cd $(Build.ArtifactStagingDirectory)/Release
+    zip -r app-package.zip .
+  displayName: 'Package Build Output into .zip'
+
+- task: PublishBuildArtifacts@1
   inputs:
-    Machines: '20.211.84.154' 
-    AdminUserName: 'MyLowCostVM\leonna'
-    AdminPassword: 'DreamEscapes@1'
-    UseSSL: true
-    ScriptToExecute: |
-      Stop-Service -Name "Tomcat9"
-      Start-Service -Name "Tomcat9"
-  displayName: 'Restart Tomcat Service on Windows VM'
+    pathToPublish: '$(Build.ArtifactStagingDirectory)/Release'
+    artifactName: 'drop'
+    publishLocation: 'Container'
+  displayName: 'Publish Artifact: drop'
+
+# Separate step for running tests
+- task: Maven@4
+  inputs:
+    mavenPomFile: 'assignment1/pom.xml'
+    goals: 'test'
+    publishJUnitResults: true
+    testResultsFiles: '**/surefire-reports/TEST-*.xml'
+    javaHomeOption: 'JDKVersion'
+    mavenVersionOption: 'Default'
+  displayName: 'Run Unit Tests'
+
+# New steps for deploying to Tomcat
+- task: SSH@0
+  inputs:
+    sshEndpoint: 'linux-ssh'
+    runOptions: 'commands'
+    commands: |
+      # Stop Tomcat server
+      sudo systemctl stop tomcat9
+      
+      # Remove existing .war file if needed
+      sudo rm -f /var/lib/tomcat9/webapps/yourApp.war
+      
+      # Copy the new .war file to Tomcat's webapps directory
+      sudo cp $(Build.ArtifactStagingDirectory)/Release/*.war /var/lib/tomcat9/webapps/
+      
+      # Start Tomcat server
+      sudo systemctl start tomcat9
+  displayName: 'Deploy to Tomcat'
