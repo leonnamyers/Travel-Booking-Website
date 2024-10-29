@@ -69,16 +69,16 @@ steps:
     runOptions: 'commands'
     commands: |
       # Stop Tomcat server
-      sudo systemctl stop tomcat10
+      sudo systemctl start jetty
       
       # Remove existing .war file if needed
-      sudo rm -f /var/lib/tomcat10/webapps/assignment1-1.0-SNAPSHOT.war
+      sudo rm -f /var/lib/jetty9/webapps/assignment1-1.0-SNAPSHOT.war
       
       # Copy the new .war file to Tomcat's webapps directory
-      sudo cp /home/leonna/assignment1-1.0-SNAPSHOT.war /var/lib/tomcat10/webapps/
+      sudo cp /home/leonna/assignment1-1.0-SNAPSHOT.war /var/lib/jetty9/webapps/
       
       # Start Tomcat server
-      sudo systemctl start tomcat10
+      sudo systemctl stop jetty
 
 
 
