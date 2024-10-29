@@ -4,7 +4,7 @@ trigger:
       - main
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: 'windows-latest'  # Change to a Windows agent
 
 services:
   mysql:
@@ -45,9 +45,7 @@ steps:
 - script: |
     mkdir -p $(Build.ArtifactStagingDirectory)/Release
     cp assignment1/target/*.war $(Build.ArtifactStagingDirectory)/Release/
-    cd $(Build.ArtifactStagingDirectory)/Release
-    zip -r app-package.zip .
-  displayName: 'Package Build Output into .zip'
+  displayName: 'Copy .war file to Staging Directory'
 
 - task: PublishBuildArtifacts@1
   inputs:
@@ -55,6 +53,28 @@ steps:
     artifactName: 'drop'
     publishLocation: 'Container'
   displayName: 'Publish Artifact: drop'
+
+- task: PowerShellOnTargetMachines@3
+  inputs:
+    Machines: '20.211.84.154'  # Public IP address of your Windows VM
+    AdminUserName: 'admin'      # Your admin username
+    AdminPassword: '$(adminPassword)'  # Use a secure variable instead
+    ScriptToExecute: |
+      # Copy artifact to Tomcat webapps directory
+      Copy-Item -Path $(Build.ArtifactStagingDirectory)\Release\*.war -Destination 'C:\Program Files\Apache Software Foundation\Tomcat 9.0\webapps' -Force
+  displayName: 'Deploy .war file to Tomcat on Windows VM'
+  
+# Optional: Restart Tomcat (if needed)
+- task: PowerShellOnTargetMachines@3
+  inputs:
+    Machines: '20.211.84.154'
+    AdminUserName: 'admin'
+    AdminPassword: '$(adminPassword)'
+    ScriptToExecute: |
+      Stop-Service -Name "Tomcat9"
+      Start-Service -Name "Tomcat9"
+  displayName: 'Restart Tomcat Service on Windows VM'
+
 
 # Separate step for running tests
 - task: Maven@4
@@ -66,24 +86,3 @@ steps:
     javaHomeOption: 'JDKVersion'
     mavenVersionOption: 'Default'
   displayName: 'Run Unit Tests'
-
-- task: PowerShellOnTargetMachines@3
-  inputs:
-    Machines: '20.211.84.154'
-    AdminUserName: 'leonna'
-    AdminPassword: '$(DreamEscapes@1)' 
-    ScriptToExecute: |
-      # Copy artifact to Tomcat webapps directory
-      Copy-Item -Path $(Build.ArtifactStagingDirectory)\Release\*.war -Destination 'C:\Program Files\Apache Software Foundation\Tomcat 9.0\webapps' -Force
-  displayName: 'Deploy .war file to Tomcat on Windows VM'
-  
-- task: PowerShellOnTargetMachines@3
-  inputs:
-    Machines: '20.211.84.154'
-    AdminUserName: 'leonna'
-    AdminPassword: '$(DreamEscapes@1)' 
-    ScriptToExecute: |
-      Stop-Service -Name "Tomcat9"
-      Start-Service -Name "Tomcat9"
-  displayName: 'Restart Tomcat Service on Windows VM'
-
