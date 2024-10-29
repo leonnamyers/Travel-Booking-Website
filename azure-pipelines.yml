@@ -23,12 +23,13 @@ steps:
     Copy-Item -Path assignment1\target\*.war -Destination $(Build.ArtifactStagingDirectory)\Release\ -Force
   displayName: 'Copy .war file to Staging Directory'
 
-- task: PublishBuildArtifacts@1
+- task: PowerShell@2
   inputs:
-    pathToPublish: '$(Build.ArtifactStagingDirectory)\Release'
-    artifactName: 'drop'
-    publishLocation: 'Container'
-  displayName: 'Publish Artifact: drop'
+    targetType: 'inline'
+    script: |
+      mkdir -Force "$(Build.ArtifactStagingDirectory)\Release"
+      Copy-Item -Path 'assignment1\target\*.war' -Destination "$(Build.ArtifactStagingDirectory)\Release" -Force
+  displayName: 'Copy .war file to Staging Directory'
 
 - task: PowerShellOnTargetMachines@3
   inputs:
