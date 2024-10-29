@@ -57,9 +57,10 @@ steps:
   displayName: 'Publish Artifact: drop'
 
 # New steps for deploying to Tomcat
+# Step 3: Push the .war file to the Linux VM
 - task: SSH@0
   inputs:
-    sshEndpoint: 'linux-ssh'
+    sshEndpoint: 'linux-ssh'  # Your SSH service connection name
     runOptions: 'commands'
     commands: |
       # Stop Tomcat server
@@ -68,11 +69,8 @@ steps:
       # Remove existing .war file if needed
       sudo rm -f /var/lib/tomcat10/webapps/assignment1-1.0-SNAPSHOT.war
       
-      echo "Contents of Release directory:"
-      ls $(Pipeline.Workspace)/Release
-
       # Copy the new .war file to Tomcat's webapps directory
-      sudo cp $(Pipeline.Workspace)/Release/assignment1-1.0-SNAPSHOT.war /var/lib/tomcat10/webapps/
+      sudo cp $(Pipeline.Workspace)/drop/assignment1-1.0-SNAPSHOT.war /var/lib/tomcat10/webapps/
       
       # Start Tomcat server
       sudo systemctl start tomcat10
