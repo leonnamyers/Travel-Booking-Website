@@ -43,11 +43,12 @@ steps:
   displayName: 'Wait for MySQL and Create Database'
 
 - script: |
+    # Create the Release directory if it doesn't exist
     mkdir -p $(Build.ArtifactStagingDirectory)/Release
+
+    # Copy the .war file to the Release directory
     cp assignment1/target/*.war $(Build.ArtifactStagingDirectory)/Release/
-    cd $(Build.ArtifactStagingDirectory)/Release
-    zip -r app-package.zip .
-  displayName: 'Package Build Output into .zip'
+  displayName: 'Package Build Output as .war'
 
 - task: PublishBuildArtifacts@1
   inputs:
@@ -55,7 +56,11 @@ steps:
     artifactName: 'drop'
     publishLocation: 'Container'
   displayName: 'Publish Artifact: drop'
-
+- task: DownloadBuildArtifacts@0
+  inputs:
+    buildType: 'current'
+    downloadPath: '$(Pipeline.Workspace)'
+  displayName: 'Download Artifacts'
 # New steps for deploying to Tomcat
 # Step 3: Push the .war file to the Linux VM
 - task: SSH@0
