@@ -53,7 +53,7 @@ steps:
   name: downloadSSHKey
   inputs:
     secureFile: 'privatekey.pem'
-  displayName: Download Linux VM Private Key for scp
+  displayName: 'Download Linux VM Private Key for scp'
 
 - script: |
     chmod 600 $(downloadSSHKey.secureFilePath)  # Set permissions for the private key
@@ -77,7 +77,7 @@ steps:
       # Start Jetty server
       sudo systemctl start jetty9.timer
       sudo systemctl start jetty9
-  displayName: Deploy .war file to Jetty webapps on Linux VM
+  displayName: 'Deploy .war file to Jetty webapps on Linux VM'
 
 
 
