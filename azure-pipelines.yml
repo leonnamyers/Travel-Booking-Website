@@ -74,14 +74,14 @@ steps:
     runOptions: 'commands'
     commands: |
       # Stop Tomcat server
-      sudo systemctl stop tomcat9
+      sudo systemctl stop tomcat10
       
       # Remove existing .war file if needed
-      sudo rm -f /var/lib/tomcat9/webapps/yourApp.war
+      sudo rm -f /var/lib/tomcat10/webapps/yourApp.war
       
       # Copy the new .war file to Tomcat's webapps directory
-      sudo cp $(Build.ArtifactStagingDirectory)/Release/*.war /var/lib/tomcat9/webapps/
+      sudo cp $(Build.ArtifactStagingDirectory)/yourApp.war /var/lib/tomcat10/webapps/
       
       # Start Tomcat server
-      sudo systemctl start tomcat9
-  displayName: 'Deploy to Tomcat'
+      sudo systemctl start tomcat10
+
