@@ -27,21 +27,7 @@ steps:
     effectivePomSkip: false
     sonarQubeRunAnalysis: false
   displayName: 'Build and Package Maven Project'
-
-- script: |
-    echo "Waiting for MySQL to be ready..."
-    for i in {1..30}; do
-      if mysqladmin ping -h127.0.0.1 --silent; then
-        echo "MySQL is up!"
-        break
-      fi
-      echo "Waiting for MySQL..."
-      sleep 5
-    done
-    echo "Creating database 'TravelWeb'..."
-    mysql -h127.0.0.1 -uroot -p'1234!@#$' -e "CREATE DATABASE IF NOT EXISTS TravelWeb;"
-  displayName: 'Wait for MySQL and Create Database'
-
+  
 - script: |
     # Create the Release directory if it doesn't exist
     mkdir -p $(Build.ArtifactStagingDirectory)/Release
@@ -59,6 +45,7 @@ steps:
 - task: DownloadBuildArtifacts@0
   inputs:
     buildType: 'current'
+    artifactName: 'drop'  # Specify the name of the artifact to download
     downloadPath: '$(Pipeline.Workspace)'
   displayName: 'Download Artifacts'
 # New steps for deploying to Tomcat
