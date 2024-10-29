@@ -1,5 +1,7 @@
 trigger:
-- main
+  branches:
+    include:
+      - main
 
 pool:
   vmImage: ubuntu-latest
@@ -64,9 +66,3 @@ steps:
     javaHomeOption: 'JDKVersion'
     mavenVersionOption: 'Default'
   displayName: 'Run Unit Tests'
-
-- script: |
-    echo "Deploying to Production environment..."
-  displayName: 'Deploy to Production'
-  env:
-    environment: 'Travel Website'

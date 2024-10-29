@@ -49,7 +49,7 @@
         <h1 align = "center"> Please search with check in and out date for the hotel!</h1>   
         </br>
         </br>
-        <form align = "center" action="http://localhost:8080/hotels.jsp">
+        <form align = "center" action="hotels.jsp">
             <button>Back to Hotel Catalogue</button>
         </form>
         

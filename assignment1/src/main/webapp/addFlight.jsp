@@ -101,7 +101,7 @@
             <h1>Flight Catalogue Management</h1>
             <br/>
             <h2>
-                <form action="http://localhost:8080/addFlight.jsp">
+                <form action="addFlight.jsp">
                     <button type="submit">ADD NEW FLIGHT</button>
                 </form>
                 &nbsp;&nbsp;&nbsp;
@@ -120,7 +120,7 @@
     <!-- Add flight form with error validation -->
     <div align="center" class="div-1">
         <div  class="update-container">
-        <form method="post" action="http://localhost:8080/AddFlightController">
+        <form method="post" action="/AddFlightController">
             <h1>Add new flight</h1>
             <br/>
             <label>

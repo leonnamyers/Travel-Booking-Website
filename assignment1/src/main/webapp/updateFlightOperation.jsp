@@ -49,7 +49,7 @@
         <h1 align = "center"> You have successfully update the flight!</h1>   
         </br>
         </br>
-        <form align = "center" action="http://localhost:8080/flights.jsp">
+        <form align = "center" action="flights.jsp">
             <button>Back to Flight Catalogue</button>
         </form>
         
