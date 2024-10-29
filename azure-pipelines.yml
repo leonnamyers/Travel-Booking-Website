@@ -27,27 +27,14 @@ steps:
     effectivePomSkip: false
     sonarQubeRunAnalysis: false
   displayName: 'Build and Package Maven Project'
-
+  
 - script: |
-    echo "Waiting for MySQL to be ready..."
-    for i in {1..30}; do
-      if mysqladmin ping -h127.0.0.1 --silent; then
-        echo "MySQL is up!"
-        break
-      fi
-      echo "Waiting for MySQL..."
-      sleep 5
-    done
-    echo "Creating database 'TravelWeb'..."
-    mysql -h127.0.0.1 -uroot -p'1234!@#$' -e "CREATE DATABASE IF NOT EXISTS TravelWeb;"
-  displayName: 'Wait for MySQL and Create Database'
-
-- script: |
+    # Create the Release directory if it doesn't exist
     mkdir -p $(Build.ArtifactStagingDirectory)/Release
+
+    # Copy the .war file to the Release directory
     cp assignment1/target/*.war $(Build.ArtifactStagingDirectory)/Release/
-    cd $(Build.ArtifactStagingDirectory)/Release
-    zip -r app-package.zip .
-  displayName: 'Package Build Output into .zip'
+  displayName: 'Package Build Output as .war'
 
 - task: PublishBuildArtifacts@1
   inputs:
@@ -55,33 +42,45 @@ steps:
     artifactName: 'drop'
     publishLocation: 'Container'
   displayName: 'Publish Artifact: drop'
-
-# Separate step for running tests
-- task: Maven@4
+- task: DownloadBuildArtifacts@0
   inputs:
-    mavenPomFile: 'assignment1/pom.xml'
-    goals: 'test'
-    publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    javaHomeOption: 'JDKVersion'
-    mavenVersionOption: 'Default'
-  displayName: 'Run Unit Tests'
+    buildType: 'current'
+    artifactName: 'drop'
+    downloadPath: '$(Pipeline.Workspace)'
+  displayName: 'Download Artifacts'
 
-# New steps for deploying to Tomcat
+- script: |
+    echo "Contents of the drop directory:"
+    ls -l $(Pipeline.Workspace)/drop
+  displayName: 'List Artifact Contents'
+  
+- task: DownloadSecureFile@1
+  name: downloadSSHKey
+  inputs:
+    secureFile: 'privatekey.pem'
+
+- script: |
+    chmod 600 $(downloadSSHKey.secureFilePath)  # Set permissions for the private key
+    scp -i $(downloadSSHKey.secureFilePath) -o StrictHostKeyChecking=no $(Pipeline.Workspace)/drop/assignment1-1.0-SNAPSHOT.war leonna@20.11.41.60:/home/leonna/
+  displayName: 'Copy .war file to Linux VM'
 - task: SSH@0
   inputs:
-    sshEndpoint: 'linux-ssh'
+    sshEndpoint: 'linux-ssh'  # Your SSH service connection name
     runOptions: 'commands'
     commands: |
-      # Stop Tomcat server
-      sudo systemctl stop tomcat9
-      
+      # Stop Jetty server
+      sudo systemctl stop jetty9.timer
+      sudo systemctl stop jetty9
+
       # Remove existing .war file if needed
-      sudo rm -f /var/lib/tomcat9/webapps/yourApp.war
+      sudo rm -f /var/lib/jetty9/webapps/assignment1-1.0-SNAPSHOT.war
       
-      # Copy the new .war file to Tomcat's webapps directory
-      sudo cp $(Build.ArtifactStagingDirectory)/Release/*.war /var/lib/tomcat9/webapps/
+      # Copy the new .war file to Jetty's webapps directory
+      sudo cp /home/leonna/assignment1-1.0-SNAPSHOT.war /var/lib/jetty9/webapps/
       
-      # Start Tomcat server
-      sudo systemctl start tomcat9
-  displayName: 'Deploy to Tomcat'
+      # Start Jetty server
+      sudo systemctl start jetty9.timer
+      sudo systemctl start jetty9
+
+
+
